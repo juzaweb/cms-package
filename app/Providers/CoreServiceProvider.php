@@ -17,6 +17,7 @@ namespace Juzaweb\Cms\Providers;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Juzaweb\Cms\Console\Commands\InstallCommand;
 use Juzaweb\Cms\Helpers\HookAction;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,10 @@ class CoreServiceProvider extends ServiceProvider
                 $this->app->register(DebugbarServiceProvider::class);
             }
         }
+
+        $this->commands([
+            InstallCommand::class,
+        ]);
 
         $this->registerProviders();
         $this->registerSingleton();
