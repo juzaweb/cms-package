@@ -2,11 +2,11 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package juzacmscms/juzacmscms
+ * @package juzawebcms/juzawebcms
  * @author The Anh Dang
  *
  * Developed based on Laravel Framework
- * Github: https://github.com/juzacmscms/juzacmscms
+ * Github: https://github.com/juzawebcms/juzawebcms
  */
 
 Route::group(['prefix' => 'themes'], function () {

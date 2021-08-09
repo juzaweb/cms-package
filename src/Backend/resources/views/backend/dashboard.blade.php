@@ -1,4 +1,4 @@
-@extends('juzacms::layouts.backend')
+@extends('juzaweb::layouts.backend')
 
 @section('content')
 

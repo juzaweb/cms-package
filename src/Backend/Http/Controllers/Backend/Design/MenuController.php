@@ -22,8 +22,8 @@ class MenuController extends BackendController
         $menu = Menu::where('id', '=', $id)->first();
         $postTypes = PostType::getPostTypes();
         
-        return view('juzacms::backend.design.menu.index', [
-            'title' => trans('juzacms::app.menu'),
+        return view('juzaweb::backend.design.menu.index', [
+            'title' => trans('juzaweb::app.menu'),
             'menu' => $menu,
             'postTypes' => $postTypes,
         ]);
@@ -34,7 +34,7 @@ class MenuController extends BackendController
         $this->validateRequest([
             'name' => 'required|string|max:250',
         ], $request, [
-            'name' => trans('juzacms::app.name')
+            'name' => trans('juzaweb::app.name')
         ]);
     
         $model = Menu::firstOrNew(['id' => $request->post('id')]);
@@ -43,7 +43,7 @@ class MenuController extends BackendController
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzacms::app.saved_successfully'),
+            'message' => trans('juzaweb::app.saved_successfully'),
             'redirect' => route('admin.design.menu.id', [$model->id]),
         ]);
     }
@@ -54,8 +54,8 @@ class MenuController extends BackendController
             'name' => 'required|string|max:250',
             'content' => 'required',
         ], [], [
-            'name' => trans('juzacms::app.name'),
-            'content' => trans('juzacms::app.menu'),
+            'name' => trans('juzaweb::app.name'),
+            'content' => trans('juzaweb::app.menu'),
         ]);
         
         $model = Menu::firstOrNew(['id' => $request->post('id')]);
@@ -63,7 +63,7 @@ class MenuController extends BackendController
         $model->save();
     
         return $this->success([
-            'message' => trans('juzacms::app.saved_successfully'),
+            'message' => trans('juzaweb::app.saved_successfully'),
             'redirect' => route('admin.design.menu.id', [$model->id]),
         ]);
     }
@@ -73,7 +73,7 @@ class MenuController extends BackendController
         $request->validate([
             'type' => 'required',
         ], [], [
-            'type' => trans('juzacms::app.type')
+            'type' => trans('juzaweb::app.type')
         ]);
         
         $type = $request->post('type');

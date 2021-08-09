@@ -54,7 +54,7 @@ class FinalInstallManager
     {
         try {
             Artisan::call('vendor:publish', [
-                '--tag' => 'juzacms_assets',
+                '--tag' => 'juzaweb_assets',
                 '--force' => true
             ], $outputLog);
 

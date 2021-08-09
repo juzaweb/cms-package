@@ -12,13 +12,13 @@ class FilemanagerController extends Controller
     public function index()
     {
         $type = $this->getType();
-        $mimeTypes = config("juzacms.filemanager.types.{$type}.valid_mime");
+        $mimeTypes = config("juzaweb.filemanager.types.{$type}.valid_mime");
 
         if (empty($mimeTypes)) {
             return abort(404);
         }
 
-        return view('juzacms::filemanager.index', [
+        return view('juzaweb::filemanager.index', [
             'mimeTypes' => $mimeTypes
         ]);
     }
@@ -28,7 +28,7 @@ class FilemanagerController extends Controller
         $arr_errors = [];
 
         if (! extension_loaded('gd') && ! extension_loaded('imagick')) {
-            array_push($arr_errors, trans('juzacms::filemanager.message_extension_not_found'));
+            array_push($arr_errors, trans('juzaweb::filemanager.message_extension_not_found'));
         }
 
         if (! extension_loaded('exif')) {
@@ -44,7 +44,7 @@ class FilemanagerController extends Controller
     
     public function error($error_type, $variables = [])
     {
-        throw new \Exception(trans('juzacms::filemanager.error_' . $error_type, $variables));
+        throw new \Exception(trans('juzaweb::filemanager.error_' . $error_type, $variables));
     }
     
     protected function getType()

@@ -12,7 +12,7 @@
 @section('container')
 
     <div class="buttons">
-        <a href="{{ url(config('juzacms.admin_prefix')) }}" class="button" data-turbolinks="false">{{ trans('installer::installer_messages.final.exit') }}</a>
+        <a href="{{ url(config('juzaweb.admin_prefix')) }}" class="button" data-turbolinks="false">{{ trans('installer::installer_messages.final.exit') }}</a>
     </div>
 
 @endsection

@@ -5,13 +5,13 @@
                 @csrf
 
                 <select name="bulk_actions" class="form-control w-60 mb-2 mr-1">
-                    <option value="">@lang('juzacms::app.bulk_actions')</option>
+                    <option value="">@lang('juzaweb::app.bulk_actions')</option>
                     @foreach($actions as $key => $action)
                         <option value="{{ $key }}">{{ $action['label'] ?? strtoupper($key) }}</option>
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary mb-2" id="apply-action">@lang('juzacms::app.apply')</button>
+                <button type="submit" class="btn btn-primary mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
             </form>
         </div>
     @endif
@@ -20,11 +20,11 @@
         <form method="get" class="form-inline" id="form-search">
 
             <div class="form-group mb-2 mr-1">
-                <label for="search" class="sr-only">@lang('juzacms::app.search')</label>
-                <input name="search" type="text" id="search" class="form-control" placeholder="@lang('juzacms::app.search')" autocomplete="off">
+                <label for="search" class="sr-only">@lang('juzaweb::app.search')</label>
+                <input name="search" type="text" id="search" class="form-control" placeholder="@lang('juzaweb::app.search')" autocomplete="off">
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzacms::app.search')</button>
+            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzaweb::app.search')</button>
         </form>
     </div>
 </div>

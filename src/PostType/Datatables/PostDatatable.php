@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -43,15 +43,15 @@ class PostDatatable
     {
         return [
             'thumbnail' => [
-                'label' => trans('juzacms::app.thumbnail'),
+                'label' => trans('juzaweb::app.thumbnail'),
                 'formatter' => [$this, 'thumbnailFormatter']
             ],
             'title' => [
-                'label' => trans('juzacms::app.title'),
+                'label' => trans('juzaweb::app.title'),
                 'formatter' => [$this, 'thumbnailFormatter']
             ],
-            'created_at' => trans('juzacms::app.created_at'),
-            'status' => trans('juzacms::app.status'),
+            'created_at' => trans('juzaweb::app.created_at'),
+            'status' => trans('juzaweb::app.status'),
         ];
     }
 

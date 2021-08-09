@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -114,7 +114,7 @@ function image_url($path) {
         }
     }
     
-    return asset('juzacms/styles/images/thumb-default.png');
+    return asset('juzaweb/styles/images/thumb-default.png');
 }
 
 function logo_url($path) {
@@ -291,7 +291,7 @@ function user_avatar($user = null) {
         return $user->getAvatar();
     }
 
-    return asset('juzacms/styles/images/thumb-default.png');
+    return asset('juzaweb/styles/images/thumb-default.png');
 }
 
 function breadcrumb($name, $add_items = [])
@@ -348,7 +348,7 @@ function upload_url($path, $default = null)
         return $default;
     }
 
-    return asset('juzacms/styles/images/thumb-default.png');
+    return asset('juzaweb/styles/images/thumb-default.png');
 }
 
 function random_string(int $length = 16)

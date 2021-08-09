@@ -18,8 +18,8 @@ class LoginController extends Controller
         
         //
         
-        return view('juzacms::auth.login', [
-            'title' => trans('juzacms::app.login')
+        return view('juzaweb::auth.login', [
+            'title' => trans('juzaweb::app.login')
         ]);
     }
     
@@ -41,13 +41,13 @@ class LoginController extends Controller
         
         if (empty($user)) {
             return $this->error([
-                'message' => trans('juzacms::message.login_form.login_failed')
+                'message' => trans('juzaweb::message.login_form.login_failed')
             ]);
         }
         
         if ($user->status != 'active') {
             return $this->error([
-                'message' => trans('juzacms::message.login_form.user_is_banned')
+                'message' => trans('juzaweb::message.login_form.user_is_banned')
             ]);
         }
         
@@ -58,14 +58,14 @@ class LoginController extends Controller
             do_action('auth.login.success', Auth::user());
 
             return $this->success([
-                'message' => trans('juzacms::app.login_successfully'),
+                'message' => trans('juzaweb::app.login_successfully'),
                 'redirect' => $user->is_admin ? route('admin.dashboard') : '/'
             ]);
         }
     
         do_action('auth.login.failed');
         
-        return $this->error(trans('juzacms::message.login_form.login_failed'));
+        return $this->error(trans('juzaweb::message.login_form.login_failed'));
     }
     
     public function logout()

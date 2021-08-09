@@ -22,15 +22,15 @@
           2:3
         </label>
         <label class="btn btn-info btn-aspectRatio" onclick="changeAspectRatio(this, null)">
-          {{ trans('juzacms::filemanager.btn-crop-free') }}
+          {{ trans('juzaweb::filemanager.btn-crop-free') }}
         </label>
       </div>
       <br>
       <br>
       <div class="btn-group clearfix">
-        <button class="btn btn-secondary" onclick="loadItems()">{{ trans('juzacms::filemanager.btn-cancel') }}</button>
-        <button class="btn btn-warning" onclick="performCropNew()">{{ trans('juzacms::filemanager.btn-copy-crop') }}</button>
-        <button class="btn btn-primary" onclick="performCrop()">{{ trans('juzacms::filemanager.btn-crop') }}</button>
+        <button class="btn btn-secondary" onclick="loadItems()">{{ trans('juzaweb::filemanager.btn-cancel') }}</button>
+        <button class="btn btn-warning" onclick="performCropNew()">{{ trans('juzaweb::filemanager.btn-copy-crop') }}</button>
+        <button class="btn btn-primary" onclick="performCrop()">{{ trans('juzaweb::filemanager.btn-crop') }}</button>
       </div>
       <form id='cropForm'>
         <input type="hidden" id="img" name="img" value="{{ $img->name }}">

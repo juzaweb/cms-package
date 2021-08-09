@@ -12,7 +12,7 @@ class DownloadController extends FileManagerController
         $file = $this->getPath(request()->get('file'));
         $data = File::where('path', '=', $file)->first(['name']);
         
-        $path = Storage::disk(config('juzacms.filemanager.disk'))->path($file);
+        $path = Storage::disk(config('juzaweb.filemanager.disk'))->path($file);
         if ($data) {
             return response()->download($path, $data->name);
         }

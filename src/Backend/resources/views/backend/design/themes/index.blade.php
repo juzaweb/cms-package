@@ -1,11 +1,11 @@
-@extends('juzacms::layouts.backend')
+@extends('juzaweb::layouts.backend')
 
 @section('content')
     <div class="row" id="theme-list">
         @if($currentTheme)
         <div class="col-md-4">
             <div class="card">
-                {{--<div class="height-200 d-flex flex-column kit__g13__head" style="background-image: url('{{ $currentTheme['screenshot'] ?? asset('juzacms/styles/images/thumb-default.png') }}')">
+                {{--<div class="height-200 d-flex flex-column kit__g13__head" style="background-image: url('{{ $currentTheme['screenshot'] ?? asset('juzaweb/styles/images/thumb-default.png') }}')">
                 </div>--}}
 
                 <div class="card card-borderless mb-0">
@@ -15,7 +15,7 @@
                                 {{ $currentTheme['name'] }}
                             </div>
                             <div class="text-gray-6">
-                                <button class="btn btn-secondary" disabled> {{ trans('juzacms::app.activated') }}</button>
+                                <button class="btn btn-secondary" disabled> {{ trans('juzaweb::app.activated') }}</button>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
         @foreach($themes as $theme)
         <div class="col-md-4">
             <div class="card">
-                {{--<div class="height-200 d-flex flex-column kit__g13__head" style="background-image: url('{{ $theme['screenshot'] ?? asset('juzacms/styles/images/thumb-default.png') }}')">
+                {{--<div class="height-200 d-flex flex-column kit__g13__head" style="background-image: url('{{ $theme['screenshot'] ?? asset('juzaweb/styles/images/thumb-default.png') }}')">
                 </div>--}}
 
                 <div class="card card-borderless mb-0">
@@ -37,9 +37,9 @@
                                 {{ $theme['name'] }}
                             </div>
                             <div class="text-gray-6">
-                                <button class="btn btn-primary active-theme" data-theme="{{ $theme['name'] }}"><i class="fa fa-check"></i> {{ trans('juzacms::app.activate') }}</button>
+                                <button class="btn btn-primary active-theme" data-theme="{{ $theme['name'] }}"><i class="fa fa-check"></i> {{ trans('juzaweb::app.activate') }}</button>
 
-                                {{--<a href="javascript:void(0)" class="text-danger">{{ trans('juzacms::app.delete') }}</a>--}}
+                                {{--<a href="javascript:void(0)" class="text-danger">{{ trans('juzaweb::app.delete') }}</a>--}}
                             </div>
                         </div>
                     </div>

@@ -12,21 +12,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#333844">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ trans('juzacms::filemanager.title-page') }}</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('juzacms/filemanager/images/72px color.png') }}">
+    <title>{{ trans('juzaweb::filemanager.title-page') }}</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('juzaweb/filemanager/images/72px color.png') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
-    <link rel="stylesheet" href="{{ asset('juzacms/filemanager/css/cropper.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('juzacms/filemanager/css/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('juzacms/filemanager/css/mime-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('juzacms/filemanager/css/lfm.css') }}">
+    <link rel="stylesheet" href="{{ asset('juzaweb/filemanager/css/cropper.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('juzaweb/filemanager/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('juzaweb/filemanager/css/mime-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('juzaweb/filemanager/css/lfm.css') }}">
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="nav">
     <a class="navbar-brand invisible-lg d-none d-lg-inline" id="to-previous">
         <i class="fas fa-arrow-left fa-fw"></i>
-        <span class="d-none d-lg-inline">{{ trans('juzacms::filemanager.nav-back') }}</span>
+        <span class="d-none d-lg-inline">{{ trans('juzaweb::filemanager.nav-back') }}</span>
     </a>
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
         <i class="fas fa-bars fa-fw"></i>
@@ -36,7 +36,7 @@
     <div class="ml-auto px-2">
         {{--<a class="navbar-link d-none" id="multi_selection_toggle">
             <i class="fa fa-check-double fa-fw"></i>
-            <span class="d-none d-lg-inline">{{ trans('juzacms::filemanager.menu-multiple') }}</span>
+            <span class="d-none d-lg-inline">{{ trans('juzaweb::filemanager.menu-multiple') }}</span>
         </a>--}}
     </div>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0" data-toggle="collapse" data-target="#nav-buttons">
@@ -47,18 +47,18 @@
             <li class="nav-item">
                 <a class="nav-link" data-display="grid">
                     <i class="fas fa-th-large fa-fw"></i>
-                    <span>{{ trans('juzacms::filemanager.nav-thumbnails') }}</span>
+                    <span>{{ trans('juzaweb::filemanager.nav-thumbnails') }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-display="list">
                     <i class="fas fa-list-ul fa-fw"></i>
-                    <span>{{ trans('juzacms::filemanager.nav-list') }}</span>
+                    <span>{{ trans('juzaweb::filemanager.nav-list') }}</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-sort fa-fw"></i>{{ trans('juzacms::filemanager.nav-sort') }}
+                    <i class="fas fa-sort fa-fw"></i>{{ trans('juzaweb::filemanager.nav-sort') }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right border-0"></div>
             </li>
@@ -67,11 +67,11 @@
 </nav>
 
 <nav class="bg-light fixed-bottom border-top d-none" id="actions">
-    <a data-action="open" data-multiple="false"><i class="fas fa-folder-open"></i>{{ trans('juzacms::filemanager.btn-open') }}
+    <a data-action="open" data-multiple="false"><i class="fas fa-folder-open"></i>{{ trans('juzaweb::filemanager.btn-open') }}
     </a>
-    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>{{ trans('juzacms::filemanager.menu-view') }}
+    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>{{ trans('juzaweb::filemanager.menu-view') }}
     </a>
-    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>{{ trans('juzacms::filemanager.btn-confirm') }}
+    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>{{ trans('juzaweb::filemanager.btn-confirm') }}
     </a>
 </nav>
 
@@ -89,7 +89,7 @@
 
         <div id="empty" class="d-none">
             <i class="far fa-folder-open"></i>
-            {{ trans('juzacms::filemanager.message-empty') }}
+            {{ trans('juzaweb::filemanager.message-empty') }}
         </div>
 
         <div id="content"></div>
@@ -112,7 +112,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">{{ trans('juzacms::filemanager.title-upload') }}</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ trans('juzaweb::filemanager.title-upload') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aia-hidden="true">&times;</span></button>
             </div>
@@ -121,7 +121,7 @@
                     <div class="form-group" id="attachment">
                         <div class="controls text-center">
                             <div class="input-group w-100">
-                                <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('juzacms::filemanager.message-choose') }}</a>
+                                <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('juzaweb::filemanager.message-choose') }}</a>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzacms::filemanager.btn-close') }}</button>
+                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzaweb::filemanager.btn-close') }}</button>
             </div>
         </div>
     </div>
@@ -142,8 +142,8 @@
         <div class="modal-content">
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzacms::filemanager.btn-close') }}</button>
-                <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('juzacms::filemanager.btn-confirm') }}</button>
+                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzaweb::filemanager.btn-close') }}</button>
+                <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('juzaweb::filemanager.btn-confirm') }}</button>
             </div>
         </div>
     </div>
@@ -159,8 +159,8 @@
                 <input type="text" class="form-control">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzacms::filemanager.btn-close') }}</button>
-                <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('juzacms::filemanager.btn-confirm') }}</button>
+                <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">{{ trans('juzaweb::filemanager.btn-close') }}</button>
+                <button type="button" class="btn btn-primary w-100" data-dismiss="modal">{{ trans('juzaweb::filemanager.btn-confirm') }}</button>
             </div>
         </div>
     </div>
@@ -194,10 +194,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="{{ asset('juzacms/filemanager/js/cropper.min.js') }}"></script>
-<script src="{{ asset('juzacms/filemanager/js/dropzone.min.js') }}"></script>
+<script src="{{ asset('juzaweb/filemanager/js/cropper.min.js') }}"></script>
+<script src="{{ asset('juzaweb/filemanager/js/dropzone.min.js') }}"></script>
 <script>
-    var lang = @json(trans('juzacms::filemanager'));
+    var lang = @json(trans('juzaweb::filemanager'));
     var actions = [
         // {
         //   name: 'use',
@@ -262,7 +262,7 @@
         }
     ];
 </script>
-<script src="{{ asset('juzacms/filemanager/js/script.js') }}"></script>
+<script src="{{ asset('juzaweb/filemanager/js/script.js') }}"></script>
 <script>
     Dropzone.options.uploadForm = {
         paramName: "upload",

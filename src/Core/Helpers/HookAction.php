@@ -1,8 +1,8 @@
 <?php
 /**
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -27,7 +27,7 @@ class HookAction
      **/
     public function loadActionForm($path)
     {
-        add_filters('juzacms.actions', function ($items) use ($path) {
+        add_filters('juzaweb.actions', function ($items) use ($path) {
             $items[] = $path;
             return collect($items)->unique();
         });
@@ -50,7 +50,7 @@ class HookAction
             throw new \Exception('Permalink args default_base is required');
         }
 
-        add_filters('juzacms.permalinks', function ($items) use ($key, $args) {
+        add_filters('juzaweb.permalinks', function ($items) use ($key, $args) {
             array_merge([
                 'label' => '',
                 'base' => '',

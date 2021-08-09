@@ -16,8 +16,8 @@ class DashboardController extends BackendController
 
     public function dashboard()
     {
-        return view('juzacms::backend.dashboard', [
-            'title' => trans('juzacms::app.dashboard'),
+        return view('juzaweb::backend.dashboard', [
+            'title' => trans('juzaweb::app.dashboard'),
         ]);
     }
     
@@ -78,7 +78,7 @@ class DashboardController extends BackendController
     {
         $max_day = date('t');
         $result = [];
-        $result[] = [trans('juzacms::app.day'), trans('juzacms::app.views')];
+        $result[] = [trans('juzaweb::app.day'), trans('juzaweb::app.views')];
         for ($i=1;$i<=$max_day;$i++) {
             $day = $i < 10 ? '0'. $i : $i;
             $result[] = [(string) $day, (int) $this->countViewByDay(date('Y-m-' . $day))];

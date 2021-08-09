@@ -1,11 +1,11 @@
-@extends('juzacms::layouts.auth')
+@extends('juzaweb::layouts.auth')
 
 @section('content')
-    <div class="juzacms__layout__content">
-        <div class="juzacms__utils__content">
-            <div class="juzacms__auth__authContainer">
-                <div class="juzacms__auth__containerInner">
-                    <div class="card juzacms__auth__boxContainer">
+    <div class="juzaweb__layout__content">
+        <div class="juzaweb__utils__content">
+            <div class="juzaweb__auth__authContainer">
+                <div class="juzaweb__auth__containerInner">
+                    <div class="card juzaweb__auth__boxContainer">
                         <div class="text-dark font-size-24 mb-4">
                             <strong>Create your account</strong>
                         </div>
@@ -17,11 +17,11 @@
 
                         <form action="" method="post" class="mb-4 form-ajax">
                             <div class="form-group mb-4">
-                                <input type="text" name="email" class="form-control" placeholder="@lang('juzacms::app.email_address')" autocomplete="off"/>
+                                <input type="text" name="email" class="form-control" placeholder="@lang('juzaweb::app.email_address')" autocomplete="off"/>
                             </div>
 
-                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzacms::app.please_wait')">
-                                <i class="fa fa-refresh"></i> @lang('juzacms::app.forgot_password')
+                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzaweb::app.please_wait')">
+                                <i class="fa fa-refresh"></i> @lang('juzaweb::app.forgot_password')
                             </button>
                         </form>
                     </div>

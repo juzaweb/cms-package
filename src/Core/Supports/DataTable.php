@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -44,9 +44,9 @@ abstract class DataTable
     public static function render()
     {
         $datatable = new static();
-        $uniqueId = 'juzacms_'. Str::random(15);
+        $uniqueId = 'juzaweb_'. Str::random(15);
 
-        return view('juzacms::components.datatable', [
+        return view('juzaweb::components.datatable', [
             'columns' => $datatable->columns(),
             'actions' => $datatable->bulkActions(),
             'unique_id' => $uniqueId,

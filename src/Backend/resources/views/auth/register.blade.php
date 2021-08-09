@@ -1,11 +1,11 @@
-@extends('juzacms::layouts.auth')
+@extends('juzaweb::layouts.auth')
 
 @section('content')
-    <div class="juzacms__layout__content">
-        <div class="juzacms__utils__content">
-            <div class="juzacms__auth__authContainer">
-                <div class="juzacms__auth__containerInner">
-                    <div class="card juzacms__auth__boxContainer">
+    <div class="juzaweb__layout__content">
+        <div class="juzaweb__utils__content">
+            <div class="juzaweb__auth__authContainer">
+                <div class="juzaweb__auth__containerInner">
+                    <div class="card juzaweb__auth__boxContainer">
                         <div class="text-dark font-size-24 mb-4">
                             <strong>Create your account</strong>
                         </div>
@@ -17,15 +17,15 @@
 
                         <form action="{{ route('auth.register') }}" method="post" class="mb-4 form-ajax">
                             <div class="form-group mb-4">
-                                <input type="text" name="name" class="form-control" placeholder="@lang('juzacms::app.full-name')" autocomplete="off"/>
+                                <input type="text" name="name" class="form-control" placeholder="@lang('juzaweb::app.full-name')" autocomplete="off"/>
                             </div>
                             <div class="form-group mb-4">
-                                <input type="text" name="email" class="form-control" placeholder="@lang('juzacms::app.email-address')" autocomplete="off"/>
+                                <input type="text" name="email" class="form-control" placeholder="@lang('juzaweb::app.email-address')" autocomplete="off"/>
                             </div>
                             <div class="form-group mb-4">
-                                <input type="password" name="password" class="form-control" placeholder="@lang('juzacms::app.password')" autocomplete="off"/>
+                                <input type="password" name="password" class="form-control" placeholder="@lang('juzaweb::app.password')" autocomplete="off"/>
                             </div>
-                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzacms::app.please-wait')">
+                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzaweb::app.please-wait')">
                                 <strong>Sign Up</strong>
                             </button>
                         </form>

@@ -9,8 +9,8 @@ use Juzaweb\Cms\Backend\Http\Controllers\Controller;
 class CommentSettingController extends Controller
 {
     public function index() {
-        return view('juzacms::backend.setting.comment.index', [
-            'title' => trans('juzacms::app.comment_setting')
+        return view('juzaweb::backend.setting.comment.index', [
+            'title' => trans('juzaweb::app.comment_setting')
         ]);
     }
     
@@ -21,10 +21,10 @@ class CommentSettingController extends Controller
             'comments_per_page' => 'required|string|max:300',
             'comments_approval' => 'required|string|max:300',
         ], $request, [
-            'comment_able' => trans('juzacms::app.comment_able'),
-            'comment_type' => trans('juzacms::app.comment_type'),
-            'comments_per_page' => trans('juzacms::app.comments_per_page'),
-            'comments_approval' => trans('juzacms::app.comments_approval'),
+            'comment_able' => trans('juzaweb::app.comment_able'),
+            'comment_type' => trans('juzaweb::app.comment_type'),
+            'comments_per_page' => trans('juzaweb::app.comments_per_page'),
+            'comments_approval' => trans('juzaweb::app.comments_approval'),
         ]);
     
         $configs = $request->only([
@@ -40,7 +40,7 @@ class CommentSettingController extends Controller
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzacms::app.saved_successfully'),
+            'message' => trans('juzaweb::app.saved_successfully'),
             'redirect' => route('admin.setting.comment'),
         ]);
     }

@@ -1,31 +1,31 @@
-@extends('juzacms::layouts.backend')
+@extends('juzaweb::layouts.backend')
 
 @section('content')
     <div class="row">
         <div class="col-md-7">
-            <h5>@lang('juzacms::app.setting')</h5>
+            <h5>@lang('juzaweb::app.setting')</h5>
 
-            @component('juzacms::components.form', [
+            @component('juzaweb::components.form', [
                 'method' => 'post'
             ])
 
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email_host'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email_host'),
                     'name' => 'email[host]',
                     'value' => $config['host'] ?? '',
                 ])@endcomponent
 
                 <div class="row">
                     <div class="col-md-6">
-                        @component('juzacms::components.form_input', [
-                            'label' => trans('juzacms::app.email_port'),
+                        @component('juzaweb::components.form_input', [
+                            'label' => trans('juzaweb::app.email_port'),
                             'name' => 'email[port]',
                             'value' => $config['port'] ?? '',
                         ])@endcomponent
                     </div>
                     <div class="col-md-6">
-                        @component('juzacms::components.form_select', [
-                            'label' => trans('juzacms::app.email_encryption'),
+                        @component('juzaweb::components.form_select', [
+                            'label' => trans('juzaweb::app.email_encryption'),
                             'name' => 'email[encryption]',
                             'value' => $config['encryption'] ?? '',
                             'options' => [
@@ -37,35 +37,35 @@
                     </div>
                 </div>
 
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email_username'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email_username'),
                     'name' => 'email[username]',
                     'value' => $config['username'] ?? '',
                 ])@endcomponent
 
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email_password'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email_password'),
                     'name' => 'email[password]',
                     'value' => $config['password'] ?? '',
                 ])@endcomponent
 
                 <hr>
 
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email_from_address'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email_from_address'),
                     'name' => 'email[from_address]',
                     'value' => $config['from_address'] ?? '',
                 ])@endcomponent
 
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email_from_name'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email_from_name'),
                     'name' => 'email[from_name]',
                     'value' => $config['from_name'] ?? '',
                 ])@endcomponent
 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success">
-                        <i class="fa fa-save"></i> @lang('juzacms::app.save')
+                        <i class="fa fa-save"></i> @lang('juzaweb::app.save')
                     </button>
                 </div>
             @endcomponent
@@ -73,21 +73,21 @@
         </div>
 
         <div class="col-md-5">
-            <h5>@lang('juzacms::app.send_email_test')</h5>
+            <h5>@lang('juzaweb::app.send_email_test')</h5>
 
-            @component('juzacms::components.form', [
+            @component('juzaweb::components.form', [
                 'method' => 'post',
                 'action' => route('admin.email.test-email')
             ])
-                @component('juzacms::components.form_input', [
-                    'label' => trans('juzacms::app.email'),
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.email'),
                     'name' => 'email',
                     'required' => true,
                 ])@endcomponent
 
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-send"></i>
-                    @lang('juzacms::app.send_email_test')
+                    @lang('juzaweb::app.send_email_test')
                 </button>
             @endcomponent
         </div>

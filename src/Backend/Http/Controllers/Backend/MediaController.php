@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - The Best Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -24,7 +24,7 @@ class MediaController extends BackendController
 {
     public function index($folderId = null)
     {
-        $title = trans('juzacms::app.media');
+        $title = trans('juzaweb::app.media');
         if ($folderId) {
             $this->addBreadcrumb([
                 'title' => $title,
@@ -43,7 +43,7 @@ class MediaController extends BackendController
             $this->getFiles($query, $folderId)
         );
 
-        return view('juzacms::backend.media.index', [
+        return view('juzaweb::backend.media.index', [
             'fileTypes' => $this->getFileTypes(),
             'folderId' => $folderId,
             'mediaItems' => $mediaItems,
@@ -57,8 +57,8 @@ class MediaController extends BackendController
             'name' => 'required|string|max:150',
             'folder_id' => 'nullable|exists:folders,id',
         ], [], [
-            'name' => trans('juzacms::filemanager.folder-name'),
-            'folder_id' => trans('juzacms::filemanager.parent')
+            'name' => trans('juzaweb::filemanager.folder-name'),
+            'folder_id' => trans('juzaweb::filemanager.parent')
         ]);
 
         $name = $request->post('name');
@@ -66,7 +66,7 @@ class MediaController extends BackendController
 
         if (Folder::folderExists($name, $parentId)) {
             return $this->error([
-                'message' => trans('juzacms::filemanager.errors.folder-exists')
+                'message' => trans('juzaweb::filemanager.errors.folder-exists')
             ]);
         }
 
@@ -81,12 +81,12 @@ class MediaController extends BackendController
 
         // event
 
-        return $this->success(trans('juzacms::filemanager.add-folder-successfully'));
+        return $this->success(trans('juzaweb::filemanager.add-folder-successfully'));
     }
 
     protected function getFileTypes()
     {
-        return config('juzacms.filemanager.types');
+        return config('juzaweb.filemanager.types');
     }
 
     protected function addBreadcrumbFolder($folder)
@@ -175,7 +175,7 @@ class MediaController extends BackendController
                 'time' => (string) $row->created_at,
                 'type' => $row->type,
                 'icon' => 'fa-folder-o',
-                'thumb' => asset('juzacms/filemanager/images/folder.png'),
+                'thumb' => asset('juzaweb/filemanager/images/folder.png'),
                 'is_file' => false
             ];
         }

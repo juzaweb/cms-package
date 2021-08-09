@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -80,9 +80,9 @@ trait PostTypeModel
     public function getStatuses()
     {
         return [
-            'draft' => trans('juzacms::app.draft'),
-            'publish' => trans('juzacms::app.publish'),
-            'private' => trans('juzacms::app.private')
+            'draft' => trans('juzaweb::app.draft'),
+            'publish' => trans('juzaweb::app.publish'),
+            'private' => trans('juzaweb::app.private')
         ];
     }
 

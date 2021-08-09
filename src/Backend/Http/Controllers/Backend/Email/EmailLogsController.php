@@ -10,8 +10,8 @@ class EmailLogsController extends BackendController
 {
     public function index()
     {
-        return view('juzacms::backend.logs.email', [
-            'title' => trans('juzacms::app.email_logs'),
+        return view('juzaweb::backend.logs.email', [
+            'title' => trans('juzaweb::app.email_logs'),
         ]);
     }
     
@@ -60,8 +60,8 @@ class EmailLogsController extends BackendController
             'ids' => 'required',
             'status' => 'required|in:success,error,pending',
         ], $request, [
-            'ids' => trans('juzacms::app.email_logs'),
-            'status' => trans('juzacms::app.status'),
+            'ids' => trans('juzaweb::app.email_logs'),
+            'status' => trans('juzaweb::app.status'),
         ]);
         
         EmailList::whereIn('id', $request->post('ids'))
@@ -71,7 +71,7 @@ class EmailLogsController extends BackendController
         
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzacms::app.deleted_successfully'),
+            'message' => trans('juzaweb::app.deleted_successfully'),
         ]);
     }
     
@@ -80,14 +80,14 @@ class EmailLogsController extends BackendController
         $this->validateRequest([
             'ids' => 'required',
         ], $request, [
-            'ids' => trans('juzacms::app.email_logs')
+            'ids' => trans('juzaweb::app.email_logs')
         ]);
         
         EmailList::destroy($request->post('ids', []));
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzacms::app.deleted_successfully'),
+            'message' => trans('juzaweb::app.deleted_successfully'),
         ]);
     }
 }

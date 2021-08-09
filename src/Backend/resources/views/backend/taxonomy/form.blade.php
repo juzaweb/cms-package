@@ -1,11 +1,11 @@
-@extends('juzacms::layouts.backend')
+@extends('juzaweb::layouts.backend')
 
 @section('content')
     @php
         $type = $setting->get('type');
     @endphp
 
-    @component('juzacms::components.form_resource', [
+    @component('juzaweb::components.form_resource', [
         'method' => $model->id ? 'put' : 'post',
         'action' => $model->id ?
             route('admin.'. $type .'.taxonomy.update', [$taxonomy, $model->id]) :
@@ -15,24 +15,24 @@
             <div class="col-md-8">
                 <input type="hidden" name="redirect" value="{{ path_url(route('admin.'. $type .'.taxonomy.index', [$taxonomy])) }}">
 
-                @component('juzacms::components.form_input', [
+                @component('juzaweb::components.form_input', [
                     'name' => 'name',
-                    'label' => trans('juzacms::app.name'),
+                    'label' => trans('juzaweb::app.name'),
                     'value' => $model->name
                 ])
                 @endcomponent
 
-                @component('juzacms::components.form_textarea', [
+                @component('juzaweb::components.form_textarea', [
                     'name' => 'description',
-                    'label' => trans('juzacms::app.description'),
+                    'label' => trans('juzaweb::app.description'),
                     'value' => $model->description
                 ])
                 @endcomponent
 
                 @if(in_array('hierarchical', $setting->get('supports', [])))
                 <div class="form-group">
-                    <label class="col-form-label" for="parent_id">@lang('juzacms::app.parent')</label>
-                    <select name="parent_id" id="parent_id" class="form-control load-taxonomies" data-post-type="{{ $setting->get('post_type') }}" data-taxonomy="{{ $setting->get('taxonomy') }}" data-placeholder="{{ trans('juzacms::app.parent') }}" data-explodes="{{ $model->id }}">
+                    <label class="col-form-label" for="parent_id">@lang('juzaweb::app.parent')</label>
+                    <select name="parent_id" id="parent_id" class="form-control load-taxonomies" data-post-type="{{ $setting->get('post_type') }}" data-taxonomy="{{ $setting->get('taxonomy') }}" data-placeholder="{{ trans('juzaweb::app.parent') }}" data-explodes="{{ $model->id }}">
                         @if($model->parent)
                             <option value="{{ $model->parent->id }}" selected>{{ $model->parent->name }}</option>
                         @endif
@@ -42,9 +42,9 @@
             </div>
             @if(in_array('thumbnail', $setting->get('supports', [])))
             <div class="col-md-4">
-                @component('juzacms::components.form_image', [
+                @component('juzaweb::components.form_image', [
                     'name' => 'thumbnail',
-                    'label' => trans('juzacms::app.thumbnail'),
+                    'label' => trans('juzaweb::app.thumbnail'),
                     'value' => $model->thumbnail
                 ])@endcomponent
             </div>

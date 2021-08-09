@@ -11,8 +11,8 @@ class PageController extends BackendController
 {
     public function index()
     {
-        return view('juzacms::backend.pages.index', [
-            'title' => trans('juzacms::app.pages')
+        return view('juzaweb::backend.pages.index', [
+            'title' => trans('juzaweb::app.pages')
         ]);
     }
     
@@ -59,14 +59,14 @@ class PageController extends BackendController
     public function form($id = null)
     {
         $this->addBreadcrumb([
-            'title' => trans('juzacms::app.pages'),
+            'title' => trans('juzaweb::app.pages'),
             'url' => route('admin.page.index')
         ]);
 
         $model = Page::firstOrNew(['id' => $id]);
-        return view('juzacms::backend.pages.form', [
+        return view('juzaweb::backend.pages.form', [
             'model' => $model,
-            'title' => $model->name ?: trans('juzacms::app.add_new')
+            'title' => $model->name ?: trans('juzaweb::app.add_new')
         ]);
     }
     
@@ -77,9 +77,9 @@ class PageController extends BackendController
             'status' => 'required|in:0,1',
             'thumbnail' => 'nullable|string|max:250',
         ], [], [
-            'name' => trans('juzacms::app.name'),
-            'status' => trans('juzacms::app.status'),
-            'thumbnail' => trans('juzacms::app.thumbnail'),
+            'name' => trans('juzaweb::app.name'),
+            'status' => trans('juzaweb::app.status'),
+            'thumbnail' => trans('juzaweb::app.thumbnail'),
         ]);
         
         $model = Page::firstOrNew(['id' => $request->id]);
@@ -87,7 +87,7 @@ class PageController extends BackendController
         $model->save();
 
         return $this->success([
-            'message' => trans('juzacms::app.successfully'),
+            'message' => trans('juzaweb::app.successfully'),
             'redirect' => route('admin.page.index')
         ]);
     }
@@ -98,7 +98,7 @@ class PageController extends BackendController
             'ids' => 'required',
             'action' => 'required',
         ], [], [
-            'ids' => trans('juzacms::app.pages')
+            'ids' => trans('juzaweb::app.pages')
         ]);
 
         $ids = $request->post('ids');
@@ -120,7 +120,7 @@ class PageController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzacms::app.successfully')
+            'message' => trans('juzaweb::app.successfully')
         ]);
     }
 }

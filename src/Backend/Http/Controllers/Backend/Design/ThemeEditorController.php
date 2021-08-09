@@ -11,10 +11,10 @@ use Juzaweb\Cms\Theme\Facades\Theme;
 class ThemeEditorController extends BackendController
 {
     public function index() {
-        Theme::set('juzacms');
-        $config = include base_path('themes/juzacms/config.php');
+        Theme::set('juzaweb');
+        $config = include base_path('themes/juzaweb/config.php');
 
-        return view('juzacms::backend.design.editor.index', [
+        return view('juzaweb::backend.design.editor.index', [
             'config' => $config,
         ]);
     }
@@ -36,7 +36,7 @@ class ThemeEditorController extends BackendController
         
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzacms::app.saved_successfully'),
+            'message' => trans('juzaweb::app.saved_successfully'),
         ]);
     }
 }

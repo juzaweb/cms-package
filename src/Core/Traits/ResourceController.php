@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -35,7 +35,7 @@ trait ResourceController
 
         $model = $this->makeModel();
         return view($this->viewPrefix . '.form', array_merge([
-            'title' => trans('juzacms::app.add_new')
+            'title' => trans('juzaweb::app.add_new')
         ], $this->getDataDataForForm($model)));
     }
 
@@ -68,7 +68,7 @@ trait ResourceController
         }
 
         return $this->success([
-            'message' => trans('juzacms::app.created_successfully')
+            'message' => trans('juzaweb::app.created_successfully')
         ]);
     }
 
@@ -89,7 +89,7 @@ trait ResourceController
         }
 
         return $this->success([
-            'message' => trans('juzacms::app.updated_successfully')
+            'message' => trans('juzaweb::app.updated_successfully')
         ]);
     }
 
@@ -117,7 +117,7 @@ trait ResourceController
         }
 
         return $this->success([
-            'message' => trans('juzacms::app.successfully')
+            'message' => trans('juzaweb::app.successfully')
         ]);
     }
 

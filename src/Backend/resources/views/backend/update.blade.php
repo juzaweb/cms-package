@@ -1,11 +1,11 @@
-@extends('juzacms::layouts.backend')
+@extends('juzaweb::layouts.backend')
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-success">
                 <p>You are using Juzaweb CMS Version: {{ \Juzaweb\Cms\Core\Version::getVersion() }}</p>
-                <p>View CMS change logs: <a href="https://github.com/juzacmscms/juzacmscms/blob/master/CHANGELOG.md" target="_blank">click here</a></p>
+                <p>View CMS change logs: <a href="https://github.com/juzawebcms/juzawebcms/blob/master/CHANGELOG.md" target="_blank">click here</a></p>
             </div>
 
             <div class="alert alert-warning">Important: Before updating, please back up your database and files.</div>
@@ -24,7 +24,7 @@
                 </form>
 
             @else
-                <div class="alert alert-secondary">{{ trans('juzacms::app.no_new_version_available') }}</div>
+                <div class="alert alert-secondary">{{ trans('juzaweb::app.no_new_version_available') }}</div>
             @endif
         </div>
     </div>

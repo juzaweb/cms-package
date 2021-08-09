@@ -12,7 +12,7 @@ class CommentController extends BackendController
 {
     use ResourceController;
 
-    protected $viewPrefix = 'juzacms::backend.comment';
+    protected $viewPrefix = 'juzaweb::backend.comment';
 
     protected function validator(array $attributes)
     {
@@ -34,7 +34,7 @@ class CommentController extends BackendController
 
     protected function getTitle()
     {
-        return trans('juzacms::app.comments');
+        return trans('juzaweb::app.comments');
     }
     
     public function getDataTable(Request $request)

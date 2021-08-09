@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -22,7 +22,7 @@ use Symfony\Component\Finder\Finder;
 
 class UpdateCommand extends Command
 {
-    protected $signature = 'juzacms:update';
+    protected $signature = 'juzaweb:update';
 
     protected $updater;
 
@@ -40,7 +40,7 @@ class UpdateCommand extends Command
             ->files()));
 
         if (!$this->updater->source()->isNewVersionAvailable()) {
-            $this->info(trans('juzacms::app.no_new_version_available'));
+            $this->info(trans('juzaweb::app.no_new_version_available'));
             exit;
         }
 
@@ -59,7 +59,7 @@ class UpdateCommand extends Command
         Artisan::call('up');
 
         return $this->success([
-            'message' => trans('juzacms::app.updated_successfully'),
+            'message' => trans('juzaweb::app.updated_successfully'),
         ]);
     }
 }

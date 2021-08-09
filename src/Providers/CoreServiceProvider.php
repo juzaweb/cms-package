@@ -2,9 +2,9 @@
 /**
  *
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -47,7 +47,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->registerProviders();
         $this->registerSingleton();
-        $this->mergeConfigFrom(__DIR__ . '/../../config/juzacms.php', 'juzacms');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/juzaweb.php', 'juzaweb');
     }
 
     protected function bootMigrations()
@@ -59,16 +59,16 @@ class CoreServiceProvider extends ServiceProvider
     protected function bootPublishes()
     {
         $this->publishes([
-            __DIR__ . '/../../config/juzacms.php' => base_path('config/juzacms.php'),
-        ], 'juzacms_config');
+            __DIR__ . '/../../config/juzaweb.php' => base_path('config/juzaweb.php'),
+        ], 'juzaweb_config');
 
         $this->publishes([
-            __DIR__ . '/../Backend/resources/views' => resource_path('vendor/juzacms/resources/views'),
-        ], 'juzacms_views');
+            __DIR__ . '/../Backend/resources/views' => resource_path('vendor/juzaweb/resources/views'),
+        ], 'juzaweb_views');
 
         $this->publishes([
-            __DIR__ . '/../Backend/resources/lang' => resource_path('vendor/juzacms/resources/lang'),
-        ], 'juzacms_lang');
+            __DIR__ . '/../Backend/resources/lang' => resource_path('vendor/juzaweb/resources/lang'),
+        ], 'juzaweb_lang');
     }
 
     protected function registerProviders()
@@ -91,7 +91,7 @@ class CoreServiceProvider extends ServiceProvider
 
     protected function registerSingleton()
     {
-        $this->app->singleton('juzacms.hook', function () {
+        $this->app->singleton('juzaweb.hook', function () {
             return new HookAction();
         });
     }

@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -14,5 +14,5 @@
 
 Route::postTypeResource('posts', 'Backend\PostController');
 
-Route::juzacmsResource('comments', 'Backend\CommentController');
+Route::juzawebResource('comments', 'Backend\CommentController');
 

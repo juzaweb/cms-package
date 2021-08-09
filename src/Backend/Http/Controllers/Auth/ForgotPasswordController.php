@@ -19,8 +19,8 @@ class ForgotPasswordController extends Controller
     {
         do_action('auth.forgot-password.index');
         
-        return view('juzacms::auth.forgot_password', [
-            'title' => trans('juzacms::app.forgot_password')
+        return view('juzaweb::auth.forgot_password', [
+            'title' => trans('juzaweb::app.forgot_password')
         ]);
     }
     

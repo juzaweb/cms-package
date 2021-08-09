@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class RouterMacros
 {
-    public function juzacmsResource()
+    public function juzawebResource()
     {
         return function ($uri, $controller, $options = []) {
             $uriName = $options['name'] ?? str_replace('/', '.', $uri);
@@ -27,10 +27,10 @@ class RouterMacros
     {
         return function ($uri, $controller, $options = []) {
             $singular = Str::singular($uri);
-            $this->juzacmsResource($uri, $controller, $options);
-            //$this->juzacmsResource(Str::singular($uri) . '/comments', $controller, $options);
+            $this->juzawebResource($uri, $controller, $options);
+            //$this->juzawebResource(Str::singular($uri) . '/comments', $controller, $options);
             $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Cms\Backend\Http\Controllers\Backend\TaxonomyController@getTagComponent');
-            $this->juzacmsResource($singular . '/{taxonomy}', '\Juzaweb\Cms\Backend\Http\Controllers\Backend\TaxonomyController', [
+            $this->juzawebResource($singular . '/{taxonomy}', '\Juzaweb\Cms\Backend\Http\Controllers\Backend\TaxonomyController', [
                 'name' => Str::singular($uri) . '.taxonomy'
             ]);
         };

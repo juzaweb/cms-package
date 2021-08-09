@@ -1,9 +1,9 @@
 {
-    "name": "juzacms/cms",
+    "name": "juzaweb/cms",
     "description": "Juzaweb CMS",
     "keywords": [],
     "license": "MIT",
-    "homepage": "https://cms.juzacms.com",
+    "homepage": "https://cms.juzaweb.com",
     "require": {
         "php": "^7.2.5|^8.0",
         "ext-json": "*",

@@ -27,21 +27,21 @@
 
 <div class="form-product-list">
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.title') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.title') }}</label>
         <input type="text" name="{{ $card['code'] }}[{{ $input['name'] }}][title]" class="next-input" value="{{ $title }}" autocomplete="off">
     </div>
 
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.type') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.type') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][ctype]" class="next-input select-ctype">
-            <option value="1" @if($ctype == 1) selected @endif>{{ trans('juzacms::app.genre') }}</option>
-            <option value="2" @if($ctype == 2) selected @endif>{{ trans('juzacms::app.type') }}</option>
-            <option value="3" @if($ctype == 3) selected @endif>{{ trans('juzacms::app.country') }}</option>
+            <option value="1" @if($ctype == 1) selected @endif>{{ trans('juzaweb::app.genre') }}</option>
+            <option value="2" @if($ctype == 2) selected @endif>{{ trans('juzaweb::app.type') }}</option>
+            <option value="3" @if($ctype == 3) selected @endif>{{ trans('juzaweb::app.country') }}</option>
         </select>
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype ctype-1 @if($ctype != 1) box-hidden @endif">
-        <label class="next-label">{{ trans('juzacms::app.genre') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.genre') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][genre]" class="load-genres" @if($ctype != 1) disabled @endif>
             @if($genre)
                 <option value="{{ $genre->id }}" selected>{{ $genre->name }}</option>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype ctype-2 @if($ctype != 2) box-hidden @endif">
-        <label class="next-label">{{ trans('juzacms::app.type') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.type') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][type]" class="load-types" @if($ctype != 2) disabled @endif>
             @if($type)
                 <option value="{{ $type->id }}" selected>{{ $type->name }}</option>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype ctype-3 @if($ctype != 3) box-hidden @endif">
-        <label class="next-label">{{ trans('juzacms::app.country') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.country') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][type]" class="load-types" @if($ctype != 3) disabled @endif>
             @if($country)
                 <option value="{{ $country->id }}" selected>{{ $country->name }}</option>
@@ -68,26 +68,26 @@
     </div>
 
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.format') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.format') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][format]" class="next-input">
-            <option value="">--- {{ trans('juzacms::app.format') }} ---</option>
-            <option value="1" @if($format == 1) selected @endif>{{ trans('juzacms::app.movies') }}</option>
-            <option value="2" @if($format == 2) selected @endif>{{ trans('juzacms::app.tv_series') }}</option>
+            <option value="">--- {{ trans('juzaweb::app.format') }} ---</option>
+            <option value="1" @if($format == 1) selected @endif>{{ trans('juzaweb::app.movies') }}</option>
+            <option value="2" @if($format == 2) selected @endif>{{ trans('juzaweb::app.tv_series') }}</option>
         </select>
     </div>
 
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.sort') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.sort') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][order]">
-            <option value="updated_at_DESC" @if($order == 'updated_at_DESC') selected @endif>{{ trans('juzacms::app.latest') }}</option>
-            <option value="updated_at_ASC" @if($order == 'updated_at_ASC') selected @endif>{{ trans('juzacms::app.oldest') }}</option>
-            <option value="view_DESC" @if($order == 'view_DESC') selected @endif>{{ trans('juzacms::app.views_high_to_low') }}</option>
-            <option value="view_ASC" @if($order == 'view_ASC') selected @endif>{{ trans('juzacms::app.views_low_to_high') }}</option>
+            <option value="updated_at_DESC" @if($order == 'updated_at_DESC') selected @endif>{{ trans('juzaweb::app.latest') }}</option>
+            <option value="updated_at_ASC" @if($order == 'updated_at_ASC') selected @endif>{{ trans('juzaweb::app.oldest') }}</option>
+            <option value="view_DESC" @if($order == 'view_DESC') selected @endif>{{ trans('juzaweb::app.views_high_to_low') }}</option>
+            <option value="view_ASC" @if($order == 'view_ASC') selected @endif>{{ trans('juzaweb::app.views_low_to_high') }}</option>
         </select>
     </div>
 
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.limit') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.limit') }}</label>
         <input type="number" name="{{ $card['code'] }}[{{ $input['name'] }}][limit]" class="next-label" value="{{ $limit }}">
     </div>
 

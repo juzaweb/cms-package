@@ -25,7 +25,7 @@ class ItemsController extends FileManagerController
             ->orderBy('id', 'DESC')
             ->paginate($perPage);
     
-        $storage = Storage::disk(config('juzacms.filemanager.disk'));
+        $storage = Storage::disk(config('juzaweb.filemanager.disk'));
         $items = [];
         foreach ($folders as $folder) {
             $items[] = [
@@ -33,7 +33,7 @@ class ItemsController extends FileManagerController
                 'is_file' => false,
                 'is_image' => false,
                 'name' => $folder->name,
-                'thumb_url' => asset('juzacms/filemanager/images/folder.png'),
+                'thumb_url' => asset('juzaweb/filemanager/images/folder.png'),
                 'time' => false,
                 'url' => $folder->id,
             ];
@@ -76,7 +76,7 @@ class ItemsController extends FileManagerController
                     $path = $this->lfm->dir($this->helper->getRootFolder($type));
 
                     return (object) [
-                        'name' => trans('juzacms::filemanager.title_' . $type),
+                        'name' => trans('juzaweb::filemanager.title_' . $type),
                         'url' => $path->path('working_dir'),
                         'children' => $path->folders(),
                         'has_next' => ! ($type == end($folder_types)),

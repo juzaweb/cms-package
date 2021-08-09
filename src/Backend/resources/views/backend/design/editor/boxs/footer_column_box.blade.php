@@ -10,21 +10,21 @@
 @endphp
 <div class="form-product-list">
     <div class="theme-setting theme-setting--text editor-item">
-        <label class="next-label">{{ trans('juzacms::app.title') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.title') }}</label>
         <input type="text" name="{{ $card['code'] }}[{{ $input['name'] }}][title]" class="next-input" value="{{ $title }}" autocomplete="off">
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype-select">
-        <label class="next-label">{{ trans('juzacms::app.type') }}</label>
+        <label class="next-label">{{ trans('juzaweb::app.type') }}</label>
         <select name="{{ $card['code'] }}[{{ $input['name'] }}][ctype]" class="next-input select-ctype">
-            <option value="1" @if($ctype == 1) selected @endif>@lang('juzacms::app.menu_link')</option>
-            <option value="2" @if($ctype == 2) selected @endif>@lang('juzacms::app.custom_html')</option>
+            <option value="1" @if($ctype == 1) selected @endif>@lang('juzaweb::app.menu_link')</option>
+            <option value="2" @if($ctype == 2) selected @endif>@lang('juzaweb::app.custom_html')</option>
         </select>
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype ctype-1 @if($ctype != 1) box-hidden @endif">
-        <label class="next-label">{{ trans('juzacms::app.menu') }}</label>
-        <select name="{{ $card['code'] }}[{{ $input['name'] }}][menu]" class="next-input load-menu" data-placeholder="--- @lang('juzacms::app.choose_menu') ---">
+        <label class="next-label">{{ trans('juzaweb::app.menu') }}</label>
+        <select name="{{ $card['code'] }}[{{ $input['name'] }}][menu]" class="next-input load-menu" data-placeholder="--- @lang('juzaweb::app.choose_menu') ---">
             @if($menu)
                 <option value="{{ $menu->id }}">{{ $menu->name }}</option>
             @endif
@@ -32,7 +32,7 @@
     </div>
 
     <div class="theme-setting theme-setting--text editor-item ctype ctype-2 @if($ctype != 2) box-hidden @endif">
-        <label class="next-label">{{ trans('juzacms::app.content') }} (html)</label>
+        <label class="next-label">{{ trans('juzaweb::app.content') }} (html)</label>
         <textarea class="form-control" name="{{ $card['code'] }}[{{ $input['name'] }}][body]" rows="5">{!! $body !!}</textarea>
     </div>
 </div>

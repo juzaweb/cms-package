@@ -4,7 +4,7 @@
 @endphp
 
 <div class="theme-setting theme-setting--text editor-item">
-    <label class="next-label">{{ trans('juzacms::app.menu') }}</label>
+    <label class="next-label">{{ trans('juzaweb::app.menu') }}</label>
     <select name="{{ $card['code'] }}[{{ $input['name'] }}][menu]" class="load-menu">
         @if($menu)
             <option value="{{ $menu->id }}">{{ $menu->name }}</option>

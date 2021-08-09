@@ -3,7 +3,7 @@
 @endphp
 
 @foreach($taxonomies as $taxonomy)
-    @component('juzacms::components.form_taxonomies', [
+    @component('juzaweb::components.form_taxonomies', [
         'taxonomy' => $taxonomy,
         'model' => $model
     ])@endcomponent

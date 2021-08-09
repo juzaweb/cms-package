@@ -2,14 +2,14 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package juzacmscms/juzacmscms
+ * @package juzawebcms/juzawebcms
  * @author The Anh Dang
  *
  * Developed based on Laravel Framework
- * Github: https://github.com/juzacmscms/juzacmscms
+ * Github: https://github.com/juzawebcms/juzawebcms
 */
 
-$adminPrefix = config('juzacms.admin_prefix', 'admin-cp');
+$adminPrefix = config('juzaweb.admin_prefix', 'admin-cp');
 
 Route::group([
     'prefix' => $adminPrefix,
@@ -26,7 +26,7 @@ Route::group([
     require __DIR__ . '/components/media.route.php';
     require __DIR__ . '/components/email.route.php';
 
-    Route::juzacmsResource('notification', 'Backend\NotificationController');
+    Route::juzawebResource('notification', 'Backend\NotificationController');
 });
 
 Route::group([

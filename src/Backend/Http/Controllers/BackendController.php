@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzacmscms/juzacmscms
+ * @package    juzawebcms/juzawebcms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzacmscms/juzacmscms
+ * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
  *
  * Created by The Anh.
@@ -34,7 +34,7 @@ class BackendController extends Controller
             }
         }
 
-        if (config('juzacms::app.demo', false) == 'true' && \Auth::id() != 1) {
+        if (config('juzaweb::app.demo', false) == 'true' && \Auth::id() != 1) {
             if (\request()->isMethod('post')) {
                 if (\request()->is('admin-cp/*')) {
                     return response()->json([
@@ -55,7 +55,7 @@ class BackendController extends Controller
         $types = PostType::getPostTypes();
         foreach ($types as $key => $type) {
             add_action('post_type.'.$key.'.form.rigth', function ($model) use ($key) {
-                echo view('juzacms::components.taxonomies', [
+                echo view('juzaweb::components.taxonomies', [
                     'postType' => $key,
                     'model' => $model
                 ])->render();
