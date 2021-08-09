@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -27,15 +27,15 @@ class PostType
     public static function getPostTypes($postType = null)
     {
         if ($postType) {
-            return Arr::get(apply_filters('juzaweb.post_types', []), $postType);
+            return Arr::get(apply_filters('juzacms.post_types', []), $postType);
         }
 
-        return apply_filters('juzaweb.post_types', []);
+        return apply_filters('juzacms.post_types', []);
     }
 
     public static function getTaxonomies($postType = null)
     {
-        $taxonomies = collect(apply_filters('juzaweb.taxonomies', []));
+        $taxonomies = collect(apply_filters('juzacms.taxonomies', []));
         if (empty($taxonomies)) {
             return $taxonomies;
         }

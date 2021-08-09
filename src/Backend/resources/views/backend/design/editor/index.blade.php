@@ -1,23 +1,23 @@
 <!doctype html>
 <html class="no-js">
 <head>
-    <link rel="shortcut icon" href="{{ asset('juzaweb/styles/images/brand/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('juzacms/styles/images/brand/favicon.ico') }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ trans('juzaweb::app.customize_theme') }}</title>
-    <meta name="description" content="{{ trans('juzaweb::app.customize_theme') }}">
+    <title>{{ trans('juzacms::app.customize_theme') }}</title>
+    <meta name="description" content="{{ trans('juzacms::app.customize_theme') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    @include('juzaweb::components.juzaweb_langs')
+    @include('juzacms::components.juzacms_langs')
 
-    <link rel="stylesheet" href="{{ asset('juzaweb/styles/css/theme-editor.css') }}">
+    <link rel="stylesheet" href="{{ asset('juzacms/styles/css/theme-editor.css') }}">
     <!--[if lt IE 9]>
-    <script src="{{ asset('juzaweb/styles/js/html5shiv.min.js') }}"></script>
-    <script src="{{ asset('juzaweb/styles/js/respond.min.js') }}"></script>
+    <script src="{{ asset('juzacms/styles/js/html5shiv.min.js') }}"></script>
+    <script src="{{ asset('juzacms/styles/js/respond.min.js') }}"></script>
     <![endif]-->
 
-    <script src="{{ asset('juzaweb/styles/js/app.js') }}"></script>
-    <script src="{{ asset('juzaweb/styles/js/theme-editor.js') }}"></script>
+    <script src="{{ asset('juzacms/styles/js/app.js') }}"></script>
+    <script src="{{ asset('juzacms/styles/js/theme-editor.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ajaxStart(function () {
@@ -56,7 +56,7 @@
         <section class="theme-editor__index" component="UI.PanelContainer">
                 <header class="te-top-bar">
                     {{--<div class="te-top-bar__branding">
-                        <a title="{{ trans('juzaweb::app.theme') }}" aria_label="{{ trans('juzaweb::app.theme') }}" class="te-brand-link" data-no-turbolink="true" href="{{ route('vendor.admin.menu') }}">
+                        <a title="{{ trans('juzacms::app.theme') }}" aria_label="{{ trans('juzacms::app.theme') }}" class="te-brand-link" data-no-turbolink="true" href="{{ route('vendor.admin.menu') }}">
                             <span class="te-brand-logo" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 42">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo-sapo"></use>
                             </span>
@@ -64,7 +64,7 @@
                     </div>--}}
                     <div class="te-top-bar__list">
                         <div class="te-top-bar__item te-top-bar__item--fill">
-                            <span class="te-theme-name"><a href="{{ route('admin.design.themes') }}" data-no-turbolink="true" data-turbolinks="false">‹‹ {{ trans('juzaweb::app.back_to_theme') }}</a></span>
+                            <span class="te-theme-name"><a href="{{ route('admin.design.themes') }}" data-no-turbolink="true" data-turbolinks="false">‹‹ {{ trans('juzacms::app.back_to_theme') }}</a></span>
                         </div>
                         <div class="te-top-bar__item te-status-indicator--live mobile-only">
                             Live
@@ -72,7 +72,7 @@
                     </div>
                 </header>
 
-                @include('juzaweb::backend.design.editor.config_option')
+                @include('juzacms::backend.design.editor.config_option')
 
             </section>
     </div>
@@ -95,7 +95,7 @@
         }
     </style>
 
-    @include('juzaweb::backend.design.editor.preview_page')
+    @include('juzacms::backend.design.editor.preview_page')
 
     <div class="theme-editor__spinner" component="UI.Spinner">
         <div class="next-spinner">

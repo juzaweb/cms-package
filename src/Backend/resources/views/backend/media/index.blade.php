@@ -1,14 +1,14 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
     <div class="row mb-2">
         <div class="col-md-8">
 
             <form action="" method="get" class="form-inline">
-                <input type="text" class="form-control w-25" name="search" placeholder="{{ trans('juzaweb::app.search_by_name') }}" autocomplete="off">
+                <input type="text" class="form-control w-25" name="search" placeholder="{{ trans('juzacms::app.search_by_name') }}" autocomplete="off">
 
                 <select name="type" class="form-control w-25 ml-1">
-                    <option value="">{{ trans('juzaweb::app.all_type') }}</option>
+                    <option value="">{{ trans('juzacms::app.all_type') }}</option>
                     @foreach($fileTypes as $key => $type)
                     <option value="{{ $key }}" {{ request()->query('type') == $key ? 'selected' : '' }}>{{ strtoupper($key) }}</option>
                     @endforeach
@@ -26,14 +26,14 @@
                     <option value="mine">Mine</option>
                 </select>--}}
 
-                <button type="submit" class="btn btn-primary ml-1">@lang('juzaweb::app.search')</button>
+                <button type="submit" class="btn btn-primary ml-1">@lang('juzacms::app.search')</button>
             </form>
         </div>
 
         <div class="col-md-4">
             <div class="btn-group float-right">
-                <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#add-folder-modal"><i class="fa fa-plus"></i> @lang('juzaweb::app.add_folder')</a>
-                <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-cloud-upload"></i> @lang('juzaweb::app.upload')</a>
+                <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#add-folder-modal"><i class="fa fa-plus"></i> @lang('juzacms::app.add_folder')</a>
+                <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-cloud-upload"></i> @lang('juzacms::app.upload')</a>
             </div>
         </div>
     </div>
@@ -71,14 +71,14 @@
             <form action="{{ route('admin.media.add-folder') }}" method="post" class="form-ajax">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="add-folder-modal-label">@lang('juzaweb::app.add_folder')</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('juzaweb::app.close') }}">
+                        <h5 class="modal-title" id="add-folder-modal-label">@lang('juzacms::app.add_folder')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('juzacms::app.close') }}">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        @component('juzaweb::components.form_input', [
-                            'label' => trans('juzaweb::app.folder_name'),
+                        @component('juzacms::components.form_input', [
+                            'label' => trans('juzacms::app.folder_name'),
                             'name' => 'name'
                         ])
                         @endcomponent
@@ -86,8 +86,8 @@
                         <input type="hidden" name="folder_id" value="{{ $folderId }}">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> @lang('juzaweb::app.close')</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('juzaweb::app.add_folder')</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> @lang('juzacms::app.close')</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('juzacms::app.add_folder')</button>
                     </div>
                 </div>
             </form>
@@ -108,7 +108,7 @@
                         <div class="controls text-center">
                             <div class="text-center">
                                 <a href="javascript:void(0)" class="btn btn-primary rounded-0" id="upload-button"><i class="fa
-                                fa-cloud-upload"></i> {{ trans('juzaweb::filemanager.message-choose') }}
+                                fa-cloud-upload"></i> {{ trans('juzacms::filemanager.message-choose') }}
                                 </a>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                     <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> @lang('juzaweb::app.close')</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> @lang('juzacms::app.close')</button>
                 </div>
             </div>
         </div>

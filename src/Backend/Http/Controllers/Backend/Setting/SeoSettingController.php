@@ -9,7 +9,7 @@ use Juzaweb\Cms\Backend\Http\Controllers\Controller;
 class SeoSettingController extends Controller
 {
     public function index() {
-        return view('juzaweb::backend.setting.seo.index');
+        return view('juzacms::backend.setting.seo.index');
     }
     
     public function save(Request $request) {
@@ -32,23 +32,23 @@ class SeoSettingController extends Controller
             'description' => 'nullable|string|max:300',
             'keywords' => 'nullable|string|max:300',
         ], $request, [
-            'author_name' => trans('juzaweb::app.author_name'),
-            'movies_title' => trans('juzaweb::app.movies_title'),
-            'movies_keywords' => trans('juzaweb::app.movies_keywords'),
-            'movies_description' => trans('juzaweb::app.movies_description'),
-            'tv_series_title' => trans('juzaweb::app.tv_series_title'),
-            'tv_series_keywords' => trans('juzaweb::app.tv_series_keywords'),
-            'tv_series_description' => trans('juzaweb::app.tv_series_description'),
-            'blog_title' => trans('juzaweb::app.blog_title'),
-            'blog_keywords' => trans('juzaweb::app.blog_keywords'),
-            'blog_description' => trans('juzaweb::app.blog_description'),
+            'author_name' => trans('juzacms::app.author_name'),
+            'movies_title' => trans('juzacms::app.movies_title'),
+            'movies_keywords' => trans('juzacms::app.movies_keywords'),
+            'movies_description' => trans('juzacms::app.movies_description'),
+            'tv_series_title' => trans('juzacms::app.tv_series_title'),
+            'tv_series_keywords' => trans('juzacms::app.tv_series_keywords'),
+            'tv_series_description' => trans('juzacms::app.tv_series_description'),
+            'blog_title' => trans('juzacms::app.blog_title'),
+            'blog_keywords' => trans('juzacms::app.blog_keywords'),
+            'blog_description' => trans('juzacms::app.blog_description'),
             'facebook' => 'Facebook URL',
             'twitter' => 'Twitter URL',
             'pinterest' => 'Linkedin URL',
             'youtube' => 'Youtube URL',
-            'title' => trans('juzaweb::app.home_title'),
-            'description' => trans('juzaweb::app.home_description'),
-            'keywords' => trans('juzaweb::app.keywords'),
+            'title' => trans('juzacms::app.home_title'),
+            'description' => trans('juzacms::app.home_description'),
+            'keywords' => trans('juzacms::app.keywords'),
         ]);
     
         $configs = $request->only([
@@ -85,7 +85,7 @@ class SeoSettingController extends Controller
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
             'redirect' => route('admin.setting.seo'),
         ]);
     }

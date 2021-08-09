@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -15,7 +15,7 @@
 use Juzaweb\Cms\Core\Facades\HookAction;
 
 HookAction::addAdminMenu(
-    trans('juzaweb::app.dashboard'),
+    trans('juzacms::app.dashboard'),
     'dashboard',
     [
         'icon' => 'fa fa-dashboard',
@@ -24,7 +24,7 @@ HookAction::addAdminMenu(
 );
 
 /*HookAction::addAdminMenu(
-    'juzaweb::app.dashboard',
+    'juzacms::app.dashboard',
     'dashboard',
     [
         'icon' => 'fa fa-dashboard',
@@ -34,7 +34,7 @@ HookAction::addAdminMenu(
 );
 
 HookAction::addAdminMenu(
-    'juzaweb::app.updates',
+    'juzacms::app.updates',
     'updates',
     [
         'icon' => 'fa fa-refresh',
@@ -45,7 +45,7 @@ HookAction::addAdminMenu(
 */
 
 /*HookAction::addAdminMenu(
-    trans('juzaweb::app.media'),
+    trans('juzacms::app.media'),
     'media',
     [
         'icon' => 'fa fa-image',
@@ -54,7 +54,7 @@ HookAction::addAdminMenu(
 );*/
 
 HookAction::addAdminMenu(
-    trans('juzaweb::app.users'),
+    trans('juzacms::app.users'),
     'users',
     [
         'icon' => 'fa fa-users',
@@ -63,7 +63,7 @@ HookAction::addAdminMenu(
 );
 
 HookAction::addAdminMenu(
-    trans('juzaweb::app.setting'),
+    trans('juzacms::app.setting'),
     'setting',
     [
         'icon' => 'fa fa-cogs',
@@ -72,7 +72,7 @@ HookAction::addAdminMenu(
 );
 
 HookAction::addAdminMenu(
-    trans('juzaweb::app.general_setting'),
+    trans('juzacms::app.general_setting'),
     'setting.system',
     [
         'icon' => 'fa fa-cogs',
@@ -82,7 +82,7 @@ HookAction::addAdminMenu(
 );
 
 /*HookAction::addAdminMenu(
-    trans('juzaweb::app.translations'),
+    trans('juzacms::app.translations'),
     'setting.language',
     [
         'icon' => 'fa fa-language',

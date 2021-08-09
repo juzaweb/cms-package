@@ -12,8 +12,8 @@ class TranslateController extends BackendController
     public function index($lang) {
         Languages::where('key', '=', $lang)->firstOrFail();
         
-        return view('juzaweb::backend.setting.translate.index', [
-            'title' => trans('juzaweb::app.translations'),
+        return view('juzacms::backend.setting.translate.index', [
+            'title' => trans('juzacms::app.translations'),
             'lang' => $lang
         ]);
     }
@@ -53,8 +53,8 @@ class TranslateController extends BackendController
             'key' => 'required|string|exists:translation,key',
             'value' => 'required|max:250',
         ], $request, [
-            'key' => trans('juzaweb::app.key'),
-            'value' => trans('juzaweb::app.translate'),
+            'key' => trans('juzacms::app.key'),
+            'value' => trans('juzacms::app.translate'),
         ]);
         
         $model = Translation::firstOrNew(['key' => $request->post('key')]);
@@ -63,7 +63,7 @@ class TranslateController extends BackendController
         
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
         ]);
     }
 }

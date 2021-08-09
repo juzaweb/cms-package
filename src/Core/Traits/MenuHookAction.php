@@ -1,8 +1,8 @@
 <?php
 /**
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -45,7 +45,7 @@ trait MenuHookAction
         ];
         $item = array_merge($opts, $args);
 
-        return add_filters('juzaweb.admin_menu', function ($menu) use ($item) {
+        return add_filters('juzacms.admin_menu', function ($menu) use ($item) {
             if ($item['parent']) {
                 $menu[$item['parent']]['children'][$item['key']] = $item;
             } else {
@@ -82,7 +82,7 @@ trait MenuHookAction
             throw new \Exception('Args component is required');
         }
 
-        add_filters('juzaweb.menu_blocks', function ($items) use ($key, $args) {
+        add_filters('juzacms.menu_blocks', function ($items) use ($key, $args) {
             array_merge([
                 'label' => '',
                 'component' => '',

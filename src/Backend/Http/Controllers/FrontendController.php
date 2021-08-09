@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -40,7 +40,7 @@ class FrontendController extends Controller
 
     protected function getCurrentTheme()
     {
-        return get_config('activated_theme', 'juzaweb');
+        return get_config('activated_theme', 'juzacms');
     }
 
     protected function setupLayout()

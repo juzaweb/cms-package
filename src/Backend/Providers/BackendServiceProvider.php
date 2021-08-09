@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -27,9 +27,9 @@ class BackendServiceProvider extends ServiceProvider
         $this->bootMiddlewares();
         $this->bootPublishes();
         HookAction::loadActionForm(__DIR__ . '/../actions');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'juzaweb');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'juzacms');
 
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'juzaweb');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'juzacms');
     }
 
     public function register()
@@ -45,12 +45,12 @@ class BackendServiceProvider extends ServiceProvider
     protected function bootPublishes()
     {
         $this->publishes([
-            __DIR__ . '/../../../assets' => public_path('juzaweb'),
-        ], 'juzaweb_assets');
+            __DIR__ . '/../../../assets' => public_path('juzacms'),
+        ], 'juzacms_assets');
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('vendor/juzawebcms'),
-        ], 'juzaweb_lang');
+            __DIR__.'/../resources/lang' => resource_path('vendor/juzacmscms'),
+        ], 'juzacms_lang');
     }
 
     protected function registerRouteMacros()

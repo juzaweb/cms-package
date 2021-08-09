@@ -12,7 +12,7 @@ class EmailTemplateController extends BackendController
 {
     use ResourceController;
 
-    protected $viewPrefix = 'juzaweb::backend.email_template';
+    protected $viewPrefix = 'juzacms::backend.email_template';
     
     public function getDataTable(Request $request)
     {
@@ -50,7 +50,7 @@ class EmailTemplateController extends BackendController
         $request->validate([
             'ids' => 'required',
         ], [], [
-            'ids' => trans('juzaweb::app.email_templates')
+            'ids' => trans('juzacms::app.email_templates')
         ]);
         
         $ids = $request->post('ids');
@@ -63,7 +63,7 @@ class EmailTemplateController extends BackendController
         }
         
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 
@@ -84,6 +84,6 @@ class EmailTemplateController extends BackendController
 
     protected function getTitle()
     {
-        return trans('juzaweb::app.email_templates');
+        return trans('juzacms::app.email_templates');
     }
 }

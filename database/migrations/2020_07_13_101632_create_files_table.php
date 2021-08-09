@@ -59,7 +59,7 @@ class CreateFilesTable extends Migration
                 'name' => 'banner.png',
                 'type' => 1,
                 'mime_type' => 'image/png',
-                'path' => '2020/08/15/banner-juzaweb-1597477743-EHZ3staOHI.png',
+                'path' => '2020/08/15/banner-juzacms-1597477743-EHZ3staOHI.png',
                 'extension' => 'png',
                 'size' => 94892,
                 'folder_id' => null,

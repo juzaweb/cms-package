@@ -53,7 +53,7 @@ trait PostTypeHookAction
             $iargs['singular'] = Str::singular($taxonomy);
             $iargs = collect(array_merge($opts, $iargs));
 
-            add_filters('juzaweb.taxonomies', function ($items) use ($taxonomy, $objectType, $iargs) {
+            add_filters('juzacms.taxonomies', function ($items) use ($taxonomy, $objectType, $iargs) {
                 $items[$objectType][$taxonomy] = $iargs;
                 return $items;
             });
@@ -101,7 +101,7 @@ trait PostTypeHookAction
         $args['singular'] = Str::singular($key);
         $args = collect($args);
 
-        add_filters('juzaweb.post_types', function ($items) use ($args) {
+        add_filters('juzacms.post_types', function ($items) use ($args) {
             $items[$args->get('key')] = $args;
             return $items;
         });
@@ -116,7 +116,7 @@ trait PostTypeHookAction
         );
 
         $this->addAdminMenu(
-            trans('juzaweb::app.all') . ' '. $args->get('label'),
+            trans('juzacms::app.all') . ' '. $args->get('label'),
             $key,
             [
                 'icon' => 'fa fa-list-ul',
@@ -126,7 +126,7 @@ trait PostTypeHookAction
         );
 
         $this->addAdminMenu(
-            trans('juzaweb::app.add_new'),
+            trans('juzacms::app.add_new'),
             $key . '.create',
             [
                 'icon' => 'fa fa-plus',
@@ -138,14 +138,14 @@ trait PostTypeHookAction
         $supports = $args->get('supports', []);
         if (in_array('category', $supports)) {
             $this->registerTaxonomy('categories', $key, [
-                'label' => trans('juzaweb::app.categories'),
+                'label' => trans('juzacms::app.categories'),
                 'menu_position' => 4,
             ]);
         }
 
         if (in_array('tag', $args['supports'])) {
             $this->registerTaxonomy('tags', $key, [
-                'label' => trans('juzaweb::app.tags'),
+                'label' => trans('juzacms::app.tags'),
                 'menu_position' => 15,
                 'supports' => []
             ]);

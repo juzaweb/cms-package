@@ -1,8 +1,8 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
 
-    @component('juzaweb::components.form_resource', [
+    @component('juzacms::components.form_resource', [
         'method' => $model->id ? 'put' : 'post',
         'action' =>  $model->id ?
             route('admin.posts.update', [$model->id]) :
@@ -12,34 +12,34 @@
             <div class="col-md-8">
 
                 <div class="form-group">
-                    <label class="col-form-label" for="title">@lang('juzaweb::app.title')</label>
+                    <label class="col-form-label" for="title">@lang('juzacms::app.title')</label>
                     <input type="text" name="title" class="form-control" id="title" value="{{ $model->title }}" autocomplete="off" required>
                 </div>
 
-                @include('juzaweb::components.form_ckeditor', [
+                @include('juzacms::components.form_ckeditor', [
                     'name' => 'content',
                     'value' => $model->content,
                 ])
 
-                @component('juzaweb::components.form_select', [
-                    'label' => trans('juzaweb::app.status'),
+                @component('juzacms::components.form_select', [
+                    'label' => trans('juzacms::app.status'),
                     'name' => 'status',
                     'value' => $model->status,
                     'options' => [
-                        'public' => trans('juzaweb::app.public'),
-                        'private' => trans('juzaweb::app.private'),
-                        'draft' => trans('juzaweb::app.draft'),
+                        'public' => trans('juzacms::app.public'),
+                        'private' => trans('juzacms::app.private'),
+                        'draft' => trans('juzacms::app.draft'),
                     ],
                 ])
                 @endcomponent
 
                 @do_action('post_type.'. $postType .'.form.left')
-                {{--@include('juzaweb::backend.seo_form')--}}
+                {{--@include('juzacms::backend.seo_form')--}}
             </div>
 
             <div class="col-md-4">
-                @component('juzaweb::components.form_image', [
-                    'label' => trans('juzaweb::app.thumbnail'),
+                @component('juzacms::components.form_image', [
+                    'label' => trans('juzacms::app.thumbnail'),
                     'name' => 'thumbnail',
                     'value' => $model->thumbnail,
                 ])@endcomponent

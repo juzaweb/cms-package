@@ -37,7 +37,7 @@ class PostController extends BackendController
 
     public function index()
     {
-        return view('juzaweb::backend.posts.index', [
+        return view('juzacms::backend.posts.index', [
             'title' => $this->setting->get('label')
         ]);
     }
@@ -50,8 +50,8 @@ class PostController extends BackendController
         ]);
 
         $model = $this->postRepository->makeModel();
-        return view('juzaweb::backend.posts.form', [
-            'title' => trans('juzaweb::app.add_new'),
+        return view('juzacms::backend.posts.form', [
+            'title' => trans('juzacms::app.add_new'),
             'model' => $model,
             'postType' => $this->postType
         ]);
@@ -66,7 +66,7 @@ class PostController extends BackendController
 
         $model = $this->postRepository->find($id);
 
-        return view('juzaweb::backend.posts.form', [
+        return view('juzacms::backend.posts.form', [
             'title' => $model->title,
             'model' => $model,
             'postType' => $this->postType
@@ -118,7 +118,7 @@ class PostController extends BackendController
         $this->postService->create($request->all());
         
         return $this->success([
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
             'redirect' => route('admin.posts.index')
         ]);
     }
@@ -128,7 +128,7 @@ class PostController extends BackendController
         $this->postService->update($request->all(), $id);
 
         return $this->success([
-            'message' => trans('juzaweb::app.saved_successfully')
+            'message' => trans('juzacms::app.saved_successfully')
         ]);
     }
     
@@ -158,7 +158,7 @@ class PostController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 }

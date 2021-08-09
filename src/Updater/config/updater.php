@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -51,8 +51,8 @@ return [
     'repository_types' => [
         'github' => [
             'type' => 'github',
-            'repository_vendor' => 'juzawebcms',
-            'repository_name' => 'juzawebcms',
+            'repository_vendor' => 'juzacmscms',
+            'repository_name' => 'juzacmscms',
             'repository_url' => '',
             'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', storage_path('app/tmps')),
             'private_access_token' => env('SELF_UPDATER_GITHUB_PRIVATE_ACCESS_TOKEN', ''),

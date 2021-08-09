@@ -21,8 +21,8 @@ class ThemeController extends BackendController
         unset($themes[$activated]);
         $themes = $this->arrayPaginate($themes, 10, $page);
 
-        return view('juzaweb::backend.design.themes.index', [
-            'title' => trans('juzaweb::app.themes'),
+        return view('juzacms::backend.design.themes.index', [
+            'title' => trans('juzacms::app.themes'),
             'themes' => $themes,
             'currentTheme' => $currentTheme,
             'activated' => $activated
@@ -38,7 +38,7 @@ class ThemeController extends BackendController
         $theme = $request->post('theme');
         if (!Theme::has($theme)) {
             return $this->error([
-                'message' => trans('juzaweb::message.theme_not_found')
+                'message' => trans('juzacms::message.theme_not_found')
             ]);
         }
 

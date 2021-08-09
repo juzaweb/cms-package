@@ -1,4 +1,4 @@
-<div class="juzaweb__topbar">
+<div class="juzacms__topbar">
     <div class="mr-4">
         <a href="{{ url('/') }}" class="mr-2" target="_blank">
             <i class="dropdown-toggle-icon fa fa-home" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Visit website"></i> Visit Site
@@ -13,9 +13,9 @@
             </a>
 
             <div class="dropdown-menu" role="menu">
-                {{--<a class="dropdown-item" href="{{ route('admin.posts.create') }}">@lang('juzaweb::app.post')</a>
-                <a class="dropdown-item" href="{{ route('admin.page.create') }}">@lang('juzaweb::app.page')</a>--}}
-                <a class="dropdown-item" href="{{ route('admin.users.create') }}">@lang('juzaweb::app.user')</a>
+                {{--<a class="dropdown-item" href="{{ route('admin.posts.create') }}">@lang('juzacms::app.post')</a>
+                <a class="dropdown-item" href="{{ route('admin.page.create') }}">@lang('juzacms::app.page')</a>--}}
+                <a class="dropdown-item" href="{{ route('admin.users.create') }}">@lang('juzacms::app.user')</a>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
 
     @do_action('backend.menu_top')
 
-    {{--<div class="juzaweb__topbar__actionsDropdown dropdown mr-4 d-none d-sm-block">
+    {{--<div class="juzacms__topbar__actionsDropdown dropdown mr-4 d-none d-sm-block">
         <a href="javascript:void(0)" class="dropdown-toggle text-nowrap" data-toggle="dropdown" aria-expanded="false" data-offset="0,15">
             <i class="dropdown-toggle-icon fa fa-bell-o"></i>
         </a>
@@ -47,16 +47,16 @@
             ->limit(5)
             ->get(['id', 'data', 'created_at']);
         @endphp
-        <div class="juzaweb__topbar__actionsDropdownMenu dropdown-menu dropdown-menu-right" role="menu">
+        <div class="juzacms__topbar__actionsDropdownMenu dropdown-menu dropdown-menu-right" role="menu">
             <div style="width: 350px;">
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="kit__l1">
-                            <div class="text-uppercase mb-2 text-gray-6 mb-2 font-weight-bold">@lang('juzaweb::app.notifications') ({{ $total }})</div>
+                            <div class="text-uppercase mb-2 text-gray-6 mb-2 font-weight-bold">@lang('juzacms::app.notifications') ({{ $total }})</div>
                             <hr>
                             <ul class="list-unstyled">
                                 @if($items->isEmpty())
-                                    <p>@lang('juzaweb::app.no_notifications')</p>
+                                    <p>@lang('juzacms::app.no_notifications')</p>
                                 @else
                                     @foreach($items as $notify)
                                         <li class="kit__l1__item">
@@ -92,12 +92,12 @@
         <div class="dropdown-menu dropdown-menu-right" role="menu">
             <a class="dropdown-item" href="{{ route('admin.users.edit', [Auth::id()]) }}">
                 <i class="dropdown-icon fe fe-user"></i>
-                @lang('juzaweb::app.profile')
+                @lang('juzacms::app.profile')
             </a>
 
             <div class="dropdown-divider"></div>
             <a href="{{ route('auth.logout') }}" class="dropdown-item" data-turbolinks="false">
-                <i class="dropdown-icon fe fe-log-out"></i> @lang('juzaweb::app.logout')
+                <i class="dropdown-icon fe fe-log-out"></i> @lang('juzacms::app.logout')
             </a>
         </div>
     </div>

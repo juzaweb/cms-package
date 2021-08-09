@@ -1,7 +1,7 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
-    @component('juzaweb::components.form_resource', [
+    @component('juzacms::components.form_resource', [
         'action' => $model->id ? route('admin.notification.update', [$model->id]) :
                     route('admin.notification.store'),
         'method' => $model->id ? 'put' : 'post'
@@ -11,8 +11,8 @@
                 <input type="hidden" name="redirect" value="{{ route('admin.notification.index') }}">
 
                 <div class="form-group">
-                    <label class="col-form-label" for="users">@lang('juzaweb::app.send_for') <abbr>*</abbr></label>
-                    <select name="users[]" id="users" class="form-control load-users" data-placeholder="--- @lang('juzaweb::app.users') ---" multiple @if($model->users == -1) disabled @endif>
+                    <label class="col-form-label" for="users">@lang('juzacms::app.send_for') <abbr>*</abbr></label>
+                    <select name="users[]" id="users" class="form-control load-users" data-placeholder="--- @lang('juzacms::app.users') ---" multiple @if($model->users == -1) disabled @endif>
                         @if(!empty($users))
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
@@ -20,19 +20,19 @@
                         @endif
                     </select>
 
-                    <input type="checkbox" class="all-users" @if($model->users == -1) checked @endif> @lang('juzaweb::app.all_users')
+                    <input type="checkbox" class="all-users" @if($model->users == -1) checked @endif> @lang('juzacms::app.all_users')
                 </div>
 
-                @component('juzaweb::components.form_input', [
-                    'label' => trans('juzaweb::app.subject'),
+                @component('juzacms::components.form_input', [
+                    'label' => trans('juzacms::app.subject'),
                     'name' => 'data[subject]',
                     'value' => $model->data['subject'] ?? '',
                     'required' => true
                 ])
                 @endcomponent
 
-                @component('juzaweb::components.form_ckeditor', [
-                    'label' => trans('juzaweb::app.content'),
+                @component('juzacms::components.form_ckeditor', [
+                    'label' => trans('juzacms::app.content'),
                     'name' => 'data[content]',
                     'value' => $model->data['content'] ?? '',
                 ])
@@ -41,7 +41,7 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="col-form-label">@lang('juzaweb::app.via') <abbr>*</abbr></label>
+                    <label class="col-form-label">@lang('juzacms::app.via') <abbr>*</abbr></label>
                     @php
                     $methods = $model->method ? explode(',', $model->method) : [];
                     @endphp
@@ -53,15 +53,15 @@
                     @endforeach
                 </div>
 
-                @component('juzaweb::components.form_image', [
-                    'label' => trans('juzaweb::app.image'),
+                @component('juzacms::components.form_image', [
+                    'label' => trans('juzacms::app.image'),
                     'name' => 'data[image]',
                     'value' => $model->data['image']  ?? '',
                 ])
                 @endcomponent
 
-                @component('juzaweb::components.form_input', [
-                    'label' => trans('juzaweb::app.url'),
+                @component('juzacms::components.form_input', [
+                    'label' => trans('juzacms::app.url'),
                     'name' => 'data[url]',
                     'value' => $model->data['url'] ?? '',
                 ])

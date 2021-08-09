@@ -1,15 +1,15 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('title', $title)
 
 @section('content')
 
 {{ Breadcrumbs::render('manager', [
-        'name' => trans('juzaweb::app.comment_setting'),
+        'name' => trans('juzacms::app.comment_setting'),
         'url' => route('admin.setting.comment')
     ]) }}
 
-<div class="juzaweb__utils__content">
+<div class="juzacms__utils__content">
     <form method="post" action="{{ route('admin.setting.comment.save') }}" class="form-ajax">
         <div class="card">
             <div class="card-header">
@@ -20,7 +20,7 @@
 
                     <div class="col-md-6">
                         <div class="btn-group float-right">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzaweb::app.save')</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzacms::app.save')</button>
                         </div>
                     </div>
                 </div>
@@ -34,10 +34,10 @@
                             $comment_able = get_config('comment_able');
                         @endphp
                         <div class="form-group">
-                            <label class="col-form-label" for="comment_able">@lang('juzaweb::app.comment_able')</label>
+                            <label class="col-form-label" for="comment_able">@lang('juzacms::app.comment_able')</label>
                             <select name="comment_able" id="comment_able" class="form-control">
-                                <option value="1" @if($comment_able == 1) selected @endif>@lang('juzaweb::app.enabled')</option>
-                                <option value="0" @if($comment_able == 0) selected @endif>@lang('juzaweb::app.disabled')</option>
+                                <option value="1" @if($comment_able == 1) selected @endif>@lang('juzacms::app.enabled')</option>
+                                <option value="0" @if($comment_able == 0) selected @endif>@lang('juzacms::app.disabled')</option>
                             </select>
                         </div>
 
@@ -45,15 +45,15 @@
                         $comment_type = get_config('comment_type');
                         @endphp
                         <div class="form-group">
-                            <label class="col-form-label" for="comment_type">@lang('juzaweb::app.comment_type')</label>
+                            <label class="col-form-label" for="comment_type">@lang('juzacms::app.comment_type')</label>
                             <select name="comment_type" id="comment_type" class="form-control">
-                                <option value="facebook" @if($comment_type == 'facebook') selected @endif>@lang('juzaweb::app.facebook_comments')</option>
-                                <option value="site" @if($comment_type == 'site') selected @endif>@lang('juzaweb::app.site_comments_system')</option>
+                                <option value="facebook" @if($comment_type == 'facebook') selected @endif>@lang('juzacms::app.facebook_comments')</option>
+                                <option value="site" @if($comment_type == 'site') selected @endif>@lang('juzacms::app.site_comments_system')</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-form-label" for="comments_per_page">@lang('juzaweb::app.comments_per_page')</label>
+                            <label class="col-form-label" for="comments_per_page">@lang('juzacms::app.comments_per_page')</label>
 
                             <input type="number" name="comments_per_page" class="form-control" id="comments_per_page" value="{{ get_config('comments_per_page') }}" autocomplete="off">
                         </div>
@@ -62,11 +62,11 @@
                             $comments_approval = get_config('comments_approval');
                         @endphp
                         <div class="form-group">
-                            <label class="col-form-label" for="comments_approval">@lang('juzaweb::app.comments_approval')</label>
+                            <label class="col-form-label" for="comments_approval">@lang('juzacms::app.comments_approval')</label>
 
                             <select name="comments_approval" id="comments_approval" class="form-control">
-                                <option value="auto" @if($comments_approval == 'auto') selected @endif>@lang('juzaweb::app.auto')</option>
-                                <option value="manual" @if($comments_approval == 'manual') selected @endif>@lang('juzaweb::app.manual')</option>
+                                <option value="auto" @if($comments_approval == 'auto') selected @endif>@lang('juzacms::app.auto')</option>
+                                <option value="manual" @if($comments_approval == 'manual') selected @endif>@lang('juzacms::app.manual')</option>
 
                             </select>
                         </div>

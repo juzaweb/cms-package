@@ -9,11 +9,11 @@
         <div class="col-md-6">
             <div class="btn-group float-right">
                 <button type="submit" class="btn btn-success">
-                    <i class="fa fa-save"></i> @lang('juzaweb::app.save')
+                    <i class="fa fa-save"></i> @lang('juzacms::app.save')
                 </button>
 
                 <button type="reset" class="btn btn-default">
-                    <i class="fa fa-refresh"></i> @lang('juzaweb::app.reset')
+                    <i class="fa fa-refresh"></i> @lang('juzacms::app.reset')
                 </button>
             </div>
         </div>

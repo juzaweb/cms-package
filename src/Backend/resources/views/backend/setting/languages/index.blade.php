@@ -1,4 +1,4 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
 
@@ -6,18 +6,18 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="mb-0 card-title font-weight-bold">@lang('juzaweb::app.language')</h5>
+                    <h5 class="mb-0 card-title font-weight-bold">@lang('juzacms::app.language')</h5>
                 </div>
 
                 <div class="col-md-6">
                     <div class="float-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success sync-language"><i class="fa fa-refresh"></i> @lang('juzaweb::app.sync_language')</button>
+                            <button type="button" class="btn btn-success sync-language"><i class="fa fa-refresh"></i> @lang('juzacms::app.sync_language')</button>
                         </div>
 
                         <div class="btn-group">
-                            <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
-                            <button type="button" class="btn btn-danger" id="delete-item"><i class="fa fa-trash"></i> @lang('juzaweb::app.delete')</button>
+                            <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-circle"></i> @lang('juzacms::app.add_new')</a>
+                            <button type="button" class="btn btn-danger" id="delete-item"><i class="fa fa-trash"></i> @lang('juzacms::app.delete')</button>
                         </div>
                     </div>
                 </div>
@@ -31,34 +31,34 @@
                     <form method="get" class="form-inline" id="form-search">
 
                         <div class="form-group mb-2 mr-1">
-                            <label for="inputName" class="sr-only">@lang('juzaweb::app.search')</label>
-                            <input name="search" type="text" id="inputName" class="form-control" placeholder="@lang('juzaweb::app.search')" autocomplete="off">
+                            <label for="inputName" class="sr-only">@lang('juzacms::app.search')</label>
+                            <input name="search" type="text" id="inputName" class="form-control" placeholder="@lang('juzacms::app.search')" autocomplete="off">
                         </div>
 
                         <div class="form-group mb-2 mr-1">
-                            <label for="inputStatus" class="sr-only">@lang('juzaweb::app.status')</label>
+                            <label for="inputStatus" class="sr-only">@lang('juzacms::app.status')</label>
                             <select name="status" id="inputStatus" class="form-control">
-                                <option value="1">@lang('juzaweb::app.enabled')</option>
-                                <option value="0">@lang('juzaweb::app.disabled')</option>
+                                <option value="1">@lang('juzacms::app.enabled')</option>
+                                <option value="0">@lang('juzacms::app.disabled')</option>
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzaweb::app.search')</button>
+                        <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzacms::app.search')</button>
                     </form>
                 </div>
 
             </div>
 
             <div class="table-responsive mb-5">
-                <table class="table juzaweb-table">
+                <table class="table juzacms-table">
                     <thead>
                     <tr>
                         <th data-width="3%" data-field="state" data-checkbox="true"></th>
-                        <th data-width="10%" data-field="key">@lang('juzaweb::app.code')</th>
-                        <th data-field="name">@lang('juzaweb::app.name')</th>
-                        <th data-field="status" data-width="15%" data-align="center" data-formatter="status_formatter">@lang('juzaweb::app.status')</th>
-                        <th data-field="default" data-width="5%" data-formatter="default_formatter">@lang('juzaweb::app.default')</th>
-                        <th data-width="20%" data-field="options" data-formatter="options_formatter" data-align="center">@lang('juzaweb::app.options')</th>
+                        <th data-width="10%" data-field="key">@lang('juzacms::app.code')</th>
+                        <th data-field="name">@lang('juzacms::app.name')</th>
+                        <th data-field="status" data-width="15%" data-align="center" data-formatter="status_formatter">@lang('juzacms::app.status')</th>
+                        <th data-field="default" data-width="5%" data-formatter="default_formatter">@lang('juzacms::app.default')</th>
+                        <th data-width="20%" data-field="options" data-formatter="options_formatter" data-align="center">@lang('juzacms::app.options')</th>
                     </tr>
                     </thead>
                 </table>
@@ -71,27 +71,27 @@
             <div class="modal-content">
                 <form action="{{ route('admin.setting.languages.save') }}" method="post" class="form-ajax">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModalLabel">@lang('juzaweb::app.add_language')</h5>
+                        <h5 class="modal-title" id="addModalLabel">@lang('juzacms::app.add_language')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-form-label" for="name">@lang('juzaweb::app.name')</label>
+                            <label class="col-form-label" for="name">@lang('juzacms::app.name')</label>
 
                             <input type="text" name="name" class="form-control" id="name" value="" autocomplete="off" required placeholder="Ex: English, French">
                         </div>
 
                         <div class="form-group">
-                            <label class="col-form-label" for="key">@lang('juzaweb::app.code')</label>
+                            <label class="col-form-label" for="key">@lang('juzacms::app.code')</label>
 
                             <input type="text" name="key" class="form-control" id="key" autocomplete="off" required placeholder="Ex: en, fe">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('juzaweb::app.save')</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> @lang('juzaweb::app.close')</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('juzacms::app.save')</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-close"></i> @lang('juzacms::app.close')</button>
                     </div>
                 </form>
             </div>
@@ -102,9 +102,9 @@
 
         function status_formatter(value, row, index) {
             if (value == 1) {
-                return '<span class="text-success">'+ juzaweb.lang.enabled +'</span>';
+                return '<span class="text-success">'+ juzacms.lang.enabled +'</span>';
             }
-            return '<span class="text-danger">'+ juzaweb.lang.disabled +'</span>';
+            return '<span class="text-danger">'+ juzacms.lang.disabled +'</span>';
         }
 
         function default_formatter(value, row, index) {
@@ -114,7 +114,7 @@
 
         function options_formatter(value, row, index) {
             let result = '';
-            result += '<a href="'+ row.tran_url +'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> '+ juzaweb.lang.translate +'</a>';
+            result += '<a href="'+ row.tran_url +'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> '+ juzacms.lang.translate +'</a>';
             return result;
         }
 
@@ -142,7 +142,7 @@
 
                 return false;
             }).fail(function(data) {
-                show_message(juzaweb.lang.data_error, 'error');
+                show_message(juzacms.lang.data_error, 'error');
                 btn.find('i').attr('class', cIcon);
                 btn.prop("disabled", false);
                 return false;
@@ -167,7 +167,7 @@
 
                 return false;
             }).fail(function(data) {
-                show_message(juzaweb.lang.data_error, 'error');
+                show_message(juzacms.lang.data_error, 'error');
                 return false;
             });
         });

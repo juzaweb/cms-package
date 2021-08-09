@@ -1,4 +1,4 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
 
@@ -7,22 +7,22 @@
             <form method="get" class="form-inline" id="form-search">
 
                 <div class="form-group mb-2 mr-1">
-                    <label for="inputName" class="sr-only">@lang('juzaweb::app.search')</label>
-                    <input name="search" type="text" id="inputName" class="form-control" placeholder="@lang('juzaweb::app.search')" autocomplete="off">
+                    <label for="inputName" class="sr-only">@lang('juzacms::app.search')</label>
+                    <input name="search" type="text" id="inputName" class="form-control" placeholder="@lang('juzacms::app.search')" autocomplete="off">
                 </div>
 
-                <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzaweb::app.search')</button>
+                <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzacms::app.search')</button>
             </form>
         </div>
 
     </div>
 
     <div class="table-responsive mb-5">
-        <table class="table juzaweb-table">
+        <table class="table juzacms-table">
             <thead>
             <tr>
                 <th data-width="35%" data-field="en" data-sortable="true">English</th>
-                <th data-field="{{ $lang }}" data-sortable="true" data-formatter="translate_formatter">@lang('juzaweb::app.translate')</th>
+                <th data-field="{{ $lang }}" data-sortable="true" data-formatter="translate_formatter">@lang('juzacms::app.translate')</th>
             </tr>
             </thead>
         </table>
@@ -67,7 +67,7 @@
 
                 return false;
             }).fail(function(data) {
-                show_message(juzaweb.lang.data_error, 'error');
+                show_message(juzacms.lang.data_error, 'error');
                 return false;
             });
         });

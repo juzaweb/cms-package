@@ -1,4 +1,4 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
     <ul class="nav nav-tabs nav-tabs-line">

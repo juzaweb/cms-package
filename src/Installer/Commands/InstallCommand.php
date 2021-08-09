@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -25,7 +25,7 @@ use Juzaweb\Cms\Core\Models\User;
 
 class InstallCommand extends Command
 {
-    protected $signature = 'juzaweb:install';
+    protected $signature = 'juzacms:install';
 
     protected $user;
 
@@ -58,9 +58,9 @@ class InstallCommand extends Command
             'email' => 'required|email|max:150',
             'password' => 'required|max:32|min:6'
         ], [], [
-            'name' => trans('juzaweb::app.name'),
-            'email' => trans('juzaweb::app.email'),
-            'password' => trans('juzaweb::app.password')
+            'name' => trans('juzacms::app.name'),
+            'email' => trans('juzacms::app.email'),
+            'password' => trans('juzacms::app.password')
         ]);
 
         if ($validator->fails()) {

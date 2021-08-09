@@ -13,8 +13,8 @@ class UserController extends BackendController
     public function index()
     {
         $allStatus = User::getAllStatus();
-        return view('juzaweb::backend.users.index', [
-            'title' => trans('juzaweb::app.users'),
+        return view('juzacms::backend.users.index', [
+            'title' => trans('juzacms::app.users'),
             'allStatus' => $allStatus
         ]);
     }
@@ -63,13 +63,13 @@ class UserController extends BackendController
     {
         $model = User::firstOrNew(['id' => $id]);
         $allStatus = User::getAllStatus();
-        $titlePage = $model->name ?? trans('juzaweb::app.add_new');
+        $titlePage = $model->name ?? trans('juzacms::app.add_new');
         $this->addBreadcrumb([
-            'title' => trans('juzaweb::app.users'),
+            'title' => trans('juzacms::app.users'),
             'url' => route('admin.users.index')
         ]);
 
-        return view('juzaweb::backend.users.form', [
+        return view('juzacms::backend.users.form', [
             'model' => $model,
             'title' => $titlePage,
             'allStatus' => $allStatus
@@ -87,11 +87,11 @@ class UserController extends BackendController
             'email' => 'required_if:id,|unique:users,email',
             'status' => 'required|in:' . implode(',', $allStatus),
         ], [], [
-            'name' => trans('juzaweb::app.name'),
-            'email' => trans('juzaweb::app.email'),
-            'password' => trans('juzaweb::app.password'),
-            'avatar' => trans('juzaweb::app.avatar'),
-            'status' => trans('juzaweb::app.status'),
+            'name' => trans('juzacms::app.name'),
+            'email' => trans('juzacms::app.email'),
+            'password' => trans('juzacms::app.password'),
+            'avatar' => trans('juzacms::app.avatar'),
+            'status' => trans('juzacms::app.status'),
         ]);
         
         $model = User::firstOrNew(['id' => $request->post('id')]);
@@ -107,8 +107,8 @@ class UserController extends BackendController
                 'password' => 'required|string|max:32|min:8|confirmed',
                 'password_confirmation' => 'required|string|max:32|min:8'
             ], [], [
-                'password' => trans('juzaweb::app.password'),
-                'password_confirmation' => trans('juzaweb::app.confirm_password')
+                'password' => trans('juzacms::app.password'),
+                'password_confirmation' => trans('juzacms::app.confirm_password')
             ]);
             
             $model->setAttribute('password', Hash::make($request->post('password')));
@@ -117,7 +117,7 @@ class UserController extends BackendController
         $model->save();
         
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzacms::app.save_successfully')
         ]);
     }
 
@@ -127,7 +127,7 @@ class UserController extends BackendController
             'ids' => 'required',
             'action' => 'required',
         ], [], [
-            'ids' => trans('juzaweb::app.users')
+            'ids' => trans('juzacms::app.users')
         ]);
 
         $ids = $request->post('ids');
@@ -149,7 +149,7 @@ class UserController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 }

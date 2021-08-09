@@ -61,7 +61,7 @@ class UploadController extends FileManagerController
         }
 
         $filename = $this->createFilename($file);
-        $storage = Storage::disk(config('juzaweb.filemanager.disk'));
+        $storage = Storage::disk(config('juzacms.filemanager.disk'));
         $new_path = $storage->putFileAs(date('Y/m/d'), $file, $filename);
     
         if ($new_path) {
@@ -105,19 +105,19 @@ class UploadController extends FileManagerController
     protected function validateFile(UploadedFile $file)
     {
         $type = $this->getType();
-        $config = config('juzaweb.filemanager.types.' . $type);
+        $config = config('juzacms.filemanager.types.' . $type);
         if (empty($config)) {
             array_push($this->errors, 'File type not sopport');
             return false;
         }
 
         if (!in_array($file->getClientMimeType(), $config['valid_mime'])) {
-            array_push($this->errors, trans('juzaweb::filemanager.error-mime'));
+            array_push($this->errors, trans('juzacms::filemanager.error-mime'));
             return false;
         }
 
         if ($file->getSize() > $config['max_size'] * 1024 * 1024) {
-            array_push($this->errors, trans('juzaweb::filemanager.error-size'));
+            array_push($this->errors, trans('juzacms::filemanager.error-size'));
             return false;
         }
 

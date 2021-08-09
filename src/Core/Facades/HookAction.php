@@ -23,6 +23,6 @@ class HookAction extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'juzaweb.hook';
+        return 'juzacms.hook';
     }
 }

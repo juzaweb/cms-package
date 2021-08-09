@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -20,7 +20,7 @@ Route::group(['prefix' => 'setting/email'], function () {
     Route::post('send-test-mail', 'Backend\Email\EmailController@sendTestMail')->name('admin.email.test-email');
 });
 
-Route::juzawebResource('email-template', 'Backend\Email\EmailTemplateController');
+Route::juzacmsResource('email-template', 'Backend\Email\EmailTemplateController');
 
 Route::group(['prefix' => 'logs/email'], function () {
     Route::get('/', 'Backend\Email\EmailLogsController@index')->name('admin.logs.email');

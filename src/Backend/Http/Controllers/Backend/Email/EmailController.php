@@ -12,8 +12,8 @@ class EmailController extends BackendController
     public function index()
     {
         $config = get_config('email', []);
-        return view('juzaweb::backend.email.index', [
-            'title' => trans('juzaweb::app.email_setting'),
+        return view('juzacms::backend.email.index', [
+            'title' => trans('juzacms::app.email_setting'),
             'config' => $config,
         ]);
     }
@@ -24,7 +24,7 @@ class EmailController extends BackendController
         set_config('email', $email);
         
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzacms::app.save_successfully')
         ]);
     }
     
@@ -43,7 +43,7 @@ class EmailController extends BackendController
             ->send();
 
         return $this->success([
-            'message' => trans('juzaweb::app.send_mail_successfully')
+            'message' => trans('juzacms::app.send_mail_successfully')
         ]);
     }
 }

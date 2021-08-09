@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - The Best Laravel CMS
  *
- * @package    juzawebcms\juzawebcms
+ * @package    juzacmscms\juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.

@@ -12,8 +12,8 @@ class SystemSettingController extends BackendController
     {
         $forms = $this->getForms();
         
-        return view('juzaweb::backend.setting.system.index', [
-            'title' => trans('juzaweb::app.system_setting'),
+        return view('juzacms::backend.setting.system.index', [
+            'title' => trans('juzacms::app.system_setting'),
             'component' => $form,
             'forms' => $forms,
         ]);
@@ -34,7 +34,7 @@ class SystemSettingController extends BackendController
         }
         
         return $this->success([
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
             'redirect' => route('admin.setting.form', [$form]),
         ]);
     }
@@ -43,12 +43,12 @@ class SystemSettingController extends BackendController
     {
         $items = [
             'general' => [
-                'name' => trans('juzaweb::app.general_setting'),
-                'view' => 'juzaweb::backend.setting.system.form.general'
+                'name' => trans('juzacms::app.general_setting'),
+                'view' => 'juzacms::backend.setting.system.form.general'
             ],
             'recaptcha' => [
-                'name' => trans('juzaweb::app.google_recaptcha'),
-                'view' => 'juzaweb::backend.setting.system.form.recaptcha'
+                'name' => trans('juzacms::app.google_recaptcha'),
+                'view' => 'juzacms::backend.setting.system.form.recaptcha'
             ]
         ];
 

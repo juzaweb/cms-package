@@ -1,42 +1,42 @@
 <div class="card">
     <div class="card-header bg-primary">
-        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzaweb::app.home_page_seo')</h5>
+        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzacms::app.home_page_seo')</h5>
     </div>
 
     <div class="card-body">
 
         <div class="form-group">
-            <label class="col-form-label" for="title">@lang('juzaweb::app.seo_title')</label>
+            <label class="col-form-label" for="title">@lang('juzacms::app.seo_title')</label>
 
             <input type="text" name="title" id="title" class="form-control" value="{{ get_config('title') }}" autocomplete="off" required>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="keywords">@lang('juzaweb::app.seo_keywords')</label>
+            <label class="col-form-label" for="keywords">@lang('juzacms::app.seo_keywords')</label>
             <input type="text" name="keywords" id="keywords" class="form-control" value="{{ get_config('keywords') }}" autocomplete="off">
-            <em class="description">@lang('juzaweb::app.use_comma_to_separate_keyword')</em>
+            <em class="description">@lang('juzacms::app.use_comma_to_separate_keyword')</em>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="description">@lang('juzaweb::app.seo_meta_description')</label>
+            <label class="col-form-label" for="description">@lang('juzacms::app.seo_meta_description')</label>
 
             <textarea name="description" id="description" class="form-control" rows="4">{{ get_config('description') }}</textarea>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="banner">@lang('juzaweb::app.home_banner')</label>
+            <label class="col-form-label" for="banner">@lang('juzacms::app.home_banner')</label>
 
             <div class="row">
                 <div class="col-md-10">
                     <div class="w-100" id="banner-banner">
                         <img src="{{ image_url(get_config('banner')) }}" alt="">
                     </div>
-                    <em class="description">@lang('juzaweb::app.banner_display_when_sharing_on_social_networks')</em>
+                    <em class="description">@lang('juzacms::app.banner_display_when_sharing_on_social_networks')</em>
                     <input type="hidden" name="banner" id="banner" class="form-control" value="{{ get_config('banner') }}" autocomplete="off" >
                 </div>
 
                 <div class="col-md-2">
-                    <a href="javascript:void(0)" class="btn btn-primary lfm" data-input="banner" data-preview="banner-banner"><i class="fa fa-upload"></i> @lang('juzaweb::app.choose_image')</a>
+                    <a href="javascript:void(0)" class="btn btn-primary lfm" data-input="banner" data-preview="banner-banner"><i class="fa fa-upload"></i> @lang('juzacms::app.choose_image')</a>
                 </div>
             </div>
         </div>
@@ -46,43 +46,43 @@
 
 <div class="card">
     <div class="card-header bg-primary">
-        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzaweb::app.tv_series_page_seo')</h5>
+        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzacms::app.tv_series_page_seo')</h5>
     </div>
 
     <div class="card-body">
 
         <div class="form-group">
-            <label class="col-form-label" for="author_name">@lang('juzaweb::app.seo_title')</label>
+            <label class="col-form-label" for="author_name">@lang('juzacms::app.seo_title')</label>
 
             <input type="text" name="tv_series_title" id="tv_series_title" class="form-control" value="{{ get_config('tv_series_title') }}" autocomplete="off" required>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="author_name">@lang('juzaweb::app.seo_keywords')</label>
+            <label class="col-form-label" for="author_name">@lang('juzacms::app.seo_keywords')</label>
 
             <input type="text" name="tv_series_keywords" id="tv_series_keywords" class="form-control" value="{{ get_config('tv_series_keywords') }}" autocomplete="off">
-            <em class="description">@lang('juzaweb::app.use_comma_to_separate_keyword')</em>
+            <em class="description">@lang('juzacms::app.use_comma_to_separate_keyword')</em>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="tv_series_description">@lang('juzaweb::app.seo_meta_description')</label>
+            <label class="col-form-label" for="tv_series_description">@lang('juzacms::app.seo_meta_description')</label>
             <textarea name="tv_series_description" id="tv_series_description" class="form-control" rows="4">{{ get_config('tv_series_description') }}</textarea>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="tv_series_banner">@lang('juzaweb::app.tv_series_banner')</label>
+            <label class="col-form-label" for="tv_series_banner">@lang('juzacms::app.tv_series_banner')</label>
 
             <div class="row">
                 <div class="col-md-10">
                     <div class="w-100" id="banner-tv_series">
                         <img src="{{ image_url(get_config('tv_series_banner')) }}" alt="">
                     </div>
-                    <em class="description">@lang('juzaweb::app.banner_display_when_sharing_on_social_networks')</em>
+                    <em class="description">@lang('juzacms::app.banner_display_when_sharing_on_social_networks')</em>
                     <input type="hidden" name="tv_series_banner" id="tv_series_banner" class="form-control" value="{{ get_config('tv_series_banner') }}" autocomplete="off" >
                 </div>
 
                 <div class="col-md-2">
-                    <a href="javascript:void(0)" class="btn btn-primary lfm" data-input="tv_series_banner" data-preview="banner-tv_series"><i class="fa fa-upload"></i> @lang('juzaweb::app.choose_image')</a>
+                    <a href="javascript:void(0)" class="btn btn-primary lfm" data-input="tv_series_banner" data-preview="banner-tv_series"><i class="fa fa-upload"></i> @lang('juzacms::app.choose_image')</a>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
 
 <div class="card">
     <div class="card-header bg-primary">
-        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzaweb::app.social_setting')</h5>
+        <h5 class="mb-0 card-title font-weight-bold text-white">@lang('juzacms::app.social_setting')</h5>
     </div>
 
     <div class="card-body">

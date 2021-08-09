@@ -16,8 +16,8 @@ class NotificationController extends BackendController
 {
     public function index()
     {
-        return view('juzaweb::backend.notification.index', [
-            'title' => trans('juzaweb::app.notifications')
+        return view('juzacms::backend.notification.index', [
+            'title' => trans('juzacms::app.notifications')
         ]);
     }
     
@@ -63,14 +63,14 @@ class NotificationController extends BackendController
     public function create()
     {
         $this->addBreadcrumb([
-            'title' => trans('juzaweb::app.notification'),
+            'title' => trans('juzacms::app.notification'),
             'url' => route('admin.notification.index')
         ]);
 
         $model = new ManualNotification();
         $vias = $this->getVias();
-        return view('juzaweb::backend.notification.form', [
-            'title' => trans('juzaweb::app.add_new'),
+        return view('juzacms::backend.notification.form', [
+            'title' => trans('juzacms::app.add_new'),
             'model' => $model,
             'vias' => $vias,
         ]);
@@ -79,7 +79,7 @@ class NotificationController extends BackendController
     public function edit($id)
     {
         $this->addBreadcrumb([
-            'title' => trans('juzaweb::app.notifications'),
+            'title' => trans('juzacms::app.notifications'),
             'url' => route('admin.notification.index')
         ]);
 
@@ -88,7 +88,7 @@ class NotificationController extends BackendController
         $users = User::whereIn('id', explode(',', $model->users))
             ->get(['id', 'name']);
 
-        return view('juzaweb::backend.notification.form', [
+        return view('juzacms::backend.notification.form', [
             'title' => $model->data['subject'] ?? '',
             'model' => $model,
             'users' => $users,
@@ -119,7 +119,7 @@ class NotificationController extends BackendController
         }
 
         return $this->success(
-            trans('juzaweb::app.saved_successfully')
+            trans('juzacms::app.saved_successfully')
         );
     }
 
@@ -145,7 +145,7 @@ class NotificationController extends BackendController
         }
 
         return $this->success(
-            trans('juzaweb::app.save_successfully')
+            trans('juzacms::app.save_successfully')
         );
     }
     
@@ -155,7 +155,7 @@ class NotificationController extends BackendController
             'ids' => 'required',
             'action' => 'required',
         ], [], [
-            'ids' => trans('juzaweb::app.notifications')
+            'ids' => trans('juzacms::app.notifications')
         ]);
 
         $ids = $request->post('ids');
@@ -173,7 +173,7 @@ class NotificationController extends BackendController
                             'status' => 2
                         ]);
 
-                    $useMethod = config('juzaweb.notification.method');
+                    $useMethod = config('juzacms.notification.method');
                     if (in_array($useMethod, ['sync', 'queue'])) {
                         foreach ($ids as $id) {
                             $notification = ManualNotification::find($id);
@@ -202,13 +202,13 @@ class NotificationController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 
     protected function getVias()
     {
-        $vias = collect(config('juzaweb.notification.via'));
+        $vias = collect(config('juzacms.notification.via'));
         return $vias->where('enable', true);
     }
 }

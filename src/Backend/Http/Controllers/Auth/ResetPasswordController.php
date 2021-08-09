@@ -23,7 +23,7 @@ class ResetPasswordController extends Controller
             })
             ->firstOrFail();
         
-        return view('juzaweb::auth.forgot_password', [
+        return view('juzacms::auth.forgot_password', [
             'user' => $user,
         ]);
     }

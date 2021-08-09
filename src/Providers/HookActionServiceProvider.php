@@ -1,8 +1,8 @@
 <?php
 /**
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -20,7 +20,7 @@ class HookActionServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->booted(function () {
-            $paths = apply_filters('juzaweb.actions', []);
+            $paths = apply_filters('juzacms.actions', []);
 
             foreach ($paths as $path) {
                 if (!is_dir($path)) {

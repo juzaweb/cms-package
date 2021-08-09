@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-8">
-                <select name="id" class="form-control load-menu" data-placeholder="--- {{ trans('juzaweb::app.choose_menu') }} ---">
+                <select name="id" class="form-control load-menu" data-placeholder="--- {{ trans('juzacms::app.choose_menu') }} ---">
                     @if(isset($menu->id))
                         <option value="{{ $menu->id }}" selected>{{ $menu->name }}</option>
                     @endif
@@ -10,7 +10,7 @@
             </div>
 
             <div class="col-md-4">
-                <a href="javascript:void(0)" class="ml-1" data-toggle="modal" data-target="#modal-add-menu"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_new') }}</a>
+                <a href="javascript:void(0)" class="ml-1" data-toggle="modal" data-target="#modal-add-menu"><i class="fa fa-plus"></i> {{ trans('juzacms::app.add_new') }}</a>
             </div>
         </div>
 
@@ -50,30 +50,30 @@
                             <label class="custom-switch">
                                 <input type="checkbox" name="new_tab" class="custom-switch-input" value="1">
                                 <span class="custom-switch-indicator"></span>
-                                <span class="custom-switch-description"> {{ trans('juzaweb::app.open_new_tab') }}</span>
+                                <span class="custom-switch-description"> {{ trans('juzacms::app.open_new_tab') }}</span>
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-sm mt-1"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_to_menu') }}</button>
+                        <button type="submit" class="btn btn-success btn-sm mt-1"><i class="fa fa-plus"></i> {{ trans('juzacms::app.add_to_menu') }}</button>
                     </form>
                 </div>
             </li>
             @endforeach
 
             <li class="acc_section">
-                <div class="acc_head"><h3><i class="fa fa-plus-circle"></i> {{ trans('juzaweb::app.custom_url') }}</h3></div>
+                <div class="acc_head"><h3><i class="fa fa-plus-circle"></i> {{ trans('juzacms::app.custom_url') }}</h3></div>
                 <div class="acc_content">
                     <form action="" method="post" class="add-menu-item">
 
                         <input type="hidden" name="type" value="custom">
 
                         <div class="form-group">
-                            <label class="col-form-label">@lang('juzaweb::app.title')</label>
+                            <label class="col-form-label">@lang('juzacms::app.title')</label>
                             <input type="text" name="title" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-form-label">@lang('juzaweb::app.url')</label>
+                            <label class="col-form-label">@lang('juzacms::app.url')</label>
                             <input type="text" name="url" class="form-control" required>
                         </div>
 
@@ -81,11 +81,11 @@
                             <label class="custom-switch">
                                 <input type="checkbox" name="new_tab" class="custom-switch-input" value="1">
                                 <span class="custom-switch-indicator"></span>
-                                <span class="custom-switch-description"> {{ trans('juzaweb::app.open_new_tab') }}</span>
+                                <span class="custom-switch-description"> {{ trans('juzacms::app.open_new_tab') }}</span>
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-sm mt-1"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_to_menu') }}</button>
+                        <button type="submit" class="btn btn-success btn-sm mt-1"><i class="fa fa-plus"></i> {{ trans('juzacms::app.add_to_menu') }}</button>
                     </form>
                 </div>
             </li>

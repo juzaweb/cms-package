@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - The Best Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -33,9 +33,9 @@ class User extends Authenticatable implements JWTSubject
     public static function getAllStatus()
     {
         return [
-            'active' => trans('juzaweb::app.active'),
-            'unconfirmed' => trans('juzaweb::app.unconfimred'),
-            'banned' => trans('juzaweb::app.banned'),
+            'active' => trans('juzacms::app.active'),
+            'unconfirmed' => trans('juzacms::app.unconfimred'),
+            'banned' => trans('juzacms::app.banned'),
         ];
     }
 
@@ -73,6 +73,6 @@ class User extends Authenticatable implements JWTSubject
             return image_url($this->avatar);
         }
 
-        return asset('juzaweb/styles/images/thumb-default.png');
+        return asset('juzacms/styles/images/thumb-default.png');
     }
 }

@@ -120,7 +120,7 @@
 
         $('form').on('submit', function () {
             $('.btn-submit')
-                .html("{{ trans('juzaweb::app.please_wait') }}")
+                .html("{{ trans('juzacms::app.please_wait') }}")
                 .prop('disabled', true);
         });
     </script>

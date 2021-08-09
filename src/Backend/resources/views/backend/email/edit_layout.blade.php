@@ -1,4 +1,4 @@
-@extends('juzaweb::layouts.backend')
+@extends('juzacms::layouts.backend')
 
 @section('content')
 
@@ -12,8 +12,8 @@
 
                     <div class="col-md-6">
                         <div class="btn-group float-right">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzaweb::app.save')</button>
-                            <a href="{{ route('admin.setting.email_templates') }}" class="btn btn-warning"><i class="fa fa-times-circle"></i> @lang('juzaweb::app.cancel')</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzacms::app.save')</button>
+                            <a href="{{ route('admin.setting.email_templates') }}" class="btn btn-warning"><i class="fa fa-times-circle"></i> @lang('juzacms::app.cancel')</a>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="col-md-12">
 
                         <div class="form-group">
-                            <label class="col-form-label" for="content">@lang('juzaweb::app.content')</label>
+                            <label class="col-form-label" for="content">@lang('juzacms::app.content')</label>
                             <textarea class="form-control" name="content" id="content" rows="6">{{ $model->code }}</textarea>
                         </div>
 

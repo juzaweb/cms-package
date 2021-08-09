@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -30,8 +30,8 @@ class UpdateController extends BackendController
 
     public function index()
     {
-        return view('juzaweb::backend.update', [
-            'title' => trans('juzaweb::app.updates'),
+        return view('juzacms::backend.update', [
+            'title' => trans('juzacms::app.updates'),
             'updater' => $this->updater
         ]);
     }
@@ -40,7 +40,7 @@ class UpdateController extends BackendController
     {
         if (!$this->updater->source()->isNewVersionAvailable()) {
             return $this->error([
-                'message' => trans('juzaweb::app.no_new_version_available'),
+                'message' => trans('juzacms::app.no_new_version_available'),
             ]);
         }
 
@@ -61,7 +61,7 @@ class UpdateController extends BackendController
         Artisan::call('up');
 
         return $this->success([
-            'message' => trans('juzaweb::app.updated_successfully'),
+            'message' => trans('juzacms::app.updated_successfully'),
         ]);
     }
 }

@@ -28,7 +28,7 @@ class TaxonomyController extends BackendController
         $setting = $this->getSetting($taxonomy);
         $model = $this->taxonomyRepository->makeModel();
 
-        return view('juzaweb::backend.taxonomy.index', [
+        return view('juzacms::backend.taxonomy.index', [
             'title' => $setting->get('label'),
             'setting' => $setting,
             'model' => $model,
@@ -45,9 +45,9 @@ class TaxonomyController extends BackendController
             'url' => route('admin.' . $setting->get('type') . '.taxonomy.index', [$taxonomy])
         ]);
 
-        return view('juzaweb::backend.taxonomy.form', [
+        return view('juzacms::backend.taxonomy.form', [
             'model' => $model,
-            'title' => trans('juzaweb::app.add_new'),
+            'title' => trans('juzacms::app.add_new'),
             'taxonomy' => $taxonomy,
             'setting' => $setting
         ]);
@@ -64,7 +64,7 @@ class TaxonomyController extends BackendController
             'url' => route('admin.'. $setting->get('type') .'.taxonomy.index', [$taxonomy])
         ]);
 
-        return view('juzaweb::backend.taxonomy.form', [
+        return view('juzacms::backend.taxonomy.form', [
             'model' => $model,
             'title' => $model->name,
             'taxonomy' => $taxonomy,
@@ -118,8 +118,8 @@ class TaxonomyController extends BackendController
         ]));
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully'),
-            'html' => view('juzaweb::components.tag-item', [
+            'message' => trans('juzacms::app.successfully'),
+            'html' => view('juzacms::components.tag-item', [
                 'item' => $model,
                 'name' => $taxonomy,
             ])->render()
@@ -134,7 +134,7 @@ class TaxonomyController extends BackendController
         ]), $id);
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 
@@ -157,7 +157,7 @@ class TaxonomyController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzacms::app.successfully')
         ]);
     }
 
@@ -165,7 +165,7 @@ class TaxonomyController extends BackendController
     {
         $item = $this->taxonomyRepository->findOrFail($request->input('id'));
         return $this->response([
-            'html' => view('juzaweb::components.tag-item', [
+            'html' => view('juzacms::components.tag-item', [
                 'item' => $item,
                 'name' => $taxonomy
             ])
@@ -187,7 +187,7 @@ class TaxonomyController extends BackendController
      **/
     protected function getSetting($taxonomy)
     {
-        $taxonomies = apply_filters('juzaweb.taxonomies', []);
+        $taxonomies = apply_filters('juzacms.taxonomies', []);
         return $taxonomies[$this->getPostType()][$taxonomy] ?? [];
     }
 }

@@ -5,15 +5,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="name" class="form-label">{{ trans('juzaweb::app.menu_name') }}</label>
+                        <label for="name" class="form-label">{{ trans('juzacms::app.menu_name') }}</label>
                         <input type="text" name="name" id="name" class="form-control" value="{{ @$menu->name }}" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="btn-group float-right">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
-                        <button type="button" class="btn btn-danger delete-menu"><i class="fa fa-trash"></i> {{ trans('juzaweb::app.delete') }}</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzacms::app.save') }}</button>
+                        <button type="button" class="btn btn-danger delete-menu"><i class="fa fa-trash"></i> {{ trans('juzacms::app.delete') }}</button>
                     </div>
                 </div>
             </div>
@@ -29,8 +29,8 @@
 
         <div class="card-footer">
             <div class="btn-group float-right">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
-                <button type="button" class="btn btn-danger delete-menu"><i class="fa fa-trash"></i> {{ trans('juzaweb::app.delete') }}</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzacms::app.save') }}</button>
+                <button type="button" class="btn btn-danger delete-menu"><i class="fa fa-trash"></i> {{ trans('juzacms::app.delete') }}</button>
             </div>
         </div>
     </div>

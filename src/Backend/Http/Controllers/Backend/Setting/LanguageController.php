@@ -12,8 +12,8 @@ class LanguageController extends BackendController
 {
     public function index()
     {
-        return view('juzaweb::backend.setting.languages.index', [
-            'title' => trans('juzaweb::app.languages'),
+        return view('juzacms::backend.setting.languages.index', [
+            'title' => trans('juzacms::app.languages'),
         ]);
     }
     
@@ -61,8 +61,8 @@ class LanguageController extends BackendController
             'key' => 'required|string|max:3|min:2|alpha|unique:languages,key',
             'name' => 'required|string|max:250|unique:languages,name',
         ], $request, [
-            'key' => trans('juzaweb::app.key'),
-            'name' => trans('juzaweb::app.name'),
+            'key' => trans('juzacms::app.key'),
+            'name' => trans('juzacms::app.name'),
         ]);
         
         $model = Languages::firstOrNew(['id' => $request->post('id')]);
@@ -78,7 +78,7 @@ class LanguageController extends BackendController
         
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
             'redirect' => route('admin.setting.languages'),
         ]);
     }
@@ -87,7 +87,7 @@ class LanguageController extends BackendController
         $this->validateRequest([
             'ids' => 'required',
         ], $request, [
-            'ids' => trans('juzaweb::app.genres')
+            'ids' => trans('juzacms::app.genres')
         ]);
         
         $ids = $request->post('ids');
@@ -102,7 +102,7 @@ class LanguageController extends BackendController
         
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.deleted_successfully'),
+            'message' => trans('juzacms::app.deleted_successfully'),
             'redirect' => route('admin.setting.languages'),
         ]);
     }
@@ -111,7 +111,7 @@ class LanguageController extends BackendController
         $this->validateRequest([
             'id' => 'required|exists:languages,id',
         ], $request, [
-            'id' => trans('juzaweb::app.language')
+            'id' => trans('juzacms::app.language')
         ]);
         
         Languages::where('id', '=', $request->post('id'))
@@ -126,7 +126,7 @@ class LanguageController extends BackendController
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.saved_successfully'),
+            'message' => trans('juzacms::app.saved_successfully'),
         ]);
     }
     
@@ -135,7 +135,7 @@ class LanguageController extends BackendController
     
         return response()->json([
             'status' => 'success',
-            'message' => trans('juzaweb::app.sync_successfully'),
+            'message' => trans('juzacms::app.sync_successfully'),
             'redirect' => route('admin.setting.languages'),
         ]);
     }

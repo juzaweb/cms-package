@@ -14,8 +14,8 @@ class ModuleController extends BackendController
     
     public function index()
     {
-        return view('juzaweb::backend.module.index', [
-            'title' => trans('juzaweb::app.modules'),
+        return view('juzacms::backend.module.index', [
+            'title' => trans('juzacms::app.modules'),
         ]);
     }
     
@@ -81,7 +81,7 @@ class ModuleController extends BackendController
         }
         
         return $this->success([
-            'message' => trans('juzaweb::app.successfully'),
+            'message' => trans('juzacms::app.successfully'),
             'redirect' => route('admin.module')
         ]);
     }

@@ -2,9 +2,9 @@
 /**
  * MYMO CMS - Free Laravel CMS
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzacmscms/juzacmscms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://github.com/juzacmscms/juzacmscms
  * @license    MIT
  *
  * Created by The Anh.
@@ -36,10 +36,10 @@ class AdminController extends Controller
             'password' => 'required|max:32|min:8|confirmed',
             'password_confirmation' => 'required|max:32|min:8',
         ], [], [
-            'name' => trans('juzaweb::app.name'),
-            'email' => trans('juzaweb::app.email'),
-            'password' => trans('juzaweb::app.password'),
-            'password_confirmation' => trans('juzaweb::app.confirm_password')
+            'name' => trans('juzacms::app.name'),
+            'email' => trans('juzacms::app.email'),
+            'password' => trans('juzacms::app.password'),
+            'password_confirmation' => trans('juzacms::app.confirm_password')
         ]);
 
         if ($validator->fails()) {

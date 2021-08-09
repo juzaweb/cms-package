@@ -55,10 +55,10 @@ final class UpdateExecutor
         if (checkPermissions($this->basePath)) {
             $releaseFolder = createFolderFromFile($release->getStoragePath());
             // Move all directories first
-            $this->moveFolders($releaseFolder . '/juzawebcore');
+            $this->moveFolders($releaseFolder . '/juzacmscore');
 
             // Now move all the files
-            $this->moveFiles($releaseFolder . '/juzawebcore');
+            $this->moveFiles($releaseFolder . '/juzacmscore');
 
             // Delete the folder from the update
             File::deleteDirectory($releaseFolder);

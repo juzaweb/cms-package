@@ -18,13 +18,13 @@ class RegisterController extends Controller
     public function index()
     {
         if (!get_config('users_can_register', 1)) {
-            return abort(403, trans('juzaweb::message.register-form.register-closed'));
+            return abort(403, trans('juzacms::message.register-form.register-closed'));
         }
         
         do_action('auth.register.index');
         
-        return view('juzaweb::auth.register', [
-            'title' => trans('juzaweb::app.sign-up')
+        return view('juzacms::auth.register', [
+            'title' => trans('juzacms::app.sign-up')
         ]);
     }
     
@@ -33,7 +33,7 @@ class RegisterController extends Controller
         do_action('auth.register.handle', $request);
     
         if (!get_config('users_can_register', 1)) {
-            return $this->error(trans('juzaweb::message.register-form.register-closed'));
+            return $this->error(trans('juzacms::message.register-form.register-closed'));
         }
         
         // Validate register
