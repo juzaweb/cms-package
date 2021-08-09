@@ -1,0 +1,40 @@
+{
+    "name": "juzaweb/cms",
+    "description": "Juzaweb CMS",
+    "keywords": [],
+    "license": "MIT",
+    "homepage": "https://cms.juzaweb.com",
+    "require": {
+        "php": "^7.2.5|^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.5",
+        "intervention/image": "^2.5",
+        "laravelium/sitemap": "6.*",
+        "pion/laravel-chunk-upload": "^1.4",
+        "sokil/php-vast": "^2.0",
+        "spatie/image-optimizer": "^1.4",
+        "spatie/laravel-permission": "^4.0",
+        "tadcms/hooks": "^1.0"
+    },
+    "require-dev": {
+      "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
+      "phpunit/phpunit": "6.0 | 7.0 | 7.5 | 8.4 | ^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+          "Juzaweb\\Cms\\Tests\\": "tests/",
+          "Juzaweb\\Cms\\": "src/"
+        },
+        "files": [
+            "src/Core/Helpers/helpers.php",
+            "src/Installer/Helpers/functions.php"
+        ]
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "Juzaweb\\Cms\\Providers\\CoreServiceProvider"
+        ]
+      }
+    }
+}

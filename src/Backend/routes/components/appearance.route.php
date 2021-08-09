@@ -1,0 +1,34 @@
+<?php
+/**
+ * MYMO CMS - Free Laravel CMS
+ *
+ * @package juzawebcms/juzawebcms
+ * @author The Anh Dang
+ *
+ * Developed based on Laravel Framework
+ * Github: https://github.com/juzawebcms/juzawebcms
+ */
+
+Route::group(['prefix' => 'themes'], function () {
+    Route::get('/', 'Backend\Design\ThemeController@index')->name('admin.design.themes');
+    
+    Route::post('/activate', 'Backend\Design\ThemeController@activate')->name('admin.design.themes.activate');
+});
+
+Route::group(['prefix' => 'menu'], function () {
+    Route::get('/', 'Backend\Design\MenuController@index')->name('admin.design.menu');
+    
+    Route::get('/{id}', 'Backend\Design\MenuController@index')->name('admin.design.menu.id');
+    
+    Route::post('/add-menu', 'Backend\Design\MenuController@addMenu')->name('admin.design.menu.add');
+    
+    Route::post('/save', 'Backend\Design\MenuController@save')->name('admin.design.menu.save');
+    
+    Route::post('/get-data', 'Backend\Design\MenuController@getItems')->name('admin.design.menu.items');
+});
+
+Route::group(['prefix' => 'editor'], function () {
+    Route::get('/', 'Backend\Design\ThemeEditorController@index')->name('admin.design.editor');
+    
+    Route::post('/save', 'Backend\Design\ThemeEditorController@save')->name('admin.design.editor.save');
+});
