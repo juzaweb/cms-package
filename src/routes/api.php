@@ -12,4 +12,6 @@
  * Time: 4:03 PM
  */
 
+use Juzaweb\Core\Core;
 
+Core::apiRoutes();

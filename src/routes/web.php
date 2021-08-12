@@ -11,3 +11,7 @@
  * Date: 8/12/2021
  * Time: 4:02 PM
  */
+
+use Juzaweb\Core\Core;
+
+Core::webRoutes();

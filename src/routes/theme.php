@@ -13,5 +13,8 @@
  */
 
 use Juzaweb\Blog\Blog;
+use Juzaweb\Theme\Theme;
 
-Blog::themeRoutes();
+//Blog::themeRoutes();
+
+Theme::themeRoutes();

@@ -14,6 +14,10 @@
 
 use Juzaweb\Blog\Blog;
 use Juzaweb\Core\Core;
+use Juzaweb\Plugin\Plugin;
+use Juzaweb\Theme\Theme;
 
 Blog::adminRoutes();
 Core::adminRoutes();
+Theme::adminRoutes();
+Plugin::adminRoutes();
