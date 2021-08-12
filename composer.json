@@ -17,9 +17,15 @@
       "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
       "phpunit/phpunit": "6.0 | 7.0 | 7.5 | 8.4 | ^8.5"
     },
+    "autoload": {
+      "psr-4": {
+        "Juzaweb\\Cms\\": "src/"
+      }
+    },
     "extra": {
       "laravel": {
         "providers": [
+          "Juzaweb\\Cms\\Providers\\CmsServiceProvider"
         ]
       }
     }
