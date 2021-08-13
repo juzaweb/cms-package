@@ -14,6 +14,8 @@ class RouteServiceProvider extends ServiceProvider
         }
 
         $this->mapWebRoutes();
+        $this->mapApiRoutes();
+        $this->mapAssetRoutes();
         $this->mapAdminRoutes();
         $this->mapThemeRoutes();
     }
@@ -42,5 +44,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
              ->middleware('api')
              ->group(__DIR__ . '/../routes/api.php');
+    }
+
+    protected function mapAssetRoutes()
+    {
+        Route::middleware('assets')
+            ->group(__DIR__ . '/../routes/assets.php');
     }
 }
