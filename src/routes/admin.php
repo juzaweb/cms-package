@@ -14,10 +14,14 @@
 
 use Juzaweb\Blog\Blog;
 use Juzaweb\Core\Core;
+use Juzaweb\Email\Email;
 use Juzaweb\Plugin\Plugin;
 use Juzaweb\Theme\Theme;
+use Juzaweb\Translation\Translation;
 
 Blog::adminRoutes();
 Core::adminRoutes();
 Theme::adminRoutes();
 Plugin::adminRoutes();
+Translation::adminRoutes();
+Email::adminRoutes();

@@ -11,7 +11,8 @@
         "juzaweb/email": "dev-master",
         "juzaweb/installer": "dev-master",
         "juzaweb/plugin": "dev-master",
-        "juzaweb/theme": "dev-master"
+        "juzaweb/theme": "dev-master",
+        "juzaweb/translation": "dev-master"
     },
     "require-dev": {
       "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
