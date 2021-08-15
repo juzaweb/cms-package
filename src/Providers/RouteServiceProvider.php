@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
         }
 
         $this->mapWebRoutes();
-        //$this->mapAssetRoutes();
+        $this->mapAssetRoutes();
         $this->mapAdminRoutes();
         $this->mapThemeRoutes();
     }
