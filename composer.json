@@ -9,7 +9,6 @@
         "juzaweb/blog": "dev-master",
         "juzaweb/core": "dev-master",
         "juzaweb/email": "dev-master",
-        "juzaweb/installer": "dev-master",
         "juzaweb/plugin": "dev-master",
         "juzaweb/theme": "dev-master",
         "juzaweb/translation": "dev-master"
