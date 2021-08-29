@@ -6,7 +6,6 @@
     "homepage": "https://juzaweb.com/cms",
     "require": {
         "php": "^7.2.5|^8.0",
-        "juzaweb/blog": "dev-master",
         "juzaweb/core": "dev-master",
         "juzaweb/email": "dev-master",
         "juzaweb/plugin": "dev-master",

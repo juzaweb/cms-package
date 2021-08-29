@@ -19,7 +19,6 @@ use Juzaweb\Plugin\Plugin;
 use Juzaweb\Theme\Theme;
 use Juzaweb\Translation\Translation;
 
-Blog::adminRoutes();
 Core::adminRoutes();
 Theme::adminRoutes();
 Plugin::adminRoutes();
