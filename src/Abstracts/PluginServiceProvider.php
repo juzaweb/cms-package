@@ -16,12 +16,6 @@ abstract class PluginServiceProvider extends ServiceProvider
      */
     protected function registerModules()
     {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'jw_plugin');
-
-        $this->publishes([
-            __DIR__ . '/../views' => resource_path('vendor/juzaweb/plugin/views'),
-        ], 'jw_plugin_views');
-
         $this->app->register(BootstrapServiceProvider::class);
     }
 

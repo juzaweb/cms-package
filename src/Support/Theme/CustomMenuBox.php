@@ -31,12 +31,12 @@ class CustomMenuBox extends MenuBoxAbstract
 
     public function addView()
     {
-        return view('jw_theme::backend.menu.boxs.custom_add');
+        return view('juzaweb::backend.menu.boxs.custom_add');
     }
 
     public function editView($item)
     {
-        return view('jw_theme::backend.menu.boxs.custom_edit', [
+        return view('juzaweb::backend.menu.boxs.custom_edit', [
             'item' => $item
         ]);
     }

@@ -59,7 +59,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
     public function addView()
     {
-        return view('jw_theme::backend.menu.boxs.taxonomy_add', [
+        return view('juzaweb::backend.menu.boxs.taxonomy_add', [
             'taxonomy' => $this->taxonomy,
             'key' => $this->key
         ]);
@@ -67,7 +67,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
     public function editView($item)
     {
-        return view('jw_theme::backend.menu.boxs.taxonomy_edit', [
+        return view('juzaweb::backend.menu.boxs.taxonomy_edit', [
             'taxonomy' => $this->taxonomy,
             'key' => $this->key,
             'item' => $item

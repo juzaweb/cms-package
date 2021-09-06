@@ -53,7 +53,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
     public function addView()
     {
-        return view('jw_theme::backend.menu.boxs.post_type_add', [
+        return view('juzaweb::backend.menu.boxs.post_type_add', [
             'key' => $this->key,
             'postType' => $this->postType
         ]);
@@ -61,7 +61,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
     public function editView($item)
     {
-        return view('jw_theme::backend.menu.boxs.post_type_edit', [
+        return view('juzaweb::backend.menu.boxs.post_type_edit', [
             'item' => $item,
             'postType' => $this->postType
         ]);

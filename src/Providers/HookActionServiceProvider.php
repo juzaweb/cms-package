@@ -15,7 +15,7 @@ class HookActionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        /*$this->app->booted(function () {
+        $this->app->booted(function () {
             $paths = apply_filters('juzaweb.actions', []);
 
             foreach ($paths as $path) {
@@ -28,6 +28,6 @@ class HookActionServiceProvider extends ServiceProvider
                     include ($file->getRealPath());
                 }
             }
-        });*/
+        });
     }
 }

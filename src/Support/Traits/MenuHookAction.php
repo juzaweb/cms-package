@@ -97,7 +97,7 @@ trait MenuHookAction
             $item,
             $menuBox
         ) {
-            echo view('jw_theme::backend.items.menu_box', [
+            echo view('juzaweb::backend.items.menu_box', [
                 'label' => $item['title'],
                 'key' => $key,
                 'slot' => $menuBox->addView()->render()

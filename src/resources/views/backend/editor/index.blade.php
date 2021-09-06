@@ -75,13 +75,13 @@
                 </div>
             </header>
 
-            @include('jw_theme::backend.editor.config_option')
+            @include('juzaweb::backend.editor.config_option')
 
         </section>
     </div>
 
 
-    @include('jw_theme::backend.editor.preview_page')
+    @include('juzaweb::backend.editor.preview_page')
 
     <div class="theme-editor__spinner" component="UI.Spinner">
         <div class="next-spinner">
@@ -91,7 +91,7 @@
 
 </main>
 
-@include('jw_theme::backend.editor.components.global_icon')
+@include('juzaweb::backend.editor.components.global_icon')
 
 <div>
     <div class="section-footer">

@@ -12,7 +12,7 @@ class PageController extends BackendController
 {
     public function index()
     {
-        return view('jw_theme::backend.page.index', [
+        return view('juzaweb::backend.page.index', [
             'title' => trans('juzaweb::app.pages')
         ]);
     }
@@ -66,7 +66,7 @@ class PageController extends BackendController
 
         $model = new Page();
 
-        return view('jw_theme::backend.page.form', [
+        return view('juzaweb::backend.page.form', [
             'model' => $model,
             'title' => trans('juzaweb::app.add_new')
         ]);
@@ -81,7 +81,7 @@ class PageController extends BackendController
 
         $model = Page::firstOrNew(['id' => $id]);
 
-        return view('jw_theme::backend.page.form', [
+        return view('juzaweb::backend.page.form', [
             'model' => $model,
             'title' => $model->name ?: trans('juzaweb::app.add_new')
         ]);

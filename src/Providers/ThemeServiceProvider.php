@@ -54,10 +54,5 @@ class ThemeServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/theme.php' => base_path('config/theme.php'),
         ], 'jw_theme');
-
-        $this->loadViewsFrom(__DIR__ . '/../views', 'jw_theme');
-        $this->publishes([
-            __DIR__ . '/../views' => resource_path('views/vendor/jw_theme'),
-        ], 'jw_theme_views');
     }
 }

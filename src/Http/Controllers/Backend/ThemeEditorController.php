@@ -16,7 +16,7 @@ class ThemeEditorController extends BackendController
         Theme::set('juzaweb');
         $panels = $this->getDataCustomize();
 
-        return view('jw_theme::backend.editor.index', [
+        return view('juzaweb::backend.editor.index', [
             'panels' => $panels
         ]);
     }

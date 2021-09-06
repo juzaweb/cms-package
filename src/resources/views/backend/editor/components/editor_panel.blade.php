@@ -20,7 +20,7 @@
                 <section class="next-card theme-editor__card">
                     <ul class="theme-editor-action-list theme-editor-action-list--divided theme-editor-action-list--rounded">
                         @foreach($childs as $keyChild => $child)
-                            @component('jw_theme::backend.editor.components.action_item', [
+                            @component('juzaweb::backend.editor.components.action_item', [
                         'title' => $child->get('title'),
                         'key' => $keyChild,
                         'id' => 'section-' . $keyChild
@@ -39,7 +39,7 @@
     @endphp
 
     @if($controls->isNotEmpty())
-        @component('jw_theme::backend.editor.components.editor_card', [
+        @component('juzaweb::backend.editor.components.editor_card', [
             'key' => $key,
             'id' => $key,
             'title' => $panel->get('title')
@@ -56,7 +56,7 @@
 
 @foreach($childs as $keyChild => $child)
 
-    @component('jw_theme::backend.editor.components.editor_panel', [
+    @component('juzaweb::backend.editor.components.editor_panel', [
         'key' => $keyChild,
         'id' => 'section-' . $keyChild,
         'panel' => $child

@@ -71,7 +71,7 @@
                                     @if($menu)
                                         {!! jw_nav_menu([
                                             'menu' => $menu,
-                                            'item_view' => view('jw_theme::backend.items.menu_item'),
+                                            'item_view' => view('juzaweb::backend.items.menu_item'),
                                         ]) !!}
                                     @endif
                                 </ol>

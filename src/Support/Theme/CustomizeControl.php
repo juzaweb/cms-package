@@ -18,17 +18,17 @@ class CustomizeControl extends CustomizeControlAbstract
     {
         switch ($this->args->get('type')) {
             case 'text':
-                return view('jw_theme::backend.editor.control.text', [
+                return view('juzaweb::backend.editor.control.text', [
                     'args' => $this->args,
                     'key' => $this->key
                 ]);
             case 'textarea':
-                return view('jw_theme::backend.editor.control.textarea', [
+                return view('juzaweb::backend.editor.control.textarea', [
                     'args' => $this->args,
                     'key' => $this->key
                 ]);
             case 'site_identity':
-                return view('jw_theme::backend.editor.control.site_identity', [
+                return view('juzaweb::backend.editor.control.site_identity', [
                     'args' => $this->args,
                     'key' => $this->key
                 ]);

@@ -10,17 +10,9 @@ class EmailTemplateServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        HookAction::loadActionForm(__DIR__ . '/../../actions');
-        $this->loadViewsFrom(__DIR__ . '/../views', 'jw_email');
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
         $this->publishes([
             __DIR__ . '/../../config/email.php' => base_path('config/email.php'),
         ], 'jw_email_config');
-
-        $this->publishes([
-            __DIR__ . '/../views' => resource_path('views/vendor/jw_email'),
-        ], 'jw_email_views');
 
         $this->app->booted(function () {
             $schedule = $this->app->make(Schedule::class);

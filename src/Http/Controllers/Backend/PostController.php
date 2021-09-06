@@ -12,7 +12,7 @@ class PostController extends BackendController
 {
     use PostTypeController;
 
-    protected $viewPrefix = 'jw_theme::backend.post';
+    protected $viewPrefix = 'juzaweb::backend.post';
 
     public function getDataTable(Request $request)
     {

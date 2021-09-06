@@ -4,7 +4,7 @@
             <section class="next-card theme-editor__card">
                 <ul class="theme-editor-action-list theme-editor-action-list--divided theme-editor-action-list--rounded">
                     @foreach($panels as $key => $panel)
-                        @component('jw_theme::backend.editor.components.action_item', [
+                        @component('juzaweb::backend.editor.components.action_item', [
                             'title' => $panel->get('title'),
                             'key' => $key,
                             'id' => 'panel-' . $key,
@@ -19,7 +19,7 @@
 
 @foreach($panels as $key => $panel)
 
-    @component('jw_theme::backend.editor.components.editor_panel', [
+    @component('juzaweb::backend.editor.components.editor_panel', [
         'key' => $key,
         'id' => 'panel-' . $key,
         'panel' => $panel

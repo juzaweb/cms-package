@@ -20,7 +20,7 @@ class ReadingController extends BackendController
     {
         $title = trans('juzaweb::app.reading_settings');
 
-        return view('jw_theme::backend.reading.index', compact(
+        return view('juzaweb::backend.reading.index', compact(
             'title'
         ));
     }

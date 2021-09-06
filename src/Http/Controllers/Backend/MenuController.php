@@ -21,7 +21,7 @@ class MenuController extends BackendController
             $menu = Menu::where('id', '=', $id)->first();
         }
 
-        return view('jw_theme::backend.menu.index', compact(
+        return view('juzaweb::backend.menu.index', compact(
             'title',
             'menu'
         ));
@@ -57,7 +57,7 @@ class MenuController extends BackendController
                 'box_key' => $request->post('key')
             ]));
 
-            $result[] = view('jw_theme::backend.items.menu_item', [
+            $result[] = view('juzaweb::backend.items.menu_item', [
                 'item' => $model
             ])->render();
         }

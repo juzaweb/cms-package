@@ -33,7 +33,6 @@ class InstallerServiceProvider extends ServiceProvider
     {
         $router->aliasMiddleware('install', CanInstall::class);
         $router->pushMiddlewareToGroup('theme', Installed::class);
-        //$this->registerViews();
     }
 
     /**
@@ -46,11 +45,5 @@ class InstallerServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/installer.php' => base_path('config/installer.php'),
         ], 'installer_config');
-    }
-
-    protected function registerViews()
-    {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'installer');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'installer');
     }
 }

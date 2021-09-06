@@ -88,11 +88,11 @@
                                         @foreach($card['input_items'] as $iinput => $input)
                                             @if(in_array($input['element'], ['input', 'textarea', 'media', 'slider', 'select_genre', 'select_genres']))
 
-                                                @include('jw_theme::backend.editor.boxs.input_box')
+                                                @include('juzaweb::backend.editor.boxs.input_box')
 
                                             @else
 
-                                                @include('jw_theme::backend.editor.boxs.'. $input['element'] .'_box')
+                                                @include('juzaweb::backend.editor.boxs.'. $input['element'] .'_box')
 
                                             @endif
 
