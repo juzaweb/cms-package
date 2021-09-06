@@ -1,0 +1,78 @@
+<?php
+
+namespace Juzaweb\Theme\Console;
+
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Juzaweb\Theme\Facades\Theme;
+
+class ThemePublishCommand extends Command
+{
+    protected $signature = 'theme:publish {theme?} {type?}';
+
+    public function handle()
+    {
+        $theme = (string) $this->argument('theme');
+        $type = (string) $this->argument('type');
+
+        if (empty($theme)) {
+            $theme = get_config('activated_theme', 'default');
+        }
+
+        if (empty($type)) {
+            $this->publishViews($theme);
+            $this->publishLang($theme);
+            $this->publishAssets($theme);
+        } else {
+            switch ($type) {
+                case 'views':
+                    $this->publishViews($theme);
+                    break;
+                case 'lang':
+                    $this->publishLang($theme);
+                    break;
+                case 'assets':
+                    $this->publishAssets($theme);
+                    break;
+            }
+        }
+
+        $this->info('Publish Theme Successfully');
+    }
+
+    protected function publishViews(string $theme)
+    {
+        $sourceFolder = Theme::getThemePath($theme) . '/views';
+        $publicFolder = resource_path('views/vendor/theme_' . $theme);
+
+        if (!File::isDirectory($publicFolder)) {
+            File::makeDirectory($publicFolder, 0755, true, true);
+        }
+
+        File::copyDirectory($sourceFolder, $publicFolder);
+    }
+
+    protected function publishLang(string $theme)
+    {
+        $sourceFolder = Theme::getThemePath($theme) . '/lang';
+        $publicFolder = resource_path('lang/vendor/theme_' . $theme);
+
+        if (!File::isDirectory($publicFolder)) {
+            File::makeDirectory($publicFolder, 0755, true, true);
+        }
+
+        File::copyDirectory($sourceFolder, $publicFolder);
+    }
+
+    protected function publishAssets(string $theme)
+    {
+        $sourceFolder = Theme::getThemePath($theme) . '/assets';
+        $publicFolder = Theme::publicPath($theme) . '/assets';
+
+        if (!File::isDirectory($publicFolder)) {
+            File::makeDirectory($publicFolder, 0755, true, true);
+        }
+
+        File::copyDirectory($sourceFolder, $publicFolder);
+    }
+}

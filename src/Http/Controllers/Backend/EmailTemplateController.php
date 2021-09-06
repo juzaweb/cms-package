@@ -1,0 +1,91 @@
+<?php
+
+namespace Juzaweb\Cms\Http\Controllers\Backend;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Cms\Support\Traits\ResourceController;
+use Juzaweb\Cms\Models\EmailTemplate;
+use Illuminate\Support\Facades\Validator;
+
+class EmailTemplateController extends BackendController
+{
+    use ResourceController;
+
+    protected $viewPrefix = 'jw_email::email_template';
+    
+    public function getDataTable(Request $request)
+    {
+        $search = $request->get('search');
+        $sort = $request->get('sort', 'id');
+        $order = $request->get('order', 'desc');
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 20);
+    
+        $query = EmailTemplate::query();
+
+        if ($search) {
+            $query->where(function (Builder $q) use ($search) {
+                $q->orWhere('code', 'like', '%'. $search .'%');
+                $q->orWhere('subject', 'like', '%'. $search .'%');
+            });
+        }
+        
+        $count = $query->count();
+        $query->orderBy($sort, $order);
+        $query->offset($offset);
+        $query->limit($limit);
+        $rows = $query->get();
+
+        foreach ($rows as $row) {
+            $row->edit_url = route('admin.email-template.edit', [$row->id]);
+        }
+        
+        return response()->json([
+            'total' => $count,
+            'rows' => $rows
+        ]);
+    }
+    
+    public function bulkActions(Request $request) {
+        $request->validate([
+            'ids' => 'required',
+        ], [], [
+            'ids' => trans('juzaweb::app.email_templates')
+        ]);
+        
+        $ids = $request->post('ids');
+        $action = $request->post('action');
+        
+        switch ($action) {
+            case 'delete':
+                EmailTemplate::destroy($ids);
+                break;
+        }
+        
+        return $this->success([
+            'message' => trans('juzaweb::app.successfully')
+        ]);
+    }
+
+    protected function validator(array $attributes)
+    {
+        $validator = Validator::make($attributes, [
+            'code' => 'required|unique:id,' . $attributes['id'],
+            'subject' => 'required',
+        ]);
+
+        return $validator;
+    }
+
+    protected function getModel()
+    {
+        return EmailTemplate::class;
+    }
+
+    protected function getTitle()
+    {
+        return trans('juzaweb::app.email_templates');
+    }
+}

@@ -6,12 +6,15 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/13/2021
- * Time: 5:08 PM
  */
 
-use Juzaweb\Theme\Theme;
+Route::get('/themes/{theme}/{path}', 'AssetController@assetsTheme')
+    ->where('theme', '[0-9a-z]+')
+    ->where('path', '[0-9a-zA-Z\.\/\-]+');
 
-Theme::assetsRoutes();
+Route::get('/themes/{theme}/{path}', 'AssetController@assetsTheme')
+    ->where('theme', '[0-9a-z]+')
+    ->where('path', '[0-9a-zA-Z\.\/\-]+');
+
+Route::get('/storage/{path}', 'AssetController@assetsStorage')
+    ->where('path', '[0-9a-zA-Z\.\/\-]+');

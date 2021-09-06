@@ -6,11 +6,14 @@
     "homepage": "https://juzaweb.com/cms",
     "require": {
         "php": "^7.2.5|^8.0",
-        "juzaweb/core": "dev-master",
-        "juzaweb/email": "dev-master",
-        "juzaweb/plugin": "dev-master",
-        "juzaweb/theme": "dev-master",
-        "juzaweb/translation": "dev-master"
+        "guzzlehttp/guzzle": "^6.5",
+        "intervention/image": "^2.5",
+        "laravelium/sitemap": "6.*",
+        "pion/laravel-chunk-upload": "^1.4",
+        "sokil/php-vast": "^2.0",
+        "spatie/image-optimizer": "^1.4",
+        "tymon/jwt-auth": "^1.0",
+        "darkaonline/l5-swagger": "^6.0"
     },
     "require-dev": {
       "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
@@ -18,8 +21,12 @@
     },
     "autoload": {
       "psr-4": {
+        "Juzaweb\\Cms\\Tests\\": "tests/",
         "Juzaweb\\Cms\\": "src/"
-      }
+      },
+      "files": [
+        "src/Helpers/helpers.php"
+      ]
     },
     "extra": {
       "laravel": {

@@ -6,12 +6,26 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/12/2021
- * Time: 4:02 PM
  */
 
-use Juzaweb\Core\Core;
+$adminPrefix = config('juzaweb.admin_prefix');
 
-Core::webRoutes();
+require __DIR__  . '/components/installer.route.php';
+
+Route::group([
+    'prefix' => $adminPrefix,
+    'middleware' => 'guest'
+], function () {
+    Route::get('/login', 'Auth\LoginController@index')->name('admin.login');
+    Route::post('/login', 'Auth\LoginController@login');
+
+    Route::get('/register', 'Auth\RegisterController@index')->name('admin.register');
+    Route::post('/register', 'Auth\RegisterController@register');
+
+    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index')->name('admin.forgot_password');
+    Route::post('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
+});

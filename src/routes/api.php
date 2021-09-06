@@ -12,6 +12,13 @@
  * Time: 4:03 PM
  */
 
-use Juzaweb\Core\Core;
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'Api\Auth\LoginController@login');
 
-Core::apiRoutes();
+    Route::post('refresh', 'Api\Auth\LoginController@refresh');
+
+    Route::post('logout', 'Api\Auth\LoginController@logout');
+    //Route::post('profile', 'Auth\LoginController@profile');
+});

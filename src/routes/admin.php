@@ -12,15 +12,18 @@
  * Time: 4:03 PM
  */
 
-use Juzaweb\Blog\Blog;
-use Juzaweb\Core\Core;
-use Juzaweb\Email\Email;
-use Juzaweb\Plugin\Plugin;
-use Juzaweb\Theme\Theme;
-use Juzaweb\Translation\Translation;
+require __DIR__ . '/components/dashboard.route.php';
+require __DIR__ . '/components/setting.route.php';
+require __DIR__ . '/components/user.route.php';
+require __DIR__ . '/components/filemanager.route.php';
+require __DIR__ . '/components/media.route.php';
+require __DIR__ . '/components/post.route.php';
+require __DIR__ . '/components/theme.route.php';
+require __DIR__ . '/components/menu.route.php';
+require __DIR__ . '/components/editor.route.php';
+require __DIR__ . '/components/page.route.php';
 
-Core::adminRoutes();
-Theme::adminRoutes();
+
+
 Plugin::adminRoutes();
 Translation::adminRoutes();
-Email::adminRoutes();
