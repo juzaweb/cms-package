@@ -11,7 +11,7 @@ class EmailLogController extends BackendController
 {
     public function index()
     {
-        return view('jw_email::logs.email', [
+        return view('juzaweb::backend.logs.email', [
             'title' => trans('juzaweb::app.email_logs'),
         ]);
     }

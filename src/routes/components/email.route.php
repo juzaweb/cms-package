@@ -13,19 +13,19 @@
  */
 
 Route::group(['prefix' => 'email'], function () {
-    Route::post('/', 'EmailController@save')->name('admin.setting.email.save');
+    Route::post('/', 'Backend\EmailController@save')->name('admin.setting.email.save');
 
-    Route::post('send-test-mail', 'EmailController@sendTestMail')->name('admin.setting.email.test-email');
+    Route::post('send-test-mail', 'Backend\EmailController@sendTestMail')->name('admin.setting.email.test-email');
 });
 
-Route::jwResource('email-template', 'EmailTemplateController');
+Route::jwResource('email-template', 'Backend\EmailTemplateController');
 
 Route::group(['prefix' => 'logs/email'], function () {
-    Route::get('/', 'EmailLogController@index')->name('admin.logs.email');
+    Route::get('/', 'Backend\EmailLogController@index')->name('admin.logs.email');
 
-    Route::get('/get-data', 'EmailLogController@getData')->name('admin.logs.email.getdata');
+    Route::get('/get-data', 'Backend\EmailLogController@getData')->name('admin.logs.email.getdata');
 
-    Route::post('/status', 'EmailLogController@status')->name('admin.logs.email.status');
+    Route::post('/status', 'Backend\EmailLogController@status')->name('admin.logs.email.status');
 
-    Route::post('/remove', 'EmailLogController@remove')->name('admin.logs.email.remove');
+    Route::post('/remove', 'Backend\EmailLogController@remove')->name('admin.logs.email.remove');
 });

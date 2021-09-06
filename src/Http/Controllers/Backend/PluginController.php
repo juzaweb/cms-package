@@ -14,7 +14,7 @@ class PluginController extends BackendController
     
     public function index()
     {
-        return view('jw_plugin::plugin.index', [
+        return view('juzaweb::backend.plugin.index', [
             'title' => trans('juzaweb::app.plugins'),
         ]);
     }

@@ -16,7 +16,7 @@ use Juzaweb\Cms\Facades\HookAction;
 
 HookAction::addSettingForm('email', [
     'name' => trans('juzaweb::app.email_setting'),
-    'view' => 'jw_email::email.setting'
+    'view' => 'juzaweb::email.setting'
 ]);
 
 HookAction::addAdminMenu(

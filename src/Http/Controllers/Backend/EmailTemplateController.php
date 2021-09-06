@@ -13,7 +13,7 @@ class EmailTemplateController extends BackendController
 {
     use ResourceController;
 
-    protected $viewPrefix = 'jw_email::email_template';
+    protected $viewPrefix = 'juzaweb::backend.email_template';
     
     public function getDataTable(Request $request)
     {
