@@ -9,25 +9,19 @@
  */
 
 Route::group([
-    'namespace' => '\Juzaweb\Cms\Http\Controllers',
     'middleware' => 'guest'
 ], function () {
+    Route::get('/login', 'Frontend\LoginController@index')->name('login');
+    Route::get('/register', 'Frontend\RegisterController@index')->name('register');
+    Route::get('/forgot-password', 'Frontend\ForgotPasswordController@index')->name('forgot_password');
+
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/register', 'Auth\RegisterController@register');
     Route::post('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
 });
 
-Route::group([
-    'middleware' => 'guest'
-], function () {
-    Route::get('/login', 'LoginController@index')->name('login');
-    Route::get('/register', 'RegisterController@index')->name('register');
-    Route::get('/forgot-password', 'ForgotPasswordController@index')->name('forgot_password');
-});
-
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/search', 'SearchController@index')->name('search');
-Route::get('/search-ajax', 'SearchController@index')->name('search.ajax');
-
-Route::get('/{slug?}', 'RouteController@index')
-    ->where('slug', '.*');
+Route::get('/', 'Frontend\HomeController@index')->name('home');
+Route::get('/search', 'Frontend\SearchController@index')->name('search');
+Route::get('/search-ajax', 'Frontend\SearchController@index')->name('search.ajax');
+Route::get('/{slug}', 'Frontend\PageController@index');
+Route::get('/{base}/{slug?}', 'Frontend\RouteController@index')->where('slug', '.*');

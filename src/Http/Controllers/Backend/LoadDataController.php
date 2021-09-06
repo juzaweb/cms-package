@@ -5,11 +5,11 @@ namespace Juzaweb\Cms\Http\Controllers\Backend;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Theme\Models\Menu;
+use Juzaweb\Cms\Models\Menu;
 use Juzaweb\Cms\Models\User;
 use Juzaweb\Cms\Models\Taxonomy;
 use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Theme\Models\Page;
+use Juzaweb\Cms\Models\Page;
 
 class LoadDataController extends BackendController
 {

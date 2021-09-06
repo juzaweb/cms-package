@@ -9,9 +9,9 @@
  */
 
 use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Theme\Models\Page;
-use Juzaweb\Theme\Models\Post;
-use Juzaweb\Theme\Support\CustomMenuBox;
+use Juzaweb\Cms\Models\Page;
+use Juzaweb\Cms\Models\Post;
+use Juzaweb\Cms\Support\CustomMenuBox;
 
 HookAction::registerMenuBox('custom_url', [
     'title' => trans('juzaweb::app.custom_url'),

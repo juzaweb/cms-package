@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Theme\Contracts;
+namespace Juzaweb\Cms\Contracts;
 
 interface ThemeContract
 {

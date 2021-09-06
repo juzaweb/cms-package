@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Theme\Support;
+namespace Juzaweb\Cms\Support\Theme;
 
 use Illuminate\Support\Arr;
-use Juzaweb\Theme\Abstracts\MenuBoxAbstract;
+use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
 
 class TaxonomyMenuBox extends MenuBoxAbstract
 {

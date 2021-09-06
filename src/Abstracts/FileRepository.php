@@ -15,8 +15,8 @@ use Juzaweb\Cms\Contracts\RepositoryInterface;
 use Juzaweb\Cms\Exceptions\InvalidAssetPath;
 use Juzaweb\Cms\Exceptions\ModuleNotFoundException;
 use Juzaweb\Cms\Json;
-use Juzaweb\Cms\Process\Installer;
-use Juzaweb\Cms\Process\Updater;
+use Juzaweb\Cms\Support\Process\Installer;
+use Juzaweb\Cms\Support\Process\Updater;
 
 abstract class FileRepository implements RepositoryInterface, Countable
 {

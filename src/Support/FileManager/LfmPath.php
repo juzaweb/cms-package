@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\FileManager;
+namespace Juzaweb\Cms\Support\FileManager;
 
 use Illuminate\Container\Container;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Juzaweb\Cms\FileManager\Events\ImageIsUploading;
-use Juzaweb\Cms\FileManager\Events\ImageWasUploaded;
+use Juzaweb\Cms\Support\FileManager\Events\ImageIsUploading;
+use Juzaweb\Cms\Support\FileManager\Events\ImageWasUploaded;
 
 class LfmPath
 {

@@ -11,8 +11,8 @@ namespace Juzaweb\Cms\Support\Traits;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Juzaweb\Cms\Models\Taxonomy;
-use Juzaweb\Theme\Support\PostTypeMenuBox;
-use Juzaweb\Theme\Support\TaxonomyMenuBox;
+use Juzaweb\Cms\Support\PostTypeMenuBox;
+use Juzaweb\Cms\Support\TaxonomyMenuBox;
 
 trait PostTypeHookAction
 {

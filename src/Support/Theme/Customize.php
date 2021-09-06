@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Theme\Support;
+namespace Juzaweb\Cms\Support\Theme;
 
 use Illuminate\Support\Collection;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\FileManager;
+namespace Juzaweb\Cms\Support\FileManager;
 
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Cached\CachedAdapter;

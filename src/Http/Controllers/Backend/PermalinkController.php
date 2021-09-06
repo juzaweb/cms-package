@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Theme\Http\Controllers\Backend;
+namespace Juzaweb\Cms\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

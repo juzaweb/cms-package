@@ -8,14 +8,14 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Theme\Models;
+namespace Juzaweb\Cms\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Juzaweb\Cms\Models\Model;
 
 /**
- * Juzaweb\Theme\Models\MenuItem
+ * Juzaweb\Cms\Models\MenuItem
  *
  * @property int $id
  * @property int $menu_id
@@ -27,7 +27,7 @@ use Juzaweb\Cms\Models\Model;
  * @property string $type
  * @property string|null $icon
  * @property string $target
- * @property-read \Juzaweb\Theme\Models\Menu $menu
+ * @property-read \Juzaweb\Cms\Models\Menu $menu
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem query()

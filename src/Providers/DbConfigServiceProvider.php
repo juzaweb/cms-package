@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Cms\Contracts\ConfigContract;
 use Juzaweb\Cms\Support\Config as JwConfig;
-use Juzaweb\Theme\Contracts\ThemeConfigContract;
-use Juzaweb\Theme\Support\ThemeConfig;
+use Juzaweb\Cms\Contracts\ThemeConfigContract;
+use Juzaweb\Cms\Support\Theme\ThemeConfig;
 
 class DbConfigServiceProvider extends ServiceProvider
 {

@@ -10,7 +10,7 @@
  * Time: 4:31 PM
  */
 
-namespace Juzaweb\Cms\Laravel;
+namespace Juzaweb\Cms\Support;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\AliasLoader;

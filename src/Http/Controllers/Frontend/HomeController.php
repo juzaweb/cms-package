@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Theme\Http\Controllers;
+namespace Juzaweb\Cms\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
 
@@ -11,10 +11,10 @@ class HomeController extends FrontendController
         do_action('theme.home.index');
 
         if ($pageId = jw_home_page()) {
-            return App::call('Juzaweb\Theme\Http\Controllers\PageController@detail', ['id' => $pageId]);
+            return App::call('Juzaweb\Cms\Http\Controllers\Frontend\PageController@detail', ['id' => $pageId]);
         }
 
-        return App::call('Juzaweb\Theme\Http\Controllers\PostController@index', []);
+        return App::call('Juzaweb\Cms\Http\Controllers\Frontend\PostController@index', []);
     }
 
     protected function handlePage()

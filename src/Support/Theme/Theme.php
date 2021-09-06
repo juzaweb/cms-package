@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Theme\Managers;
+namespace Juzaweb\Cms\Support\Theme;
 
 use Illuminate\Support\Facades\File;
 use Noodlehaus\Config;
@@ -8,8 +8,8 @@ use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\View\ViewFinderInterface;
-use Juzaweb\Theme\Contracts\ThemeContract;
-use Juzaweb\Theme\Exceptions\ThemeNotFoundException;
+use Juzaweb\Cms\Contracts\ThemeContract;
+use Juzaweb\Cms\Exceptions\ThemeNotFoundException;
 
 class Theme implements ThemeContract
 {

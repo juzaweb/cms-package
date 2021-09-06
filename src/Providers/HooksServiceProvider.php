@@ -4,7 +4,7 @@ namespace Juzaweb\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Cms\Contracts\EventyContract;
-use Juzaweb\Cms\Hooks\Events;
+use Juzaweb\Cms\Support\Hooks\Events;
 
 class HooksServiceProvider extends ServiceProvider
 {

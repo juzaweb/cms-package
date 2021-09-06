@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Laravel;
+namespace Juzaweb\Cms\Support;
 
 use Juzaweb\Cms\Abstracts\FileRepository;
 

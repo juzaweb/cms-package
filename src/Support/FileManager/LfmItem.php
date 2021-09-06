@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\FileManager;
+namespace Juzaweb\Cms\Support\FileManager;
 
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

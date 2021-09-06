@@ -5,7 +5,6 @@ namespace Juzaweb\Cms\Providers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Cms\Console\Commands\SendMailCommand;
 
 class EmailTemplateServiceProvider extends ServiceProvider
 {
@@ -32,9 +31,5 @@ class EmailTemplateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/email.php', 'email');
-
-        $this->commands([
-            SendMailCommand::class,
-        ]);
     }
 }

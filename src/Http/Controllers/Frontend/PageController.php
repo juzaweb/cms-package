@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Theme\Http\Controllers;
+namespace Juzaweb\Cms\Http\Controllers\Frontend;
 
-use Juzaweb\Theme\Models\Page;
+use Juzaweb\Cms\Models\Page;
 use Noodlehaus\Config;
 
 class PageController extends FrontendController

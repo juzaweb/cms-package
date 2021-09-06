@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Theme\Abstracts;
+namespace Juzaweb\Cms\Abstracts;
 
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Juzaweb\Theme\Models\MenuItem;
+use Juzaweb\Cms\Models\MenuItem;
 
 abstract class MenuBoxAbstract
 {

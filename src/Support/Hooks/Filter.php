@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Hooks;
+namespace Juzaweb\Cms\Support\Hooks;
 
 class Filter extends Event
 {

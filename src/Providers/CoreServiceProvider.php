@@ -51,7 +51,6 @@ class CoreServiceProvider extends ServiceProvider
             }
         }
 
-        $this->registerProviders();
         $this->registerSingleton();
         $this->mergeConfigFrom(__DIR__ . '/../../config/juzaweb.php', 'juzaweb');
         $this->mergeConfigFrom(__DIR__ . '/../../config/locales.php', 'locales');
@@ -73,20 +72,6 @@ class CoreServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/juzaweb.php' => base_path('config/juzaweb.php'),
             __DIR__ . '/../../config/locales.php' => base_path('config/locales.php'),
         ], 'juzaweb_config');
-    }
-
-    protected function registerProviders()
-    {
-        $this->app->register(BackendServiceProvider::class);
-        $this->app->register(DbConfigServiceProvider::class);
-        $this->app->register(HookActionServiceProvider::class);
-        $this->app->register(PerformanceServiceProvider::class);
-        $this->app->register(FilemanagerServiceProvider::class);
-        $this->app->register(HooksServiceProvider::class);
-        $this->app->register(HookBladeServiceProvider::class);
-        $this->app->register(PostTypeServiceProvider::class);
-        $this->app->register(InstallerServiceProvider::class);
-        //$this->app->register(SwaggerServiceProvider::class);
     }
 
     protected function registerSingleton()

@@ -13,7 +13,7 @@
 namespace Juzaweb\Cms\Support\Traits;
 
 use Illuminate\Support\Arr;
-use Juzaweb\Theme\Abstracts\MenuBoxAbstract;
+use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
 
 trait MenuHookAction
 {

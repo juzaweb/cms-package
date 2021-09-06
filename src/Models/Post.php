@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Theme\Models;
+namespace Juzaweb\Cms\Models;
 
 use Juzaweb\Cms\Models\Comment;
 use Juzaweb\Cms\Support\Traits\PostTypeModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Juzaweb\Theme\Models\Post
+ * Juzaweb\Cms\Models\Post
  *
  * @property int $id
  * @property string $title

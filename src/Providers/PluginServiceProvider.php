@@ -1,12 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms;
+namespace Juzaweb\Cms\Providers;
 
-use Juzaweb\Cms\Facades\HookAction;
 use Juzaweb\Cms\Contracts\ActivatorInterface;
 use Juzaweb\Cms\Contracts\RepositoryInterface;
 use Juzaweb\Cms\Exceptions\InvalidActivatorClass;
-use Juzaweb\Cms\Laravel\LaravelFileRepository;
+use Juzaweb\Cms\Support\LaravelFileRepository;
 use Juzaweb\Cms\Abstracts\PluginServiceProvider as BaseServiceProvider;
 use Juzaweb\Cms\Support\Stub;
 
@@ -17,7 +16,6 @@ class PluginServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
-        HookAction::loadActionForm(__DIR__ . '/../actions');
         $this->registerModules();
     }
 

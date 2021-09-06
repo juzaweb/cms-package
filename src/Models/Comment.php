@@ -6,7 +6,7 @@ use Juzaweb\Cms\Facades\PostType;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Juzaweb\Theme\Models\Comment
+ * Juzaweb\Cms\Models\Comment
  *
  * @property int $id
  * @property int|null $user_id

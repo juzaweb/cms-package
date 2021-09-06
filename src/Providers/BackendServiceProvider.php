@@ -17,7 +17,7 @@ namespace Juzaweb\Cms\Providers;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Cms\Http\Middleware\Admin;
 use Illuminate\Routing\Router;
-use Juzaweb\Cms\Macros\RouterMacros;
+use Juzaweb\Cms\Support\Macros\RouterMacros;
 use Juzaweb\Cms\Facades\HookAction;
 
 class BackendServiceProvider extends ServiceProvider

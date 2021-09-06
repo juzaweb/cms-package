@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\FileManager;
+namespace Juzaweb\Cms\Support\FileManager;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;

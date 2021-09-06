@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Macros;
+namespace Juzaweb\Cms\Support\Macros;
 
 use Illuminate\Support\Str;
 

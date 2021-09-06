@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Theme\Models;
+namespace Juzaweb\Cms\Models;
 
 use Juzaweb\Cms\Support\Traits\PostTypeModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Juzaweb\Theme\Models\Page
+ * Juzaweb\Cms\Models\Page
  *
  * @property int $id
  * @property string $name

@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Theme\Http\Controllers\Backend;
+namespace Juzaweb\Cms\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Juzaweb\Cms\Http\Controllers\BackendController;
 use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Theme\Facades\Theme;
+use Juzaweb\Cms\Facades\Theme;
 
 class ThemeController extends BackendController
 {

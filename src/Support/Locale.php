@@ -12,7 +12,7 @@ namespace Juzaweb\Cms\Support;
 
 use Illuminate\Support\Collection;
 use Juzaweb\Cms\Facades\Plugin;
-use Juzaweb\Theme\Facades\Theme;
+use Juzaweb\Cms\Facades\Theme;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
 

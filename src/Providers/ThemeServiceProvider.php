@@ -1,14 +1,10 @@
 <?php
 
-namespace Juzaweb\Theme\Providers;
+namespace Juzaweb\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Theme\Console\ThemeGeneratorCommand;
-use Juzaweb\Theme\Console\ThemeListCommand;
-use Juzaweb\Theme\Console\ThemePublishCommand;
-use Juzaweb\Theme\Contracts\ThemeContract;
-use Juzaweb\Theme\Managers\Theme;
+use Juzaweb\Cms\Contracts\ThemeContract;
+use Juzaweb\Cms\Support\Theme\Theme;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -21,8 +17,6 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $this->bootPublishes();
         $this->bootMigrations();
-
-        HookAction::loadActionForm(__DIR__ . '/../../actions');
     }
 
     /**
@@ -33,7 +27,6 @@ class ThemeServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerTheme();
-        $this->consoleCommand();
         $this->mergeConfigFrom(__DIR__ . '/../../config/theme.php', 'theme');
     }
 
@@ -54,20 +47,6 @@ class ThemeServiceProvider extends ServiceProvider
     {
         $mainPath = __DIR__ . '/../database/migrations';
         $this->loadMigrationsFrom($mainPath);
-    }
-
-    /**
-     * Add Commands.
-     *
-     * @return void
-     */
-    public function consoleCommand()
-    {
-        $this->commands([
-            ThemeGeneratorCommand::class,
-            ThemeListCommand::class,
-            ThemePublishCommand::class
-        ]);
     }
 
     protected function bootPublishes()
