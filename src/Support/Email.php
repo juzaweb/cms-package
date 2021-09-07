@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb;
+namespace Juzaweb\Support;
 
-use Juzaweb\Jobs\SendEmail;
+use Juzaweb\Jobs\SendEmailJob;
 use Juzaweb\Models\EmailList;
 use Juzaweb\Models\EmailTemplate;
 
-class EmailService
+class Email
 {
     protected $emails;
     protected $template;
@@ -20,7 +20,7 @@ class EmailService
      * */
     public static function make()
     {
-        return new EmailService();
+        return new Email();
     }
     
     /**
@@ -112,10 +112,10 @@ class EmailService
             $method = config('juzaweb.email.method');
             switch ($method) {
                 case 'sync':
-                    (new SendEmailService($emailList))->send();
+                    (new SendEmail($emailList))->send();
                     break;
                 case 'queue':
-                    SendEmail::dispatch($emailList);
+                    SendEmailJob::dispatch($emailList);
                     break;
             }
         }

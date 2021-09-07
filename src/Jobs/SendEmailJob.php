@@ -8,9 +8,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Juzaweb\Models\EmailList;
-use Juzaweb\SendEmailService;
+use Juzaweb\Support\SendEmail;
 
-class SendEmail implements ShouldQueue
+class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,6 +34,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        (new SendEmailService($this->mail))->send();
+        (new SendEmail($this->mail))->send();
     }
 }

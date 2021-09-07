@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Juzaweb\Models\User;
 use Juzaweb\Traits\ResponseMessage;
-use Juzaweb\Email\EmailService;
+use Juzaweb\Support\Email;
 
 class RegisterController extends Controller
 {
@@ -56,9 +56,9 @@ class RegisterController extends Controller
             ]);
 
             DB::commit();
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw $exception;
+            throw $e;
         }
 
         if (get_config('user_confirmation')) {
@@ -69,7 +69,7 @@ class RegisterController extends Controller
                 'verification_token' => $verifyToken,
             ]);
 
-            EmailService::make()
+            Email::make()
                 ->withTemplate('verification')
                 ->setParams([
                     'name' => $name,

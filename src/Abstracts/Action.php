@@ -20,6 +20,11 @@ abstract class Action
     const BACKEND_DASHBOARD_ACTION = 'backend.dashboard';
     const POST_FORM_RIGHT_ACTION = 'post_type.posts.form.right';
     const POST_FORM_LEFT_ACTION = 'post_type.posts.form.left';
+    const PERMALINKS_SAVED_ACTION = 'permalinks.saved';
+    const BACKEND_HEADER_ACTION = 'juzaweb_header';
+    const BACKEND_FOOTER_ACTION = 'juzaweb_footer';
+
+    const PERMALINKS_FILTER = 'juzaweb.permalinks';
 
     abstract public function handle();
 

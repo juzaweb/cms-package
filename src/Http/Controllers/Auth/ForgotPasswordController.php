@@ -9,7 +9,7 @@ use Juzaweb\Models\PasswordReset;
 use Juzaweb\Models\User;
 use Juzaweb\Traits\ResponseMessage;
 use Illuminate\Http\Request;
-use Juzaweb\EmailService;
+use JuzawebService;
 
 class ForgotPasswordController extends Controller
 {

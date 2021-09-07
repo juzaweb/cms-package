@@ -68,7 +68,7 @@
                 <label class="col-form-label" for="language">@lang('juzaweb::app.site_language')</label>
                 <select name="language" class="form-control load-locales">
                     @if($locale = get_config('language'))
-                        <option value="{{ $locale }}">{{ config("locales.{$locale}.name") }}</option>
+                        <option value="{{ $locale }}" selected>{{ config("locales.{$locale}.name") }}</option>
                     @endif    
                 </select>
             </div>

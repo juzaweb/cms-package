@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb;
+namespace Juzaweb\Support;
 
 use Juzaweb\Models\EmailList;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailService
+class SendEmail
 {
     protected $mail;
 
@@ -18,7 +18,7 @@ class SendEmailService
      * Send email by row email_lists table
      *
      * @return bool
-     * */
+     */
     public function send()
     {
         $validate = $this->validate();
@@ -103,7 +103,12 @@ class SendEmailService
         
         return $string;
     }
-    
+
+    /**
+     * Send mail validate
+     *
+     * @return bool|array
+     */
     protected function validate()
     {
         return true;

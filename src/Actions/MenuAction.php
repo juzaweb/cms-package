@@ -219,7 +219,8 @@ class MenuAction extends Action
 
         HookAction::addSettingForm('email', [
             'name' => trans('juzaweb::app.email_setting'),
-            'view' => 'juzaweb::email.setting'
+            'view' => 'juzaweb::backend.email.setting',
+            'priority' => 15
         ]);
     }
 
