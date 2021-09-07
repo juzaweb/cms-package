@@ -8,26 +8,18 @@
 
 namespace Juzaweb\Cms\Providers;
 
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\ServiceProvider;
+use Juzaweb\Cms\Support\ServiceProvider;
 
 class HookActionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->app->booted(function () {
-            $paths = apply_filters('juzaweb.actions', []);
-
-            foreach ($paths as $path) {
-                if (!is_dir($path)) {
-                    continue;
-                }
-
-                $files = File::allFiles($path);
-                foreach ($files as $file) {
-                    include ($file->getRealPath());
-                }
+            foreach (static::$actions as $action) {
+                app($action)->handle();
             }
+
+            do_action('juzaweb.init');
         });
     }
 }

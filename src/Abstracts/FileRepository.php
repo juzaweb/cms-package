@@ -14,7 +14,7 @@ use Illuminate\Support\Traits\Macroable;
 use Juzaweb\Cms\Contracts\RepositoryInterface;
 use Juzaweb\Cms\Exceptions\InvalidAssetPath;
 use Juzaweb\Cms\Exceptions\ModuleNotFoundException;
-use Juzaweb\Cms\Json;
+use Juzaweb\Cms\Support\Json;
 use Juzaweb\Cms\Support\Process\Installer;
 use Juzaweb\Cms\Support\Process\Updater;
 

@@ -13,6 +13,8 @@ class MenuController extends BackendController
 {
     public function index($id = null)
     {
+        do_action('backend.menu.index', $id);
+
         $title = trans('juzaweb::app.menu');
 
         if (empty($id)) {

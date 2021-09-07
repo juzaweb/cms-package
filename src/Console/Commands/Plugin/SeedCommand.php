@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Cms\Contracts\RepositoryInterface;
 use Juzaweb\Cms\Abstracts\Plugin;
 use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Cms\Traits\ModuleCommandTrait;
 use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;

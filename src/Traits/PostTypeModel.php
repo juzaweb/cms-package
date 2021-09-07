@@ -12,7 +12,7 @@
  * Time: 8:08 PM
  */
 
-namespace Juzaweb\Cms\Support\Traits;
+namespace Juzaweb\Cms\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;

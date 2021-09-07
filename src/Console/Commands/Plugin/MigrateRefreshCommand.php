@@ -3,7 +3,7 @@
 namespace Juzaweb\Cms\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Cms\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

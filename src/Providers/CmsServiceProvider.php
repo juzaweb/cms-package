@@ -33,6 +33,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(HookBladeServiceProvider::class);
         $this->app->register(PostTypeServiceProvider::class);
         $this->app->register(InstallerServiceProvider::class);
+        $this->app->register(PluginServiceProvider::class);
         $this->app->register(ThemeServiceProvider::class);
         //$this->app->register(SwaggerServiceProvider::class);
     }

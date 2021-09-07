@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Juzaweb\Cms\Facades\Locale;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
+use Juzaweb\Cms\Traits\ArrayPagination;
 
 class LocaleController extends BackendController
 {

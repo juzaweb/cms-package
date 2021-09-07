@@ -16,7 +16,7 @@ namespace Juzaweb\Cms\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
+use Juzaweb\Cms\Traits\ArrayPagination;
 use Juzaweb\Cms\Facades\Locale;
 
 class TranslationController extends BackendController

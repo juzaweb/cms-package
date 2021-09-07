@@ -2,8 +2,8 @@
 
 namespace Juzaweb\Cms\Models;
 
-use Juzaweb\Cms\Support\Traits\UseSlug;
-use Juzaweb\Cms\Support\Traits\UseThumbnail;
+use Juzaweb\Cms\Traits\UseSlug;
+use Juzaweb\Cms\Traits\UseThumbnail;
 
 /**
  * Juzaweb\Cms\Models\Taxonomy

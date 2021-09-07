@@ -7,7 +7,7 @@ use Juzaweb\Cms\Support\Config\GenerateConfigReader;
 use Juzaweb\Cms\Support\Migrations\NameParser;
 use Juzaweb\Cms\Support\Migrations\SchemaParser;
 use Juzaweb\Cms\Support\Stub;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Cms\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

@@ -14,8 +14,8 @@
 
 namespace Juzaweb\Cms\Http\Controllers;
 
-use Juzaweb\Cms\Facades\PostType;
-use Juzaweb\Cms\Support\Traits\ResponseMessage;
+use Juzaweb\Cms\Traits\ResponseMessage;
+use Juzaweb\Cms\Abstracts\Action;
 
 class BackendController extends Controller
 {
@@ -23,41 +23,7 @@ class BackendController extends Controller
 
     public function callAction($method, $parameters)
     {
-        do_action('backend.call_action', $method, $parameters);
-
-        if (!file_exists(storage_path('app/installed'))) {
-            if (!in_array(\Route::currentRouteName(), ['install', 'install.submit', 'install.submit.step'])) {
-                return redirect()->route('install');
-            }
-        }
-
-        if (config('juzaweb::app.demo', false) == 'true' && \Auth::id() != 1) {
-            if (\request()->isMethod('post')) {
-                if (\request()->is('admin-cp/*')) {
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'You cannot change the demo version',
-                    ]);
-                }
-
-                if (\request()->is('account/change-password')) {
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'You cannot change the demo version',
-                    ]);
-                }
-            }
-        }
-
-        $types = PostType::getPostTypes();
-        foreach ($types as $key => $type) {
-            add_action('post_type.'.$key.'.form.rigth', function ($model) use ($key) {
-                echo view('juzaweb::components.taxonomies', [
-                    'postType' => $key,
-                    'model' => $model
-                ])->render();
-            });
-        }
+        do_action(Action::BACKEND_CALL_ACTION, $method, $parameters);
 
         return parent::callAction($method, $parameters);
     }

@@ -14,11 +14,11 @@
 
 namespace Juzaweb\Cms\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Juzaweb\Cms\Actions\MenuAction;
+use Juzaweb\Cms\Support\ServiceProvider;
 use Juzaweb\Cms\Http\Middleware\Admin;
 use Illuminate\Routing\Router;
 use Juzaweb\Cms\Support\Macros\RouterMacros;
-use Juzaweb\Cms\Facades\HookAction;
 
 class BackendServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,9 @@ class BackendServiceProvider extends ServiceProvider
     {
         $this->bootMiddlewares();
         $this->bootPublishes();
-        HookAction::loadActionForm(__DIR__ . '/../../actions');
+        $this->registerAction([
+            MenuAction::class
+        ]);
     }
 
     public function register()

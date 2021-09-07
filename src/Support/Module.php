@@ -12,13 +12,13 @@
 
 namespace Juzaweb\Cms\Support;
 
+use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\ProviderRepository;
-use Illuminate\Support\Str;
-use Juzaweb\Cms\Abstracts\Plugin as BaseModule;
+use Juzaweb\Cms\Abstracts\Plugin as BasePlugin;
 
-class Module extends BaseModule
+class Module extends BasePlugin
 {
     /**
      * {@inheritdoc}

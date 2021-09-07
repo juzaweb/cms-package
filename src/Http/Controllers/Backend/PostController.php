@@ -5,7 +5,7 @@ namespace Juzaweb\Cms\Http\Controllers\Backend;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\PostTypeController;
+use Juzaweb\Cms\Traits\PostTypeController;
 use Juzaweb\Cms\Models\Post;
 
 class PostController extends BackendController

@@ -438,4 +438,11 @@ if (!function_exists('array_except')) {
     }
 }
 
-
+if (!function_exists('array_merge_value')) {
+    function array_merge_value(array $array1, array $array2 = null) {
+        $data = count($array1) >= count($array2) ? $array1 : $array2;
+        foreach ($data as $item) {
+            //if (!in_array($item, ))
+        }
+    }
+}

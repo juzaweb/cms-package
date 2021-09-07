@@ -31,7 +31,7 @@ interface RepositoryInterface
     /**
      * Get plugins as plugins collection instance.
      *
-     * @return \Juzaweb\Cms\Collection
+     * @return \Juzaweb\Cms\Support\Collection
      */
     public function toCollection();
 

@@ -5,7 +5,7 @@ namespace Juzaweb\Cms\Http\Controllers\Backend;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ResourceController;
+use Juzaweb\Cms\Traits\ResourceController;
 use Juzaweb\Cms\Models\EmailTemplate;
 use Illuminate\Support\Facades\Validator;
 

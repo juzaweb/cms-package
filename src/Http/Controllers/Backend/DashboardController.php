@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Cms\Http\Controllers\Backend;
 
+use Juzaweb\Cms\Abstracts\Action;
 use Juzaweb\Cms\Http\Controllers\BackendController;
 use Juzaweb\Cms\Models\User;
 use Illuminate\Http\Request;
@@ -15,6 +16,8 @@ class DashboardController extends BackendController
 
     public function dashboard()
     {
+        do_action(Action::BACKEND_DASHBOARD_ACTION);
+
         return view('juzaweb::backend.dashboard', [
             'title' => trans('juzaweb::app.dashboard'),
         ]);

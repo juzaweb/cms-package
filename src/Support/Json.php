@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms;
+namespace Juzaweb\Cms\Support;
 
 use Illuminate\Filesystem\Filesystem;
 use Juzaweb\Cms\Exceptions\InvalidJsonException;

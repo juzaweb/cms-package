@@ -4,7 +4,7 @@ namespace Juzaweb\Cms\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
 use Juzaweb\Cms\Migrations\Migrator;
-use Juzaweb\Cms\Support\Traits\MigrationLoaderTrait;
+use Juzaweb\Cms\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

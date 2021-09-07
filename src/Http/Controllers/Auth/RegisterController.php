@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Support\Traits\ResponseMessage;
+use Juzaweb\Cms\Traits\ResponseMessage;
 use Juzaweb\Cms\Email\EmailService;
 
 class RegisterController extends Controller

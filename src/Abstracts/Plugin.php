@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Juzaweb\Cms\Contracts\ActivatorInterface;
 use Illuminate\Support\Facades\Artisan;
-use Juzaweb\Cms\Json;
+use Juzaweb\Cms\Support\Json;
 
 abstract class Plugin
 {

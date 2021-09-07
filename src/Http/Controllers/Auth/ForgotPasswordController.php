@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Juzaweb\Cms\Models\PasswordReset;
 use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Support\Traits\ResponseMessage;
+use Juzaweb\Cms\Traits\ResponseMessage;
 use Illuminate\Http\Request;
 use Juzaweb\Cms\EmailService;
 

@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Cms\Models;
 
-use Juzaweb\Cms\Support\Traits\UseSlug;
+use Juzaweb\Cms\Traits\UseSlug;
 
 /**
  * Juzaweb\Cms\Models\Tags

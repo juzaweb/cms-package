@@ -6,7 +6,7 @@ use Juzaweb\Cms\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Juzaweb\Cms\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Cms\Support\Traits\ResponseMessage;
+use Juzaweb\Cms\Traits\ResponseMessage;
 
 class LoginController extends Controller
 {

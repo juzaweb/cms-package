@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Activators;
+namespace Juzaweb\Cms\Support\Activators;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Config\Repository as Config;

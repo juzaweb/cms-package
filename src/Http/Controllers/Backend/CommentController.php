@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ResourceController;
+use Juzaweb\Cms\Traits\ResourceController;
 use Juzaweb\Cms\Models\Comment;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

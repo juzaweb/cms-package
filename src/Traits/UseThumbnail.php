@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Traits;
+namespace Juzaweb\Cms\Traits;
 
 use Juzaweb\Cms\Models\MediaFile;
 use Illuminate\Support\Str;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Commands;
+namespace Juzaweb\Cms\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
 use Juzaweb\Cms\Traits\ModuleCommandTrait;
