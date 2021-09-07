@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Facade;
  * @method get(string $key, $default = null)
  * @method getDisplayName()
  * @method bool isEnabled()
- * @see \Juzaweb\Laravel\Module
- * */
+ *
+ * @see \Juzaweb\Support\Module
+ */
 class Plugin extends Facade
 {
     /**

@@ -6,10 +6,6 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/14/2021
- * Time: 5:13 PM
  */
 
 namespace Juzaweb\Providers;
@@ -37,11 +33,6 @@ class AutoloadServiceProvider extends ServiceProvider
 
                 if (is_dir($path) && $namespace && $domain) {
                     $this->bootResources($path, $namespace, $domain);
-                    $actionPath = $path .'/../actions';
-
-                    if (is_dir($actionPath)) {
-                        HookAction::loadActionForm($actionPath);
-                    }
                 }
             }
         }

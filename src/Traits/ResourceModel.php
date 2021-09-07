@@ -15,7 +15,7 @@ use Illuminate\Support\Arr;
 
 /**
  * @method \Illuminate\Database\Eloquent\Builder whereFilter(array $params)
- **/
+ */
 trait ResourceModel
 {
     /**

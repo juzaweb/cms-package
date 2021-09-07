@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Contracts;
 
-class ModuleInterface
+interface ModuleInterface
 {
     
 }

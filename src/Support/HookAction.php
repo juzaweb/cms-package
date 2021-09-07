@@ -20,25 +20,12 @@ use Juzaweb\Support\Theme\TaxonomyMenuBox;
 class HookAction
 {
     /**
-     * Add hook actions folder
-     *
-     * @param string $path
-     **/
-    public function loadActionForm($path)
-    {
-        add_filters('juzaweb.actions', function ($items) use ($path) {
-            $items[] = $path;
-            return collect($items)->unique();
-        });
-    }
-
-    /**
      * Registers menu item in menu builder.
      *
      * @param string $postType
      * @param array $args
      * @throws \Exception
-     * */
+     */
     public function registerPermalink($postType, $args = [])
     {
         if (empty($args['label'])) {

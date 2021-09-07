@@ -11,6 +11,7 @@
 namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Juzaweb\Contracts\PostTypeContract;
 
 /**
  * @method static \Illuminate\Support\Collection getPostTypes($postType = null)
@@ -28,6 +29,6 @@ class PostType extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'juzaweb.post_type';
+        return PostTypeContract::class;
     }
 }

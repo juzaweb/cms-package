@@ -14,7 +14,8 @@ use Juzaweb\Contracts\ThemeContract;
  * @method static assets(string $path, $theme = null, $secure = null)
  * @method static publicPath(string $theme)
  * @method static \Noodlehaus\Config[] all()
- * @see \Juzaweb\Managers\Theme
+ *
+ * @see \Juzaweb\Support\Theme
  */
 class Theme extends Facade
 {
