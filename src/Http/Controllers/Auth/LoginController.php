@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Cms\Traits\ResponseMessage;
+use Juzaweb\Traits\ResponseMessage;
 
 class LoginController extends Controller
 {

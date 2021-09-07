@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 class JuzawebApi
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Abstracts\Plugin;
 
 class LaravelModulesV6Migrator extends Command
 {

@@ -12,7 +12,7 @@
  * Time: 10:10 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

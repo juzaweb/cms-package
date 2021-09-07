@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Traits;
+namespace Juzaweb\Traits;
 
-use Juzaweb\Cms\Models\MediaFile;
+use Juzaweb\Models\MediaFile;
 use Illuminate\Support\Str;
 
 trait UseThumbnail

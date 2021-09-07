@@ -6,9 +6,9 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
-use Juzaweb\Cms\Support\ServiceProvider;
+use Juzaweb\Support\ServiceProvider;
 
 class HookActionServiceProvider extends ServiceProvider
 {

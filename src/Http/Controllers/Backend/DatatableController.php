@@ -12,12 +12,12 @@
  * Time: 5:24 PM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Support\Facades\Crypt;
-use Juzaweb\Cms\Support\DataTable;
+use Juzaweb\Support\DataTable;
 
 class DatatableController extends BackendController
 {

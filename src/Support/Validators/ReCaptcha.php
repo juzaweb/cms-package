@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Validators;
+namespace Juzaweb\Support\Validators;
 
 use GuzzleHttp\Client;
 

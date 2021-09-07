@@ -9,7 +9,7 @@
  * Github: https://juzaweb.com/cms
  */
 
-namespace Juzaweb\Cms\Http\Controllers;
+namespace Juzaweb\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

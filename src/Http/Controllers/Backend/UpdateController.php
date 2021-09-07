@@ -12,11 +12,11 @@
  * Time: 11:09 AM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Manager\UpdateManager;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Support\Manager\UpdateManager;
 
 class UpdateController extends BackendController
 {

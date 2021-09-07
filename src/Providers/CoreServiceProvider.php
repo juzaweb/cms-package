@@ -12,17 +12,17 @@
  * Time: 9:53 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use Juzaweb\Cms\Console\Commands\UpdateCommand;
-use Juzaweb\Cms\Support\HookAction;
+use Juzaweb\Console\Commands\UpdateCommand;
+use Juzaweb\Support\HookAction;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Console\Scheduling\Schedule;
-use Juzaweb\Cms\Support\PostType;
+use Juzaweb\Support\PostType;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -32,7 +32,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->bootPublishes();
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
 
-        Validator::extend('recaptcha', 'Juzaweb\Cms\Validators\Recaptcha@validate');
+        Validator::extend('recaptcha', 'Juzaweb\Validators\Recaptcha@validate');
         Schema::defaultStringLength(150);
 
         $this->app->booted(function () {

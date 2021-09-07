@@ -12,13 +12,13 @@
  * Time: 8:08 PM
  */
 
-namespace Juzaweb\Cms\Traits;
+namespace Juzaweb\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Juzaweb\Cms\Models\Comment;
-use Juzaweb\Cms\Facades\PostType;
-use Juzaweb\Cms\Models\Taxonomy;
+use Juzaweb\Models\Comment;
+use Juzaweb\Facades\PostType;
+use Juzaweb\Models\Taxonomy;
 use Illuminate\Support\Str;
 
 /**

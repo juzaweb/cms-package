@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
-use Juzaweb\Cms\Contracts\ActivatorInterface;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Exceptions\InvalidActivatorClass;
-use Juzaweb\Cms\Support\LaravelFileRepository;
-use Juzaweb\Cms\Abstracts\PluginServiceProvider as BaseServiceProvider;
-use Juzaweb\Cms\Support\Stub;
+use Juzaweb\Contracts\ActivatorInterface;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Exceptions\InvalidActivatorClass;
+use Juzaweb\Support\LaravelFileRepository;
+use Juzaweb\Abstracts\PluginServiceProvider as BaseServiceProvider;
+use Juzaweb\Support\Stub;
 
 class PluginServiceProvider extends BaseServiceProvider
 {

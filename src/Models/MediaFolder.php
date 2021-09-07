@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 /**
- * Juzaweb\Cms\Models\MediaFolder
+ * Juzaweb\Models\MediaFolder
  *
  * @property int $id
  * @property string $name
@@ -13,7 +13,7 @@ namespace Juzaweb\Cms\Models;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|MediaFolder[] $children
  * @property-read int|null $children_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Cms\Models\MediaFile[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\MediaFile[] $files
  * @property-read int|null $files_count
  * @property-read MediaFolder|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder|MediaFolder newModelQuery()
@@ -37,7 +37,7 @@ class MediaFolder extends Model
     
     public function files()
     {
-        return $this->hasMany('Juzaweb\Cms\Models\MediaFile', 'folder_id', 'id');
+        return $this->hasMany('Juzaweb\Models\MediaFile', 'folder_id', 'id');
     }
 
     public function parent()

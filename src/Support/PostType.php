@@ -12,10 +12,10 @@
  * Time: 9:48 PM
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\Arr;
-use Juzaweb\Cms\Facades\HookAction;
+use Juzaweb\Facades\HookAction;
 
 class PostType
 {

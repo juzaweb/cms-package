@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void registerMenuBox($tag, array $args = [])
  * @method static array getMenuBoxs(array $keys = [])
  * @method static \Illuminate\Support\Collection getMenuBox(string $key)
- * @see \Juzaweb\Cms\Support\HookAction
+ * @see \Juzaweb\Support\HookAction
  **/
 class HookAction extends Facade
 {

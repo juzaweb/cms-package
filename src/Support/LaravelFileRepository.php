@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
-use Juzaweb\Cms\Abstracts\FileRepository;
+use Juzaweb\Abstracts\FileRepository;
 
 class LaravelFileRepository extends FileRepository
 {

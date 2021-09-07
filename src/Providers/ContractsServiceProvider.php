@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Support\LaravelFileRepository;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Support\LaravelFileRepository;
 
 class ContractsServiceProvider extends ServiceProvider
 {

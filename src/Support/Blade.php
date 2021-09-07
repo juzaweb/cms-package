@@ -12,7 +12,7 @@
  * Time: 10:13 PM
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 class Blade extends MinifyHtml
 {

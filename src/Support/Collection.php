@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection as BaseCollection;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Abstracts\Plugin;
 
 class Collection extends BaseCollection
 {

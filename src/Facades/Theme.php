@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Juzaweb\Cms\Contracts\ThemeContract;
+use Juzaweb\Contracts\ThemeContract;
 
 /**
  * @method static set(string $theme)
@@ -14,7 +14,7 @@ use Juzaweb\Cms\Contracts\ThemeContract;
  * @method static assets(string $path, $theme = null, $secure = null)
  * @method static publicPath(string $theme)
  * @method static \Noodlehaus\Config[] all()
- * @see \Juzaweb\Cms\Managers\Theme
+ * @see \Juzaweb\Managers\Theme
  */
 class Theme extends Facade
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Events;
+namespace Juzaweb\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;

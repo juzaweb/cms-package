@@ -1,14 +1,14 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Facades\Theme;
-use Juzaweb\Cms\Facades\ThemeConfig;
-use Juzaweb\Cms\Support\Theme\Customize;
-use Juzaweb\Cms\Support\Theme\CustomizeControl;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Facades\Theme;
+use Juzaweb\Facades\ThemeConfig;
+use Juzaweb\Support\Theme\Customize;
+use Juzaweb\Support\Theme\CustomizeControl;
 
 class ThemeEditorController extends BackendController
 {

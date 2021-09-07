@@ -12,10 +12,10 @@
  * Time: 1:16 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Facades\HookAction;
+use Juzaweb\Facades\HookAction;
 
 class PostTypeServiceProvider extends ServiceProvider
 {

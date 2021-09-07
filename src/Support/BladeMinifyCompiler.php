@@ -2,7 +2,7 @@
 
 namespace Tadcms\System\Helpers;
 
-use Juzaweb\Cms\Support\Blade;
+use Juzaweb\Support\Blade;
 use Illuminate\View\Compilers\BladeCompiler as BaseCompiler;
 
 class BladeMinifyCompiler extends BaseCompiler

@@ -12,21 +12,21 @@
  * Time: 12:38 PM
  */
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Juzaweb\Cms\Facades\HookAction;
+use Juzaweb\Facades\HookAction;
 
 /**
- * Juzaweb\Cms\Models\Menu
+ * Juzaweb\Models\Menu
  *
  * @property int $id
  * @property string $name
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Cms\Models\MenuItem[] $items
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\MenuItem[] $items
  * @property-read int|null $items_count
  * @method static \Illuminate\Database\Eloquent\Builder|Menu newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Menu newQuery()

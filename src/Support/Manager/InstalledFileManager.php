@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Manager;
+namespace Juzaweb\Support\Manager;
 
-use Juzaweb\Cms\Support\Installer;
+use Juzaweb\Support\Installer;
 
 class InstalledFileManager
 {

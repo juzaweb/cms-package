@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Contracts\ThemeContract;
-use Juzaweb\Cms\Support\Theme\Theme;
+use Juzaweb\Contracts\ThemeContract;
+use Juzaweb\Support\Theme\Theme;
 
 class ThemeServiceProvider extends ServiceProvider
 {

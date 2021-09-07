@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Macros;
+namespace Juzaweb\Support\Macros;
 
 use Illuminate\Support\Str;
 
@@ -29,9 +29,9 @@ class RouterMacros
             $singular = Str::singular($uri);
             $this->jwResource($uri, $controller, $options);
 
-            $this->jwResource(Str::singular($uri) . '/comments', '\Juzaweb\Cms\Http\Controllers\Backend\CommentController', $options);
-            $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Cms\Http\Controllers\Backend\TaxonomyController@getTagComponent');
-            $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Cms\Http\Controllers\Backend\TaxonomyController', [
+            $this->jwResource(Str::singular($uri) . '/comments', '\Juzaweb\Http\Controllers\Backend\CommentController', $options);
+            $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Http\Controllers\Backend\TaxonomyController@getTagComponent');
+            $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Http\Controllers\Backend\TaxonomyController', [
                 'name' => Str::singular($uri) . '.taxonomy'
             ]);
         };

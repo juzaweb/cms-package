@@ -22,8 +22,8 @@
     },
     "autoload": {
       "psr-4": {
-        "Juzaweb\\Cms\\Tests\\": "tests/",
-        "Juzaweb\\Cms\\": "src/"
+        "Juzaweb\\Tests\\": "tests/",
+        "Juzaweb\\": "src/"
       },
       "files": [
         "src/Helpers/helpers.php"
@@ -32,7 +32,7 @@
     "extra": {
       "laravel": {
         "providers": [
-          "Juzaweb\\Cms\\Providers\\CmsServiceProvider"
+          "Juzaweb\\Providers\\CmsServiceProvider"
         ]
       }
     }

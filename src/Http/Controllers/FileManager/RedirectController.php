@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Illuminate\Support\Facades\Storage;
 

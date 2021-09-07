@@ -12,13 +12,13 @@
  * Time: 6:31 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
-use Juzaweb\Cms\Actions\MenuAction;
-use Juzaweb\Cms\Support\ServiceProvider;
-use Juzaweb\Cms\Http\Middleware\Admin;
+use Juzaweb\Actions\MenuAction;
+use Juzaweb\Support\ServiceProvider;
+use Juzaweb\Http\Middleware\Admin;
 use Illuminate\Routing\Router;
-use Juzaweb\Cms\Support\Macros\RouterMacros;
+use Juzaweb\Support\Macros\RouterMacros;
 
 class BackendServiceProvider extends ServiceProvider
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Fideloper\Proxy\TrustProxies as Middleware;

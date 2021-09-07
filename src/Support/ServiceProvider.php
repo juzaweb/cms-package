@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

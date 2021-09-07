@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Facades\Plugin;
-use Juzaweb\Cms\Facades\Theme;
+use Juzaweb\Facades\Plugin;
+use Juzaweb\Facades\Theme;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
 

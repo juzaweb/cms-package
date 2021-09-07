@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Contracts\ConfigContract;
-use Juzaweb\Cms\Support\Config as JwConfig;
-use Juzaweb\Cms\Contracts\ThemeConfigContract;
-use Juzaweb\Cms\Support\Theme\ThemeConfig;
+use Juzaweb\Contracts\ConfigContract;
+use Juzaweb\Support\Config as JwConfig;
+use Juzaweb\Contracts\ThemeConfigContract;
+use Juzaweb\Support\Theme\ThemeConfig;
 
 class DbConfigServiceProvider extends ServiceProvider
 {

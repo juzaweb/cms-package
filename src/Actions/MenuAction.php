@@ -8,14 +8,14 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Actions;
+namespace Juzaweb\Actions;
 
-use Juzaweb\Cms\Support\Theme\CustomMenuBox;
-use Juzaweb\Cms\Abstracts\Action;
-use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Cms\Facades\PostType;
-use Juzaweb\Cms\Models\Page;
-use Juzaweb\Cms\Models\Post;
+use Juzaweb\Support\Theme\CustomMenuBox;
+use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Facades\PostType;
+use Juzaweb\Models\Page;
+use Juzaweb\Models\Post;
 
 class MenuAction extends Action
 {

@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Contracts;
+namespace Juzaweb\Contracts;
 
 
 interface EventyContract

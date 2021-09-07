@@ -8,9 +8,9 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
-use Juzaweb\Cms\Facades\Hook;
+use Juzaweb\Facades\Hook;
 
 abstract class Action
 {

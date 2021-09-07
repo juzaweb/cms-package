@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Frontend;
+namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Http\Controllers\Controller;
-use Juzaweb\Cms\Facades\Theme;
+use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Facades\Theme;
 use Noodlehaus\Config;
 
 class FrontendController extends Controller

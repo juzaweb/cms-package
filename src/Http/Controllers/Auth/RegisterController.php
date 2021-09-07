@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Traits\ResponseMessage;
-use Juzaweb\Cms\Email\EmailService;
+use Juzaweb\Models\User;
+use Juzaweb\Traits\ResponseMessage;
+use Juzaweb\Email\EmailService;
 
 class RegisterController extends Controller
 {

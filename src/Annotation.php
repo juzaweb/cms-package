@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms;
+namespace Juzaweb;
 
 /**
  * @OA\Info(
@@ -21,7 +21,7 @@ namespace Juzaweb\Cms;
  * )
  */
 
-class Anotations
+class Annotation
 {
 
 }

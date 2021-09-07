@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Migrations;
+namespace Juzaweb\Support\Migrations;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;

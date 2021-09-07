@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Closure;
 
 class CanUpdate
 {
-    use \Juzaweb\Cms\Support\MigrationsHelper;
+    use \Juzaweb\Support\MigrationsHelper;
 
     /**
      * Handle an incoming request.

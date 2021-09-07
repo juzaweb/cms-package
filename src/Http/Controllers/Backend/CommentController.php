@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Traits\ResourceController;
-use Juzaweb\Cms\Models\Comment;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Traits\ResourceController;
+use Juzaweb\Models\Comment;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 

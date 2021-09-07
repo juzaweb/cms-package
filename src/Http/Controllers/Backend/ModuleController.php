@@ -8,12 +8,12 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Traits\ArrayPagination;
-use Juzaweb\Cms\Facades\Locale;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Traits\ArrayPagination;
+use Juzaweb\Facades\Locale;
+use Juzaweb\Http\Controllers\BackendController;
 
 class ModuleController extends BackendController
 {

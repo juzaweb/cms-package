@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\Taxonomy;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController extends BackendController
 {

@@ -12,11 +12,11 @@
  * Time: 5:13 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Juzaweb\Cms\Facades\HookAction;
+use Juzaweb\Facades\HookAction;
 use Illuminate\Support\Arr;
 
 class AutoloadServiceProvider extends ServiceProvider

@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Facades\PostType;
+use Juzaweb\Facades\PostType;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Juzaweb\Cms\Models\Comment
+ * Juzaweb\Models\Comment
  *
  * @property int $id
  * @property int|null $user_id

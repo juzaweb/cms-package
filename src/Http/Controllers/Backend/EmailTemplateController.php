@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Traits\ResourceController;
-use Juzaweb\Cms\Models\EmailTemplate;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Traits\ResourceController;
+use Juzaweb\Models\EmailTemplate;
 use Illuminate\Support\Facades\Validator;
 
 class EmailTemplateController extends BackendController

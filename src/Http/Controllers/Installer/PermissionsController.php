@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
 use Illuminate\Routing\Controller;
-use Juzaweb\Cms\Support\PermissionsChecker;
+use Juzaweb\Support\PermissionsChecker;
 
 class PermissionsController extends Controller
 {

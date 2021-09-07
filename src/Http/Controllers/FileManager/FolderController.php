@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Models\MediaFolder;
+use Juzaweb\Models\MediaFolder;
 
 class FolderController extends FileManagerController
 {

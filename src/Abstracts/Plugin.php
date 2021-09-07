@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Container\Container;
@@ -8,9 +8,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use Juzaweb\Cms\Contracts\ActivatorInterface;
+use Juzaweb\Contracts\ActivatorInterface;
 use Illuminate\Support\Facades\Artisan;
-use Juzaweb\Cms\Support\Json;
+use Juzaweb\Support\Json;
 
 abstract class Plugin
 {

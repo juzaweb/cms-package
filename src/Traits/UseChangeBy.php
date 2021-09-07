@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Traits;
+namespace Juzaweb\Traits;
 
 //use Illuminate\Support\Facades\Auth;
 

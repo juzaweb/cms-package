@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Generators;
+namespace Juzaweb\Support\Generators;
 
 use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Contracts\ActivatorInterface;
-use Juzaweb\Cms\Abstracts\FileRepository;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Stub;
+use Juzaweb\Contracts\ActivatorInterface;
+use Juzaweb\Abstracts\FileRepository;
+use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Support\Stub;
 
 class ModuleGenerator extends Generator
 {
@@ -51,7 +51,7 @@ class ModuleGenerator extends Generator
     /**
      * The plugin instance.
      *
-     * @var \Juzaweb\Cms\Abstracts\Plugin
+     * @var \Juzaweb\Abstracts\Plugin
      */
     protected $module;
 
@@ -240,7 +240,7 @@ class ModuleGenerator extends Generator
     /**
      * Get the plugin instance.
      *
-     * @return \Juzaweb\Cms\Abstracts\Plugin
+     * @return \Juzaweb\Abstracts\Plugin
      */
     public function getModule()
     {

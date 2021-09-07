@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Manager;
+namespace Juzaweb\Support\Manager;
 
 use Throwable;
 use Illuminate\Support\Facades\Artisan;

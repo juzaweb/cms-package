@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Models\PasswordReset;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Traits\ResponseMessage;
+use Juzaweb\Models\PasswordReset;
+use Juzaweb\Models\User;
+use Juzaweb\Traits\ResponseMessage;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\EmailService;
+use Juzaweb\EmailService;
 
 class ForgotPasswordController extends Controller
 {

@@ -10,13 +10,13 @@
  * Time: 4:31 PM
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\ProviderRepository;
-use Juzaweb\Cms\Abstracts\Plugin as BasePlugin;
+use Juzaweb\Abstracts\Plugin as BasePlugin;
 
 class Module extends BasePlugin
 {

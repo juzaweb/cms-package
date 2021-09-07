@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Facades\Hash;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

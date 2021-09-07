@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Collection;
@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
  * @method static array allLanguage(Collection|string $var)
  * @method static string publishPath(Collection|string $var, string $locale)
  * @method static array getAllTrans(Collection|string $var, string $locale)
- * @see \Juzaweb\Cms\Support\Locale
+ * @see \Juzaweb\Support\Locale
  */
 class Locale extends Facade
 {

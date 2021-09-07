@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Console\Commands\InstallCommand;
-use Juzaweb\Cms\Http\Middleware\CanInstall;
-use Juzaweb\Cms\Http\Middleware\Installed;
+use Juzaweb\Console\Commands\InstallCommand;
+use Juzaweb\Http\Middleware\CanInstall;
+use Juzaweb\Http\Middleware\Installed;
 
 class InstallerServiceProvider extends ServiceProvider
 {

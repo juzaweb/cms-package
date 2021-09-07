@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
-use Juzaweb\Cms\Models\PasswordReset;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Models\PasswordReset;
+use Juzaweb\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;

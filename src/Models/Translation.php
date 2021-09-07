@@ -1,23 +1,23 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 /**
- * Juzaweb\Cms\Models\Translation
+ * Juzaweb\Models\Translation
  *
  * @property int $id
  * @property string $key
  * @property string|null $en
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation whereEn($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Cms\Models\Translation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation whereEn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\Translation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Translation extends Model

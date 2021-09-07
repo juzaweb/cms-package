@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-use Juzaweb\Cms\Facades\Theme;
-use Juzaweb\Cms\Models\Menu;
-use Juzaweb\Cms\Support\Theme\MenuBuilder;
-use Juzaweb\Cms\Facades\ThemeConfig;
+use Juzaweb\Facades\Theme;
+use Juzaweb\Models\Menu;
+use Juzaweb\Support\Theme\MenuBuilder;
+use Juzaweb\Facades\ThemeConfig;
 use Illuminate\Support\Collection;
 
 function body_class($class = '')
@@ -92,7 +92,7 @@ if (!function_exists('home_page')) {
 /**
  * Loads a template part into a template.
  *
- * @param \Juzaweb\Cms\Models\Model $post
+ * @param \Juzaweb\Models\Model $post
  * @param string $slug
  * @param string $name
  * @param array $args

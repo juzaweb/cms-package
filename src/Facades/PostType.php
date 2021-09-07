@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Illuminate\Support\Collection getTaxonomies($postType = null)
  * @method static void syncTaxonomies($postType, $model, array $attributes)
  *
- * @see \Juzaweb\Cms\Support\PostType
+ * @see \Juzaweb\Support\PostType
  */
 class PostType extends Facade
 {

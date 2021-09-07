@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend\Setting;
+namespace Juzaweb\Http\Controllers\Backend\Setting;
 
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
 
 class SystemSettingController extends BackendController

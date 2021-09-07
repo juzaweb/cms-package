@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support\Theme;
+namespace Juzaweb\Support\Theme;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Cms\Models\MenuItem;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Models\MenuItem;
 
 class MenuBuilder
 {

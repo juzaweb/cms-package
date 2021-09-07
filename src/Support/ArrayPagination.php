@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;

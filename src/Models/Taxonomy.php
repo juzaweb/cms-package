@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Traits\UseSlug;
-use Juzaweb\Cms\Traits\UseThumbnail;
+use Juzaweb\Traits\UseSlug;
+use Juzaweb\Traits\UseThumbnail;
 
 /**
- * Juzaweb\Cms\Models\Taxonomy
+ * Juzaweb\Models\Taxonomy
  *
  * @property int $id
  * @property string $name

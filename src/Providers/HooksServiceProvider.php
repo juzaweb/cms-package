@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Contracts\EventyContract;
-use Juzaweb\Cms\Support\Hooks\Events;
+use Juzaweb\Contracts\EventyContract;
+use Juzaweb\Support\Hooks\Events;
 
 class HooksServiceProvider extends ServiceProvider
 {

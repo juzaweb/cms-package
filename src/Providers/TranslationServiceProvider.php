@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Cms\Support\Locale;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Support\Locale;
 
 class TranslationServiceProvider extends ServiceProvider
 {

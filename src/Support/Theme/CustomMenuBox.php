@@ -8,9 +8,9 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support\Theme;
+namespace Juzaweb\Support\Theme;
 
-use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBoxAbstract;
 
 class CustomMenuBox extends MenuBoxAbstract
 {

@@ -12,7 +12,7 @@
  * Time: 11:20 AM
  */
 
-namespace Juzaweb\Cms;
+namespace Juzaweb;
 
 class Version
 {

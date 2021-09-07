@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-use Juzaweb\Cms\Support\Activators\FileActivator;
+use Juzaweb\Support\Activators\FileActivator;
 
 return [
     /**

@@ -12,7 +12,7 @@
  * Time: 9:56 PM
  */
 
-namespace Juzaweb\Cms\Http\Datatable;
+namespace Juzaweb\Http\Datatable;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

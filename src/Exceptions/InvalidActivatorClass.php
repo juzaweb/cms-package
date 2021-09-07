@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Exceptions;
+namespace Juzaweb\Exceptions;
 
 class InvalidActivatorClass extends \Exception
 {

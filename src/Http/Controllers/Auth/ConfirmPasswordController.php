@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
-use Juzaweb\Cms\Traits\ResponseMessage;
+use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Traits\ResponseMessage;
 
 class ConfirmPasswordController extends Controller
 {

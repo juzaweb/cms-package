@@ -17,12 +17,12 @@ require __DIR__ . '/theme.php';
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Cms\Support\Breadcrumb;
-use Juzaweb\Cms\Facades\Config;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Models\Page;
+use Juzaweb\Support\Breadcrumb;
+use Juzaweb\Facades\Config;
+use Juzaweb\Models\User;
+use Juzaweb\Models\Page;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Facades\Hook;
+use Juzaweb\Facades\Hook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
 
@@ -83,7 +83,7 @@ if (!function_exists('set_config')) {
      *
      * @param string $key
      * @param string|array $value
-     * @return \Juzaweb\Cms\Models\Config
+     * @return \Juzaweb\Models\Config
      */
     function set_config($key, $value)
     {

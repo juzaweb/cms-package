@@ -12,7 +12,7 @@
  * Time: 2:05 PM
  */
 
-namespace Juzaweb\Cms\Traits;
+namespace Juzaweb\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

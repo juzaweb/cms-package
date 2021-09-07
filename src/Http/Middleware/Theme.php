@@ -12,7 +12,7 @@
  * Time: 3:05 PM
  */
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Closure;
 

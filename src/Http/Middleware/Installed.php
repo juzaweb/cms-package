@@ -12,11 +12,11 @@
  * Time: 5:58 PM
  */
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Route;
-use Juzaweb\Cms\Support\Installer;
+use Juzaweb\Support\Installer;
 
 class Installed
 {

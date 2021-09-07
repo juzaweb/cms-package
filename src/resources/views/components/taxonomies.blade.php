@@ -1,5 +1,5 @@
 @php
-    $taxonomies = \Juzaweb\Cms\Facades\PostType::getTaxonomies($postType);
+    $taxonomies = \Juzaweb\Facades\PostType::getTaxonomies($postType);
 @endphp
 
 @foreach($taxonomies as $taxonomy)

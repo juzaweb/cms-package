@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\Menu;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Models\Taxonomy;
-use Juzaweb\Cms\Support\ArrayPagination;
-use Juzaweb\Cms\Models\Page;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\Menu;
+use Juzaweb\Models\User;
+use Juzaweb\Models\Taxonomy;
+use Juzaweb\Support\ArrayPagination;
+use Juzaweb\Models\Page;
 
 class LoadDataController extends BackendController
 {

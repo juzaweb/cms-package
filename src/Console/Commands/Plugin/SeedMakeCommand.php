@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Stub;
-use Juzaweb\Cms\Traits\CanClearModulesCache;
-use Juzaweb\Cms\Traits\ModuleCommandTrait;
+use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Support\Stub;
+use Juzaweb\Traits\CanClearModulesCache;
+use Juzaweb\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

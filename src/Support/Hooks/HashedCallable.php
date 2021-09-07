@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Hooks;
+namespace Juzaweb\Support\Hooks;
 
 use Opis\Closure\SerializableClosure;
 

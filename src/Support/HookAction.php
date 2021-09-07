@@ -6,16 +6,16 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Facades\Hook;
+use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
-use Juzaweb\Cms\Models\Taxonomy;
-use Juzaweb\Cms\Support\Theme\PostTypeMenuBox;
-use Juzaweb\Cms\Support\Theme\TaxonomyMenuBox;
+use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Models\Taxonomy;
+use Juzaweb\Support\Theme\PostTypeMenuBox;
+use Juzaweb\Support\Theme\TaxonomyMenuBox;
 
 class HookAction
 {
@@ -309,7 +309,7 @@ class HookAction
     public function registerPostType($key, $args = [])
     {
         if (empty($args['model'])) {
-            throw new \Exception('Post type model is required. E.x: \\Juzaweb\Cms\\Models\\Post.');
+            throw new \Exception('Post type model is required. E.x: \\Juzaweb\\Models\\Post.');
         }
 
         if (empty($args['label'])) {

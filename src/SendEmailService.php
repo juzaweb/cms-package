@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms;
+namespace Juzaweb;
 
-use Juzaweb\Cms\Models\EmailList;
+use Juzaweb\Models\EmailList;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailService

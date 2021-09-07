@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Frontend;
+namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\Storage;
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
-use Juzaweb\Cms\Facades\Theme;
+use Juzaweb\Facades\Theme;
 
 class AssetController extends Controller
 {
