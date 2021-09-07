@@ -202,7 +202,7 @@ class ThemeGeneratorCommand extends Command
 
     protected function getThemeStubPath()
     {
-        return __DIR__ . '/../../stubs';
+        return JW_PACKAGE_PATH . '/stubs/theme';
     }
 
     protected function getThemeStubFiles()

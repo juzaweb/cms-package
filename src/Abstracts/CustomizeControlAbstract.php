@@ -11,7 +11,7 @@
 namespace Juzaweb\Cms\Abstracts;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Support\Customize;
+use Juzaweb\Cms\Support\Theme\Customize;
 
 abstract class CustomizeControlAbstract
 {

@@ -6,13 +6,9 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/9/2021
- * Time: 7:54 PM
  */
 
-use Juzaweb\Cms\Activators\FileActivator;
+use Juzaweb\Cms\Support\Activators\FileActivator;
 
 return [
     /**

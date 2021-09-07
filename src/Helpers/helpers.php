@@ -8,6 +8,10 @@
  * @license    MIT
  */
 
+define('JW_PACKAGE_PATH', __DIR__ . '/../..');
+define('JW_DATE', 1);
+define('JW_DATE_TIME', 2);
+
 require __DIR__ . '/plugin.php';
 require __DIR__ . '/theme.php';
 
@@ -21,9 +25,6 @@ use Illuminate\Support\Str;
 use Juzaweb\Cms\Facades\Hook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
-
-define('JW_DATE', 1);
-define('JW_DATE_TIME', 2);
 
 if (!function_exists('get_client_ip')) {
     /**
