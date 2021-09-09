@@ -52,6 +52,10 @@ class Post extends Model
         'views',
         'thumbnail'
     ];
+
+    protected $searchFields = [
+        'title',
+    ];
     
     public function comments()
     {

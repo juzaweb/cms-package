@@ -21,6 +21,7 @@ class MenuAction extends Action
 {
     public function handle()
     {
+        $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addDatatableSearchFieldTypes']);
         $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addPostTypes']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addBackendMenu']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addSettingPage']);
@@ -266,5 +267,24 @@ class MenuAction extends Action
                 ])->render();
             });
         }
+    }
+
+    public function addDatatableSearchFieldTypes()
+    {
+        $this->addFilter(Action::DATATABLE_SEARCH_FIELD_TYPES_FILTER, function ($items) {
+            $items['text'] = [
+                'view' => view('juzaweb::components.datatable.text_field')
+            ];
+
+            $items['select'] = [
+                'view' => view('juzaweb::components.datatable.select_field')
+            ];
+
+            $items['taxonomy'] = [
+                'view' => view('juzaweb::components.datatable.taxonomy_field')
+            ];
+
+            return $items;
+        });
     }
 }

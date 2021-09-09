@@ -54,6 +54,7 @@ abstract class DataTable
             'uniqueId' => $uniqueId,
             'params' => $params,
             'searchFields' => $searchFields,
+            'searchFieldTypes' => $this->getSearchFieldTypes(),
             'table' => Crypt::encryptString(static::class),
         ]);
     }
@@ -78,6 +79,31 @@ abstract class DataTable
         ];
     }
 
+    public function rowAction($row)
+    {
+        return [
+            'edit' => [
+                'label' => trans('juzaweb::app.edit'),
+                'url' => 'edit/' . $row->id,
+            ],
+            'trash' => [
+                'label' => trans('juzaweb::app.edit'),
+                'class' => 'text-danger',
+                'action' => 'trash',
+            ],
+        ];
+    }
+
+    public function rowActionsFormatter($value, $row, $index)
+    {
+        return view('juzaweb::backend.items.datatable_item', [
+            'value' => $value,
+            'row' => $row,
+            'actions' => $this->rowAction($row)
+        ])
+            ->render();
+    }
+
     private function paramsToArray($params)
     {
         foreach ($params as $key => $var) {
@@ -87,5 +113,10 @@ abstract class DataTable
         }
 
         return $params;
+    }
+
+    private function getSearchFieldTypes()
+    {
+        return apply_filters(Action::DATATABLE_SEARCH_FIELD_TYPES_FILTER, []);
     }
 }

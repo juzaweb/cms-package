@@ -26,14 +26,13 @@ trait ResourceModel
      */
     public function scopeWhereFilter($builder, $params = [])
     {
-        if (empty($this->searchAttributes)) {
-            return $builder;
+        if (empty($this->searchFields)) {
+            $this->searchFields = ['title'];
         }
 
-        if (Arr::has($params, 'keyword')) {
-            $builder->where(function (Builder $q) use ($params) {
-                $keyword = trim($params['keyword']);
-                foreach ($this->searchAttributes as $attribute) {
+        if ($keyword = Arr::get($params, 'keyword')) {
+            $builder->where(function (Builder $q) use ($keyword)  {
+                foreach ($this->searchFields as $key => $attribute) {
                     $q->orWhere($attribute, 'like', '%'. $keyword .'%');
                 }
             });

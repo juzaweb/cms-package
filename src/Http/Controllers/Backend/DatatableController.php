@@ -36,7 +36,7 @@ class DatatableController extends BackendController
         foreach ($rows as $index => $row) {
             foreach ($columns as $key => $column) {
                 if (!empty($column['formatter'])) {
-                    $row->{$key} = $column['formatter']($row, $index);
+                    $row->{$key} = $column['formatter']($row->{$key}, $row, $index);
                 }
             }
         }

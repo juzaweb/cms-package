@@ -18,31 +18,14 @@
 
     <div class="col-md-8">
         <form method="get" class="form-inline" id="form-search">
-
             @foreach($searchFields as $name => $field)
-                @switch($field['type'] ?? 'text')
-                    @case('text')
-                        <div class="form-group mb-2 mr-1">
-                            <label for="search-{{ $name }}" class="sr-only">{{ $field['label'] ?? '' }}</label>
-                            <input name="{{ $name }}" id="search-{{ $name }}" class="form-control" placeholder="{{ $field['placeholder'] ?? '' }}" autocomplete="off">
-                        </div>
-                @break
-
-                    @case('select')
-                    <div class="form-group mb-2 mr-1">
-
-                        <select name="{{ $name }}" id="search-{{ $name }}" class="form-control select2-default">
-                            <option value="">{{ trans('juzaweb::app.all') }}</option>
-                            @foreach($field['options'] ?? [] as $key => $val)
-                                <option value="{{ $key }}">{{ $val }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @break
-                @endswitch
+                {{ $searchFieldTypes[$field['type']]['view']
+                    ->with([
+                        'name' => $name,
+                        'field' => $field
+                    ])
+                    }}
             @endforeach
-
-
 
             <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}</button>
         </form>
@@ -50,7 +33,7 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table" id="{{ $uniqueId }}">
+    <table class="table jw-table" id="{{ $uniqueId }}">
         <thead>
             <tr>
                 <th data-width="3%" data-checkbox="true"></th>

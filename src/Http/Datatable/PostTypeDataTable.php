@@ -10,7 +10,7 @@
 
 namespace Juzaweb\Http\Datatable;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
 use Juzaweb\Facades\HookAction;
@@ -38,29 +38,43 @@ class PostTypeDataTable extends DataTable
         return [
             'title' => [
                 'label' => trans('juzaweb::app.title'),
+                'formatter' => [$this, 'rowActionsFormatter']
             ],
             'created' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
-                'formatter' => function ($row, $index) {
+                'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
                 }
             ],
             'status' => [
                 'label' => trans('juzaweb::app.status'),
-                'width' => '20%'
+                'width' => '10%',
+                'align' => 'center',
+                'formatter' => function ($value, $row, $index) {
+                    switch ($row->status) {
+                        case 'publish':
+                            return '<span class="text-success">'. trans('juzaweb::app.publish') .'</span>';
+                            break;
+                        case 'private':
+                            return '<span class="text-warning">'. trans('juzaweb::app.private') .'</span>';
+                            break;
+                        case 'draft':
+                            return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
+                            break;
+                    }
+
+                    return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
+                }
             ],
         ];
     }
 
     public function actions()
     {
-        return [
-            'publish' => trans('juzaweb::app.publish'),
-            'private' => trans('juzaweb::app.private'),
-            'draft' => trans('juzaweb::app.draft'),
+        return array_merge($this->makeModel()->getStatuses(), [
             'delete' => trans('juzaweb::app.delete'),
-        ];
+        ]);
     }
 
     public function bulkActions($action, $ids)
@@ -83,16 +97,46 @@ class PostTypeDataTable extends DataTable
 
     public function searchFields()
     {
-        return [
-            'search' => [
+        $data = [
+            'keyword' => [
                 'type' => 'text',
-                'label' => trans('juzaweb::app.search'),
-                'placeholder' => trans('juzaweb::app.search'),
+                'label' => trans('juzaweb::app.keyword'),
+                'placeholder' => trans('juzaweb::app.keyword'),
             ],
             'status' => [
                 'type' => 'select',
                 'label' => trans('juzaweb::app.search'),
                 'options' => $this->makeModel()->getStatuses(),
+            ]
+        ];
+
+        $taxonomies = HookAction::getTaxonomies($this->postType['key']);
+        foreach ($taxonomies as $key => $taxonomy) {
+            $data[$key] = [
+                'type' => 'taxonomy',
+                'label' => $taxonomy->get('label'),
+                'taxonomy' => $taxonomy,
+            ];
+        }
+
+        return $data;
+    }
+
+    public function rowAction($row)
+    {
+        return [
+            'edit' => [
+                'label' => trans('juzaweb::app.edit'),
+                'url' => route('admin.posts.edit', [$row->id]),
+            ],
+            'trash' => [
+                'label' => trans('juzaweb::app.trash'),
+                'class' => 'text-danger',
+                'action' => 'trash',
+            ],
+            'view' => [
+                'label' => trans('juzaweb::app.view'),
+                'url' => '',
             ]
         ];
     }
@@ -109,13 +153,7 @@ class PostTypeDataTable extends DataTable
          * @var Builder $query
          */
         $query = $this->makeModel()->query();
-
-        if ($search = Arr::get($data, 'search')) {
-            $query->where(function (Builder $q) use ($search) {
-                $q->where('name', 'like', '%'. $search .'%');
-                $q->orWhere('description', 'like', '%'. $search .'%');
-            });
-        }
+        $query->whereFilter($data);
 
         if ($status = Arr::get($data, 'status')) {
             $query->where('status', '=', $status);
