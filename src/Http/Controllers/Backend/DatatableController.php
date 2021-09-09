@@ -2,14 +2,10 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzaweb/laravel-cms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 7/10/2021
- * Time: 5:24 PM
  */
 
 namespace Juzaweb\Http\Controllers\Backend;
@@ -17,7 +13,7 @@ namespace Juzaweb\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Support\Facades\Crypt;
-use Juzaweb\Support\DataTable;
+use Juzaweb\Abstracts\DataTable;
 
 class DatatableController extends BackendController
 {
@@ -29,14 +25,14 @@ class DatatableController extends BackendController
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
 
-        $query = $table->query($request);
+        $query = $table->getQuery($request->all());
         $count = $query->count();
         $query->orderBy($sort, $order);
         $query->offset($offset);
         $query->limit($limit);
         $rows = $query->get();
 
-        $columns = $table->columns();
+        $columns = $table->getColumns();
         foreach ($rows as $index => $row) {
             foreach ($columns as $key => $column) {
                 if (!empty($column['formatter'])) {
@@ -53,6 +49,14 @@ class DatatableController extends BackendController
 
     public function bulkActions(Request $request)
     {
+        $request->validate([
+            'ids' => 'required|array',
+            'action' => 'required',
+        ]);
+
+        $action = $request->post('action');
+        $ids = $request->post('ids');
+
 
     }
 

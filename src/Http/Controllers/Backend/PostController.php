@@ -12,8 +12,6 @@ class PostController extends BackendController
 {
     use PostTypeController;
 
-    protected $viewPrefix = 'juzaweb::backend.post';
-
     public function getDataTable(Request $request)
     {
         $search = $request->get('search');

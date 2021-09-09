@@ -2,14 +2,10 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzaweb/laravel-cms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 6/9/2021
- * Time: 2:05 PM
  */
 
 namespace Juzaweb\Traits;
@@ -17,6 +13,7 @@ namespace Juzaweb\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Juzaweb\Facades\PostType;
+use Juzaweb\Http\Datatable\PostTypeDatatable;
 
 trait PostTypeController
 {
@@ -26,8 +23,13 @@ trait PostTypeController
 
     public function index()
     {
-        return view($this->viewPrefix . '.index', [
-            'title' => $this->getSetting()->get('label')
+        $postType = $this->getSetting();
+        $dataTable = new PostTypeDataTable($postType);
+        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
+
+        return view($viewPrefix . '.index', [
+            'title' => $postType->get('label'),
+            'dataTable' => $dataTable
         ]);
     }
 
@@ -39,7 +41,9 @@ trait PostTypeController
         ]);
 
         $model = $this->makeModel();
-        return view($this->viewPrefix . '.form', array_merge([
+        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
+
+        return view($viewPrefix . '.form', array_merge([
             'title' => trans('juzaweb::app.add_new')
         ], $this->getDataDataForForm($model)));
     }
@@ -52,8 +56,9 @@ trait PostTypeController
         ]);
 
         $model = $this->makeModel()->findOrFail($id);
+        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
 
-        return view($this->viewPrefix . '.form', array_merge([
+        return view($viewPrefix . '.form', array_merge([
             'title' => $model->name ?? $model->title
         ], $this->getDataDataForForm($model)));
     }

@@ -253,8 +253,6 @@ abstract class Plugin
             $this->registerFiles();
         }
 
-        $this->registerRoute();
-
         $this->fireEvent('register');
     }
 
@@ -283,21 +281,6 @@ abstract class Plugin
      * @return string
      */
     abstract public function getCachedServicesPath(): string;
-
-    protected function registerRoute()
-    {
-        $namespace = $this->getNamespace() . 'Http\Controllers';
-
-        $this->router->middleware('admin')
-            ->namespace($namespace)
-            ->prefix(config('juzaweb.admin_prefix'))
-            ->group($this->path . '/src/routes/admin.php');
-
-        $this->router->middleware('api')
-            ->namespace($namespace)
-            ->prefix('api')
-            ->group($this->path . '/src/routes/api.php');
-    }
 
     /**
      * Register the files from this plugin.

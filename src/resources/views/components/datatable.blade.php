@@ -4,14 +4,14 @@
             <form method="post" class="form-inline">
                 @csrf
 
-                <select name="bulk_actions" class="form-control w-60 mb-2 mr-1">
-                    <option value="">@lang('juzaweb::app.bulk_actions')</option>
+                <select name="bulk_actions" class="form-control select2-default w-60 mb-2 mr-1">
+                    <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
                     @foreach($actions as $key => $action)
-                        <option value="{{ $key }}">{{ $action['label'] ?? strtoupper($key) }}</option>
+                        <option value="{{ $key }}">{{ $action }}</option>
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
+                <button type="submit" class="btn btn-primary mb-2" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
     @endif
@@ -20,35 +20,57 @@
         <form method="get" class="form-inline" id="form-search">
 
             <div class="form-group mb-2 mr-1">
-                <label for="search" class="sr-only">@lang('juzaweb::app.search')</label>
-                <input name="search" type="text" id="search" class="form-control" placeholder="@lang('juzaweb::app.search')" autocomplete="off">
+                <label for="search" class="sr-only">{{ trans('juzaweb::app.search') }}</label>
+                <input name="search" type="text" id="search" class="form-control" placeholder="{{ trans('juzaweb::app.search') }}" autocomplete="off">
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzaweb::app.search')</button>
+            <div class="form-group mb-2 mr-1">
+                <label for="status" class="sr-only">{{ trans('juzaweb::app.status') }}</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="">--- @lang('juzaweb::app.status') ---</option>
+                    <option value="publish">@lang('juzaweb::app.public')</option>
+                    <option value="private">@lang('juzaweb::app.private')</option>
+                    <option value="draft">@lang('juzaweb::app.draft')</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}</button>
         </form>
     </div>
 </div>
 
-<div class="table-responsive mb-5">
+<div class="table-responsive">
     <table class="table" id="{{ $unique_id }}">
         <thead>
             <tr>
-                <th data-width="3%" data-field="state" data-checkbox="true"></th>
+                <th width="3%"><input type="checkbox" class="select-all"></th>
                 @foreach($columns as $key => $column)
                     <th
-                            data-width="{{ $column['width'] ?? 'auto' }}"
-                            data-align="{{ $column['align'] ?? 'left' }}"
-                            data-field="{{ $key }}">{{ $column['label'] ?? strtoupper($key) }}
+                            width="{{ $column['width'] ?? 'auto' }}"
+                            align="{{ $column['align'] ?? 'left' }}"
+                            field="{{ $key }}">{{
+                                $column['label'] ?? strtoupper($key) }}
                     </th>
                 @endforeach
             </tr>
         </thead>
+        <tbody>
+        @foreach($items as $index => $item)
+            <tr>
+                <td><input type="checkbox" class="selected[]" value="{{ $item->id }}"></td>
+                @foreach($columns as $key => $column)
+                    <td>
+                    @if (!empty($column['formatter'])) {
+                        {{ $column['formatter']($item->{$key}, $item, $index) }}
+                    @else
+                        {{ $item->{$key} ?? '' }}
+                    @endif
+                    </td>
+                @endforeach
+            </tr>
+        @endforeach
+        </tbody>
     </table>
 </div>
 
-<script type="text/javascript">
-    var table = new JuzawebTable({
-        table: "#{{ $unique_id }}",
-        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}',
-    });
-</script>
+

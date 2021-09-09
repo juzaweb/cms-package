@@ -19,6 +19,8 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static void registerMenuBox($tag, array $args = [])
  * @method static array getMenuBoxs(array $keys = [])
  * @method static \Illuminate\Support\Collection getMenuBox(string $key)
+ * @method static \Illuminate\Support\Collection getPostTypes($postType = null)
+ * @method static \Illuminate\Support\Collection getTaxonomies($postType = null)
  *
  * @see \Juzaweb\Support\HookAction
  */

@@ -36,9 +36,9 @@ return [
                 'MODULE_NAME',
                 'MODULE_NAMESPACE',
                 'PROVIDER_NAMESPACE',
+                'MODULE_DOMAIN'
             ],
-        ],
-        'gitkeep' => true,
+        ]
     ],
     'paths' => [
         /*

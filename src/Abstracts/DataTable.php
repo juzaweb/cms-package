@@ -21,35 +21,64 @@ use Illuminate\Support\Facades\Crypt;
 
 abstract class DataTable
 {
+    protected $perPage = 10;
+
     /**
      * Columns datatable
      *
      * @return array
      */
-    abstract public function columns();
+    abstract protected function columns();
 
     /**
      * Query data datatable
      *
-     * @param Request $request
+     * @param array $data
      * @return Builder
      */
-    abstract public function query(Request $request);
+    abstract protected function query($data);
 
-    protected function bulkActions()
+    protected function actions()
     {
         return [];
     }
 
-    public static function render()
+    protected function bulkActions($action, $ids)
     {
-        $datatable = new static();
-        $uniqueId = 'juzaweb_'. Str::random(15);
+        //
+    }
+
+    protected function getData()
+    {
+        $request = request();
+        $query = $this->query($request->all());
+
+        return $query->paginate($this->perPage);
+    }
+
+    public function getColumns()
+    {
+        return $this->columns();
+    }
+
+    public function render()
+    {
+        $request = request();
+        if ($request->isMethod('POST')) {
+            $action = $request->post('action');
+            $ids = $request->post('ids', []);
+
+            if ($action && $ids) {
+                $this->bulkActions($action, $ids);
+            }
+        }
+
+        $items = $this->getData();
 
         return view('juzaweb::components.datatable', [
-            'columns' => $datatable->columns(),
-            'actions' => $datatable->bulkActions(),
-            'unique_id' => $uniqueId,
+            'columns' => $this->columns(),
+            'actions' => $this->actions(),
+            'items' => $items,
             'table' => Crypt::encryptString(static::class),
         ]);
     }
