@@ -16,6 +16,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 use Juzaweb\Facades\PostType;
 use Juzaweb\Models\Taxonomy;
@@ -30,13 +31,53 @@ trait PostTypeModel
 {
     use ResourceModel, UseSlug, UseThumbnail;
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param array $params
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWhereFilter($builder, $params = [])
+    {
+        if (empty($this->searchFields)) {
+            $this->searchFields = ['title'];
+        }
+
+        if ($keyword = Arr::get($params, 'keyword')) {
+            $builder->where(function (Builder $q) use ($keyword)  {
+                foreach ($this->searchFields as $key => $attribute) {
+                    $q->orWhere($attribute, 'like', '%'. $keyword .'%');
+                }
+            });
+        }
+
+        $taxonomies = HookAction::getTaxonomies($this->getPostType('key'));
+        foreach ($taxonomies as $key => $taxonomy) {
+            if ($ids = Arr::get($params, $key)) {
+                if (!is_array($ids)) {
+                    $ids = [$ids];
+                }
+
+                $builder->whereHas('taxonomies', function (Builder $q) use ($ids) {
+                    $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
+                });
+            }
+        }
+
+        return $builder;
+    }
+
     public function getStatuses()
     {
-        return apply_filters(app(static::class)->getPostType('key') . '.statuses', [
-            'draft' => trans('juzaweb::app.draft'),
-            'publish' => trans('juzaweb::app.publish'),
-            'private' => trans('juzaweb::app.private')
-        ]);
+        return apply_filters(
+            app(static::class)->getPostType('key') . '.statuses',
+            [
+                'publish' => trans('juzaweb::app.publish'),
+                'private' => trans('juzaweb::app.private'),
+                'draft' => trans('juzaweb::app.draft'),
+                'trash' => trans('juzaweb::app.trash'),
+            ]
+        );
     }
 
     public function taxonomies()

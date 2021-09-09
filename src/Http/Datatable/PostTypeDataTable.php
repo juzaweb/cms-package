@@ -62,6 +62,9 @@ class PostTypeDataTable extends DataTable
                         case 'draft':
                             return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
                             break;
+                        case 'trash':
+                            return '<span class="text-danger">'. trans('juzaweb::app.trash') .'</span>';
+                            break;
                     }
 
                     return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
@@ -84,14 +87,13 @@ class PostTypeDataTable extends DataTable
                 case 'delete':
                     $this->makeModel()->find($id)->delete($id);
                     break;
-                case 'publish':
-                case 'private':
-                case 'draft':
-                    $this->makeModel()->find($id)->update([
-                        'status' => $action
-                    ]);
-                    break;
             }
+        }
+
+        if (in_array($action, array_keys($this->makeModel()->getStatuses()))) {
+            $this->makeModel()->find($id)->update([
+                'status' => $action
+            ]);
         }
     }
 
