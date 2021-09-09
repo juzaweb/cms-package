@@ -29,4 +29,6 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/dashboard/views-chart', 'Backend\DashboardController@viewsChart')->name('admin.dashboard.views_chart');
 
     Route::get('/datatable/get-data', 'Backend\DatatableController@getData')->name('admin.datatable.get-data');
+
+    Route::post('/datatable/bulk-actions', 'Backend\DatatableController@bulkActions')->name('admin.datatable.bulk-actions');
 });

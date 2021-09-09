@@ -30,7 +30,7 @@ trait PostTypeModel
 {
     use ResourceModel, UseSlug, UseThumbnail;
 
-    public static function getStatuses()
+    public function getStatuses()
     {
         return apply_filters(app(static::class)->getPostType('key') . '.statuses', [
             'draft' => trans('juzaweb::app.draft'),

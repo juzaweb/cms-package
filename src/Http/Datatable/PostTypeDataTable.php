@@ -39,9 +39,12 @@ class PostTypeDataTable extends DataTable
             'title' => [
                 'label' => trans('juzaweb::app.title'),
             ],
-            'created_at' => [
+            'created' => [
                 'label' => trans('juzaweb::app.created_at'),
-                'width' => '15%'
+                'width' => '15%',
+                'formatter' => function ($row, $index) {
+                    return jw_date_format($row->created_at);
+                }
             ],
             'status' => [
                 'label' => trans('juzaweb::app.status'),
@@ -62,7 +65,36 @@ class PostTypeDataTable extends DataTable
 
     public function bulkActions($action, $ids)
     {
+        foreach ($ids as $id) {
+            switch ($action) {
+                case 'delete':
+                    $this->makeModel()->find($id)->delete($id);
+                    break;
+                case 'publish':
+                case 'private':
+                case 'draft':
+                    $this->makeModel()->find($id)->update([
+                        'status' => $action
+                    ]);
+                    break;
+            }
+        }
+    }
 
+    public function searchFields()
+    {
+        return [
+            'search' => [
+                'type' => 'text',
+                'label' => trans('juzaweb::app.search'),
+                'placeholder' => trans('juzaweb::app.search'),
+            ],
+            'status' => [
+                'type' => 'select',
+                'label' => trans('juzaweb::app.search'),
+                'options' => $this->makeModel()->getStatuses(),
+            ]
+        ];
     }
 
     /**
@@ -73,11 +105,10 @@ class PostTypeDataTable extends DataTable
      */
     public function query($data)
     {
-        $model = $this->postType['model'];
         /**
          * @var Builder $query
          */
-        $query = app($model)->query();
+        $query = $this->makeModel()->query();
 
         if ($search = Arr::get($data, 'search')) {
             $query->where(function (Builder $q) use ($search) {
@@ -91,5 +122,10 @@ class PostTypeDataTable extends DataTable
         }
 
         return $query;
+    }
+
+    protected function makeModel()
+    {
+        return app($this->postType['model']);
     }
 }

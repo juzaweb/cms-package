@@ -19,20 +19,30 @@
     <div class="col-md-8">
         <form method="get" class="form-inline" id="form-search">
 
-            <div class="form-group mb-2 mr-1">
-                <label for="search" class="sr-only">{{ trans('juzaweb::app.search') }}</label>
-                <input name="search" type="text" id="search" class="form-control" placeholder="{{ trans('juzaweb::app.search') }}" autocomplete="off">
-            </div>
+            @foreach($searchFields as $name => $field)
+                @switch($field['type'] ?? 'text')
+                    @case('text')
+                        <div class="form-group mb-2 mr-1">
+                            <label for="search-{{ $name }}" class="sr-only">{{ $field['label'] ?? '' }}</label>
+                            <input name="{{ $name }}" id="search-{{ $name }}" class="form-control" placeholder="{{ $field['placeholder'] ?? '' }}" autocomplete="off">
+                        </div>
+                @break
 
-            <div class="form-group mb-2 mr-1">
-                <label for="status" class="sr-only">{{ trans('juzaweb::app.status') }}</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="">--- @lang('juzaweb::app.status') ---</option>
-                    <option value="publish">@lang('juzaweb::app.public')</option>
-                    <option value="private">@lang('juzaweb::app.private')</option>
-                    <option value="draft">@lang('juzaweb::app.draft')</option>
-                </select>
-            </div>
+                    @case('select')
+                    <div class="form-group mb-2 mr-1">
+
+                        <select name="{{ $name }}" id="search-{{ $name }}" class="form-control select2-default">
+                            <option value="">{{ trans('juzaweb::app.all') }}</option>
+                            @foreach($field['options'] ?? [] as $key => $val)
+                                <option value="{{ $key }}">{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @break
+                @endswitch
+            @endforeach
+
+
 
             <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}</button>
         </form>
@@ -61,5 +71,6 @@
     var table = new JuzawebTable({
         table: "#{{ $uniqueId }}",
         url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
+        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}'
     });
 </script>

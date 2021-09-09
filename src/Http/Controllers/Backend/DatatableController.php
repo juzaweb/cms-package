@@ -36,7 +36,7 @@ class DatatableController extends BackendController
         foreach ($rows as $index => $row) {
             foreach ($columns as $key => $column) {
                 if (!empty($column['formatter'])) {
-                    $row->{$key} = $column['formatter']($row->{$key}, $row, $index);
+                    $row->{$key} = $column['formatter']($row, $index);
                 }
             }
         }
@@ -57,7 +57,12 @@ class DatatableController extends BackendController
         $action = $request->post('action');
         $ids = $request->post('ids');
 
+        $table = $this->getTable($request);
+        $table->bulkActions($action, $ids);
 
+        return $this->success([
+            'message' => trans('juzaweb::app.successfully')
+        ]);
     }
 
     /**
@@ -69,9 +74,12 @@ class DatatableController extends BackendController
     protected function getTable($request)
     {
         $table = Crypt::decryptString($request->get('table'));
-        $data = json_decode(urldecode($request->get('data')), true);
         $table = app($table);
-        $table->mount(...$data);
+        if (method_exists($table, 'mount')) {
+            $data = json_decode(urldecode($request->get('data')), true);
+            $table->mount(...$data);
+        }
+
         return $table;
     }
 }

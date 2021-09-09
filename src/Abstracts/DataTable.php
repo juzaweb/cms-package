@@ -15,7 +15,6 @@
 namespace Juzaweb\Abstracts;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 
@@ -41,13 +40,20 @@ abstract class DataTable
     public function render($params)
     {
         $uniqueId = 'juzaweb_' . Str::random(10);
-        $this->mount(...$params);
+        $params = $this->paramsToArray($params);
+
+        if (method_exists($this, 'mount')) {
+            $this->mount(...$params);
+        }
+
+        $searchFields = $this->searchFields();
 
         return view('juzaweb::components.datatable', [
             'columns' => $this->columns(),
             'actions' => $this->actions(),
             'uniqueId' => $uniqueId,
-            'params' => $this->paramsToArray($params),
+            'params' => $params,
+            'searchFields' => $searchFields,
             'table' => Crypt::encryptString(static::class),
         ]);
     }
@@ -60,6 +66,16 @@ abstract class DataTable
     public function bulkActions($action, $ids)
     {
         //
+    }
+
+    public function searchFields()
+    {
+        return [
+            'search' => [
+                'type' => 'text',
+                'placeholder' => trans('juzaweb::app.search')
+            ],
+        ];
     }
 
     private function paramsToArray($params)
