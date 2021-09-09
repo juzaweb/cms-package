@@ -59,7 +59,7 @@ class ThemeGeneratorCommand extends Command
      */
     public function handle()
     {
-        $this->themePath = config('theme.path');
+        $this->themePath = config('juzaweb.theme.path');
         $this->theme['name'] = strtolower($this->argument('name'));
         $this->init();
     }

@@ -278,7 +278,15 @@ class ModuleGenerator extends Generator
      */
     public function getFiles()
     {
-        return $this->module->config('stubs.files');
+        return [
+            'actions/action' => 'actions/action.php',
+            'routes/admin' => 'src/routes/admin.php',
+            'routes/api' => 'src/routes/api.php',
+            'views/index' => 'src/resources/views/index.blade.php',
+            'composer' => 'composer.json',
+            'webpack' => 'webpack.mix.js',
+            'package' => 'package.json',
+        ];
     }
 
     /**
@@ -345,9 +353,7 @@ class ModuleGenerator extends Generator
             $path = $this->module->getModulePath($this->getName()) . '/' . $folder->getPath();
 
             $this->filesystem->makeDirectory($path, 0755, true);
-            if (config('plugin.stubs.gitkeep')) {
-                $this->generateGitKeep($path);
-            }
+            $this->generateGitKeep($path);
         }
     }
 
@@ -432,7 +438,25 @@ class ModuleGenerator extends Generator
      */
     public function getReplacements()
     {
-        return $this->module->config('stubs.replacements');
+        return [
+            'routes/admin' => ['LOWER_NAME', 'STUDLY_NAME'],
+            'routes/api' => ['LOWER_NAME'],
+            'webpack' => ['LOWER_NAME'],
+            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
+            'views/index' => ['LOWER_NAME'],
+            'views/master' => ['LOWER_NAME', 'STUDLY_NAME'],
+            'composer' => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'SNAKE_NAME',
+                'VENDOR',
+                'AUTHOR_NAME',
+                'AUTHOR_EMAIL',
+                'MODULE_NAME',
+                'MODULE_NAMESPACE',
+                'PROVIDER_NAMESPACE',
+            ],
+        ];
     }
 
     /**
@@ -444,7 +468,7 @@ class ModuleGenerator extends Generator
      */
     protected function getReplacement($stub)
     {
-        $replacements = $this->module->config('stubs.replacements');
+        $replacements = $this->getReplacements();
 
         if (!isset($replacements[$stub])) {
             return [];

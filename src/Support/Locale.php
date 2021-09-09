@@ -25,7 +25,7 @@ class Locale
             'title' => 'Core Juzaweb',
             'key' => 'core',
             'type' => 'core',
-            'path' => 'vendor/juzaweb/core/src/resources/lang',
+            'path' => 'vendor/juzaweb/cms/src/resources/lang',
             'publish_path' => 'lang/vendor/juzaweb',
         ]);
 

@@ -11,23 +11,19 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Facades\HookAction;
+use Juzaweb\Contracts\TranslationContract;
 use Juzaweb\Support\Locale;
 
 class TranslationServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'jw_trans');
-        HookAction::loadActionForm(__DIR__ . '/../../actions');
-
-        $mainPath = __DIR__ . '/../database/migrations';
-        $this->loadMigrationsFrom($mainPath);
+        //
     }
 
     public function register()
     {
-        $this->app->singleton('juzaweb.locale', function () {
+        $this->app->singleton(TranslationContract::class, function () {
             return new Locale();
         });
     }

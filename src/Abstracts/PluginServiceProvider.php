@@ -20,19 +20,6 @@ abstract class PluginServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register package's namespaces.
-     */
-    protected function registerNamespaces()
-    {
-        $configPath = __DIR__ . '/../../config/plugin.php';
-        $this->mergeConfigFrom($configPath, 'plugin');
-
-        $this->publishes([
-            $configPath => config_path('plugin.php'),
-        ], 'jw_plugin');
-    }
-
-    /**
      * Register the service provider.
      */
     abstract protected function registerServices();

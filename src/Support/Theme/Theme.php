@@ -73,7 +73,7 @@ class Theme implements ThemeContract
         $this->app = $app;
         $this->finder = $finder;
         $this->lang = $lang;
-        $this->basePath = $this->config['theme.path'];
+        $this->basePath = config('juzaweb.theme.path');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Juzaweb\Providers;
 use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Exceptions\InvalidActivatorClass;
+use Juzaweb\Support\Activators\FileActivator;
 use Juzaweb\Support\LaravelFileRepository;
 use Juzaweb\Abstracts\PluginServiceProvider as BaseServiceProvider;
 use Juzaweb\Support\Stub;
@@ -24,7 +25,6 @@ class PluginServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->registerNamespaces();
         $this->registerServices();
         $this->setupStubPath();
         $this->registerProviders();
@@ -35,7 +35,7 @@ class PluginServiceProvider extends BaseServiceProvider
      */
     public function setupStubPath()
     {
-        Stub::setBasePath(__DIR__ . '/../stubs');
+        Stub::setBasePath(JW_PACKAGE_PATH . '/stubs/plugin');
     }
 
     /**
@@ -44,13 +44,12 @@ class PluginServiceProvider extends BaseServiceProvider
     protected function registerServices()
     {
         $this->app->singleton(RepositoryInterface::class, function ($app) {
-            $path = config('plugin.paths.modules');
+            $path = base_path('plugins');
             return new LaravelFileRepository($app, $path);
         });
 
         $this->app->singleton(ActivatorInterface::class, function ($app) {
-            $activator = config('plugin.activator');
-            $class = config('plugin.activators.' . $activator)['class'];
+            $class = FileActivator::class;
 
             if ($class === null) {
                 throw InvalidActivatorClass::missingConfig();
