@@ -3,6 +3,7 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Juzaweb\Console\Commands\Plugin\ActionMakeCommand;
 use Juzaweb\Console\Commands\Plugin\CommandMakeCommand;
 use Juzaweb\Console\Commands\Plugin\ControllerMakeCommand;
 use Juzaweb\Console\Commands\Plugin\DisableCommand;
@@ -94,6 +95,7 @@ class ConsoleServiceProvider extends ServiceProvider
         ThemeGeneratorCommand::class,
         ThemeListCommand::class,
         ThemePublishCommand::class,
+        ActionMakeCommand::class
     ];
 
     /**

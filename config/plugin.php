@@ -12,7 +12,6 @@ return [
     'stubs' => [
         'enabled' => true,
         'files' => [
-            'actions/action' => 'actions/action.php',
             'routes/admin' => 'src/routes/admin.php',
             'routes/api' => 'src/routes/api.php',
             'views/index' => 'src/resources/views/index.blade.php',
@@ -52,9 +51,10 @@ return [
         'generator' => [
             'config' => ['path' => 'Config', 'generate' => false],
             'command' => ['path' => 'src/Commands', 'generate' => false],
-            'migration' => ['path' => 'src/database/migrations', 'generate' => true],
-            'seeder' => ['path' => 'src/database/seeders', 'generate' => true],
-            'factory' => ['path' => 'src/database/factories', 'generate' => true],
+            'action' => ['path' => 'src/Actions', 'generate' => true],
+            'migration' => ['path' => 'database/migrations', 'generate' => true],
+            'seeder' => ['path' => 'database/seeders', 'generate' => true],
+            'factory' => ['path' => 'database/factories', 'generate' => true],
             'model' => ['path' => 'src/Models', 'generate' => true],
             'routes' => ['path' => 'src/routes', 'generate' => true],
             'controller' => ['path' => 'src/Http/Controllers', 'generate' => true],
@@ -63,8 +63,8 @@ return [
             'datatable' => ['path' => 'src/Http/Datatable', 'generate' => true],
             'provider' => ['path' => 'src/Providers', 'generate' => true],
             'assets' => ['path' => 'src/resources/assets', 'generate' => true],
-            'assets_js' => ['path' => 'assets/js', 'generate' => true],
-            'assets_css' => ['path' => 'assets/css', 'generate' => true],
+            'assets_js' => ['path' => 'src/resources/assets/js', 'generate' => true],
+            'assets_css' => ['path' => 'src/resources/assets/css', 'generate' => true],
             'lang' => ['path' => 'src/resources/lang', 'generate' => true],
             'views' => ['path' => 'src/resources/views', 'generate' => true],
             'test' => ['path' => 'tests/Unit', 'generate' => true],

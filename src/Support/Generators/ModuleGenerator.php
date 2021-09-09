@@ -278,15 +278,7 @@ class ModuleGenerator extends Generator
      */
     public function getFiles()
     {
-        return [
-            'actions/action' => 'actions/action.php',
-            'routes/admin' => 'src/routes/admin.php',
-            'routes/api' => 'src/routes/api.php',
-            'views/index' => 'src/resources/views/index.blade.php',
-            'composer' => 'composer.json',
-            'webpack' => 'webpack.mix.js',
-            'package' => 'package.json',
-        ];
+        return $this->module->config('stubs.files');
     }
 
     /**
