@@ -15,7 +15,7 @@
 namespace Juzaweb\Abstracts;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 
@@ -28,7 +28,7 @@ abstract class DataTable
      *
      * @return array
      */
-    abstract protected function columns();
+    abstract public function columns();
 
     /**
      * Query data datatable
@@ -36,50 +36,40 @@ abstract class DataTable
      * @param array $data
      * @return Builder
      */
-    abstract protected function query($data);
+    abstract public function query($data);
 
-    protected function actions()
+    public function render($params)
     {
-        return [];
-    }
-
-    protected function bulkActions($action, $ids)
-    {
-        //
-    }
-
-    protected function getData()
-    {
-        $request = request();
-        $query = $this->query($request->all());
-
-        return $query->paginate($this->perPage);
-    }
-
-    public function getColumns()
-    {
-        return $this->columns();
-    }
-
-    public function render()
-    {
-        $request = request();
-        if ($request->isMethod('POST')) {
-            $action = $request->post('action');
-            $ids = $request->post('ids', []);
-
-            if ($action && $ids) {
-                $this->bulkActions($action, $ids);
-            }
-        }
-
-        $items = $this->getData();
+        $uniqueId = 'juzaweb_' . Str::random(10);
+        $this->mount(...$params);
 
         return view('juzaweb::components.datatable', [
             'columns' => $this->columns(),
             'actions' => $this->actions(),
-            'items' => $items,
+            'uniqueId' => $uniqueId,
+            'params' => $this->paramsToArray($params),
             'table' => Crypt::encryptString(static::class),
         ]);
+    }
+
+    public function actions()
+    {
+        return [];
+    }
+
+    public function bulkActions($action, $ids)
+    {
+        //
+    }
+
+    private function paramsToArray($params)
+    {
+        foreach ($params as $key => $var) {
+            if (!in_array(gettype($var), ['string', 'array', 'integer'])) {
+                throw new \Exception('Mount data can\'t support. Only supported string, array, integer');
+            }
+        }
+
+        return $params;
     }
 }

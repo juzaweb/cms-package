@@ -19,10 +19,10 @@ class PostTypeDataTable extends DataTable
 {
     protected $postType;
 
-    public function __construct($postType)
+    public function mount($postType)
     {
         if (is_string($postType)) {
-            $postType = HookAction::getPostTypes($postType);
+            $postType = HookAction::getPostTypes($postType)->toArray();
         }
 
         $this->postType = $postType;
@@ -33,7 +33,7 @@ class PostTypeDataTable extends DataTable
      *
      * @return array
      */
-    protected function columns()
+    public function columns()
     {
         return [
             'title' => [
@@ -50,7 +50,7 @@ class PostTypeDataTable extends DataTable
         ];
     }
 
-    protected function actions()
+    public function actions()
     {
         return [
             'publish' => trans('juzaweb::app.publish'),
@@ -60,7 +60,7 @@ class PostTypeDataTable extends DataTable
         ];
     }
 
-    protected function bulkActions($action, $ids)
+    public function bulkActions($action, $ids)
     {
 
     }
@@ -71,9 +71,9 @@ class PostTypeDataTable extends DataTable
      * @param array $data
      * @return Builder
      */
-    protected function query($data)
+    public function query($data)
     {
-        $model = $this->postType->get('model');
+        $model = $this->postType['model'];
         /**
          * @var Builder $query
          */

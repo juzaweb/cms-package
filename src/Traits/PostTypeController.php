@@ -24,11 +24,12 @@ trait PostTypeController
     public function index()
     {
         $postType = $this->getSetting();
-        $dataTable = new PostTypeDataTable($postType);
         $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
+        $dataTable = new PostTypeDatatable();
 
         return view($viewPrefix . '.index', [
             'title' => $postType->get('label'),
+            'postType' => $postType,
             'dataTable' => $dataTable
         ]);
     }

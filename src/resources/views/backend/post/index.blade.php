@@ -10,6 +10,6 @@
         </div>
     </div>
 
-    {{ $dataTable->render() }}
+    {{ $dataTable->render([$postType->toArray()]) }}
 
 @endsection

@@ -19,20 +19,20 @@ class DatatableController extends BackendController
 {
     public function getData(Request $request)
     {
-        $table = $this->getTable($request->get('table'));
+        $table = $this->getTable($request);
         $sort = $request->get('sort', 'id');
         $order = $request->get('order', 'desc');
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
 
-        $query = $table->getQuery($request->all());
+        $query = $table->query($request->all());
         $count = $query->count();
         $query->orderBy($sort, $order);
         $query->offset($offset);
         $query->limit($limit);
         $rows = $query->get();
 
-        $columns = $table->getColumns();
+        $columns = $table->columns();
         foreach ($rows as $index => $row) {
             foreach ($columns as $key => $column) {
                 if (!empty($column['formatter'])) {
@@ -63,12 +63,15 @@ class DatatableController extends BackendController
     /**
      * Get datatable
      *
-     * @param string $table
+     * @param Request $request
      * @return DataTable
      */
-    protected function getTable($table)
+    protected function getTable($request)
     {
-        $table = Crypt::decryptString($table);
-        return app($table);
+        $table = Crypt::decryptString($request->get('table'));
+        $data = json_decode(urldecode($request->get('data')), true);
+        $table = app($table);
+        $table->mount(...$data);
+        return $table;
     }
 }

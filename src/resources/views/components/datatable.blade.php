@@ -40,37 +40,26 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table" id="{{ $unique_id }}">
+    <table class="table" id="{{ $uniqueId }}">
         <thead>
             <tr>
-                <th width="3%"><input type="checkbox" class="select-all"></th>
+                <th data-width="3%" data-checkbox="true"></th>
                 @foreach($columns as $key => $column)
                     <th
-                            width="{{ $column['width'] ?? 'auto' }}"
-                            align="{{ $column['align'] ?? 'left' }}"
-                            field="{{ $key }}">{{
+                            data-width="{{ $column['width'] ?? 'auto' }}"
+                            data-align="{{ $column['align'] ?? 'left' }}"
+                            data-field="{{ $key }}">{{
                                 $column['label'] ?? strtoupper($key) }}
                     </th>
                 @endforeach
             </tr>
         </thead>
-        <tbody>
-        @foreach($items as $index => $item)
-            <tr>
-                <td><input type="checkbox" class="selected[]" value="{{ $item->id }}"></td>
-                @foreach($columns as $key => $column)
-                    <td>
-                    @if (!empty($column['formatter'])) {
-                        {{ $column['formatter']($item->{$key}, $item, $index) }}
-                    @else
-                        {{ $item->{$key} ?? '' }}
-                    @endif
-                    </td>
-                @endforeach
-            </tr>
-        @endforeach
-        </tbody>
     </table>
 </div>
 
-
+<script type="text/javascript">
+    var table = new JuzawebTable({
+        table: "#{{ $uniqueId }}",
+        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
+    });
+</script>
