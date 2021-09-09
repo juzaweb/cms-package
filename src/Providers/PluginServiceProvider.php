@@ -25,6 +25,7 @@ class PluginServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
+        $this->registerNamespaces();
         $this->registerServices();
         $this->setupStubPath();
         $this->registerProviders();

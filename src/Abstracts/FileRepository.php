@@ -14,6 +14,7 @@ use Illuminate\Support\Traits\Macroable;
 use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Exceptions\InvalidAssetPath;
 use Juzaweb\Exceptions\ModuleNotFoundException;
+use Juzaweb\Support\Collection;
 use Juzaweb\Support\Json;
 use Juzaweb\Support\Process\Installer;
 use Juzaweb\Support\Process\Updater;
@@ -446,7 +447,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      */
     public function assetPath($module) : string
     {
-        return $this->config('paths.assets') . '/' . $module;
+        return public_path('plugins') . '/' . $module;
     }
 
     /**
@@ -531,7 +532,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      */
     public function getAssetsPath() : string
     {
-        return $this->config('paths.assets');
+        return public_path('plugins');
     }
 
     /**

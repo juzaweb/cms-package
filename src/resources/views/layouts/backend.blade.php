@@ -83,11 +83,12 @@
                 @yield('content')
             </div>
         </div>
+
         <div class="juzaweb__layout__footer">
             <div class="juzaweb__footer">
                 <div class="juzaweb__footer__inner">
                     <a href="https://juzaweb.com/cms" target="_blank" rel="noopener noreferrer" class="juzaweb__footer__logo">
-                        Juzaweb CMS - The Best for Laravel Project
+                        Juzaweb CMS ({{ \Juzaweb\Version::getVersion() }}) - The Best for Laravel Project
                         <span></span>
                     </a>
                     <br />
@@ -109,6 +110,7 @@
 </script>
 
 @do_action('juzaweb_footer')
+
 @yield('footer')
 </body>
 </html>

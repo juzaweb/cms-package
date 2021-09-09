@@ -48,7 +48,7 @@ class SetupCommand extends Command
     public function generateAssetsFolder()
     {
         $this->generateDirectory(
-            $this->laravel['modules']->config('paths.assets'),
+            public_path('plugins'),
             'Assets directory created successfully',
             'Assets directory already exist'
         );
