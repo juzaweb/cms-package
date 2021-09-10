@@ -26,7 +26,7 @@ class ModuleController extends BackendController
 
         $data = Locale::getByKey($type);
 
-        return view('juzaweb::translation.module', [
+        return view('juzaweb::backend.translation.module', [
             'title' => $data->get('title'),
             'type' => $type
         ]);

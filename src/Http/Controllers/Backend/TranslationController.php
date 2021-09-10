@@ -23,7 +23,7 @@ class TranslationController extends BackendController
 {
     public function index()
     {
-        return view('juzaweb::translation.index', [
+        return view('juzaweb::backend.translation.index', [
             'title' => trans('juzaweb::app.translations')
         ]);
     }

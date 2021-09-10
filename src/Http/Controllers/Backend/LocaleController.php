@@ -37,7 +37,7 @@ class LocaleController extends BackendController
             'url' => route('admin.translations.type', [$type])
         ]);
 
-        return view('juzaweb::translation.locale', [
+        return view('juzaweb::backend.translation.locale', [
             'title' => $language,
             'data' => $data,
             'type' => $type,
