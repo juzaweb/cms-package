@@ -9,6 +9,7 @@
 namespace Juzaweb\Support;
 
 use Illuminate\Support\Collection;
+use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -224,7 +225,6 @@ class HookAction
             $opts = [
                 'label_type' => ucfirst($type) .' '. $args['label'],
                 'priority' => 20,
-                'description' => '',
                 'hierarchical' => false,
                 'parent' => $objectType,
                 'menu_slug' => $menuSlug,
@@ -480,5 +480,51 @@ class HookAction
                     ]), ['term_type' => $postType]);
             }
         }
+    }
+
+    public function enqueueScript($src = '', $ver = '1.0', $inFooter = false)
+    {
+        global $jw_scripts;
+
+        if (!is_url($src)) {
+            $src = asset($src);
+        }
+
+        $jw_scripts[] = new Collection([
+            'src' => $src,
+            'ver' => $ver,
+            'inFooter' => $inFooter,
+        ]);
+    }
+
+    public function enqueueStyle($src = '', $ver = '1.0', $inFooter = false)
+    {
+        $this->addFilter(Action::STYLES_FILTER, function ($items) use ($src, $ver, $inFooter) {
+            if (!is_url($src)) {
+                $src = asset($src);
+            }
+
+            $items[] = new Collection([
+                'src' => $src,
+                'ver' => $ver,
+                'inFooter' => $inFooter,
+            ]);
+
+            return $items;
+        });
+    }
+
+    public function getEnqueueScripts($inFooter = false)
+    {
+        global $jw_scripts;
+
+        $scripts = new Collection($jw_scripts);
+        return $scripts->where('inFooter', $inFooter);
+    }
+
+    public function getEnqueueStyles($inFooter = false)
+    {
+        $scripts = new Collection($this->applyFilters(Action::STYLES_FILTER, []));
+        return $scripts->where('inFooter', $inFooter);
     }
 }

@@ -11,17 +11,23 @@
     <link rel="icon" href="{{ asset('vendor/juzaweb/styles/images/favicon.ico') }}" />
     <link href="https://fonts.googleapis.com/css?family=Mukta:400,700,800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/juzaweb/styles/css/vendor.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/juzaweb/styles/css/backend.css') }}">
-
     @include('juzaweb::components.juzaweb_langs')
 
-    <script src="{{ asset('vendor/juzaweb/styles/js/vendor.js') }}"></script>
-    <script src="{{ asset('vendor/juzaweb/styles/js/backend.js') }}"></script>
-    <script src="{{ asset('js/menu.js') }}"></script>
-    <script src="{{ asset('vendor/juzaweb/styles/ckeditor/ckeditor.js') }}"></script>
+    @php
+        $scripts = get_enqueue_scripts(false);
+        $styles = get_enqueue_styles(false);
+    @endphp
+
+    @foreach($styles as $style)
+        <link rel="stylesheet" type="text/css" href="{{ $style->get('src') }}?v={{ $style->get('ver') }}">
+    @endforeach
+
+    @foreach($scripts as $script)
+        <script src="{{ $script->get('src') }}?v={{ $script->get('ver') }}"></script>
+    @endforeach
 
     @do_action('juzaweb_header')
+
     @yield('header')
 </head>
 
@@ -108,6 +114,15 @@
 
     $(".form-ajax").validate();
 </script>
+
+@php
+    $scripts = get_enqueue_scripts(true);
+    $styles = get_enqueue_styles(false);
+@endphp
+
+@foreach($scripts as $script)
+    <script src="{{ $script->get('src') }}?v={{ $script->get('ver') }}"></script>
+@endforeach
 
 @do_action('juzaweb_footer')
 

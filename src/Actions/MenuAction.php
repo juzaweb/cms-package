@@ -25,6 +25,8 @@ class MenuAction extends Action
         $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addPostTypes']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addBackendMenu']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addSettingPage']);
+        $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminScripts'], 10);
+        $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminStyles']);
         $this->addAction(self::BACKEND_MENU_INDEX_ACTION, [$this, 'addMenuBoxs']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addTaxonomiesForm']);
     }
@@ -267,6 +269,20 @@ class MenuAction extends Action
                 ])->render();
             });
         }
+    }
+
+    public function addAdminScripts()
+    {
+        HookAction::enqueueScript('vendor/juzaweb/styles/js/vendor.js');
+        HookAction::enqueueScript('vendor/juzaweb/styles/js/backend.js');
+        HookAction::enqueueScript('js/menu.js');
+        HookAction::enqueueScript('vendor/juzaweb/styles/ckeditor/ckeditor.js');
+    }
+
+    public function addAdminStyles()
+    {
+        HookAction::enqueueStyle('vendor/juzaweb/styles/css/vendor.css');
+        HookAction::enqueueStyle('vendor/juzaweb/styles/css/backend.css');
     }
 
     public function addDatatableSearchFieldTypes()
