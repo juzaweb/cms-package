@@ -18,7 +18,8 @@
                 @component('juzaweb::components.form_input', [
                     'name' => 'name',
                     'label' => trans('juzaweb::app.name'),
-                    'value' => $model->name
+                    'value' => $model->name,
+                    'required' => true,
                 ])
                 @endcomponent
 
@@ -40,6 +41,7 @@
                 </div>
                 @endif
             </div>
+
             @if(in_array('thumbnail', $setting->get('supports', [])))
             <div class="col-md-4">
                 @component('juzaweb::components.form_image', [

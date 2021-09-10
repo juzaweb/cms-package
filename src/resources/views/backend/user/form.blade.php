@@ -3,7 +3,10 @@
 @section('content')
 
     @component('juzaweb::components.form_resource', [
-        'action' => route('admin.users.save')
+        'action' => $model->id ?
+            route('admin.users.update', [$model->id]) :
+            route('admin.users.store'),
+        'method' => $model->id ? 'put' : 'post'
     ])
         <div class="row">
             <div class="col-md-8">
@@ -39,13 +42,11 @@
 
                 <div class="form-group">
                     <label class="col-form-label" for="password">@lang('juzaweb::app.password')</label>
-
                     <input type="password" name="password" class="form-control" id="password" autocomplete="off" @if(empty($model->id)) required @endif>
                 </div>
 
                 <div class="form-group">
                     <label class="col-form-label" for="password_confirmation">@lang('juzaweb::app.confirm_password')</label>
-
                     <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" autocomplete="off" @if(empty($model->id)) required @endif>
                 </div>
             </div>
@@ -57,7 +58,6 @@
                     'value' => $model->avatar
                 ])
                 @endcomponent
-
             </div>
         </div>
 

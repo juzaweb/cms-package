@@ -90,7 +90,7 @@ class PostTypeDataTable extends DataTable
         }
 
         if (in_array($action, array_keys($this->makeModel()->getStatuses()))) {
-            $this->makeModel()->find($id)->update([
+            $this->makeModel()->whereIn('id', $ids)->update([
                 'status' => $action
             ]);
         }
@@ -128,7 +128,7 @@ class PostTypeDataTable extends DataTable
         return [
             'edit' => [
                 'label' => trans('juzaweb::app.edit'),
-                'url' => route('admin.posts.edit', [$row->id]),
+                'url' => route("admin.{$this->postType['key']}.edit", [$row->id]),
             ],
             'trash' => [
                 'label' => trans('juzaweb::app.trash'),
@@ -137,7 +137,8 @@ class PostTypeDataTable extends DataTable
             ],
             'view' => [
                 'label' => trans('juzaweb::app.view'),
-                'url' => '',
+                'url' => $row->getLink(),
+                'target' => '_blank',
             ]
         ];
     }
@@ -160,6 +161,16 @@ class PostTypeDataTable extends DataTable
 
         $query->whereFilter($data);
         return $query;
+    }
+
+    public function rowActionsFormatter($value, $row, $index)
+    {
+        return view('juzaweb::backend.items.datatable_item', [
+            'value' => $row->{$row->getFieldName()},
+            'row' => $row,
+            'actions' => $this->rowAction($row)
+        ])
+            ->render();
     }
 
     protected function makeModel()

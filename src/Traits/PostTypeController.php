@@ -13,7 +13,7 @@ namespace Juzaweb\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Juzaweb\Facades\PostType;
-use Juzaweb\Http\Datatable\PostTypeDatatable;
+use Juzaweb\Http\Datatable\PostTypeDataTable;
 
 trait PostTypeController
 {
@@ -25,7 +25,7 @@ trait PostTypeController
     {
         $postType = $this->getSetting();
         $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
-        $dataTable = new PostTypeDatatable();
+        $dataTable = $this->getDataTable();
 
         return view($viewPrefix . '.index', [
             'title' => $postType->get('label'),
@@ -46,7 +46,7 @@ trait PostTypeController
 
         return view($viewPrefix . '.form', array_merge([
             'title' => trans('juzaweb::app.add_new')
-        ], $this->getDataDataForForm($model)));
+        ], $this->getDataForForm($model)));
     }
 
     public function edit($id)
@@ -61,7 +61,7 @@ trait PostTypeController
 
         return view($viewPrefix . '.form', array_merge([
             'title' => $model->name ?? $model->title
-        ], $this->getDataDataForForm($model)));
+        ], $this->getDataForForm($model)));
     }
 
     /**
@@ -73,36 +73,6 @@ trait PostTypeController
     {
         $this->traitAfterSave($request, $model);
         $model->syncTaxonomies($request->all());
-    }
-
-    public function bulkActions(Request $request)
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'action' => 'required',
-        ]);
-
-        $action = $request->post('action');
-        $ids = $request->post('ids');
-
-        foreach ($ids as $id) {
-            switch ($action) {
-                case 'delete':
-                    $this->makeModel()->find($id)->delete($id);
-                    break;
-                case 'publish':
-                case 'private':
-                case 'draft':
-                    $this->makeModel()->find($id)->update([
-                        'status' => $action
-                    ]);
-                    break;
-            }
-        }
-
-        return $this->success([
-            'message' => trans('juzaweb::app.successfully')
-        ]);
     }
 
     protected function getTitle()
@@ -133,12 +103,25 @@ trait PostTypeController
     }
 
     /**
+     * Get data table resource
+     *
+     * @return \Juzaweb\Abstracts\DataTable
+     * @throws \Exception
+     */
+    protected function getDataTable()
+    {
+        $dataTable = new PostTypeDataTable();
+        $dataTable->mountData($this->getSetting()->toArray());
+        return $dataTable;
+    }
+
+    /**
      * Get data for form
      *
      * @param  \Illuminate\Database\Eloquent\Model $model
      * @return array
      * */
-    protected function getDataDataForForm($model)
+    protected function getDataForForm($model)
     {
         return [
             'postType' => $model->getPostType('key'),

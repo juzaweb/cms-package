@@ -22,6 +22,8 @@ abstract class DataTable
 {
     protected $perPage = 10;
 
+    protected $params;
+
     /**
      * Columns datatable
      *
@@ -37,23 +39,28 @@ abstract class DataTable
      */
     abstract public function query($data);
 
-    public function render($params)
+    public function mountData(...$params)
     {
-        $uniqueId = 'juzaweb_' . Str::random(10);
         $params = $this->paramsToArray($params);
-
         if (method_exists($this, 'mount')) {
             $this->mount(...$params);
         }
 
+        $this->params = $params;
+    }
+
+    public function render()
+    {
+        $uniqueId = 'juzaweb_' . Str::random(10);
         $searchFields = $this->searchFields();
 
         return view('juzaweb::components.datatable', [
             'columns' => $this->columns(),
             'actions' => $this->actions(),
             'uniqueId' => $uniqueId,
-            'params' => $params,
+            'params' => $this->params,
             'searchFields' => $searchFields,
+            'perPage' => $this->perPage,
             'searchFieldTypes' => $this->getSearchFieldTypes(),
             'table' => Crypt::encryptString(static::class),
         ]);
@@ -61,7 +68,9 @@ abstract class DataTable
 
     public function actions()
     {
-        return [];
+        return [
+            'delete' => trans('juzaweb::app.delete'),
+        ];
     }
 
     public function bulkActions($action, $ids)
@@ -72,9 +81,10 @@ abstract class DataTable
     public function searchFields()
     {
         return [
-            'search' => [
+            'keyword' => [
                 'type' => 'text',
-                'placeholder' => trans('juzaweb::app.search')
+                'label' => trans('juzaweb::app.keyword'),
+                'placeholder' => trans('juzaweb::app.keyword'),
             ],
         ];
     }
@@ -86,10 +96,10 @@ abstract class DataTable
                 'label' => trans('juzaweb::app.edit'),
                 'url' => 'edit/' . $row->id,
             ],
-            'trash' => [
-                'label' => trans('juzaweb::app.edit'),
+            'delete' => [
+                'label' => trans('juzaweb::app.delete'),
                 'class' => 'text-danger',
-                'action' => 'trash',
+                'action' => 'delete',
             ],
         ];
     }

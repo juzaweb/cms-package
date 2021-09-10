@@ -49,7 +49,7 @@ class Page extends Model
     
     protected $table = 'pages';
     protected $fillable = [
-        'name',
+        'title',
         'content',
         'status',
         'thumbnail',

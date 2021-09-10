@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Http\Datatable\TaxonomyDataTable;
 use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController extends BackendController
@@ -14,6 +15,8 @@ class TaxonomyController extends BackendController
     public function index($taxonomy)
     {
         $setting = $this->getSetting($taxonomy);
+        $dataTable = new TaxonomyDataTable();
+        $dataTable->mountData($setting->toArray());
         $model = new Taxonomy();
 
         return view('juzaweb::backend.taxonomy.index', [
@@ -21,6 +24,7 @@ class TaxonomyController extends BackendController
             'setting' => $setting,
             'model' => $model,
             'taxonomy' => $taxonomy,
+            'dataTable' => $dataTable,
         ]);
     }
 

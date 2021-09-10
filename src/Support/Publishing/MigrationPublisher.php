@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Support\Publishing;
 
-use Juzaweb\Migrations\Migrator;
+use Juzaweb\Support\Migrations\Migrator;
 
 class MigrationPublisher extends AssetPublisher
 {

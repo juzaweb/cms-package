@@ -84,7 +84,9 @@ class TaxonomyMenuBox extends MenuBoxAbstract
             ->get(['id', 'slug'])->keyBy('id');
 
         return $menuItems->map(function ($item) use ($base, $items) {
-            $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            if (!empty($items[$item->model_id])) {
+                $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            }
             return $item;
         });
     }

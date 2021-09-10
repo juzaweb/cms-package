@@ -53,6 +53,7 @@
 <script type="text/javascript">
     var table = new JuzawebTable({
         table: "#{{ $uniqueId }}",
+        page_size: parseInt("{{ $perPage }}"),
         url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
         action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}'
     });

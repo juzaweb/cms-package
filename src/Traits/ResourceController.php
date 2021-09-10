@@ -16,6 +16,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 trait ResourceController
 {
@@ -52,7 +53,13 @@ trait ResourceController
 
     public function store(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+        if (is_array($validator)) {
+            $validator = Validator::make($request->all(), $validator);
+        }
+
+        $validator->validate();
+
         DB::beginTransaction();
         try {
             $this->beforeStore($request);
@@ -73,7 +80,13 @@ trait ResourceController
 
     public function update(Request $request, $id)
     {
-        $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+        if (is_array($validator)) {
+            $validator = Validator::make($request->all(), $validator);
+        }
+
+        $validator->validate();
+
         $model = $this->makeModel()->findOrFail($id);
         DB::beginTransaction();
         try {
@@ -89,34 +102,6 @@ trait ResourceController
 
         return $this->success([
             'message' => trans('juzaweb::app.updated_successfully')
-        ]);
-    }
-
-    public function bulkActions(Request $request)
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'action' => 'required',
-        ]);
-
-        $action = $request->post('action');
-        $ids = $request->post('ids');
-
-        foreach ($ids as $id) {
-            switch ($action) {
-                case 'delete':
-                    $this->makeModel()->find($id)->delete($id);
-                    break;
-                default:
-                    $this->makeModel()->find($id)->update([
-                        'status' => $action
-                    ]);
-                    break;
-            }
-        }
-
-        return $this->success([
-            'message' => trans('juzaweb::app.successfully')
         ]);
     }
 
@@ -140,6 +125,12 @@ trait ResourceController
         //
     }
 
+    /**
+     * After Save model
+     *
+     * @param Request $request
+     * @param \Juzaweb\Models\Model $model
+     */
     protected function afterSave(Request $request, $model)
     {
         //
@@ -170,24 +161,34 @@ trait ResourceController
 
     protected function getDataForIndex()
     {
+        $dataTable = $this->getDataTable();
+
         return [
-            'title' => $this->getTitle()
+            'title' => $this->getTitle(),
+            'dataTable' => $dataTable
         ];
     }
+
+    /**
+     * Get data table resource
+     *
+     * @return \Juzaweb\Abstracts\DataTable
+     */
+    abstract protected function getDataTable();
 
     /**
      * Validator for store and update
      *
      * @param array $attributes
-     * @return \Illuminate\Support\Facades\Validator
-     * */
+     * @return Validator|array
+     */
     abstract protected function validator(array $attributes);
 
     /**
      * Get model resource
      *
-     * @return \Illuminate\Database\Eloquent\Model
-     * */
+     * @return string // namespace model
+     */
     abstract protected function getModel();
 
     /**
