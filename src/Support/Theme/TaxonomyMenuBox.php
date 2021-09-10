@@ -10,8 +10,8 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Facades\HookAction;
 
 class TaxonomyMenuBox extends MenuBoxAbstract
 {
@@ -76,9 +76,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        global $jw_permalinks;
-
-        $permalink = Arr::get($jw_permalinks, $this->key);
+        $permalink = HookAction::getPermalinks($this->key);
         $base = $permalink->get('base');
         $query = app($this->taxonomy->get('model'))->query();
         $items = $query->whereIn('id', $menuItems->pluck('model_id')->toArray())

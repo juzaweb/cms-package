@@ -12,13 +12,13 @@ use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Juzaweb\Console\Commands\UpdateCommand;
+use Juzaweb\Contracts\GlobalDataContract;
 use Juzaweb\Contracts\HookActionContract;
-use Juzaweb\Contracts\PostTypeContract;
+use Juzaweb\Support\GlobalData;
 use Juzaweb\Support\HookAction;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Console\Scheduling\Schedule;
-use Juzaweb\Support\PostType;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -76,8 +76,8 @@ class CoreServiceProvider extends ServiceProvider
             return new HookAction();
         });
 
-        $this->app->singleton(PostTypeContract::class, function () {
-            return new PostType();
+        $this->app->singleton(GlobalDataContract::class, function () {
+            return new GlobalData();
         });
     }
 }

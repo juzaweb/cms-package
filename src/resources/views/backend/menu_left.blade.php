@@ -1,8 +1,6 @@
 <ul class="juzaweb__menuLeft__navigation">
     @php
-        global $jw_admin_menu;
-
-        $items = \Juzaweb\Support\MenuCollection::make($jw_admin_menu);
+        $items = \Juzaweb\Support\MenuCollection::make(\Juzaweb\Facades\HookAction::getAdminMenu());
     @endphp
 
     @foreach($items as $item)

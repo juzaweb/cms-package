@@ -15,6 +15,7 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
+use Juzaweb\Facades\HookAction;
 
 class RouteController extends FrontendController
 {
@@ -36,9 +37,7 @@ class RouteController extends FrontendController
 
     protected function getPermalinks()
     {
-        global $jw_permalinks;
-
-        return collect($jw_permalinks);
+        return collect(HookAction::getPermalinks());
     }
 
     protected function callController($callback, $method = 'index', $parameters = [])

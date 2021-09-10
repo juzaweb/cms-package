@@ -33,6 +33,7 @@ class MenuBuilder
     {
         $items = $this->items->where('parent_id', $parentId);
         $groups = $items->groupBy('box_key')->keys()->toArray();
+
         $menuBoxs = HookAction::getMenuBoxs($groups);
         $menuBoxs = array_map(function ($item) {
             return $item->get('menu_box');

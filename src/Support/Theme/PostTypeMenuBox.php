@@ -12,6 +12,7 @@ namespace Juzaweb\Support\Theme;
 
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Facades\HookAction;
 
 class PostTypeMenuBox extends MenuBoxAbstract
 {
@@ -69,9 +70,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        global $jw_permalinks;
-
-        $permalink = Arr::get($jw_permalinks, $this->postType->get('key'));
+        $permalink = HookAction::getPermalinks($this->postType->get('key'));
 
         if (empty($permalink)) {
             $base = '';

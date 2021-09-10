@@ -4,6 +4,7 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
 use Illuminate\Http\Request;
@@ -37,9 +38,7 @@ class MenuController extends BackendController
             'key' => trans('juzaweb::app.key')
         ]);
 
-        global $jw_menu_boxs;
-
-        $menuRegister = Arr::get($jw_menu_boxs, $request->post('key'));
+        $menuRegister = HookAction::getMenuBox($request->post('key'));
 
         if (empty($menuRegister)) {
             return $this->error([

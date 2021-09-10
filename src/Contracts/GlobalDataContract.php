@@ -11,7 +11,7 @@
 namespace Juzaweb\Contracts;
 
 
-interface PostTypeContract
+interface GlobalDataContract
 {
 
 }

@@ -11,16 +11,13 @@
 namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Juzaweb\Contracts\PostTypeContract;
+use Juzaweb\Contracts\GlobalDataContract;
 
 /**
- * @method static \Illuminate\Support\Collection getPostTypes($postType = null)
- * @method static \Illuminate\Support\Collection getTaxonomies($postType = null)
- * @method static void syncTaxonomies($postType, $model, array $attributes)
- *
- * @see \Juzaweb\Support\PostType
+ * @method static void set($key, $value)
+ * @method static mixed get($key)
  */
-class PostType extends Facade
+class GlobalData extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -29,6 +26,6 @@ class PostType extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return PostTypeContract::class;
+        return GlobalDataContract::class;
     }
 }

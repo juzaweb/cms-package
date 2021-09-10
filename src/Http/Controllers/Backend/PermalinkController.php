@@ -14,15 +14,14 @@ use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
 
 class PermalinkController extends BackendController
 {
     public function index()
     {
-        global $jw_permalinks;
-
         $title = trans('juzaweb::app.permalinks');
-        $permalinks = $jw_permalinks;
+        $permalinks = HookAction::getPermalinks();
 
         return view('juzaweb::backend.permalink.index', compact(
             'title',

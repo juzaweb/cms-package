@@ -16,6 +16,7 @@ use Juzaweb\Abstracts\MenuBoxAbstract;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
+use Juzaweb\Facades\GlobalData;
 
 class HookAction
 {
@@ -44,9 +45,7 @@ class HookAction
             'position' => 20,
         ], $args));
 
-        global $jw_permalinks;
-
-        $jw_permalinks[$key] = new Collection($args);
+        GlobalData::set('permalinks.' . $key, new Collection($args));
     }
 
     public function addAction($tag, $callback, $priority = 20, $arguments = 1)
@@ -98,7 +97,7 @@ class HookAction
      */
     public function addAdminMenu($menuTitle, $menuSlug, $args = [])
     {
-        global $jw_admin_menu;
+        $adminMenu = GlobalData::get('admin_menu');
 
         $opts = [
             'title' => $menuTitle,
@@ -111,17 +110,20 @@ class HookAction
 
         $item = array_merge($opts, $args);
         if ($item['parent']) {
-            $jw_admin_menu[$item['parent']]['children'][$item['key']] = $item;
+            $adminMenu[$item['parent']]['children'][$item['key']] = $item;
         } else {
-            if (Arr::has($jw_admin_menu, $item['key'])) {
-                if (Arr::has($jw_admin_menu[$item['key']], 'children')) {
-                    $item['children'] = $jw_admin_menu[$item['key']]['children'];
+            if (Arr::has($adminMenu, $item['key'])) {
+                if (Arr::has($adminMenu[$item['key']], 'children')) {
+                    $item['children'] = $adminMenu[$item['key']]['children'];
                 }
-                $jw_admin_menu[$item['key']] = $item;
+
+                $adminMenu[$item['key']] = $item;
             } else {
-                $jw_admin_menu[$item['key']] = $item;
+                $adminMenu[$item['key']] = $item;
             }
         }
+
+        GlobalData::set('admin_menu', $adminMenu);
 
         return true;
     }
@@ -134,8 +136,6 @@ class HookAction
      */
     public function registerMenuBox($key, $args = [])
     {
-        global $jw_menu_boxs;
-
         $opts = [
             'title' => '',
             'key' => $key,
@@ -151,7 +151,7 @@ class HookAction
          */
         $menuBox = $item['menu_box'];
 
-        $jw_menu_boxs[$key] = collect($item);
+        GlobalData::set('menu_boxs.' . $key, new Collection($item));
 
         add_action('juzaweb.add_menu_items', function () use (
             $key,
@@ -163,7 +163,7 @@ class HookAction
                 'key' => $key,
                 'slot' => $menuBox->addView()->render()
             ])->render();
-        }, $item['priority']);
+        });
     }
 
     /**
@@ -174,17 +174,17 @@ class HookAction
      */
     public function getMenuBoxs($keys = [])
     {
-        global $jw_menu_boxs;
+        $menuBoxs = GlobalData::get('menu_boxs');
 
         if ($keys) {
             if (is_string($keys)) {
                 $keys = [$keys];
             }
 
-            return array_only($jw_menu_boxs, $keys);
+            return array_only($menuBoxs, $keys);
         }
 
-        return $jw_menu_boxs;
+        return $menuBoxs;
     }
 
     /**
@@ -195,13 +195,8 @@ class HookAction
      */
     public function getMenuBox($key)
     {
-        global $jw_menu_boxs;
-
-        if ($key) {
-            return Arr::get($jw_menu_boxs, $key);
-        }
-
-        return false;
+        $menuBoxs = GlobalData::get('menu_boxs.' . $key);
+        return $menuBoxs;
     }
 
     /**
@@ -215,8 +210,6 @@ class HookAction
      */
     public function registerTaxonomy($taxonomy, $objectType, $args = [])
     {
-        global $jw_taxonomies;
-
         $objectTypes = is_string($objectType) ? [$objectType] : $objectType;
         foreach ($objectTypes as $objectType) {
             $type = Str::singular($objectType);
@@ -243,9 +236,11 @@ class HookAction
             $args['post_type'] = $objectType;
             $args['taxonomy'] = $taxonomy;
             $args['singular'] = Str::singular($taxonomy);
+            $args['key'] = $type . '_' . $taxonomy;
+
             $args = new Collection(array_merge($opts, $args));
 
-            $jw_taxonomies[$objectType][$taxonomy] = $args;
+            GlobalData::set('taxonomies.' . $objectType.'.'.$taxonomy, $args);
 
             if ($args->get('show_in_menu')) {
                 $this->addAdminMenu(
@@ -261,7 +256,7 @@ class HookAction
 
             if ($args->get('rewrite')) {
                 $base = Str::singular($type . '-' . $taxonomy);
-                $this->registerPermalink($menuSlug, [
+                $this->registerPermalink($args->get('key'), [
                     'label' => $args->get('label'),
                     'base' => $base,
                     'priority' => $args->get('priority'),
@@ -269,12 +264,12 @@ class HookAction
             }
 
             if ($args->get('menu_box')) {
-                $this->registerMenuBox($menuSlug, [
+                $this->registerMenuBox($objectType . '_' . $taxonomy, [
                     'title' => $args->get('label_type'),
                     'group' => 'taxonomy',
                     'priority' => 15,
                     'menu_box' => new TaxonomyMenuBox(
-                        $menuSlug,
+                        $args->get('key'),
                         $args
                     ),
                 ]);
@@ -299,8 +294,6 @@ class HookAction
             throw new \Exception('Post type label is required.');
         }
 
-        global $jw_post_types;
-
         $args = array_merge([
             'description' => '',
             'priority' => 20,
@@ -318,7 +311,7 @@ class HookAction
         $args['model_key'] = str_replace('\\', '_', $args['model']);
 
         $args = new Collection($args);
-        $jw_post_types[$args->get('key')] = $args;
+        GlobalData::set('post_types.' . $args->get('key'), $args);
 
         if ($args->get('show_in_menu')) {
             $this->registerMenuPostType($key, $args);
@@ -355,7 +348,7 @@ class HookAction
         }
 
         if ($args->get('menu_box')) {
-            $this->registerMenuBox('post_type.' . $key, [
+            $this->registerMenuBox('post_type_' . $key, [
                 'title' => $args->get('label'),
                 'group' => 'post_type',
                 'menu_box' => new PostTypeMenuBox($key, $args),
@@ -422,20 +415,16 @@ class HookAction
      * */
     public function getPostTypes($postType = null)
     {
-        global $jw_post_types;
-
         if ($postType) {
-            return Arr::get($jw_post_types, $postType);
+            return GlobalData::get('post_types.' . $postType);
         }
 
-        return collect($jw_post_types);
+        return collect(GlobalData::get('post_types'));
     }
 
     public function getTaxonomies($postType = null)
     {
-        global $jw_taxonomies;
-
-        $taxonomies = collect($jw_taxonomies);
+        $taxonomies = collect(GlobalData::get('taxonomies'));
 
         if (empty($taxonomies)) {
             return $taxonomies;
@@ -483,46 +472,53 @@ class HookAction
 
     public function enqueueScript($src = '', $ver = '1.0', $inFooter = false)
     {
-        global $jw_scripts;
-
         if (!is_url($src)) {
             $src = asset($src);
         }
 
-        $jw_scripts[] = new Collection([
+        GlobalData::push('scripts', new Collection([
             'src' => $src,
             'ver' => $ver,
             'inFooter' => $inFooter,
-        ]);
+        ]));
     }
 
     public function enqueueStyle($src = '', $ver = '1.0', $inFooter = false)
     {
-        global $jw_styles;
-
         if (!is_url($src)) {
             $src = asset($src);
         }
 
-        $jw_styles[] = new Collection([
+        GlobalData::push('styles', new Collection([
             'src' => $src,
             'ver' => $ver,
             'inFooter' => $inFooter,
-        ]);
+        ]));
     }
 
     public function getEnqueueScripts($inFooter = false)
     {
-        global $jw_scripts;
-
-        $scripts = new Collection($jw_scripts);
+        $scripts = new Collection(GlobalData::get('scripts'));
         return $scripts->where('inFooter', $inFooter);
     }
 
     public function getEnqueueStyles($inFooter = false)
     {
-        global $jw_styles;
-        $scripts = new Collection($jw_styles);
+        $scripts = new Collection(GlobalData::get('styles'));
         return $scripts->where('inFooter', $inFooter);
+    }
+
+    public function getAdminMenu()
+    {
+        return GlobalData::get('admin_menu');
+    }
+
+    public function getPermalinks($key = null)
+    {
+        if ($key) {
+            return GlobalData::get('permalinks.' . $key);
+        }
+
+        return GlobalData::get('permalinks');
     }
 }

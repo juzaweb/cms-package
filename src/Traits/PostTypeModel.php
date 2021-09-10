@@ -181,9 +181,7 @@ trait PostTypeModel
 
     public function getPermalink($key = null)
     {
-        global $jw_permalinks;
-
-        $permalink = Arr::get($jw_permalinks, $this->getPostType('key'));
+        $permalink = HookAction::getPermalinks($this->getPostType('key'));
 
         if (empty($permalink)) {
             return false;

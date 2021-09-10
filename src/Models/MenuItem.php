@@ -12,6 +12,7 @@ namespace Juzaweb\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Model;
 
 /**
@@ -76,9 +77,7 @@ class MenuItem extends Model
      */
     public function menuBox()
     {
-        global $jw_menu_boxs;
-
-        $register = Arr::get($jw_menu_boxs, $this->box_key);
+        $register = HookAction::getMenuBox($this->box_key);
 
         return $register;
     }
