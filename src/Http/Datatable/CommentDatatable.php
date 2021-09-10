@@ -13,7 +13,6 @@ namespace Juzaweb\Http\Datatable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
-use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 
 class CommentDatatable extends DataTable
@@ -24,6 +23,7 @@ class CommentDatatable extends DataTable
     {
         $this->postType = $postType;
     }
+
     /**
      * Columns datatable
      *
