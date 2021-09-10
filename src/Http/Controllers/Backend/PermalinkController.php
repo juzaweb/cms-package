@@ -19,8 +19,10 @@ class PermalinkController extends BackendController
 {
     public function index()
     {
+        global $jw_permalinks;
+
         $title = trans('juzaweb::app.permalinks');
-        $permalinks = apply_filters(Action::PERMALINKS_FILTER, []);
+        $permalinks = $jw_permalinks;
 
         return view('juzaweb::backend.permalink.index', compact(
             'title',

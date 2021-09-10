@@ -76,8 +76,9 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        $permalink = apply_filters('juzaweb.permalinks', []);
-        $permalink = Arr::get($permalink, $this->key);
+        global $jw_permalinks;
+
+        $permalink = Arr::get($jw_permalinks, $this->key);
         $base = $permalink->get('base');
         $query = app($this->taxonomy->get('model'))->query();
         $items = $query->whereIn('id', $menuItems->pluck('model_id')->toArray())

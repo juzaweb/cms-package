@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Models;
 
-use Juzaweb\Facades\PostType;
+use Juzaweb\Facades\HookAction;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -54,7 +54,7 @@ class Comment extends Model
 
     public function postType()
     {
-        $postType = PostType::getPostTypes($this->object_type);
+        $postType = HookAction::getPostTypes($this->object_type);
         return $this->belongsTo($postType->get('model'), 'object_id', 'id')->where('object_type', '=', $this->object_type);
     }
 

@@ -24,9 +24,6 @@ abstract class Action
     const BACKEND_HEADER_ACTION = 'juzaweb_header';
     const BACKEND_FOOTER_ACTION = 'juzaweb_footer';
 
-    const PERMALINKS_FILTER = 'juzaweb.permalinks';
-    const SCRIPTS_FILTER = 'juzaweb.scripts';
-    const STYLES_FILTER = 'juzaweb.styles';
     const DATATABLE_SEARCH_FIELD_TYPES_FILTER = 'datatable.search_field_types';
 
     abstract public function handle();

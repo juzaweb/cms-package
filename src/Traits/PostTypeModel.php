@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
-use Juzaweb\Facades\PostType;
 use Juzaweb\Models\Taxonomy;
 use Illuminate\Support\Str;
 
@@ -97,7 +96,7 @@ trait PostTypeModel
     public function syncTaxonomies(array $attributes)
     {
         $postType = $this->getPostType('key');
-        $taxonomies = PostType::getTaxonomies($postType);
+        $taxonomies = HookAction::getTaxonomies($postType);
         foreach ($taxonomies as $taxonomy) {
             if (!Arr::has($attributes, $taxonomy->get('taxonomy'))) {
                 continue;
@@ -130,7 +129,7 @@ trait PostTypeModel
 
     public function getPostType($key = null)
     {
-        $postType = PostType::getPostTypes()
+        $postType = HookAction::getPostTypes()
             ->where('model_key', '=', str_replace('\\', '_', static::class))
             ->first();
 
@@ -182,8 +181,9 @@ trait PostTypeModel
 
     public function getPermalink($key = null)
     {
-        $permalink = apply_filters('juzaweb.permalinks', []);
-        $permalink = Arr::get($permalink, $this->getPostType('key'));
+        global $jw_permalinks;
+
+        $permalink = Arr::get($jw_permalinks, $this->getPostType('key'));
 
         if (empty($permalink)) {
             return false;

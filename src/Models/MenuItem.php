@@ -76,10 +76,9 @@ class MenuItem extends Model
      */
     public function menuBox()
     {
-        $register = Arr::get(
-            apply_filters('juzaweb.menu_boxs', []),
-            $this->box_key
-        );
+        global $jw_menu_boxs;
+
+        $register = Arr::get($jw_menu_boxs, $this->box_key);
 
         return $register;
     }

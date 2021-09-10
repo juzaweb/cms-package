@@ -69,8 +69,9 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        $permalink = apply_filters('juzaweb.permalinks', []);
-        $permalink = Arr::get($permalink, $this->postType->get('key'));
+        global $jw_permalinks;
+
+        $permalink = Arr::get($jw_permalinks, $this->postType->get('key'));
 
         if (empty($permalink)) {
             $base = '';

@@ -13,7 +13,6 @@ namespace Juzaweb\Actions;
 use Juzaweb\Support\Theme\CustomMenuBox;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
-use Juzaweb\Facades\PostType;
 use Juzaweb\Models\Page;
 use Juzaweb\Models\Post;
 
@@ -260,7 +259,7 @@ class MenuAction extends Action
 
     public function addTaxonomiesForm()
     {
-        $types = PostType::getPostTypes();
+        $types = HookAction::getPostTypes();
         foreach ($types as $key => $type) {
             add_action('post_type.'.$key.'.form.right', function ($model) use ($key) {
                 echo view('juzaweb::components.taxonomies', [

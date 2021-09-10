@@ -9,7 +9,6 @@
 namespace Juzaweb\Support;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -23,11 +22,11 @@ class HookAction
     /**
      * Registers menu item in menu builder.
      *
-     * @param string $postType
+     * @param string $key
      * @param array $args
      * @throws \Exception
      */
-    public function registerPermalink($postType, $args = [])
+    public function registerPermalink($key, $args = [])
     {
         if (empty($args['label'])) {
             throw new \Exception('Permalink args label is required');
@@ -40,16 +39,14 @@ class HookAction
         $args = new Collection(array_merge([
             'label' => '',
             'base' => '',
+            'key' => $key,
             'callback' => '',
-            'priority' => 20,
             'position' => 20,
         ], $args));
 
-        add_filters('juzaweb.permalinks', function ($items) use ($postType, $args) {
-            $args['key'] = $postType;
-            $items[$postType] = collect($args);
-            return $items;
-        }, $args->get('priority'));
+        global $jw_permalinks;
+
+        $jw_permalinks[$key] = new Collection($args);
     }
 
     public function addAction($tag, $callback, $priority = 20, $arguments = 1)
@@ -101,6 +98,8 @@ class HookAction
      */
     public function addAdminMenu($menuTitle, $menuSlug, $args = [])
     {
+        global $jw_admin_menu;
+
         $opts = [
             'title' => $menuTitle,
             'key' => $menuSlug,
@@ -109,24 +108,22 @@ class HookAction
             'parent' => null,
             'position' => 20,
         ];
+
         $item = array_merge($opts, $args);
-
-        return add_filters('juzaweb.admin_menu', function ($menu) use ($item) {
-            if ($item['parent']) {
-                $menu[$item['parent']]['children'][$item['key']] = $item;
-            } else {
-                if (Arr::has($menu, $item['key'])) {
-                    if (Arr::has($menu[$item['key']], 'children')) {
-                        $item['children'] = $menu[$item['key']]['children'];
-                    }
-                    $menu[$item['key']] = $item;
-                } else {
-                    $menu[$item['key']] = $item;
+        if ($item['parent']) {
+            $jw_admin_menu[$item['parent']]['children'][$item['key']] = $item;
+        } else {
+            if (Arr::has($jw_admin_menu, $item['key'])) {
+                if (Arr::has($jw_admin_menu[$item['key']], 'children')) {
+                    $item['children'] = $jw_admin_menu[$item['key']]['children'];
                 }
+                $jw_admin_menu[$item['key']] = $item;
+            } else {
+                $jw_admin_menu[$item['key']] = $item;
             }
+        }
 
-            return $menu;
-        });
+        return true;
     }
 
     /**
@@ -137,6 +134,8 @@ class HookAction
      */
     public function registerMenuBox($key, $args = [])
     {
+        global $jw_menu_boxs;
+
         $opts = [
             'title' => '',
             'key' => $key,
@@ -152,10 +151,7 @@ class HookAction
          */
         $menuBox = $item['menu_box'];
 
-        add_filters('juzaweb.menu_boxs', function ($items) use ($key, $item) {
-            $items[$key] = collect($item);
-            return $items;
-        }, $item['priority']);
+        $jw_menu_boxs[$key] = collect($item);
 
         add_action('juzaweb.add_menu_items', function () use (
             $key,
@@ -178,16 +174,17 @@ class HookAction
      */
     public function getMenuBoxs($keys = [])
     {
-        $menuBoxs = $this->applyFilters('juzaweb.menu_boxs', []);
+        global $jw_menu_boxs;
+
         if ($keys) {
             if (is_string($keys)) {
                 $keys = [$keys];
             }
 
-            return array_only($menuBoxs, $keys);
+            return array_only($jw_menu_boxs, $keys);
         }
 
-        return $menuBoxs;
+        return $jw_menu_boxs;
     }
 
     /**
@@ -198,9 +195,10 @@ class HookAction
      */
     public function getMenuBox($key)
     {
-        $menuBoxs = $this->applyFilters('juzaweb.menu_boxs', []);
+        global $jw_menu_boxs;
+
         if ($key) {
-            return Arr::get($menuBoxs, $key);
+            return Arr::get($jw_menu_boxs, $key);
         }
 
         return false;
@@ -217,6 +215,8 @@ class HookAction
      */
     public function registerTaxonomy($taxonomy, $objectType, $args = [])
     {
+        global $jw_taxonomies;
+
         $objectTypes = is_string($objectType) ? [$objectType] : $objectType;
         foreach ($objectTypes as $objectType) {
             $type = Str::singular($objectType);
@@ -245,10 +245,7 @@ class HookAction
             $args['singular'] = Str::singular($taxonomy);
             $args = new Collection(array_merge($opts, $args));
 
-            add_filters('juzaweb.taxonomies', function ($items) use ($taxonomy, $objectType, $args) {
-                $items[$objectType][$taxonomy] = $args;
-                return $items;
-            }, $args->get('priority'));
+            $jw_taxonomies[$objectType][$taxonomy] = $args;
 
             if ($args->get('show_in_menu')) {
                 $this->addAdminMenu(
@@ -302,6 +299,8 @@ class HookAction
             throw new \Exception('Post type label is required.');
         }
 
+        global $jw_post_types;
+
         $args = array_merge([
             'description' => '',
             'priority' => 20,
@@ -319,11 +318,7 @@ class HookAction
         $args['model_key'] = str_replace('\\', '_', $args['model']);
 
         $args = new Collection($args);
-
-        add_filters('juzaweb.post_types', function ($items) use ($args) {
-            $items[$args->get('key')] = $args;
-            return $items;
-        }, $args->get('priority'));
+        $jw_post_types[$args->get('key')] = $args;
 
         if ($args->get('show_in_menu')) {
             $this->registerMenuPostType($key, $args);
@@ -427,18 +422,21 @@ class HookAction
      * */
     public function getPostTypes($postType = null)
     {
+        global $jw_post_types;
+
         if ($postType) {
-            return Arr::get(
-                HookAction::applyFilters('juzaweb.post_types', []), $postType
-            );
+            return Arr::get($jw_post_types, $postType);
         }
 
-        return collect(HookAction::applyFilters('juzaweb.post_types', []));
+        return collect($jw_post_types);
     }
 
     public function getTaxonomies($postType = null)
     {
-        $taxonomies = collect(HookAction::applyFilters('juzaweb.taxonomies', []));
+        global $jw_taxonomies;
+
+        $taxonomies = collect($jw_taxonomies);
+
         if (empty($taxonomies)) {
             return $taxonomies;
         }
@@ -464,6 +462,7 @@ class HookAction
     public function syncTaxonomies($postType, $model, array $attributes)
     {
         $taxonomies = $this->getTaxonomies($postType);
+
         foreach ($taxonomies as $taxonomy) {
             if (method_exists($model, 'taxonomies')) {
                 $data = Arr::get($attributes, $taxonomy->get('taxonomy'), []);
@@ -499,19 +498,17 @@ class HookAction
 
     public function enqueueStyle($src = '', $ver = '1.0', $inFooter = false)
     {
-        $this->addFilter(Action::STYLES_FILTER, function ($items) use ($src, $ver, $inFooter) {
-            if (!is_url($src)) {
-                $src = asset($src);
-            }
+        global $jw_styles;
 
-            $items[] = new Collection([
-                'src' => $src,
-                'ver' => $ver,
-                'inFooter' => $inFooter,
-            ]);
+        if (!is_url($src)) {
+            $src = asset($src);
+        }
 
-            return $items;
-        });
+        $jw_styles[] = new Collection([
+            'src' => $src,
+            'ver' => $ver,
+            'inFooter' => $inFooter,
+        ]);
     }
 
     public function getEnqueueScripts($inFooter = false)
@@ -524,7 +521,8 @@ class HookAction
 
     public function getEnqueueStyles($inFooter = false)
     {
-        $scripts = new Collection($this->applyFilters(Action::STYLES_FILTER, []));
+        global $jw_styles;
+        $scripts = new Collection($jw_styles);
         return $scripts->where('inFooter', $inFooter);
     }
 }

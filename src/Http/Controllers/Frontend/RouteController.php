@@ -36,7 +36,9 @@ class RouteController extends FrontendController
 
     protected function getPermalinks()
     {
-        return collect(apply_filters('juzaweb.permalinks', []));
+        global $jw_permalinks;
+
+        return collect($jw_permalinks);
     }
 
     protected function callController($callback, $method = 'index', $parameters = [])

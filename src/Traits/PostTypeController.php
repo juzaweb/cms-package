@@ -12,7 +12,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Juzaweb\Facades\PostType;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Datatable\PostTypeDataTable;
 
 trait PostTypeController
@@ -94,7 +94,7 @@ trait PostTypeController
 
     protected function getSetting()
     {
-        $setting = PostType::getPostTypes($this->makeModel()->getPostType('key'));
+        $setting = HookAction::getPostTypes($this->makeModel()->getPostType('key'));
         if (empty($setting)) {
             throw new \Exception('Post type ' . $this->makeModel()->getPostType() . ' does not exists.');
         }

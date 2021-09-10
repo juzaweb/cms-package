@@ -37,10 +37,9 @@ class MenuController extends BackendController
             'key' => trans('juzaweb::app.key')
         ]);
 
-        $menuRegister = Arr::get(
-            apply_filters('juzaweb.menu_boxs', []),
-            $request->post('key')
-        );
+        global $jw_menu_boxs;
+
+        $menuRegister = Arr::get($jw_menu_boxs, $request->post('key'));
 
         if (empty($menuRegister)) {
             return $this->error([
