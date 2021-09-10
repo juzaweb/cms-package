@@ -7,10 +7,12 @@
 
         <div class="col-md-6">
             <div class="btn-group float-right">
-                <a href="{{ route('admin.' . $setting->get('type') . '.taxonomy.create', [$taxonomy]) }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
+                <a href="{{ route('admin.' . $setting->get('type') . '.taxonomy.create', [$taxonomy]) }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> {{ trans('juzaweb::app.add_new') }}</a>
             </div>
         </div>
     </div>
+
+
 
     <div class="row mb-2">
         <div class="col-md-12">

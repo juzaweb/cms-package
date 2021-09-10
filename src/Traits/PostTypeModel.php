@@ -51,6 +51,10 @@ trait PostTypeModel
             });
         }
 
+        if ($status = Arr::get($params, 'status')) {
+            $builder->where('status', '=', $status);
+        }
+
         $taxonomies = HookAction::getTaxonomies($this->getPostType('key'));
         foreach ($taxonomies as $key => $taxonomy) {
             if ($ids = Arr::get($params, $key)) {
@@ -58,9 +62,7 @@ trait PostTypeModel
                     $ids = [$ids];
                 }
 
-                $builder->whereHas('taxonomies', function (Builder $q) use ($ids) {
-                    $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
-                });
+                $builder->whereTaxonomyIn($ids);
             }
         }
 

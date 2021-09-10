@@ -69,8 +69,6 @@ trait PostTypeController
      * */
     abstract protected function getModel();
 
-    abstract public function getDataTable(Request $request);
-
     protected function afterSave(Request $request, $model)
     {
         $this->traitAfterSave($request, $model);

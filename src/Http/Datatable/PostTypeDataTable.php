@@ -11,7 +11,6 @@
 namespace Juzaweb\Http\Datatable;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
 use Juzaweb\Facades\HookAction;
 
@@ -155,12 +154,11 @@ class PostTypeDataTable extends DataTable
          * @var Builder $query
          */
         $query = $this->makeModel()->query();
-        $query->whereFilter($data);
-
-        if ($status = Arr::get($data, 'status')) {
-            $query->where('status', '=', $status);
+        if (empty($data['status'])) {
+            $query->where('status', '!=', 'trash');
         }
 
+        $query->whereFilter($data);
         return $query;
     }
 

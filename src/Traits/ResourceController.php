@@ -120,32 +120,6 @@ trait ResourceController
         ]);
     }
 
-    public function getDataTable(Request $request)
-    {
-        $sort = $request->get('sort', 'id');
-        $order = $request->get('order', 'desc');
-        $offset = $request->get('offset', 0);
-        $limit = $request->get('limit', 20);
-
-        $query = $this->makeModel()->newQuery();
-        $query->filter($request->all());
-
-        $count = $query->count();
-        $query->orderBy($sort, $order);
-        $query->offset($offset);
-        $query->limit($limit);
-        $rows = $query->get();
-
-        foreach ($rows as $row) {
-            $row->edit_url = route('admin.design.sliders.edit', [$row->id]);
-        }
-
-        return response()->json([
-            'total' => $count,
-            'rows' => $rows
-        ]);
-    }
-
     protected function beforeStore(Request $request)
     {
         //
