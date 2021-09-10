@@ -18,7 +18,7 @@ class FilemanagerController extends Controller
             return abort(404);
         }
 
-        return view('juzaweb::filemanager.index', [
+        return view('juzaweb::backend.filemanager.index', [
             'mimeTypes' => $mimeTypes
         ]);
     }

@@ -17,7 +17,6 @@ use Juzaweb\Models\User;
 
 class UserDataTable extends DataTable
 {
-
     /**
      * Columns datatable
      *
@@ -80,5 +79,14 @@ class UserDataTable extends DataTable
         }
 
         return $query;
+    }
+
+    public function bulkActions($action, $ids)
+    {
+        switch ($action) {
+            case 'delete':
+                User::destroy($ids);
+                break;
+        }
     }
 }

@@ -23,7 +23,7 @@ class FolderController extends FileManagerController
             ];
         }
         
-        return view('juzaweb::filemanager.tree')
+        return view('juzaweb::backend.filemanager.tree')
             ->with([
                 'root_folders' => [
                     (object) [

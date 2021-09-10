@@ -235,7 +235,6 @@ class HookAction
                 'menu_box' => true,
                 'rewrite' => true,
                 'supports' => [
-                    'thumbnail',
                     'hierarchical'
                 ],
             ];
