@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Abstracts\Plugin;
 use Symfony\Component\Console\Input\InputArgument;
 
 class EnableCommand extends Command

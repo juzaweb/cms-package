@@ -8,14 +8,15 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Models\Model;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Models\Model;
 
 /**
- * Juzaweb\Cms\Models\MenuItem
+ * Juzaweb\Models\MenuItem
  *
  * @property int $id
  * @property int $menu_id
@@ -27,7 +28,7 @@ use Juzaweb\Cms\Models\Model;
  * @property string $type
  * @property string|null $icon
  * @property string $target
- * @property-read \Juzaweb\Cms\Models\Menu $menu
+ * @property-read \Juzaweb\Models\Menu $menu
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem query()
@@ -52,7 +53,7 @@ class MenuItem extends Model
 
     protected $table = 'menu_items';
     protected $fillable = [
-        'name',
+        'label',
         'menu_id',
         'parent_id',
         'model_id',
@@ -76,10 +77,7 @@ class MenuItem extends Model
      */
     public function menuBox()
     {
-        $register = Arr::get(
-            apply_filters('juzaweb.menu_boxs', []),
-            $this->box_key
-        );
+        $register = HookAction::getMenuBox($this->box_key);
 
         return $register;
     }

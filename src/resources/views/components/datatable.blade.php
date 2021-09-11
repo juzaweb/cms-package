@@ -4,41 +4,47 @@
             <form method="post" class="form-inline">
                 @csrf
 
-                <select name="bulk_actions" class="form-control w-60 mb-2 mr-1">
-                    <option value="">@lang('juzaweb::app.bulk_actions')</option>
+                <select name="bulk_actions" class="form-control select2-default" data-width="120px">
+                    <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
                     @foreach($actions as $key => $action)
-                        <option value="{{ $key }}">{{ $action['label'] ?? strtoupper($key) }}</option>
+                        <option value="{{ $key }}">{{ $action }}</option>
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
+                <button type="submit" class="btn btn-primary" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
     @endif
 
     <div class="col-md-8">
         <form method="get" class="form-inline" id="form-search">
+            @foreach($searchFields as $name => $field)
+                {{ $searchFieldTypes[$field['type']]['view']
+                    ->with([
+                        'name' => $name,
+                        'field' => $field
+                    ])
+                    }}
+            @endforeach
 
-            <div class="form-group mb-2 mr-1">
-                <label for="search" class="sr-only">@lang('juzaweb::app.search')</label>
-                <input name="search" type="text" id="search" class="form-control" placeholder="@lang('juzaweb::app.search')" autocomplete="off">
-            </div>
-
-            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> @lang('juzaweb::app.search')</button>
+            <button type="submit" class="btn btn-primary mb-2">
+                <i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}
+            </button>
         </form>
     </div>
 </div>
 
-<div class="table-responsive mb-5">
-    <table class="table" id="{{ $unique_id }}">
+<div class="table-responsive">
+    <table class="table jw-table" id="{{ $uniqueId }}">
         <thead>
             <tr>
-                <th data-width="3%" data-field="state" data-checkbox="true"></th>
+                <th data-width="3%" data-checkbox="true"></th>
                 @foreach($columns as $key => $column)
                     <th
                             data-width="{{ $column['width'] ?? 'auto' }}"
                             data-align="{{ $column['align'] ?? 'left' }}"
-                            data-field="{{ $key }}">{{ $column['label'] ?? strtoupper($key) }}
+                            data-field="{{ $key }}">{{
+                                $column['label'] ?? strtoupper($key) }}
                     </th>
                 @endforeach
             </tr>
@@ -48,7 +54,9 @@
 
 <script type="text/javascript">
     var table = new JuzawebTable({
-        table: "#{{ $unique_id }}",
-        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}',
+        table: "#{{ $uniqueId }}",
+        page_size: parseInt("{{ $perPage }}"),
+        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
+        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}'
     });
 </script>

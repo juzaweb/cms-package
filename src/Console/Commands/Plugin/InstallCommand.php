@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Commands;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Json;
-use Juzaweb\Cms\Support\Process\Installer;
+use Juzaweb\Support\Json;
+use Juzaweb\Support\Process\Installer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

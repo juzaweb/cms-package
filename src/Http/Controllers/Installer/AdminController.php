@@ -12,14 +12,14 @@
  * Time: 12:50 PM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Models\User;
 
 class AdminController extends Controller
 {
@@ -62,7 +62,7 @@ class AdminController extends Controller
             throw $e;
         }
 
-        return redirect()->route('installer.final')
+        return redirect()->to('install/final')
             ->with(['message' => trans('juzaweb::installer.final.finished')]);
     }
 }

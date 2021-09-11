@@ -12,16 +12,16 @@
  * Time: 11:22 AM
  */
 
-namespace Juzaweb\Cms\Console\Commands;
+namespace Juzaweb\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Support\Manager\DatabaseManager;
-use Juzaweb\Cms\Support\Manager\FinalInstallManager;
-use Juzaweb\Cms\Support\Manager\InstalledFileManager;
+use Juzaweb\Support\Manager\DatabaseManager;
+use Juzaweb\Support\Manager\FinalInstallManager;
+use Juzaweb\Support\Manager\InstalledFileManager;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Models\User;
 
 class InstallCommand extends Command
 {

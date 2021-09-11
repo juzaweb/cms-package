@@ -1,20 +1,18 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\Menu;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Models\Taxonomy;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Cms\Models\Page;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\Menu;
+use Juzaweb\Models\User;
+use Juzaweb\Models\Taxonomy;
+use Juzaweb\Support\ArrayPagination;
+use Juzaweb\Models\Page;
 
 class LoadDataController extends BackendController
 {
-    use ArrayPagination;
-
     public function loadData($func, Request $request) {
         if (method_exists($this, $func)) {
             return $this->{$func}($request);
@@ -136,9 +134,10 @@ class LoadDataController extends BackendController
                 'id' => $item['code'],
                 'text' => $item['name']
             ];
-        })->values()->toArray();
+        })->values();
 
-        $paginate = $this->arrayPaginate($results, 10);
+        $paginate = ArrayPagination::make($results);
+        $paginate = $paginate->paginate(10);
 
         $data['results'] = $paginate->values();
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
 use Illuminate\Routing\Controller;
-use Juzaweb\Cms\Support\DatabaseManager;
-use Juzaweb\Cms\Support\InstalledFileManager;
+use Juzaweb\Support\DatabaseManager;
+use Juzaweb\Support\InstalledFileManager;
 
 class UpdateController extends Controller
 {
-    use \Juzaweb\Cms\Support\MigrationsHelper;
+    use \Juzaweb\Support\MigrationsHelper;
 
     /**
      * Display the updater welcome page.

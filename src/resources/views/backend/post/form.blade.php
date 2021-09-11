@@ -16,10 +16,16 @@
                     <input type="text" name="title" class="form-control" id="title" value="{{ $model->title }}" autocomplete="off" required>
                 </div>
 
-                @include('juzaweb::components.form_ckeditor', [
+                @component('juzaweb::components.form_ckeditor', [
                     'name' => 'content',
                     'value' => $model->content,
-                ])
+                ])@endcomponent
+
+                @do_action('post_type.'. $postType .'.form.left')
+
+            </div>
+
+            <div class="col-md-4">
 
                 @component('juzaweb::components.form_select', [
                     'label' => trans('juzaweb::app.status'),
@@ -29,18 +35,13 @@
                 ])
                 @endcomponent
 
-                @do_action('post_type.'. $postType .'.form.left')
-                {{--@include('juzaweb::backend.seo_form')--}}
-            </div>
-
-            <div class="col-md-4">
                 @component('juzaweb::components.form_image', [
                     'label' => trans('juzaweb::app.thumbnail'),
                     'name' => 'thumbnail',
                     'value' => $model->thumbnail,
                 ])@endcomponent
 
-                @do_action('post_type.'. $postType .'.form.rigth', $model)
+                @do_action('post_type.'. $postType .'.form.right', $model)
             </div>
         </div>
     @endcomponent

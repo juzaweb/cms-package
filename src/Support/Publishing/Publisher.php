@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Publishing;
+namespace Juzaweb\Support\Publishing;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Contracts\PublisherInterface;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Contracts\PublisherInterface;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Abstracts\Plugin;
 
 abstract class Publisher implements PublisherInterface
 {
@@ -87,7 +87,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * Get plugin instance.
      *
-     * @return \Juzaweb\Cms\Abstracts\Plugin
+     * @return \Juzaweb\Abstracts\Plugin
      */
     public function getModule()
     {

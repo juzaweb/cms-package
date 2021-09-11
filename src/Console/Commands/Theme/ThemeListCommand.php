@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Theme;
+namespace Juzaweb\Console\Commands\Theme;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Contracts\ThemeContract;
+use Juzaweb\Contracts\ThemeContract;
 
 class ThemeListCommand extends Command
 {
@@ -24,7 +24,7 @@ class ThemeListCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {

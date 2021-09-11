@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;

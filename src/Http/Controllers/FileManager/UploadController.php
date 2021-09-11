@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Juzaweb\Cms\Models\MediaFile;
+use Juzaweb\Models\MediaFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -55,29 +55,28 @@ class UploadController extends FileManagerController
         }
     }
     
-    protected function saveFile(UploadedFile $file, $folder_id) {
+    protected function saveFile(UploadedFile $file, $folderId) {
         if (!$this->validateFile($file)) {
             return $this->response($this->errors);
         }
 
         $filename = $this->createFilename($file);
         $storage = Storage::disk(config('juzaweb.filemanager.disk'));
-        $new_path = $storage->putFileAs(date('Y/m/d'), $file, $filename);
+        $newPath = $storage->putFileAs(date('Y/m/d'), $file, $filename);
     
-        if ($new_path) {
+        if ($newPath) {
             DB::beginTransaction();
             try {
                 $model = new MediaFile();
                 $model->name = $file->getClientOriginalName();
-                $model->path = $new_path;
+                $model->path = $newPath;
                 $model->type = $this->getType();
                 $model->mime_type = $file->getClientMimeType();
                 $model->extension = $file->getClientOriginalExtension();
                 $model->size = $file->getSize();
-                $model->folder_id = $folder_id;
+                $model->folder_id = $folderId;
                 $model->user_id = Auth::id();
                 $model->save();
-
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -85,15 +84,15 @@ class UploadController extends FileManagerController
             }
         }
         
-        return $new_path;
+        return $newPath;
     }
     
     protected function createFilename(UploadedFile $file)
     {
         $filename = substr($file->getClientOriginalName(), 0, 110);
         $extension = $file->getClientOriginalExtension();
-        $new_filename = Str::slug(basename($filename, "." . $extension)) .'-'. time() .'-'. Str::random(10) .'.' . $extension;
-        return $new_filename;
+        $newFileName = Str::slug(basename($filename, "." . $extension)) .'-'. time() .'-'. Str::random(10) .'.' . $extension;
+        return $newFileName;
     }
     
     protected function response($error_bag)
@@ -106,6 +105,7 @@ class UploadController extends FileManagerController
     {
         $type = $this->getType();
         $config = config('juzaweb.filemanager.types.' . $type);
+
         if (empty($config)) {
             array_push($this->errors, 'File type not sopport');
             return false;

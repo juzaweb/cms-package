@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Theme;
+namespace Juzaweb\Console\Commands\Theme;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -59,7 +59,7 @@ class ThemeGeneratorCommand extends Command
      */
     public function handle()
     {
-        $this->themePath = config('theme.path');
+        $this->themePath = config('juzaweb.theme.path');
         $this->theme['name'] = strtolower($this->argument('name'));
         $this->init();
     }
@@ -202,7 +202,7 @@ class ThemeGeneratorCommand extends Command
 
     protected function getThemeStubPath()
     {
-        return __DIR__ . '/../../stubs';
+        return JW_PACKAGE_PATH . '/stubs/theme';
     }
 
     protected function getThemeStubFiles()

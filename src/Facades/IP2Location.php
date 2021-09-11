@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

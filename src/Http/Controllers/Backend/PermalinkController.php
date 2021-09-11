@@ -8,18 +8,20 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
+use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
 
 class PermalinkController extends BackendController
 {
     public function index()
     {
         $title = trans('juzaweb::app.permalinks');
-        $permalinks = apply_filters('juzaweb.permalinks', []);
+        $permalinks = HookAction::getPermalinks();
 
         return view('juzaweb::backend.permalink.index', compact(
             'title',
@@ -38,15 +40,20 @@ class PermalinkController extends BackendController
         foreach ($permalinks as $permalink) {
             if (empty(Arr::get($permalink, 'base'))) {
                 return $this->error([
-                    'message' => trans('validation.required', ['attribute' => trans('juzaweb::app.permalink_base')])
+                    'message' => trans('validation.required', [
+                        'attribute' => trans('juzaweb::app.permalink_base')
+                    ])
                 ]);
             }
         }
 
         set_config('permalinks', $permalinks);
 
+        do_action(Action::PERMALINKS_SAVED_ACTION, $permalinks);
+
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzaweb::app.save_successfully'),
+            'redirect' => route('admin.permalink')
         ]);
     }
 }

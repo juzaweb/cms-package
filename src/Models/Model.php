@@ -8,14 +8,14 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 
 /**
- * Juzaweb\Cms\Models\Model
+ * Juzaweb\Models\Model
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Model newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Model newQuery()

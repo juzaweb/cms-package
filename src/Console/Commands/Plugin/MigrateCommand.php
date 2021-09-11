@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Migrations\Migrator;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Support\Migrations\Migrator;
+use Juzaweb\Abstracts\Plugin;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -25,7 +25,7 @@ class MigrateCommand extends Command
     protected $description = 'Migrate the migrations from the specified plugin or from all plugins.';
 
     /**
-     * @var \Juzaweb\Cms\Contracts\RepositoryInterface
+     * @var \Juzaweb\Contracts\RepositoryInterface
      */
     protected $module;
 

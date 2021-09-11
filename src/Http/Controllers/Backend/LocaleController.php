@@ -8,18 +8,16 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Juzaweb\Cms\Facades\Locale;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
+use Juzaweb\Facades\Locale;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Support\ArrayPagination;
 
 class LocaleController extends BackendController
 {
-    use ArrayPagination;
-
     public function index($type, $locale)
     {
         $data = Locale::getByKey($type);
@@ -39,7 +37,7 @@ class LocaleController extends BackendController
             'url' => route('admin.translations.type', [$type])
         ]);
 
-        return view('jw_trans::translation.locale', [
+        return view('juzaweb::backend.translation.locale', [
             'title' => $language,
             'data' => $data,
             'type' => $type,
@@ -114,7 +112,7 @@ class LocaleController extends BackendController
         }
 
         $total = count($result);
-        $items = $this->arrayPaginate($result, $limit, $page)->values();
+        $items = ArrayPagination::make($result)->paginate($limit, $page)->values();
 
         return response()->json([
             'total' => $total,

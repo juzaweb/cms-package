@@ -6,19 +6,27 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/12/2021
- * Time: 3:58 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Juzaweb\Support\Installer;
 
 class CmsServiceProvider extends ServiceProvider
 {
     public function register()
+    {
+        if (!$this->checkDbInstall()) {
+            $this->app->register(InstallerServiceProvider::class);
+        } else {
+            $this->registerProviders();
+        }
+    }
+
+    protected function registerProviders()
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(BackendServiceProvider::class);
@@ -32,8 +40,35 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(HooksServiceProvider::class);
         $this->app->register(HookBladeServiceProvider::class);
         $this->app->register(PostTypeServiceProvider::class);
-        $this->app->register(InstallerServiceProvider::class);
+        $this->app->register(PluginServiceProvider::class);
         $this->app->register(ThemeServiceProvider::class);
+        $this->app->register(TranslationServiceProvider::class);
         //$this->app->register(SwaggerServiceProvider::class);
+    }
+
+    protected function checkDbInstall()
+    {
+        try {
+            DB::connection()->getPdo();
+
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        if (Installer::alreadyInstalled()) {
+            return true;
+        }
+
+        if (!Schema::hasTable('configs')) {
+            return false;
+        }
+
+        if (!Schema::hasTable('users')) {
+            return false;
+        }
+
+        return DB::table('users')
+            ->where('is_admin', '=', 1)
+            ->exists();
     }
 }

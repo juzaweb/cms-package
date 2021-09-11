@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 class Stub
 {

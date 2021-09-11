@@ -8,9 +8,9 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
-use Juzaweb\Cms\Models\Config as ConfigModel;
+use Juzaweb\Models\Config as ConfigModel;
 use Illuminate\Support\Facades\Cache;
 
 class Config

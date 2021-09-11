@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
-use Juzaweb\Cms\Support\Manager\DatabaseManager;
+use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Support\Manager\DatabaseManager;
 
 class DatabaseController extends Controller
 {

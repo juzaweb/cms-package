@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Container\Container;
@@ -8,9 +8,9 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use Juzaweb\Cms\Contracts\ActivatorInterface;
+use Juzaweb\Contracts\ActivatorInterface;
 use Illuminate\Support\Facades\Artisan;
-use Juzaweb\Cms\Json;
+use Juzaweb\Support\Json;
 
 abstract class Plugin
 {
@@ -253,8 +253,6 @@ abstract class Plugin
             $this->registerFiles();
         }
 
-        $this->registerRoute();
-
         $this->fireEvent('register');
     }
 
@@ -283,21 +281,6 @@ abstract class Plugin
      * @return string
      */
     abstract public function getCachedServicesPath(): string;
-
-    protected function registerRoute()
-    {
-        $namespace = $this->getNamespace() . 'Http\Controllers';
-
-        $this->router->middleware('admin')
-            ->namespace($namespace)
-            ->prefix(config('juzaweb.admin_prefix'))
-            ->group($this->path . '/src/routes/admin.php');
-
-        $this->router->middleware('api')
-            ->namespace($namespace)
-            ->prefix('api')
-            ->group($this->path . '/src/routes/api.php');
-    }
 
     /**
      * Register the files from this plugin.
@@ -422,9 +405,7 @@ abstract class Plugin
      */
     protected function isLoadFilesOnBoot(): bool
     {
-        return config('plugin.register.files', 'register') === 'boot' &&
-            // force register method if option == boot && app is AsgardCms
-            !class_exists('\Modules\Core\Foundation\AsgardCms');
+        return false;
     }
 
     private function flushCache(): void

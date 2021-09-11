@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Support\Customize;
+use Juzaweb\Support\Theme\Customize;
 
 abstract class CustomizeControlAbstract
 {

@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support\Theme;
+namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Arr;
-use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Facades\HookAction;
 
 class PostTypeMenuBox extends MenuBoxAbstract
 {
@@ -34,7 +34,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
         foreach ($items as $item) {
             $result[] = $this->getData([
-                'name' => $item->getTitle(),
+                'label' => $item->getTitle(),
                 'model_id' => $item->id,
             ]);
         }
@@ -45,7 +45,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
     public function getData($item)
     {
         return [
-            'name' => $item['name'],
+            'label' => $item['label'],
             'model_class' => $this->postType->get('model'),
             'model_id' => $item['model_id'],
         ];
@@ -69,8 +69,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        $permalink = apply_filters('juzaweb.permalinks', []);
-        $permalink = Arr::get($permalink, $this->postType->get('key'));
+        $permalink = HookAction::getPermalinks($this->postType->get('key'));
 
         if (empty($permalink)) {
             $base = '';
@@ -83,7 +82,10 @@ class PostTypeMenuBox extends MenuBoxAbstract
             ->get(['id', 'slug'])->keyBy('id');
 
         return $menuItems->map(function ($item) use ($base, $items) {
-            $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            if (!empty($items[$item->model_id])) {
+                $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            }
+
             return $item;
         });
     }

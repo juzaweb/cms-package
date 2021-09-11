@@ -1,19 +1,26 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\Menu;
+use Juzaweb\Facades\GlobalData;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\Menu;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Models\MenuItem;
+use Juzaweb\Models\MenuItem;
 
 class MenuController extends BackendController
 {
     public function index($id = null)
     {
+        do_action('backend.menu.index', $id);
+
         $title = trans('juzaweb::app.menu');
+        $navMenus = GlobalData::get('nav_menus');
+        $location = get_theme_config('nav_location');
+
+        $this->loadMenuBoxs();
 
         if (empty($id)) {
             $menu = Menu::first();
@@ -23,7 +30,9 @@ class MenuController extends BackendController
 
         return view('juzaweb::backend.menu.index', compact(
             'title',
-            'menu'
+            'menu',
+            'navMenus',
+            'location'
         ));
     }
 
@@ -35,10 +44,7 @@ class MenuController extends BackendController
             'key' => trans('juzaweb::app.key')
         ]);
 
-        $menuRegister = Arr::get(
-            apply_filters('juzaweb.menu_boxs', []),
-            $request->post('key')
-        );
+        $menuRegister = HookAction::getMenuBox($request->post('key'));
 
         if (empty($menuRegister)) {
             return $this->error([
@@ -102,6 +108,22 @@ class MenuController extends BackendController
             $model->update($request->all());
             $model->syncItems($items);
 
+            if ($location = $request->post('location', [])) {
+                $locationConfig = [];
+                foreach ($location as $item) {
+                    $locationConfig[$item] = $model->id;
+                }
+
+                set_theme_config('nav_location', $locationConfig);
+            } else {
+                $location = collect(get_theme_config('nav_location'))
+                    ->filter(function ($i) use ($model) {
+                        return $i != $model->id;
+                    })->toArray();
+
+                set_theme_config('nav_location', $location);
+            }
+
             do_action('admin.saved_menu', $model, $items);
 
             DB::commit();
@@ -125,5 +147,22 @@ class MenuController extends BackendController
         return $this->success([
             'message' => trans('juzaweb::app.deleted_successfully')
         ]);
+    }
+
+    protected function loadMenuBoxs()
+    {
+        $menuBoxs = GlobalData::get('menu_boxs');
+        foreach ($menuBoxs as $key => $item) {
+            add_action('juzaweb.add_menu_items', function () use (
+                $key,
+                $item
+            ) {
+                echo e(view('juzaweb::backend.items.menu_box', [
+                    'label' => $item['title'],
+                    'key' => $key,
+                    'slot' => $item['menu_box']->addView()->render()
+                ]));
+            });
+        }
     }
 }

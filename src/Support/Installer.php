@@ -12,7 +12,7 @@
  * Time: 6:20 PM
 */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 
 class Installer

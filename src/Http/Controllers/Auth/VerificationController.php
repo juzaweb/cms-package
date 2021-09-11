@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Models\User;
 
 class VerificationController extends Controller
 {

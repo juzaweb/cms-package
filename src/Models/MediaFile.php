@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Juzaweb\Cms\Models\MediaFile
+ * Juzaweb\Models\MediaFile
  *
  * @property int $id
  * @property string $name

@@ -8,10 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Collection;
+use Juzaweb\Contracts\TranslationContract;
 
 /**
  * @method static Collection[] all()
@@ -19,7 +20,7 @@ use Illuminate\Support\Collection;
  * @method static array allLanguage(Collection|string $var)
  * @method static string publishPath(Collection|string $var, string $locale)
  * @method static array getAllTrans(Collection|string $var, string $locale)
- * @see \Juzaweb\Cms\Support\Locale
+ * @see \Juzaweb\Support\Locale
  */
 class Locale extends Facade
 {
@@ -30,6 +31,6 @@ class Locale extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'juzaweb.locale';
+        return TranslationContract::class;
     }
 }

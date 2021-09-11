@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 /**
- * Juzaweb\Cms\Models\TaxonomyTranslation
+ * Juzaweb\Models\TaxonomyTranslation
  *
  * @property int $id
  * @property int $taxonomy_id

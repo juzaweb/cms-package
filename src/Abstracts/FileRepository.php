@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
 use Countable;
 use Illuminate\Cache\CacheManager;
@@ -11,12 +11,13 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Exceptions\InvalidAssetPath;
-use Juzaweb\Cms\Exceptions\ModuleNotFoundException;
-use Juzaweb\Cms\Json;
-use Juzaweb\Cms\Support\Process\Installer;
-use Juzaweb\Cms\Support\Process\Updater;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Exceptions\InvalidAssetPath;
+use Juzaweb\Exceptions\ModuleNotFoundException;
+use Juzaweb\Support\Collection;
+use Juzaweb\Support\Json;
+use Juzaweb\Support\Process\Installer;
+use Juzaweb\Support\Process\Updater;
 
 abstract class FileRepository implements RepositoryInterface, Countable
 {
@@ -114,8 +115,11 @@ abstract class FileRepository implements RepositoryInterface, Countable
 
         $paths[] = $this->getPath() . '/*/*';
 
-        if ($this->config('scan.enabled')) {
-            $paths = array_merge($paths, $this->config('scan.paths'));
+        if (false) {
+            $scanPaths = [
+                base_path('vendor/*/*'),
+            ];
+            $paths = array_merge($paths, $scanPaths);
         }
 
         $paths = array_map(function ($path) {
@@ -131,7 +135,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      * @param Container $app
      * @param string $args
      * @param string $path
-     * @return \Juzaweb\Cms\Abstracts\Plugin
+     * @return \Juzaweb\Abstracts\Plugin
      */
     abstract protected function createModule(...$args);
 
@@ -443,7 +447,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      */
     public function assetPath($module) : string
     {
-        return $this->config('paths.assets') . '/' . $module;
+        return public_path('plugins') . '/' . $module;
     }
 
     /**
@@ -501,7 +505,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * Get module used for cli session.
      * @return string
-     * @throws \Juzaweb\Cms\Exceptions\ModuleNotFoundException
+     * @throws \Juzaweb\Exceptions\ModuleNotFoundException
      */
     public function getUsedNow() : string
     {
@@ -528,7 +532,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      */
     public function getAssetsPath() : string
     {
-        return $this->config('paths.assets');
+        return public_path('plugins');
     }
 
     /**
@@ -571,7 +575,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      * Enabling a specific module.
      * @param string $name
      * @return void
-     * @throws \Juzaweb\Cms\Exceptions\ModuleNotFoundException
+     * @throws \Juzaweb\Exceptions\ModuleNotFoundException
      */
     public function enable($name)
     {
@@ -582,7 +586,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      * Disabling a specific module.
      * @param string $name
      * @return void
-     * @throws \Juzaweb\Cms\Exceptions\ModuleNotFoundException
+     * @throws \Juzaweb\Exceptions\ModuleNotFoundException
      */
     public function disable($name)
     {

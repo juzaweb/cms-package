@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Activators;
+namespace Juzaweb\Support\Activators;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
-use Juzaweb\Cms\Contracts\ActivatorInterface;
-use Juzaweb\Cms\Exceptions\ModuleNotFoundException;
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Contracts\ActivatorInterface;
+use Juzaweb\Exceptions\ModuleNotFoundException;
+use Juzaweb\Abstracts\Plugin;
 
 class FileActivator implements ActivatorInterface
 {
@@ -63,9 +63,9 @@ class FileActivator implements ActivatorInterface
         $this->cache = $app['cache'];
         $this->files = $app['files'];
         $this->config = $app['config'];
-        $this->statusesFile = $this->config('statuses-file');
-        $this->cacheKey = $this->config('cache-key');
-        $this->cacheLifetime = $this->config('cache-lifetime');
+        $this->statusesFile = base_path('bootstrap/cache/plugins_statuses.php');
+        $this->cacheKey = 'juzaweb.activator.installed';
+        $this->cacheLifetime = 604800;
         $this->modulesStatuses = $this->getModulesStatuses();
     }
 
@@ -224,18 +224,6 @@ return ' . var_export($this->modulesStatuses, true) .';
         return $this->cache->remember($this->cacheKey, $this->cacheLifetime, function () {
             return $this->readJson();
         });
-    }
-
-    /**
-     * Reads a config parameter under the 'activators.file' key
-     *
-     * @param  string $key
-     * @param  $default
-     * @return mixed
-     */
-    private function config(string $key, $default = null)
-    {
-        return $this->config->get('plugin.activators.file.' . $key, $default);
     }
 
     /**

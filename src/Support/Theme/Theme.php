@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Theme;
+namespace Juzaweb\Support\Theme;
 
 use Illuminate\Support\Facades\File;
 use Noodlehaus\Config;
@@ -8,8 +8,8 @@ use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\View\ViewFinderInterface;
-use Juzaweb\Cms\Contracts\ThemeContract;
-use Juzaweb\Cms\Exceptions\ThemeNotFoundException;
+use Juzaweb\Contracts\ThemeContract;
+use Juzaweb\Exceptions\ThemeNotFoundException;
 
 class Theme implements ThemeContract
 {
@@ -73,7 +73,7 @@ class Theme implements ThemeContract
         $this->app = $app;
         $this->finder = $finder;
         $this->lang = $lang;
-        $this->basePath = $this->config['theme.path'];
+        $this->basePath = config('juzaweb.theme.path');
     }
 
     /**
@@ -134,13 +134,28 @@ class Theme implements ThemeContract
             $themeConfig = Config::load($themeConfigPath);
             $themeConfig['changelog'] = Config::load($themeChangelogPath)->all();
             $themeConfig['path'] = $themePath;
-            if (file_exists($themePath . '/config/config.php')) {
-                $themeConfig['config'] = collect(include $themePath . '/config/config.php');
-            }
 
             if ($themeConfig->has('name')) {
                 return $themeConfig;
             }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get theme config.
+     *
+     * @param string $theme
+     *
+     * @return null|\Illuminate\Support\Collection
+     */
+    public function getThemeConfig($theme)
+    {
+        $themePath = $this->getThemePath($theme);
+
+        if (file_exists($themePath . '/config/config.php')) {
+            return collect(include $themePath . '/config/config.php');
         }
 
         return null;
@@ -325,6 +340,7 @@ class Theme implements ThemeContract
         }
 
         $this->lang->addNamespace('theme', $langPath);
+
         if (is_dir($langPublishPath)) {
             $this->lang->addNamespace('theme', $langPublishPath);
         }

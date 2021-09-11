@@ -15,9 +15,7 @@
 namespace Juzaweb\Tests\Feature\Backend;
 
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Cms\Facades\HookAction;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\PostType\PostType;
+use Juzaweb\Models\User;
 use Tests\TestCase;
 
 class PostTest extends TestCase

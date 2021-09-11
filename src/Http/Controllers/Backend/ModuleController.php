@@ -8,17 +8,15 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Cms\Facades\Locale;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Support\ArrayPagination;
+use Juzaweb\Facades\Locale;
+use Juzaweb\Http\Controllers\BackendController;
 
 class ModuleController extends BackendController
 {
-    use ArrayPagination;
-
     public function index($type)
     {
         $this->addBreadcrumb([
@@ -28,7 +26,7 @@ class ModuleController extends BackendController
 
         $data = Locale::getByKey($type);
 
-        return view('jw_trans::translation.module', [
+        return view('juzaweb::backend.translation.module', [
             'title' => $data->get('title'),
             'type' => $type
         ]);
@@ -77,7 +75,7 @@ class ModuleController extends BackendController
         }
 
         $total = count($result);
-        $items = $this->arrayPaginate($result, $limit, $page)->values();
+        $items = ArrayPagination::make($result)->paginate($limit, $page)->values();
 
         return response()->json([
             'total' => $total,

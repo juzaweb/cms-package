@@ -12,20 +12,18 @@
  * Time: 5:23 PM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Cms\Facades\Locale;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Support\ArrayPagination;
+use Juzaweb\Facades\Locale;
 
 class TranslationController extends BackendController
 {
-    use ArrayPagination;
-
     public function index()
     {
-        return view('jw_trans::translation.index', [
+        return view('juzaweb::backend.translation.index', [
             'title' => trans('juzaweb::app.translations')
         ]);
     }
@@ -48,7 +46,7 @@ class TranslationController extends BackendController
         }
 
         $total = count($result);
-        $items = $this->arrayPaginate($result, $limit, $page)->values();
+        $items = ArrayPagination::make($result)->paginate($limit, $page)->values();
 
         return response()->json([
             'total' => $total,

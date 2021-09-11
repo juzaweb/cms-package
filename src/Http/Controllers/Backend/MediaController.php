@@ -12,13 +12,13 @@
  * Time: 11:47 PM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\MediaFile;
-use Juzaweb\Cms\Models\MediaFolder;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Models\MediaFile;
+use Juzaweb\Models\MediaFolder;
 
 class MediaController extends BackendController
 {

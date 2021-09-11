@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use ErrorException;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Abstracts\Plugin;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Abstracts\Plugin;
+use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Traits\ModuleCommandTrait;
 use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;

@@ -9,10 +9,10 @@
 @endsection
 
 @section('container')
-
     <p class="text-center">
       {{ trans('juzaweb::installer.welcome.message') }}
     </p>
+
     <p class="text-center">
       <a href="{{ route('installer.requirements') }}" class="button">
         {{ trans('juzaweb::installer.welcome.next') }}

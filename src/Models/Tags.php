@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Support\Traits\UseSlug;
+use Juzaweb\Traits\UseSlug;
 
 /**
- * Juzaweb\Cms\Models\Tags
+ * Juzaweb\Models\Tags
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Tags newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tags newQuery()

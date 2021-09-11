@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Manager;
+namespace Juzaweb\Support\Manager;
 
 use Exception;
 use Illuminate\Http\Request;

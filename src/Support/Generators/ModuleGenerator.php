@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Generators;
+namespace Juzaweb\Support\Generators;
 
 use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Contracts\ActivatorInterface;
-use Juzaweb\Cms\Abstracts\FileRepository;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Stub;
+use Juzaweb\Contracts\ActivatorInterface;
+use Juzaweb\Abstracts\FileRepository;
+use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Support\Stub;
 
 class ModuleGenerator extends Generator
 {
@@ -51,7 +51,7 @@ class ModuleGenerator extends Generator
     /**
      * The plugin instance.
      *
-     * @var \Juzaweb\Cms\Abstracts\Plugin
+     * @var \Juzaweb\Abstracts\Plugin
      */
     protected $module;
 
@@ -240,7 +240,7 @@ class ModuleGenerator extends Generator
     /**
      * Get the plugin instance.
      *
-     * @return \Juzaweb\Cms\Abstracts\Plugin
+     * @return \Juzaweb\Abstracts\Plugin
      */
     public function getModule()
     {
@@ -345,9 +345,7 @@ class ModuleGenerator extends Generator
             $path = $this->module->getModulePath($this->getName()) . '/' . $folder->getPath();
 
             $this->filesystem->makeDirectory($path, 0755, true);
-            if (config('plugin.stubs.gitkeep')) {
-                $this->generateGitKeep($path);
-            }
+            $this->generateGitKeep($path);
         }
     }
 
@@ -432,7 +430,25 @@ class ModuleGenerator extends Generator
      */
     public function getReplacements()
     {
-        return $this->module->config('stubs.replacements');
+        return [
+            'routes/admin' => ['LOWER_NAME', 'STUDLY_NAME'],
+            'routes/api' => ['LOWER_NAME'],
+            'webpack' => ['LOWER_NAME'],
+            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
+            'views/index' => ['LOWER_NAME'],
+            'views/master' => ['LOWER_NAME', 'STUDLY_NAME'],
+            'composer' => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'SNAKE_NAME',
+                'VENDOR',
+                'AUTHOR_NAME',
+                'AUTHOR_EMAIL',
+                'MODULE_NAME',
+                'MODULE_NAMESPACE',
+                'PROVIDER_NAMESPACE',
+            ],
+        ];
     }
 
     /**
@@ -444,7 +460,7 @@ class ModuleGenerator extends Generator
      */
     protected function getReplacement($stub)
     {
-        $replacements = $this->module->config('stubs.replacements');
+        $replacements = $this->getReplacements();
 
         if (!isset($replacements[$stub])) {
             return [];

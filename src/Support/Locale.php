@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support;
+namespace Juzaweb\Support;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Cms\Facades\Plugin;
-use Juzaweb\Cms\Facades\Theme;
+use Juzaweb\Facades\Plugin;
+use Juzaweb\Facades\Theme;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -25,7 +25,7 @@ class Locale
             'title' => 'Core Juzaweb',
             'key' => 'core',
             'type' => 'core',
-            'path' => 'vendor/juzaweb/core/src/resources/lang',
+            'path' => 'vendor/juzaweb/cms/src/resources/lang',
             'publish_path' => 'lang/vendor/juzaweb',
         ]);
 

@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support\Theme;
+namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Arr;
-use Juzaweb\Cms\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Facades\HookAction;
 
 class TaxonomyMenuBox extends MenuBoxAbstract
 {
@@ -40,7 +40,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
         foreach ($items as $item) {
             $result[] = $this->getData([
-                'name' => $item->name,
+                'label' => $item->name,
                 'model_id' => $item->id,
             ]);
         }
@@ -51,7 +51,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
     public function getData($item)
     {
         return [
-            'name' => $item['name'],
+            'label' => $item['label'],
             'model_class' => $this->taxonomy->get('model'),
             'model_id' => $item['model_id'],
         ];
@@ -76,15 +76,16 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
     public function getLinks($menuItems)
     {
-        $permalink = apply_filters('juzaweb.permalinks', []);
-        $permalink = Arr::get($permalink, $this->key);
+        $permalink = HookAction::getPermalinks($this->key);
         $base = $permalink->get('base');
         $query = app($this->taxonomy->get('model'))->query();
         $items = $query->whereIn('id', $menuItems->pluck('model_id')->toArray())
             ->get(['id', 'slug'])->keyBy('id');
 
         return $menuItems->map(function ($item) use ($base, $items) {
-            $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            if (!empty($items[$item->model_id])) {
+                $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
+            }
             return $item;
         });
     }

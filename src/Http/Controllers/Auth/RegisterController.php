@@ -1,15 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Auth;
+namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Cms\Http\Controllers\Controller;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Support\Traits\ResponseMessage;
-use Juzaweb\Cms\Email\EmailService;
+use Juzaweb\Models\User;
+use Juzaweb\Traits\ResponseMessage;
+use Juzaweb\Support\Email;
 
 class RegisterController extends Controller
 {
@@ -56,9 +56,9 @@ class RegisterController extends Controller
             ]);
 
             DB::commit();
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw $exception;
+            throw $e;
         }
 
         if (get_config('user_confirmation')) {
@@ -69,7 +69,7 @@ class RegisterController extends Controller
                 'verification_token' => $verifyToken,
             ]);
 
-            EmailService::make()
+            Email::make()
                 ->withTemplate('verification')
                 ->setParams([
                     'name' => $name,

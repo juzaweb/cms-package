@@ -1,14 +1,14 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Events\EnvironmentSaved;
-use Juzaweb\Cms\Support\Manager\EnvironmentManager;
+use Juzaweb\Events\EnvironmentSaved;
+use Juzaweb\Support\Manager\EnvironmentManager;
 use Illuminate\Support\Facades\Validator;
 
 class EnvironmentController extends Controller

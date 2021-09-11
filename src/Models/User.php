@@ -12,15 +12,16 @@
  * Time: 3:13 PM
  */
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Juzaweb\Traits\ResourceModel;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * Juzaweb\Cms\Models\User
+ * Juzaweb\Models\User
  *
  * @property int $id
  * @property string $name
@@ -58,7 +59,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, ResourceModel;
 
     protected $fillable = [
         'name',

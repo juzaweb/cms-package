@@ -1,17 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ArrayPagination;
-use Juzaweb\Cms\Facades\Theme;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Support\ArrayPagination;
+use Juzaweb\Facades\Theme;
 
 class ThemeController extends BackendController
 {
-    use ArrayPagination;
-
     public function index(Request $request)
     {
         $page = $request->get('page', 1);
@@ -20,7 +18,8 @@ class ThemeController extends BackendController
         $themes = Theme::all();
         $currentTheme = $themes[$activated] ?? null;
         unset($themes[$activated]);
-        $themes = $this->arrayPaginate($themes, 10, $page);
+        $pagination = ArrayPagination::make($themes);
+        $themes = $pagination->paginate(10, $page);
 
         return view('juzaweb::backend.theme.index', [
             'title' => trans('juzaweb::app.themes'),

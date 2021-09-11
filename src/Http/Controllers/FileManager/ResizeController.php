@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Intervention\Image\Facades\Image;
-use Juzaweb\Cms\Support\FileManager\Events\ImageIsResizing;
-use Juzaweb\Cms\Support\FileManager\Events\ImageWasResized;
+use Juzaweb\Support\FileManager\Events\ImageIsResizing;
+use Juzaweb\Support\FileManager\Events\ImageWasResized;
 
 class ResizeController extends FileManagerController
 {

@@ -20,7 +20,7 @@ $items = app($postType->get('model'))
         @foreach($items ?? [] as $item)
             <div class="form-check mt-1">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="items[]" value="{{ $item->id }}">
+                    <input class="form-check-input select-all-{{ $key }}" type="checkbox" name="items[]" value="{{ $item->id }}">
                     {{ $item->name ?? $item->title }}
                 </label>
             </div>
@@ -30,8 +30,8 @@ $items = app($postType->get('model'))
             <div class="col-md-6">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
-                        Select all
+                        <input class="form-check-input select-all-checkbox" type="checkbox" data-select="select-all-{{ $key }}">
+                        {{ trans('juzaweb::app.select_all') }}
                     </label>
                 </div>
             </div>

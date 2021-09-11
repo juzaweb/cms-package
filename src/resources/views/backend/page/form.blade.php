@@ -10,9 +10,8 @@
             <div class="col-md-8">
 
                 <div class="form-group">
-                    <label class="col-form-label" for="baseName">@lang('juzaweb::app.name')</label>
-
-                    <input type="text" name="name" class="form-control" id="baseName" value="{{ $model->name }}" autocomplete="off" required>
+                    <label class="col-form-label" for="title">@lang('juzaweb::app.title')</label>
+                    <input type="text" name="title" class="form-control" id="title" value="{{ $model->title }}" autocomplete="off" required>
                 </div>
 
                 @component('juzaweb::components.form_ckeditor', [
@@ -22,16 +21,27 @@
                 ])
                 @endcomponent
 
-                <div class="form-group">
-                    <label class="col-form-label" for="baseStatus">@lang('juzaweb::app.status')</label>
-                    <select name="status" id="baseStatus" class="form-control">
-                        <option value="1" @if($model->status == 1) selected @endif>@lang('juzaweb::app.enabled')</option>
-                        <option value="0" @if($model->status == 0 && !is_null($model->status)) selected @endif>@lang('juzaweb::app.disabled')</option>
-                    </select>
-                </div>
             </div>
 
             <div class="col-md-4">
+
+                @component('juzaweb::components.form_select', [
+                    'label' => trans('juzaweb::app.status'),
+                    'name' => 'status',
+                    'value' => $model->status,
+                    'options' => $model->getStatuses(),
+                ])
+                @endcomponent
+
+                @component('juzaweb::components.form_select', [
+                    'label' => trans('juzaweb::app.template'),
+                    'name' => 'template',
+                    'value' => $model->template,
+                    'options' => array_merge([
+                        '' => trans('juzaweb::app.page_template')
+                    ], $templates),
+                ])
+                @endcomponent
 
                 @component('juzaweb::components.form_image', [
                     'label' => trans('juzaweb::app.thumbnail'),
@@ -39,7 +49,6 @@
                     'value' => $model->thumbnail
                 ])
                 @endcomponent
-
             </div>
         </div>
 

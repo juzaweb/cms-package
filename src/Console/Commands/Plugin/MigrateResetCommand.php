@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Migrations\Migrator;
-use Juzaweb\Cms\Support\Traits\MigrationLoaderTrait;
+use Juzaweb\Support\Migrations\Migrator;
+use Juzaweb\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -27,7 +27,7 @@ class MigrateResetCommand extends Command
     protected $description = 'Reset the plugins migrations.';
 
     /**
-     * @var \Juzaweb\Cms\Contracts\RepositoryInterface
+     * @var \Juzaweb\Contracts\RepositoryInterface
      */
     protected $module;
 

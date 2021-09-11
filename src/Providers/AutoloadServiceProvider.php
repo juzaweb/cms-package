@@ -6,17 +6,13 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/14/2021
- * Time: 5:13 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Juzaweb\Cms\Facades\HookAction;
 use Illuminate\Support\Arr;
 
 class AutoloadServiceProvider extends ServiceProvider
@@ -37,11 +33,6 @@ class AutoloadServiceProvider extends ServiceProvider
 
                 if (is_dir($path) && $namespace && $domain) {
                     $this->bootResources($path, $namespace, $domain);
-                    $actionPath = $path .'/../actions';
-
-                    if (is_dir($actionPath)) {
-                        HookAction::loadActionForm($actionPath);
-                    }
                 }
             }
         }
@@ -62,15 +53,16 @@ class AutoloadServiceProvider extends ServiceProvider
                 $namespace = Arr::get($item, 'namespace');
 
                 if (is_dir($path) && $namespace) {
-                    $this->registerPlugin($path);
+                    $this->registerPlugin($path, $namespace);
                 }
             }
         }
     }
 
-    protected function registerPlugin($path)
+    protected function registerPlugin($path, $namespace)
     {
         $this->registerDatabase($path);
+        $this->registerRoute($path, $namespace);
     }
 
     protected function registerDatabase($path)
@@ -94,6 +86,21 @@ class AutoloadServiceProvider extends ServiceProvider
     protected function getPluginsPath()
     {
         return base_path('plugins');
+    }
+
+    protected function registerRoute($path, $namespace)
+    {
+        $namespace = $namespace . 'Http\Controllers';
+
+        Route::middleware('admin')
+            ->namespace($namespace)
+            ->prefix(config('juzaweb.admin_prefix'))
+            ->group($path . '/routes/admin.php');
+
+        Route::middleware('api')
+            ->namespace($namespace)
+            ->prefix('api')
+            ->group($path . '/routes/api.php');
     }
 
     public function bootResources($path, $namespace, $domain)

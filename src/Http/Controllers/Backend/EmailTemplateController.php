@@ -1,12 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Support\Traits\ResourceController;
-use Juzaweb\Cms\Models\EmailTemplate;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Http\Datatable\EmailTemplateDataTable;
+use Juzaweb\Traits\ResourceController;
+use Juzaweb\Models\EmailTemplate;
 use Illuminate\Support\Facades\Validator;
 
 class EmailTemplateController extends BackendController
@@ -14,59 +13,10 @@ class EmailTemplateController extends BackendController
     use ResourceController;
 
     protected $viewPrefix = 'juzaweb::backend.email_template';
-    
-    public function getDataTable(Request $request)
+
+    protected function getDataTable()
     {
-        $search = $request->get('search');
-        $sort = $request->get('sort', 'id');
-        $order = $request->get('order', 'desc');
-        $offset = $request->get('offset', 0);
-        $limit = $request->get('limit', 20);
-    
-        $query = EmailTemplate::query();
-
-        if ($search) {
-            $query->where(function (Builder $q) use ($search) {
-                $q->orWhere('code', 'like', '%'. $search .'%');
-                $q->orWhere('subject', 'like', '%'. $search .'%');
-            });
-        }
-        
-        $count = $query->count();
-        $query->orderBy($sort, $order);
-        $query->offset($offset);
-        $query->limit($limit);
-        $rows = $query->get();
-
-        foreach ($rows as $row) {
-            $row->edit_url = route('admin.email-template.edit', [$row->id]);
-        }
-        
-        return response()->json([
-            'total' => $count,
-            'rows' => $rows
-        ]);
-    }
-    
-    public function bulkActions(Request $request) {
-        $request->validate([
-            'ids' => 'required',
-        ], [], [
-            'ids' => trans('juzaweb::app.email_templates')
-        ]);
-        
-        $ids = $request->post('ids');
-        $action = $request->post('action');
-        
-        switch ($action) {
-            case 'delete':
-                EmailTemplate::destroy($ids);
-                break;
-        }
-        
-        return $this->success([
-            'message' => trans('juzaweb::app.successfully')
-        ]);
+        return new EmailTemplateDataTable();
     }
 
     protected function validator(array $attributes)

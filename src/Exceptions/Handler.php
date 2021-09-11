@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Exceptions;
+namespace Juzaweb\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

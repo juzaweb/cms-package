@@ -41,7 +41,7 @@
         @if(in_array('hierarchical', $taxonomy->get('supports', [])))
             <div class="form-group mb-1">
                 <label class="col-form-label">@lang('juzaweb::app.parent')</label>
-                <select type="text" class="form-control taxonomy-parent load-taxonomies" autocomplete="off" data-type="{{ $taxonomy->get('post_type') }}" data-taxonomy="{{ $taxonomy->get('taxonomy') }}">
+                <select type="text" class="form-control taxonomy-parent load-taxonomies" autocomplete="off" data-post-type="{{ $taxonomy->get('post_type') }}" data-taxonomy="{{ $taxonomy->get('taxonomy') }}">
                 </select>
             </div>
         @endif
@@ -50,7 +50,8 @@
                 type="button"
                 class="btn btn-primary mt-2"
                 data-type="{{ $taxonomy->get('type') }}"
+                data-post_type="{{ $taxonomy->get('post_type') }}"
                 data-taxonomy="{{ $taxonomy->get('taxonomy') }}"
-        ><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add')</button>
+        ><i class="fa fa-plus-circle"></i> {{ trans('juzaweb::app.add') }}</button>
     </div>
 </div>

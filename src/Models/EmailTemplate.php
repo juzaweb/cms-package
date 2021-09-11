@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Juzaweb\Cms\Support\Traits\ResourceModel;
+use Juzaweb\Traits\ResourceModel;
 
 /**
- * Juzaweb\Cms\Models\EmailTemplate
+ * Juzaweb\Models\EmailTemplate
  *
  * @property int $id
  * @property string $code

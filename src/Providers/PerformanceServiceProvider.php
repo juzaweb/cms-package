@@ -12,10 +12,10 @@
  * Time: 10:29 PM
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Http\Middleware\XFrameHeadersMiddleware;
+use Juzaweb\Http\Middleware\XFrameHeadersMiddleware;
 use Illuminate\Support\Facades\URL;
 
 class PerformanceServiceProvider extends ServiceProvider

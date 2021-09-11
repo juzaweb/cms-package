@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Illuminate\Support\Facades\Storage;
-use Juzaweb\Cms\Models\MediaFile;
+use Juzaweb\Models\MediaFile;
 
 class DownloadController extends FileManagerController
 {

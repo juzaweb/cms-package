@@ -10,7 +10,7 @@ $data = $item->getAttributes();
     @endforeach
 >
     <div class="dd-handle">
-        <span>{{ $data['name'] }}</span>
+        <span>{{ $data['label'] }}</span>
         <a href="javascript:void(0)" class="dd-nodrag show-menu-edit">
             <i class="fa fa-sort-down"></i>
         </a>

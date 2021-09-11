@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Frontend;
+namespace Juzaweb\Http\Controllers\Frontend;
 
 use Mymo\PostType\Models\Taxonomy;
 

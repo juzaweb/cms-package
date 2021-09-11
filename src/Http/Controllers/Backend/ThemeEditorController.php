@@ -1,20 +1,20 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Facades\Theme;
-use Juzaweb\Cms\Facades\ThemeConfig;
-use Juzaweb\Cms\Support\Customize;
-use Juzaweb\Cms\Support\CustomizeControl;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Facades\Theme;
+use Juzaweb\Facades\ThemeConfig;
+use Juzaweb\Support\Theme\Customize;
+use Juzaweb\Support\Theme\CustomizeControl;
 
 class ThemeEditorController extends BackendController
 {
     public function index() {
-        Theme::set('juzaweb');
-        $panels = $this->getDataCustomize();
+        $currentTheme = jw_current_theme();
+        $panels = $this->getDataCustomize($currentTheme);
 
         return view('juzaweb::backend.editor.index', [
             'panels' => $panels
@@ -40,7 +40,7 @@ class ThemeEditorController extends BackendController
         ]);
     }
 
-    protected function getDataCustomize()
+    protected function getDataCustomize($currentTheme)
     {
         $customize = new Customize();
         $customize->addSection('site_identity', [
@@ -55,7 +55,7 @@ class ThemeEditorController extends BackendController
             'type' => 'site_identity',
         ]));
 
-        $themePath = base_path('themes/juzaweb/config/customize.php');
+        $themePath = base_path("themes/{$currentTheme}/config/customize.php");
         if (file_exists($themePath)) {
             include $themePath;
         }

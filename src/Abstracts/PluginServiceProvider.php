@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Cms\Abstracts;
+namespace Juzaweb\Abstracts;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Contracts\RepositoryInterface;
-use Juzaweb\Cms\Providers\AutoloadServiceProvider;
-use Juzaweb\Cms\Providers\BootstrapServiceProvider;
-use Juzaweb\Cms\Providers\ConsoleServiceProvider;
-use Juzaweb\Cms\Providers\ContractsServiceProvider;
+use Juzaweb\Contracts\RepositoryInterface;
+use Juzaweb\Providers\AutoloadServiceProvider;
+use Juzaweb\Providers\BootstrapServiceProvider;
+use Juzaweb\Providers\ConsoleServiceProvider;
+use Juzaweb\Providers\ContractsServiceProvider;
 
 abstract class PluginServiceProvider extends ServiceProvider
 {
@@ -26,10 +26,6 @@ abstract class PluginServiceProvider extends ServiceProvider
     {
         $configPath = __DIR__ . '/../../config/plugin.php';
         $this->mergeConfigFrom($configPath, 'plugin');
-
-        $this->publishes([
-            $configPath => config_path('plugin.php'),
-        ], 'jw_plugin');
     }
 
     /**

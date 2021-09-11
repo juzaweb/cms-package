@@ -1,6 +1,6 @@
 <?php
 /**
- * MYMO CMS - TV Series & Movie Portal CMS Unlimited
+ * JUZAWEB CMS - The Best CMS for Laravel Project
  *
  * @package juzaweb/laravel-cms
  * @author The Anh Dang
@@ -9,7 +9,7 @@
  * Github: https://juzaweb.com/cms
  */
 
-namespace Juzaweb\Cms\Http\Controllers;
+namespace Juzaweb\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

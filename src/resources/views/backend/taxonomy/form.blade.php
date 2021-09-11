@@ -3,6 +3,7 @@
 @section('content')
     @php
         $type = $setting->get('type');
+        $postType = $setting->get('post_type');
     @endphp
 
     @component('juzaweb::components.form_resource', [
@@ -18,7 +19,8 @@
                 @component('juzaweb::components.form_input', [
                     'name' => 'name',
                     'label' => trans('juzaweb::app.name'),
-                    'value' => $model->name
+                    'value' => $model->name,
+                    'required' => true,
                 ])
                 @endcomponent
 
@@ -40,6 +42,7 @@
                 </div>
                 @endif
             </div>
+
             @if(in_array('thumbnail', $setting->get('supports', [])))
             <div class="col-md-4">
                 @component('juzaweb::components.form_image', [
@@ -49,6 +52,9 @@
                 ])@endcomponent
             </div>
             @endif
+
+            <input type="hidden" name="post_type" value="{{ $postType }}">
+            <input type="hidden" name="taxonomy" value="{{ $taxonomy }}">
         </div>
     @endcomponent
 

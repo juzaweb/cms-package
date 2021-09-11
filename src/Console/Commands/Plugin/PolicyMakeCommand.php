@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Console\Commands\Plugin;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
-use Juzaweb\Cms\Support\Stub;
-use Juzaweb\Cms\Support\Traits\ModuleCommandTrait;
+use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Support\Stub;
+use Juzaweb\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
 class PolicyMakeCommand extends GeneratorCommand

@@ -8,16 +8,16 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Juzaweb\Cms\Contracts\ThemeConfigContract;
+use Juzaweb\Contracts\ThemeConfigContract;
 
 /**
  * @method static mixed setConfig($key, $value)
  * @method static string|array getConfig($key, $default)
  *
- * @see \Juzaweb\Cms\Support\ThemeConfig
+ * @see \Juzaweb\Support\Theme\ThemeConfig
  */
 class ThemeConfig extends Facade
 {

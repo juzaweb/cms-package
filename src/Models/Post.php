@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Models\Comment;
-use Juzaweb\Cms\Support\Traits\PostTypeModel;
+use Juzaweb\Models\Comment;
+use Juzaweb\Traits\PostTypeModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Juzaweb\Cms\Models\Post
+ * Juzaweb\Models\Post
  *
  * @property int $id
  * @property string $title
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
  * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Cms\Models\Taxonomy[] $taxonomies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\Taxonomy[] $taxonomies
  * @property-read int|null $taxonomies_count
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
@@ -51,6 +51,10 @@ class Post extends Model
         'status',
         'views',
         'thumbnail'
+    ];
+
+    protected $searchFields = [
+        'title',
     ];
     
     public function comments()

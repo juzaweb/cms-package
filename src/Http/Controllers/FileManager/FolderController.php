@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Cms\Models\MediaFolder;
+use Juzaweb\Models\MediaFolder;
 
 class FolderController extends FileManagerController
 {
@@ -23,7 +23,7 @@ class FolderController extends FileManagerController
             ];
         }
         
-        return view('juzaweb::filemanager.tree')
+        return view('juzaweb::backend.filemanager.tree')
             ->with([
                 'root_folders' => [
                     (object) [

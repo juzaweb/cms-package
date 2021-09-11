@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Commands;
+namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Cms\Traits\ModuleCommandTrait;
+use Juzaweb\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
 class UpdateCommand extends Command
@@ -37,7 +37,7 @@ class UpdateCommand extends Command
             return;
         }
 
-        /** @var \Juzaweb\Cms\Abstracts\Plugin $module */
+        /** @var \Juzaweb\Abstracts\Plugin $module */
         foreach ($this->laravel['modules']->getOrdered() as $module) {
             $this->updateModule($module->getName());
         }

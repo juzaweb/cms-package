@@ -8,22 +8,24 @@
  * @license    MIT
  */
 
+define('JW_PACKAGE_PATH', __DIR__ . '/../..');
+define('JW_DATE', 1);
+define('JW_DATE_TIME', 2);
+
 require __DIR__ . '/plugin.php';
 require __DIR__ . '/theme.php';
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Cms\Support\Breadcrumb;
-use Juzaweb\Cms\Facades\Config;
-use Juzaweb\Cms\Models\User;
-use Juzaweb\Cms\Models\Page;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Support\Breadcrumb;
+use Juzaweb\Facades\Config;
+use Juzaweb\Models\User;
+use Juzaweb\Models\Page;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Facades\Hook;
+use Juzaweb\Facades\Hook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
-
-define('JW_DATE', 1);
-define('JW_DATE_TIME', 2);
 
 if (!function_exists('get_client_ip')) {
     /**
@@ -82,7 +84,7 @@ if (!function_exists('set_config')) {
      *
      * @param string $key
      * @param string|array $value
-     * @return \Juzaweb\Cms\Models\Config
+     * @return \Juzaweb\Models\Config
      */
     function set_config($key, $value)
     {
@@ -438,4 +440,16 @@ if (!function_exists('array_except')) {
     }
 }
 
+if (!function_exists('get_enqueue_scripts')) {
+    function get_enqueue_scripts($inFooter = false)
+    {
+        return HookAction::getEnqueueScripts($inFooter);
+    }
+}
 
+if (!function_exists('get_enqueue_styles')) {
+    function get_enqueue_styles($inFooter = false)
+    {
+        return HookAction::getEnqueueStyles($inFooter);
+    }
+}

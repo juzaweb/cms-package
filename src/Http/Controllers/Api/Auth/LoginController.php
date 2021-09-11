@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Api\Auth;
+namespace Juzaweb\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Juzaweb\Cms\Http\Controllers\ApiController;
+use Juzaweb\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends ApiController

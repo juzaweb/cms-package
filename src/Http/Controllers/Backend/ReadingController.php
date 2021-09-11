@@ -8,11 +8,11 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Http\Controllers\BackendController;
 
 class ReadingController extends BackendController
 {

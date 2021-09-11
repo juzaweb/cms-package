@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Publishing;
+namespace Juzaweb\Support\Publishing;
 
-use Juzaweb\Cms\Migrations\Migrator;
+use Juzaweb\Support\Migrations\Migrator;
 
 class MigrationPublisher extends AssetPublisher
 {

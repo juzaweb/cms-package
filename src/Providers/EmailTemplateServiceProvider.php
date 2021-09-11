@@ -1,10 +1,10 @@
 <?php
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Cms\Facades\HookAction;
+use Juzaweb\Facades\HookAction;
 
 class EmailTemplateServiceProvider extends ServiceProvider
 {

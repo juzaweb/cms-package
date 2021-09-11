@@ -1,153 +1,43 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Http\Controllers\BackendController;
-use Juzaweb\Cms\Models\Taxonomy;
+use Juzaweb\Facades\GlobalData;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Http\Datatable\TaxonomyDataTable;
+use Juzaweb\Models\Taxonomy;
+use Juzaweb\Traits\ResourceController;
 
 class TaxonomyController extends BackendController
 {
-    public function index($taxonomy)
-    {
-        $setting = $this->getSetting($taxonomy);
-        $model = new Taxonomy();
-
-        return view('juzaweb::backend.taxonomy.index', [
-            'title' => $setting->get('label'),
-            'setting' => $setting,
-            'model' => $model,
-            'taxonomy' => $taxonomy,
-        ]);
+    use ResourceController {
+        getDataForForm as DataForForm;
+        getDataForIndex as DataForIndex;
+        store as TraitStore;
     }
 
-    public function create($taxonomy)
+    protected $viewPrefix = 'juzaweb::backend.taxonomy';
+
+    protected function getDataTable($taxonomy)
     {
         $setting = $this->getSetting($taxonomy);
-        $model = new Taxonomy();
-        $this->addBreadcrumb([
-            'title' => $setting->get('label'),
-            'url' => route('admin.' . $setting->get('type') . '.taxonomy.index', [$taxonomy])
-        ]);
-
-        return view('juzaweb::backend.taxonomy.form', [
-            'model' => $model,
-            'title' => trans('juzaweb::app.add_new'),
-            'taxonomy' => $taxonomy,
-            'setting' => $setting
-        ]);
+        $dataTable = new TaxonomyDataTable();
+        $dataTable->mountData($setting->toArray());
+        return $dataTable;
     }
 
-    public function edit($taxonomy, $id)
+    public function storeSuccessResponse($model, $request, $taxonomy)
     {
-        $setting = $this->getSetting($taxonomy);
-        $model = Taxonomy::find($id);
-        $model->load('parent');
-
-        $this->addBreadcrumb([
-            'title' => $setting->get('label'),
-            'url' => route('admin.'. $setting->get('type') .'.taxonomy.index', [$taxonomy])
-        ]);
-
-        return view('juzaweb::backend.taxonomy.form', [
-            'model' => $model,
-            'title' => $model->name,
-            'taxonomy' => $taxonomy,
-            'setting' => $setting
-        ]);
-    }
-
-    public function getDataTable(Request $request, $taxonomy)
-    {
-        $setting = $this->getSetting($taxonomy);
-        $search = $request->get('search');
-        $sort = $request->get('sort', 'id');
-        $order = $request->get('order', 'desc');
-        $offset = $request->get('offset', 0);
-        $limit = $request->get('limit', 20);
-
-        $query = Taxonomy::query();
-        $query->where('taxonomy', '=', $setting->get('taxonomy'));
-        $query->where('post_type', '=', $setting->get('post_type'));
-
-        if ($search) {
-            $query->where(function (Builder $q) use ($search) {
-                $q->where('name', 'like', '%'. $search .'%');
-                $q->orWhere('description', 'like', '%'. $search .'%');
-            });
-        }
-
-        $count = $query->count();
-        $query->orderBy($sort, $order);
-        $query->offset($offset);
-        $query->limit($limit);
-        $rows = $query->get();
-
-        foreach ($rows as $row) {
-            $row->edit_url = route("admin.{$setting->get('type')}.taxonomy.edit", [$taxonomy, $row->id]);
-            $row->thumbnail = upload_url($row->thumbnail);
-            $row->description = Str::words($row->description, 20);
-        }
-
-        return response()->json([
-            'total' => $count,
-            'rows' => $rows
-        ]);
-    }
-
-    public function store(Request $request, $taxonomy)
-    {
-        $model = Taxonomy::create(array_merge($request->all(), [
-            'post_type' => $this->getPostType(),
-            'taxonomy' => $taxonomy
-        ]));
-
         return $this->success([
             'message' => trans('juzaweb::app.successfully'),
             'html' => view('juzaweb::components.tag-item', [
                 'item' => $model,
                 'name' => $taxonomy,
             ])->render()
-        ]);
-    }
-
-    public function update(Request $request, $taxonomy, $id)
-    {
-        $tax = Taxonomy::findOrFail($id);
-
-        $tax->update(array_merge($request->all(), [
-            'post_type' => $this->getPostType(),
-            'taxonomy' => $taxonomy
-        ]));
-
-        return $this->success([
-            'message' => trans('juzaweb::app.successfully')
-        ]);
-    }
-
-    public function bulkActions(Request $request, $taxonomy)
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'action' => 'required',
-        ]);
-
-        do_action('bulk_action.taxonomy.' . $taxonomy, $request->post());
-
-        $action = $request->post('action');
-        $ids = $request->post('ids');
-
-        switch ($action) {
-            case 'delete':
-                Taxonomy::destroy($ids);
-                break;
-        }
-
-        return $this->success([
-            'message' => trans('juzaweb::app.successfully')
         ]);
     }
 
@@ -163,6 +53,11 @@ class TaxonomyController extends BackendController
         ], true);
     }
 
+    /**
+     * Get post type by url
+     *
+     * @return string
+     */
     protected function getPostType()
     {
         $split = explode('.', Route::currentRouteName());
@@ -174,10 +69,60 @@ class TaxonomyController extends BackendController
      *
      * @param string $taxonomy
      * @return \Illuminate\Support\Collection
-     **/
+     */
     protected function getSetting($taxonomy)
     {
-        $taxonomies = apply_filters('juzaweb.taxonomies', []);
+        $taxonomies = GlobalData::get('taxonomies');
         return $taxonomies[$this->getPostType()][$taxonomy] ?? collect([]);
+    }
+
+    /**
+     * Validator for store and update
+     *
+     * @param array $attributes
+     * @return Validator|array
+     */
+    protected function validator(array $attributes)
+    {
+        return [
+            'name' => 'required'
+        ];
+    }
+
+    /**
+     * Get model resource
+     *
+     * @return string // namespace model
+     */
+    protected function getModel()
+    {
+        return Taxonomy::class;
+    }
+
+    /**
+     * Get title resource
+     *
+     * @return string
+     */
+    protected function getTitle($taxonomy)
+    {
+        $setting = $this->getSetting($taxonomy);
+        return $setting->get('label');
+    }
+
+    protected function getDataForIndex($taxonomy)
+    {
+        $data = $this->DataForIndex($taxonomy);
+        $data['taxonomy'] = $taxonomy;
+        $data['setting'] = $this->getSetting($taxonomy);
+        return $data;
+    }
+
+    protected function getDataForForm($model, $taxonomy)
+    {
+        $data = $this->DataForForm($model, $taxonomy);
+        $data['taxonomy'] = $taxonomy;
+        $data['setting'] = $this->getSetting($taxonomy);
+        return $data;
     }
 }

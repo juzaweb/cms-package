@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Closure;
-use Juzaweb\Cms\Support\Installer;
+use Juzaweb\Support\Installer;
 
 class CanInstall
 {

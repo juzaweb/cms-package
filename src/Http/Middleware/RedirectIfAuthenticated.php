@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Middleware;
+namespace Juzaweb\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

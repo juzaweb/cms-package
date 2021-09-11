@@ -8,9 +8,9 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Frontend;
+namespace Juzaweb\Http\Controllers\Frontend;
 
-use Juzaweb\Cms\Models\Post;
+use Juzaweb\Models\Post;
 
 class PostController extends FrontendController
 {

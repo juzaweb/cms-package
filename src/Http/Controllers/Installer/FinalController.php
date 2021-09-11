@@ -1,11 +1,11 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\Installer;
+namespace Juzaweb\Http\Controllers\Installer;
 
 use Illuminate\Routing\Controller;
-use Juzaweb\Cms\Events\InstallerFinished;
-use Juzaweb\Cms\Support\Manager\FinalInstallManager;
-use Juzaweb\Cms\Support\Manager\InstalledFileManager;
+use Juzaweb\Events\InstallerFinished;
+use Juzaweb\Support\Manager\FinalInstallManager;
+use Juzaweb\Support\Manager\InstalledFileManager;
 
 class FinalController extends Controller
 {

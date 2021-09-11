@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Migrations;
+namespace Juzaweb\Support\Migrations;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Abstracts\Plugin;
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
+use Juzaweb\Abstracts\Plugin;
+use Juzaweb\Support\Config\GenerateConfigReader;
 
 class Migrator
 {

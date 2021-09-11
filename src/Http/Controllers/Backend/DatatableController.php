@@ -2,34 +2,30 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzaweb/laravel-cms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 7/10/2021
- * Time: 5:24 PM
  */
 
-namespace Juzaweb\Cms\Http\Controllers\Backend;
+namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Cms\Http\Controllers\BackendController;
+use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Support\Facades\Crypt;
-use Juzaweb\Cms\Support\DataTable;
+use Juzaweb\Abstracts\DataTable;
 
 class DatatableController extends BackendController
 {
     public function getData(Request $request)
     {
-        $table = $this->getTable($request->get('table'));
+        $table = $this->getTable($request);
         $sort = $request->get('sort', 'id');
         $order = $request->get('order', 'desc');
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
 
-        $query = $table->query($request);
+        $query = $table->query($request->all());
         $count = $query->count();
         $query->orderBy($sort, $order);
         $query->offset($offset);
@@ -53,18 +49,37 @@ class DatatableController extends BackendController
 
     public function bulkActions(Request $request)
     {
+        $request->validate([
+            'ids' => 'required|array',
+            'action' => 'required',
+        ]);
 
+        $action = $request->post('action');
+        $ids = $request->post('ids');
+
+        $table = $this->getTable($request);
+        $table->bulkActions($action, $ids);
+
+        return $this->success([
+            'message' => trans('juzaweb::app.successfully')
+        ]);
     }
 
     /**
      * Get datatable
      *
-     * @param string $table
+     * @param Request $request
      * @return DataTable
      */
-    protected function getTable($table)
+    protected function getTable($request)
     {
-        $table = Crypt::decryptString($table);
-        return app($table);
+        $table = Crypt::decryptString($request->get('table'));
+        $table = app($table);
+        if (method_exists($table, 'mount')) {
+            $data = json_decode(urldecode($request->get('data')), true);
+            $table->mount(...$data);
+        }
+
+        return $table;
     }
 }

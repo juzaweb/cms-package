@@ -6,28 +6,32 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\ServiceProvider;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Facades\Theme;
+use Juzaweb\Support\ServiceProvider;
 
 class HookActionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->app->booted(function () {
-            $paths = apply_filters('juzaweb.actions', []);
-
-            foreach ($paths as $path) {
-                if (!is_dir($path)) {
-                    continue;
-                }
-
-                $files = File::allFiles($path);
-                foreach ($files as $file) {
-                    include ($file->getRealPath());
-                }
+            foreach (static::$actions as $action) {
+                app($action)->handle();
             }
+
+            $currentTheme = jw_current_theme();
+            Theme::set($currentTheme);
+
+            $config = Theme::getThemeConfig($currentTheme);
+            $navMenus = $config->get('nav_menus', []);
+
+            if ($navMenus) {
+                HookAction::registerNavMenus($navMenus);
+            }
+
+            do_action('juzaweb.init');
         });
     }
 }

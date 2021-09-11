@@ -1,12 +1,12 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Support\Traits\PostTypeModel;
+use Juzaweb\Traits\PostTypeModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Juzaweb\Cms\Models\Page
+ * Juzaweb\Models\Page
  *
  * @property int $id
  * @property string $name
@@ -32,9 +32,9 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string|null $template
  * @property array|null $template_data
- * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Cms\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\Comment[] $comments
  * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Cms\Models\Taxonomy[] $taxonomies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\Taxonomy[] $taxonomies
  * @property-read int|null $taxonomies_count
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereFilter($params = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Page wherePublish()
@@ -49,7 +49,7 @@ class Page extends Model
     
     protected $table = 'pages';
     protected $fillable = [
-        'name',
+        'title',
         'content',
         'status',
         'thumbnail',

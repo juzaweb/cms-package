@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Events;
+namespace Juzaweb\Events;
 
-use Juzaweb\Cms\Models\User;
+use Juzaweb\Models\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;

@@ -8,10 +8,10 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Facades;
+namespace Juzaweb\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Juzaweb\Cms\Contracts\ConfigContract;
+use Juzaweb\Contracts\ConfigContract;
 
 class Config extends Facade
 {

@@ -1,12 +1,15 @@
 <?php
 
-namespace Juzaweb\Cms\Models;
+namespace Juzaweb\Models;
 
-use Juzaweb\Cms\Support\Traits\UseSlug;
-use Juzaweb\Cms\Support\Traits\UseThumbnail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use Juzaweb\Traits\ResourceModel;
+use Juzaweb\Traits\UseSlug;
+use Juzaweb\Traits\UseThumbnail;
 
 /**
- * Juzaweb\Cms\Models\Taxonomy
+ * Juzaweb\Models\Taxonomy
  *
  * @property int $id
  * @property string $name
@@ -40,7 +43,7 @@ use Juzaweb\Cms\Support\Traits\UseThumbnail;
  */
 class Taxonomy extends Model
 {
-    use UseSlug, UseThumbnail;
+    use UseSlug, UseThumbnail, ResourceModel;
 
     protected $table = 'taxonomies';
     protected $slugSource = 'name';
@@ -64,5 +67,31 @@ class Taxonomy extends Model
     public function children()
     {
         return $this->hasMany(Taxonomy::class, 'parent_id', 'id');
+    }
+
+    /**
+     * @param Builder $builder
+     * @param array $params
+     *
+     * @return Builder
+     */
+    public function scopeWhereFilter($builder, $params = [])
+    {
+        if ($taxonomy = Arr::get($params, 'taxonomy')) {
+            $builder->where('taxonomy', '=', $taxonomy);
+        }
+
+        if ($postType = Arr::get($params, 'post_type')) {
+            $builder->where('post_type', '=', $postType);
+        }
+
+        if ($keyword = Arr::get($params, 'keyword')) {
+            $builder->where(function (Builder $q) use ($keyword) {
+                $q->where('name', 'like', '%'. $keyword .'%');
+                $q->orWhere('description', 'like', '%'. $keyword .'%');
+            });
+        }
+
+        return $builder;
     }
 }

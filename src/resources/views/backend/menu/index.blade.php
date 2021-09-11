@@ -6,14 +6,16 @@
 
             <div class="col-md-6 form-select-menu">
                 <div class="alert-default">
+                    @if($menu)
                     @lang('juzaweb::app.select_menu_to_edit'):
                     <select name="id" class="w-25 form-control load-menu">
-                        @if(isset($menu->id))
-                            <option value="{{ $menu->id }}" selected>{{ $menu->name }}</option>
-                        @endif
+                        <option value="{{ $menu->id }}" selected>{{ $menu->name }}</option>
                     </select>
 
-                    @lang('juzaweb::app.or') <a href="javascript:void(0)" class="ml-1 btn-add-menu"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.create_new_menu') }}</a>
+                    @lang('juzaweb::app.or')
+                    @endif
+
+                    <a href="javascript:void(0)" class="ml-1 btn-add-menu"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.create_new_menu') }}</a>
                 </div>
             </div>
 
@@ -28,72 +30,82 @@
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <h5 class="mb-2 font-weight-bold">{{ trans('juzaweb::app.add_menu_items') }}</h5>
+        @if(!empty($menu))
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <h5 class="mb-2 font-weight-bold">{{ trans('juzaweb::app.add_menu_items') }}</h5>
 
-                @do_action('juzaweb.add_menu_items')
+                    @do_action('juzaweb.add_menu_items')
+                </div>
 
-            </div>
+                <div class="col-md-8">
+                    <h5 class="mb-2 font-weight-bold">{{ trans('juzaweb::app.menu_structure') }}</h5>
 
-            <div class="col-md-8">
-                <h5 class="mb-2 font-weight-bold">{{ trans('juzaweb::app.menu_structure') }}</h5>
+                    <form action="{{ route('admin.menu.update', [$menu->id]) }}" method="post" class="form-ajax form-menu-structure">
+                        <input type="hidden" name="id" value="{{ $menu->id }}">
+                        <input type="hidden" name="reload_after_save" value="0">
 
-                <form action="{{ route('admin.menu.update', [$menu->id ?? '']) }}" method="post" class="form-ajax form-menu-structure">
-                    <input type="hidden" name="id" value="{{ $menu->id ?? '' }}">
-                    <input type="hidden" name="reload_after_save" value="0">
+                        @method('PUT')
 
-                    @method('PUT')
+                        <div class="card">
+                            <div class="card-header bg-light pb-1">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group row">
+                                            <label for="name" class="col-sm-3">{{ trans('juzaweb::app.menu_name') }}</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="name" id="name" class="form-control" value="{{ $menu->name ?? '' }}" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                    <div class="card">
-                        <div class="card-header bg-light pb-1">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="form-group row">
-                                        <label for="name" class="col-sm-3">{{ trans('juzaweb::app.menu_name') }}</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" name="name" id="name" class="form-control" value="{{ $menu->name ?? '' }}" autocomplete="off">
+                                    <div class="col-md-3">
+                                        <div class="btn-group float-right">
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-3">
-                                    <div class="btn-group float-right">
-                                        <button type="submit" class="btn btn-primary" @if(empty($menu)) disabled @endif><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="card-body" id="form-menu">
-                            <div class="dd" id="jw-menu-builder">
-                                <ol class="dd-list">
-                                    @if($menu)
+                            <div class="card-body" id="form-menu">
+                                <div class="dd" id="jw-menu-builder">
+                                    <ol class="dd-list">
                                         {!! jw_nav_menu([
-                                            'menu' => $menu,
-                                            'item_view' => view('juzaweb::backend.items.menu_item'),
+                                                'menu' => $menu,
+                                                'container_before' => '',
+                                                'container_after' => '',
+                                                'item_view' => view('juzaweb::backend.items.menu_item'),
                                         ]) !!}
-                                    @endif
-                                </ol>
-                            </div>
-                        </div>
+                                    </ol>
+                                </div>
 
-                        <div class="card-footer">
-                            @if(!empty($menu))
+                                <hr>
+
+                                @foreach($navMenus as $key => $navMenu)
+                                    <div class="form-check mb-2">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" name="location[]" type="checkbox" value="{{ $key }}" @if(isset($location[$key]) && $location[$key] == $menu->id) checked @endif>
+                                            {{ $navMenu->get('location') }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="card-footer">
                                 <div class="btn-group">
                                     <a href="javascript:void(0)" class="text-danger delete-menu" data-id="{{ $menu->id }}">{{ trans('juzaweb::app.delete_menu') }}</a>
                                 </div>
-                            @endif
 
-                            <div class="btn-group float-right">
-                                <button type="submit" class="btn btn-primary" @if(empty($menu)) disabled @endif><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
+                                <div class="btn-group float-right">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
+                                </div>
                             </div>
-                        </div>
 
-                        <textarea name="content" id="items-output" class="form-control box-hidden"></textarea>
-                    </div>
-                </form>
+                            <textarea name="content" id="items-output" class="form-control box-hidden"></textarea>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

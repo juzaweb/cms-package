@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Contracts;
+namespace Juzaweb\Contracts;
 
-use Juzaweb\Cms\Abstracts\Plugin;
+use Juzaweb\Abstracts\Plugin;
 
 interface ActivatorInterface
 {

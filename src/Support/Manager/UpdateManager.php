@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Support\Manager;
+namespace Juzaweb\Support\Manager;
 
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Support\Facades\File;
@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
-use Juzaweb\Cms\Support\Curl;
-use Juzaweb\Cms\Support\JuzawebApi;
-use Juzaweb\Cms\Version;
+use Juzaweb\Support\Curl;
+use Juzaweb\Support\JuzawebApi;
+use Juzaweb\Version;
 
 class UpdateManager
 {

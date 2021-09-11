@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Macros;
+namespace Juzaweb\Support\Macros;
 
 use Illuminate\Support\Str;
 
@@ -17,8 +17,6 @@ class RouterMacros
             $this->get($uri . '/{id}/edit', $controller . '@edit')->name($uriName . '.edit')->where('id', '[0-9]+');
             $this->post($uri, $controller . '@store')->name($uriName . '.store');
             $this->put($uri . '/{id}', $controller . '@update')->name($uriName . '.update');
-            $this->get($uri . '/get-data', $controller . '@getDataTable')->name($uriName . '.get-data');
-            
             $this->post($uri . '/bulk-actions', $controller . '@bulkActions')->name($uriName . '.bulk-actions');
         };
     }
@@ -29,9 +27,9 @@ class RouterMacros
             $singular = Str::singular($uri);
             $this->jwResource($uri, $controller, $options);
 
-            $this->jwResource(Str::singular($uri) . '/comments', '\Juzaweb\Cms\Http\Controllers\Backend\CommentController', $options);
-            $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Cms\Http\Controllers\Backend\TaxonomyController@getTagComponent');
-            $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Cms\Http\Controllers\Backend\TaxonomyController', [
+            $this->jwResource(Str::singular($uri) . '/comments', '\Juzaweb\Http\Controllers\Backend\CommentController', $options);
+            $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Http\Controllers\Backend\TaxonomyController@getTagComponent');
+            $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Http\Controllers\Backend\TaxonomyController', [
                 'name' => Str::singular($uri) . '.taxonomy'
             ]);
         };

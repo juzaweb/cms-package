@@ -1,8 +1,8 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Publishing;
+namespace Juzaweb\Support\Publishing;
 
-use Juzaweb\Cms\Support\Config\GenerateConfigReader;
+use Juzaweb\Support\Config\GenerateConfigReader;
 
 class LangPublisher extends Publisher
 {

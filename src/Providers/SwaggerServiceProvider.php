@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Cms\Providers;
+namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use L5Swagger\Console\GenerateDocsCommand;

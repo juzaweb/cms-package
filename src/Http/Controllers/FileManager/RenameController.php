@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Cms\Http\Controllers\FileManager;
+namespace Juzaweb\Http\Controllers\FileManager;
 
-use Juzaweb\Cms\Models\MediaFile;
-use Juzaweb\Cms\Models\MediaFolder;
+use Juzaweb\Models\MediaFile;
+use Juzaweb\Models\MediaFolder;
 
 class RenameController extends FileManagerController
 {

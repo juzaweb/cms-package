@@ -1,6 +1,6 @@
 <?php
 
-namespace Juzaweb\Cms\Support\Config;
+namespace Juzaweb\Support\Config;
 
 class GeneratorPath
 {
