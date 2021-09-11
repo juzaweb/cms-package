@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
-use Mymo\PostType\Models\Taxonomy;
+use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController
 {

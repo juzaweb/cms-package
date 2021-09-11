@@ -3,6 +3,7 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
+use Juzaweb\Http\Controllers\FrontendController;
 
 class HomeController extends FrontendController
 {

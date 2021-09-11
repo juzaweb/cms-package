@@ -16,6 +16,7 @@ namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
 use Juzaweb\Facades\HookAction;
+use Juzaweb\Http\Controllers\FrontendController;
 
 class RouteController extends FrontendController
 {
@@ -28,7 +29,6 @@ class RouteController extends FrontendController
 
         if ($permalink && $callback = $permalink->get('callback')) {
             unset($slug[0]);
-
             return $this->callController($callback, 'index', $slug);
         }
 
@@ -44,6 +44,7 @@ class RouteController extends FrontendController
     {
         do_action('theme.call_controller', $callback, $method, $parameters);
 
-        return App::call($callback . '@index', $parameters);
+        $parameters = array_values($parameters);
+        return App::call($callback . '@' . $method, $parameters);
     }
 }
