@@ -255,6 +255,7 @@ return [
     'total_posts' => 'Total posts',
     'successfully' => 'Successfully',
     'remove_question' => 'Are you sure you want to delete the selected items?',
+    'remove_question_param' => 'Are you sure you want to delete :name?',
     'send_email_test' => 'Send email test',
     'email_address' => 'Email address',
     'email_template' => 'Email Template',

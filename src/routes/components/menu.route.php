@@ -13,5 +13,6 @@ Route::group(['prefix' => 'menu'], function () {
     Route::get('/{id}', 'Backend\MenuController@index')->name('admin.menu.id');
     Route::post('/store', 'Backend\MenuController@store')->name('admin.menu.store');
     Route::put('/{id}', 'Backend\MenuController@update')->name('admin.menu.update');
+    Route::delete('/{id}', 'Backend\MenuController@destroy')->name('admin.menu.destroy');
     Route::post('/add-item', 'Backend\MenuController@addItem')->name('admin.menu.add-item');
 });
