@@ -4,14 +4,14 @@
             <form method="post" class="form-inline">
                 @csrf
 
-                <select name="bulk_actions" class="form-control select2-default w-60 mb-2 mr-1">
+                <select name="bulk_actions" class="form-control select2-default" data-width="120px">
                     <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
                     @foreach($actions as $key => $action)
                         <option value="{{ $key }}">{{ $action }}</option>
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary mb-2" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
+                <button type="submit" class="btn btn-primary" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
     @endif
@@ -27,7 +27,9 @@
                     }}
             @endforeach
 
-            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}</button>
+            <button type="submit" class="btn btn-primary mb-2">
+                <i class="fa fa-search"></i> {{ trans('juzaweb::app.search') }}
+            </button>
         </form>
     </div>
 </div>

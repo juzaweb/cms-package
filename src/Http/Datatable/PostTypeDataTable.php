@@ -106,7 +106,8 @@ class PostTypeDataTable extends DataTable
             ],
             'status' => [
                 'type' => 'select',
-                'label' => trans('juzaweb::app.search'),
+                'width' => '100px',
+                'label' => trans('juzaweb::app.status'),
                 'options' => $this->makeModel()->getStatuses(),
             ]
         ];

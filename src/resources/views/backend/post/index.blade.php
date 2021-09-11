@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-12">
             <div class="btn-group float-right">
                 <a href="{{ route('admin.posts.create') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
