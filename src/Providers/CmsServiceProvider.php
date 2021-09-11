@@ -6,10 +6,6 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 8/12/2021
- * Time: 3:58 PM
  */
 
 namespace Juzaweb\Providers;
@@ -17,6 +13,7 @@ namespace Juzaweb\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Juzaweb\Support\Installer;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -56,6 +53,10 @@ class CmsServiceProvider extends ServiceProvider
 
         } catch (\Exception $e) {
             return false;
+        }
+
+        if (Installer::alreadyInstalled()) {
+            return true;
         }
 
         if (!Schema::hasTable('configs')) {
