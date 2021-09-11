@@ -17,7 +17,7 @@ use Juzaweb\Contracts\ThemeConfigContract;
  * @method static mixed setConfig($key, $value)
  * @method static string|array getConfig($key, $default)
  *
- * @see \Juzaweb\Support\ThemeConfig
+ * @see \Juzaweb\Support\Theme\ThemeConfig
  */
 class ThemeConfig extends Facade
 {

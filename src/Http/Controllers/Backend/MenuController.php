@@ -18,6 +18,7 @@ class MenuController extends BackendController
 
         $title = trans('juzaweb::app.menu');
         $navMenus = GlobalData::get('nav_menus');
+        $location = get_theme_config('nav_location');
 
         $this->loadMenuBoxs();
 
@@ -30,7 +31,8 @@ class MenuController extends BackendController
         return view('juzaweb::backend.menu.index', compact(
             'title',
             'menu',
-            'navMenus'
+            'navMenus',
+            'location'
         ));
     }
 
@@ -105,6 +107,22 @@ class MenuController extends BackendController
             $model = Menu::findOrFail($id);
             $model->update($request->all());
             $model->syncItems($items);
+
+            if ($location = $request->post('location', [])) {
+                $locationConfig = [];
+                foreach ($location as $item) {
+                    $locationConfig[$item] = $model->id;
+                }
+
+                set_theme_config('nav_location', $locationConfig);
+            } else {
+                $location = collect(get_theme_config('nav_location'))
+                    ->filter(function ($i) use ($model) {
+                        return $i != $model->id;
+                    })->toArray();
+
+                set_theme_config('nav_location', $location);
+            }
 
             do_action('admin.saved_menu', $model, $items);
 
