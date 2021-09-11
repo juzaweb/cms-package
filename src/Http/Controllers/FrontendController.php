@@ -1,9 +1,8 @@
 <?php
 
-namespace Juzaweb\Http\Controllers\Frontend;
+namespace Juzaweb\Http\Controllers;
 
 use Illuminate\Support\Arr;
-use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Facades\Theme;
 
 class FrontendController extends Controller

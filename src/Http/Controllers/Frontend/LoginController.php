@@ -2,6 +2,8 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Juzaweb\Http\Controllers\FrontendController;
+
 class LoginController extends FrontendController
 {
     public function index()

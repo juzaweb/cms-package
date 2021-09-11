@@ -10,6 +10,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Models\Post;
 
 class PostController extends FrontendController

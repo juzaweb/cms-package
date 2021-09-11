@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Models\Page;
 use Noodlehaus\Config;
 
