@@ -331,5 +331,8 @@ return [
     'keyword' => 'Keyword',
     'trash' => 'Trash',
     'view' => 'View',
+    'page_template' => 'Page Template',
+    'template' => 'Template',
+    'templates' => 'Templates',
 ];
 

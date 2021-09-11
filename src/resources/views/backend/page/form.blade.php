@@ -11,7 +11,6 @@
 
                 <div class="form-group">
                     <label class="col-form-label" for="title">@lang('juzaweb::app.title')</label>
-
                     <input type="text" name="title" class="form-control" id="title" value="{{ $model->title }}" autocomplete="off" required>
                 </div>
 
@@ -34,13 +33,22 @@
                 ])
                 @endcomponent
 
+                @component('juzaweb::components.form_select', [
+                    'label' => trans('juzaweb::app.template'),
+                    'name' => 'template',
+                    'value' => $model->template,
+                    'options' => array_merge([
+                        '' => trans('juzaweb::app.page_template')
+                    ], $templates),
+                ])
+                @endcomponent
+
                 @component('juzaweb::components.form_image', [
                     'label' => trans('juzaweb::app.thumbnail'),
                     'name' => 'thumbnail',
                     'value' => $model->thumbnail
                 ])
                 @endcomponent
-
             </div>
         </div>
 
