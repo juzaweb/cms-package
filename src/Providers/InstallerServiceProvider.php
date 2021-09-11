@@ -2,18 +2,16 @@
 
 namespace Juzaweb\Providers;
 
-use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Juzaweb\Console\Commands\InstallCommand;
-use Juzaweb\Http\Middleware\CanInstall;
-use Juzaweb\Http\Middleware\Installed;
+use Illuminate\Support\Facades\Route;
 
 class InstallerServiceProvider extends ServiceProvider
 {
+    protected $namespace = 'Juzaweb\Http\Controllers';
+
     public function register()
     {
-        //$this->publishFiles();
-
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/installer.php',
             'installer'
@@ -24,26 +22,26 @@ class InstallerServiceProvider extends ServiceProvider
         ]);
     }
 
-    /**
-     * Bootstrap the application events.
-     *
-     * @param \Illuminate\Routing\Router $router
-     */
-    public function boot(Router $router)
+    public function boot()
     {
-        $router->aliasMiddleware('install', CanInstall::class);
-        $router->pushMiddlewareToGroup('theme', Installed::class);
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'juzaweb');
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'juzaweb');
+
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
+        parent::boot();
     }
 
-    /**
-     * Publish config file for the installer.
-     *
-     * @return void
-     */
-    protected function publishFiles()
+    public function map()
     {
-        $this->publishes([
-            __DIR__ . '/../../config/installer.php' => base_path('config/installer.php'),
-        ], 'installer_config');
+        $this->mapWebRoutes();
+    }
+
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(__DIR__ . '/../routes/installer.php');
     }
 }

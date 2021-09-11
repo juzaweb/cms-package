@@ -3,8 +3,6 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Contracts\ConfigContract;
 use Juzaweb\Support\Config as JwConfig;
@@ -15,10 +13,6 @@ class DbConfigServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if (!$this->checkDbConnection()) {
-            return;
-        }
-
         $mail = get_config('email');
         $timezone = get_config('timezone');
         $language = get_config('language');
@@ -52,10 +46,6 @@ class DbConfigServiceProvider extends ServiceProvider
 
     public function register()
     {
-        if (!$this->checkDbConnection()) {
-            return;
-        }
-
         $this->app->singleton(ConfigContract::class, function () {
             return new JwConfig();
         });
@@ -63,20 +53,5 @@ class DbConfigServiceProvider extends ServiceProvider
         $this->app->singleton(ThemeConfigContract::class, function () {
             return new ThemeConfig(jw_current_theme());
         });
-    }
-    
-    protected function checkDbConnection()
-    {
-        try {
-            DB::connection()->getPdo();
-
-            if (Schema::hasTable('configs')) {
-                return true;
-            }
-        } catch (\Exception $e) {
-            return false;
-        }
-    
-        return false;
     }
 }

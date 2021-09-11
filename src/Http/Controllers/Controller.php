@@ -1,6 +1,6 @@
 <?php
 /**
- * MYMO CMS - TV Series & Movie Portal CMS Unlimited
+ * JUZAWEB CMS - The Best CMS for Laravel Project
  *
  * @package juzaweb/laravel-cms
  * @author The Anh Dang

@@ -2,15 +2,15 @@
 
 namespace Juzaweb\Http\Controllers\Installer;
 
-use Illuminate\Routing\Controller;
+use Juzaweb\Http\Controllers\Controller;
 
 class WelcomeController extends Controller
 {
-    /**
-     * Display the installer welcome page.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        return redirect()->route('installer.welcome');
+    }
+
     public function welcome()
     {
         return view('juzaweb::installer.welcome');

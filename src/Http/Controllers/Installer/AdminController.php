@@ -62,7 +62,7 @@ class AdminController extends Controller
             throw $e;
         }
 
-        return redirect()->route('installer.final')
+        return redirect()->to('install/final')
             ->with(['message' => trans('juzaweb::installer.final.finished')]);
     }
 }
