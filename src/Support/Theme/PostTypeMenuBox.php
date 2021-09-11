@@ -10,7 +10,6 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\MenuBoxAbstract;
 use Juzaweb\Facades\HookAction;
 

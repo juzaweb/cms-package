@@ -5,5 +5,5 @@
 
 <div class="form-group">
     <label class="col-form-label">{{ trans('juzaweb::app.link_text') }}</label>
-    <input type="text" class="form-control change-name menu-data" data-name="label" autocomplete="off" required value="{{ $item->label }}">
+    <input type="text" class="form-control change-label menu-data" data-name="label" autocomplete="off" required value="{{ $item->label }}">
 </div>

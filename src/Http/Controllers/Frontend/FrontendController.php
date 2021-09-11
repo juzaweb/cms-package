@@ -3,10 +3,8 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Facades\Theme;
-use Noodlehaus\Config;
 
 class FrontendController extends Controller
 {
@@ -35,16 +33,16 @@ class FrontendController extends Controller
         $js = Arr::get($styles, 'js', []);
         $css = Arr::get($styles, 'css', []);
 
-        foreach ($js as $item) {
-            add_action('theme.header', function () use ($item, $version) {
+        add_action('theme.header', function () use ($js, $version) {
+            foreach ($js as $item) {
                 echo '<script src="'. Theme::assets($item) .'?v='. $version .'"></script>';
-            }, 16);
-        }
+            }
+        }, 16);
 
-        foreach ($css as $item) {
-            add_action('theme.header', function () use ($item, $version) {
+        add_action('theme.header', function () use ($css, $version) {
+            foreach ($css as $item) {
                 echo '<link rel="stylesheet" href="'. Theme::assets($item) .'?v='. $version .'">';
-            }, 10);
-        }
+            }
+        }, 10);
     }
 }
