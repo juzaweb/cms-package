@@ -8,6 +8,8 @@
 
 namespace Juzaweb\Providers;
 
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Facades\Theme;
 use Juzaweb\Support\ServiceProvider;
 
 class HookActionServiceProvider extends ServiceProvider
@@ -17,6 +19,16 @@ class HookActionServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             foreach (static::$actions as $action) {
                 app($action)->handle();
+            }
+
+            $currentTheme = jw_current_theme();
+            Theme::set($currentTheme);
+
+            $config = Theme::getThemeConfig($currentTheme);
+            $navMenus = $config->get('nav_menus', []);
+
+            if ($navMenus) {
+                HookAction::registerNavMenus($navMenus);
             }
 
             do_action('juzaweb.init');

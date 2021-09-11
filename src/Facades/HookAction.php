@@ -18,6 +18,7 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static void registerMenuBox($tag, array $args = [])
  * @method static void enqueueScript($key, $src = '', $ver = '1.0', $inFooter = false)
  * @method static void enqueueStyle($key, $src = '', $ver = '1.0', $inFooter = false)
+ * @method static void registerNavMenus($locations = [])
  * @method static array getMenuBoxs(array $keys = [])
  * @method static \Illuminate\Support\Collection getMenuBox(string $key)
  * @method static \Illuminate\Support\Collection getPostTypes($postType = null)

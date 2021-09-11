@@ -31,9 +31,7 @@
         <div class="row mt-5">
             <div class="col-md-4">
                 <h5 class="mb-2 font-weight-bold">{{ trans('juzaweb::app.add_menu_items') }}</h5>
-
                 @do_action('juzaweb.add_menu_items')
-
             </div>
 
             <div class="col-md-8">
@@ -76,6 +74,17 @@
                                     @endif
                                 </ol>
                             </div>
+
+                            <hr>
+
+                            @foreach($navMenus as $key => $navMenu)
+                                <div class="form-check mb-2">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="{{ $key }}">
+                                        {{ $navMenu->get('location') }}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
 
                         <div class="card-footer">

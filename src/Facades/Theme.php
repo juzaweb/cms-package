@@ -10,12 +10,13 @@ use Juzaweb\Contracts\ThemeContract;
  * @method static has(string $theme)
  * @method static getThemePath(string $theme = null)
  * @method static getThemeInfo(string $theme)
+ * @method static getThemeConfig(string $theme)
  * @method static get(string $theme)
  * @method static assets(string $path, $theme = null, $secure = null)
  * @method static publicPath(string $theme)
  * @method static \Noodlehaus\Config[] all()
  *
- * @see \Juzaweb\Support\Theme
+ * @see \Juzaweb\Support\Theme\Theme
  */
 class Theme extends Facade
 {

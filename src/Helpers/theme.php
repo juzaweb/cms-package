@@ -77,8 +77,11 @@ if (!function_exists('jw_theme_config')) {
      */
     function jw_theme_config(string $theme = null)
     {
-        $config = (jw_theme_info($theme))->get('config');
-        return $config ?? new Collection([]);
+        if (empty($theme)) {
+            $theme = jw_current_theme();
+        }
+
+        return Theme::getThemeConfig($theme);
     }
 }
 

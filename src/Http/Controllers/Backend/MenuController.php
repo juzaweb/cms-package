@@ -2,8 +2,8 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Juzaweb\Facades\GlobalData;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
@@ -17,6 +17,9 @@ class MenuController extends BackendController
         do_action('backend.menu.index', $id);
 
         $title = trans('juzaweb::app.menu');
+        $navMenus = GlobalData::get('nav_menus');
+
+        $this->loadMenuBoxs();
 
         if (empty($id)) {
             $menu = Menu::first();
@@ -26,7 +29,8 @@ class MenuController extends BackendController
 
         return view('juzaweb::backend.menu.index', compact(
             'title',
-            'menu'
+            'menu',
+            'navMenus'
         ));
     }
 
@@ -125,5 +129,22 @@ class MenuController extends BackendController
         return $this->success([
             'message' => trans('juzaweb::app.deleted_successfully')
         ]);
+    }
+
+    protected function loadMenuBoxs()
+    {
+        $menuBoxs = GlobalData::get('menu_boxs');
+        foreach ($menuBoxs as $key => $item) {
+            add_action('juzaweb.add_menu_items', function () use (
+                $key,
+                $item
+            ) {
+                echo e(view('juzaweb::backend.items.menu_box', [
+                    'label' => $item['title'],
+                    'key' => $key,
+                    'slot' => $item['menu_box']->addView()->render()
+                ]));
+            });
+        }
     }
 }

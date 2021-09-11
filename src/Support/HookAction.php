@@ -12,7 +12,6 @@ use Illuminate\Support\Collection;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Juzaweb\Abstracts\MenuBoxAbstract;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
@@ -146,24 +145,7 @@ class HookAction
 
         $item = array_merge($opts, $args);
 
-        /**
-         * @var MenuBoxAbstract $menuBox
-         */
-        $menuBox = $item['menu_box'];
-
         GlobalData::set('menu_boxs.' . $key, new Collection($item));
-
-        add_action('juzaweb.add_menu_items', function () use (
-            $key,
-            $item,
-            $menuBox
-        ) {
-            echo view('juzaweb::backend.items.menu_box', [
-                'label' => $item['title'],
-                'key' => $key,
-                'slot' => $menuBox->addView()->render()
-            ])->render();
-        });
     }
 
     /**
@@ -522,5 +504,15 @@ class HookAction
         }
 
         return GlobalData::get('permalinks');
+    }
+
+    public function registerNavMenus($locations = [])
+    {
+        foreach ($locations as $key => $location) {
+            GlobalData::set('nav_menus.' . $key, new Collection([
+                'key' => $key,
+                'location' => $location
+            ]));
+        }
     }
 }

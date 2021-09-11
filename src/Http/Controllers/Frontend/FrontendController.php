@@ -18,37 +18,19 @@ class FrontendController extends Controller
          */
         do_action('theme.call_action', $method, $parameters);
 
-        Theme::set(jw_current_theme());
         $this->addThemeStyles();
 
         return parent::callAction($method, $parameters);
     }
 
-    /**
-     * Get particular theme all information.
-     *
-     * @return null|Config
-     */
-    protected function getThemeInfo()
-    {
-        return jw_theme_info();
-    }
-
-    /**
-     * Get particular theme all information.
-     *
-     * @return Collection
-     */
-    protected function getThemeConfig()
-    {
-        return jw_theme_config();
-    }
-
     protected function addThemeStyles()
     {
-        $theme = $this->getThemeInfo();
+        $currentTheme = jw_current_theme();
+        $theme = Theme::getThemeInfo($currentTheme);
+        $config = Theme::getThemeConfig($currentTheme);
+
         $version = $theme->get('version');
-        $styles = $theme->get('config')->get('styles');
+        $styles = $config->get('styles');
 
         $js = Arr::get($styles, 'js', []);
         $css = Arr::get($styles, 'css', []);

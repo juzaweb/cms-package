@@ -14,7 +14,6 @@ class ThemeEditorController extends BackendController
 {
     public function index() {
         $currentTheme = jw_current_theme();
-        Theme::set($currentTheme);
         $panels = $this->getDataCustomize($currentTheme);
 
         return view('juzaweb::backend.editor.index', [
