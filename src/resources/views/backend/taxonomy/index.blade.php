@@ -7,6 +7,7 @@
             <h5>{{ trans('juzaweb::app.add_new') }}</h5>
             @php
                 $type = $setting->get('type');
+                $postType = $setting->get('post_type');
             @endphp
 
             <form method="post" action="{{ route('admin.'. $type .'.taxonomy.store', [$taxonomy]) }}" class="form-ajax" data-success="reload_data" id="form-add">
@@ -14,7 +15,7 @@
                 @component('juzaweb::components.form_input', [
                     'name' => 'name',
                     'label' => trans('juzaweb::app.name'),
-                    'value' => $model->name,
+                    'value' => '',
                     'required' => true,
                 ])
                 @endcomponent
@@ -23,7 +24,7 @@
                     'name' => 'description',
                     'rows' => '3',
                     'label' => trans('juzaweb::app.description'),
-                    'value' => $model->description
+                    'value' => ''
                 ])
                 @endcomponent
 
@@ -34,6 +35,9 @@
                         </select>
                     </div>
                 @endif
+
+                    <input type="hidden" name="post_type" value="{{ $postType }}">
+                    <input type="hidden" name="taxonomy" value="{{ $taxonomy }}">
 
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>
                     {{ trans('juzaweb::app.add') }} {{ $setting->get('label') }}

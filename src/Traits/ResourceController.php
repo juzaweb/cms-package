@@ -20,38 +20,40 @@ use Illuminate\Support\Facades\Validator;
 
 trait ResourceController
 {
-    public function index()
+    public function index(...$params)
     {
-        return view($this->viewPrefix . '.index', $this->getDataForIndex());
+        return view($this->viewPrefix . '.index',
+            $this->getDataForIndex(...$params)
+        );
     }
 
-    public function create()
+    public function create(...$params)
     {
         $this->addBreadcrumb([
-            'title' => $this->getTitle(),
-            'url' => action([static::class, 'index']),
+            'title' => $this->getTitle(...$params),
+            'url' => action([static::class, 'index'], ...$params),
         ]);
 
         $model = $this->makeModel();
         return view($this->viewPrefix . '.form', array_merge([
             'title' => trans('juzaweb::app.add_new')
-        ], $this->getDataForForm($model)));
+        ], $this->getDataForForm($model, ...$params)));
     }
 
-    public function edit($id)
+    public function edit(...$params)
     {
         $this->addBreadcrumb([
-            'title' => $this->getTitle(),
-            'url' => action([static::class, 'index']),
+            'title' => $this->getTitle(...$params),
+            'url' => action([static::class, 'index'], ...$params),
         ]);
 
-        $model = $this->makeModel()->findOrFail($id);
+        $model = $this->makeModel()->findOrFail($this->getPathId($params));
         return view($this->viewPrefix . '.form', array_merge([
             'title' => $model->{$model->getFieldName()}
-        ], $this->getDataForForm($model)));
+        ], $this->getDataForForm($model, ...$params)));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, ...$params)
     {
         $validator = $this->validator($request->all());
         if (is_array($validator)) {
@@ -72,13 +74,14 @@ trait ResourceController
             throw $e;
         }
 
-        return $this->success([
-            'message' => trans('juzaweb::app.created_successfully'),
-            'redirect' => action([static::class, 'index'])
-        ]);
+        return $this->storeSuccessResponse(
+            $model,
+            $request,
+            ...$params
+        );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, ...$params)
     {
         $validator = $this->validator($request->all());
         if (is_array($validator)) {
@@ -87,40 +90,42 @@ trait ResourceController
 
         $validator->validate();
 
-        $model = $this->makeModel()->findOrFail($id);
+        $model = $this->makeModel()->findOrFail($this->getPathId($params));
         DB::beginTransaction();
         try {
-            $this->beforeUpdate($request, $model);
+            $this->beforeUpdate($request, $model, ...$params);
             $model->update($request->all());
-            $this->afterUpdate($request, $model);
-            $this->afterSave($request, $model);
+            $this->afterUpdate($request, $model, ...$params);
+            $this->afterSave($request, $model, ...$params);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
 
-        return $this->success([
-            'message' => trans('juzaweb::app.updated_successfully')
-        ]);
+        return $this->updateSuccessResponse(
+            $model,
+            $request,
+            ...$params
+        );
     }
 
-    protected function beforeStore(Request $request)
+    protected function beforeStore(Request $request, ...$params)
     {
         //
     }
 
-    protected function afterStore(Request $request, $model)
+    protected function afterStore(Request $request, $model, ...$params)
     {
         //
     }
 
-    protected function beforeUpdate(Request $request, $model)
+    protected function beforeUpdate(Request $request, $model, ...$params)
     {
         //
     }
 
-    protected function afterUpdate(Request $request, $model)
+    protected function afterUpdate(Request $request, $model, ...$params)
     {
         //
     }
@@ -131,7 +136,7 @@ trait ResourceController
      * @param Request $request
      * @param \Juzaweb\Models\Model $model
      */
-    protected function afterSave(Request $request, $model)
+    protected function afterSave(Request $request, $model, ...$params)
     {
         //
     }
@@ -141,7 +146,7 @@ trait ResourceController
         return app($this->getModel());
     }
 
-    protected function parseDataForSave(array $attributes)
+    protected function parseDataForSave(array $attributes, ...$params)
     {
         return $attributes;
     }
@@ -151,22 +156,42 @@ trait ResourceController
      *
      * @param  \Illuminate\Database\Eloquent\Model $model
      * @return array
-     * */
-    protected function getDataForForm($model)
+     */
+    protected function getDataForForm($model, ...$params)
     {
         return [
             'model' => $model
         ];
     }
 
-    protected function getDataForIndex()
+    protected function getDataForIndex(...$params)
     {
-        $dataTable = $this->getDataTable();
+        $dataTable = $this->getDataTable(...$params);
 
         return [
-            'title' => $this->getTitle(),
+            'title' => $this->getTitle(...$params),
             'dataTable' => $dataTable
         ];
+    }
+
+    protected function getPathId($params)
+    {
+        return $params[count($params) - 1];
+    }
+
+    protected function storeSuccessResponse($model, $request, ...$params)
+    {
+        return $this->success([
+            'message' => trans('juzaweb::app.created_successfully'),
+            'redirect' => action([static::class, 'index'], ...$params)
+        ]);
+    }
+
+    protected function updateSuccessResponse($model, $request, ...$params)
+    {
+        return $this->success([
+            'message' => trans('juzaweb::app.updated_successfully')
+        ]);
     }
 
     /**
@@ -174,7 +199,7 @@ trait ResourceController
      *
      * @return \Juzaweb\Abstracts\DataTable
      */
-    abstract protected function getDataTable();
+    abstract protected function getDataTable(...$params);
 
     /**
      * Validator for store and update
@@ -182,19 +207,19 @@ trait ResourceController
      * @param array $attributes
      * @return Validator|array
      */
-    abstract protected function validator(array $attributes);
+    abstract protected function validator(array $attributes, ...$params);
 
     /**
      * Get model resource
      *
      * @return string // namespace model
      */
-    abstract protected function getModel();
+    abstract protected function getModel(...$params);
 
     /**
      * Get title resource
      *
      * @return string
      **/
-    abstract protected function getTitle();
+    abstract protected function getTitle(...$params);
 }

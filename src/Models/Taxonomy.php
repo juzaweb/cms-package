@@ -4,6 +4,7 @@ namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Juzaweb\Traits\ResourceModel;
 use Juzaweb\Traits\UseSlug;
 use Juzaweb\Traits\UseThumbnail;
 
@@ -42,7 +43,7 @@ use Juzaweb\Traits\UseThumbnail;
  */
 class Taxonomy extends Model
 {
-    use UseSlug, UseThumbnail;
+    use UseSlug, UseThumbnail, ResourceModel;
 
     protected $table = 'taxonomies';
     protected $slugSource = 'name';

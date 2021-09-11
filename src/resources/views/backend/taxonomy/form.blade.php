@@ -3,6 +3,7 @@
 @section('content')
     @php
         $type = $setting->get('type');
+        $postType = $setting->get('post_type');
     @endphp
 
     @component('juzaweb::components.form_resource', [
@@ -51,6 +52,9 @@
                 ])@endcomponent
             </div>
             @endif
+
+            <input type="hidden" name="post_type" value="{{ $postType }}">
+            <input type="hidden" name="taxonomy" value="{{ $taxonomy }}">
         </div>
     @endcomponent
 

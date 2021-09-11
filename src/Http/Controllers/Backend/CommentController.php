@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class CommentController extends BackendController
 {
     use ResourceController {
-        ResourceController::getDataForIndex as traitDataForIndex;
+        ResourceController::getDataForIndex as DataForIndex;
     }
 
     protected $viewPrefix = 'juzaweb::backend.comment';
@@ -50,7 +50,7 @@ class CommentController extends BackendController
     protected function getDataForIndex()
     {
         $postType = $this->getPostType();
-        $data = $this->traitDataForIndex();
+        $data = $this->DataForIndex();
         $data['postType'] = $postType;
         return $data;
     }
