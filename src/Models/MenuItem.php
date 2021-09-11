@@ -53,7 +53,7 @@ class MenuItem extends Model
 
     protected $table = 'menu_items';
     protected $fillable = [
-        'name',
+        'label',
         'menu_id',
         'parent_id',
         'model_id',

@@ -35,7 +35,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
 
         foreach ($items as $item) {
             $result[] = $this->getData([
-                'name' => $item->getTitle(),
+                'label' => $item->getTitle(),
                 'model_id' => $item->id,
             ]);
         }
@@ -46,7 +46,7 @@ class PostTypeMenuBox extends MenuBoxAbstract
     public function getData($item)
     {
         return [
-            'name' => $item['name'],
+            'label' => $item['label'],
             'model_class' => $this->postType->get('model'),
             'model_id' => $item['model_id'],
         ];

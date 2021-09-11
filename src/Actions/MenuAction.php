@@ -26,7 +26,7 @@ class MenuAction extends Action
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addSettingPage']);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminScripts'], 10);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminStyles'], 10);
-        $this->addAction(self::BACKEND_MENU_INDEX_ACTION, [$this, 'addMenuBoxs'], 50);
+        $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addMenuBoxs'], 50);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addTaxonomiesForm']);
     }
 

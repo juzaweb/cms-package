@@ -72,6 +72,8 @@
                                     <ol class="dd-list">
                                         {!! jw_nav_menu([
                                                 'menu' => $menu,
+                                                'container_before' => '',
+                                                'container_after' => '',
                                                 'item_view' => view('juzaweb::backend.items.menu_item'),
                                         ]) !!}
                                     </ol>

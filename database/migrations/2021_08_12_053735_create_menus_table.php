@@ -20,7 +20,7 @@ class CreateMenusTable extends Migration
             $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('box_key', 50);
-            $table->string('name', 100);
+            $table->string('label', 100);
             $table->string('model_class', 100)->index()->nullable();
             $table->bigInteger('model_id')->index()->nullable();
             $table->string('link')->nullable();

@@ -40,7 +40,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
 
         foreach ($items as $item) {
             $result[] = $this->getData([
-                'name' => $item->name,
+                'label' => $item->name,
                 'model_id' => $item->id,
             ]);
         }
@@ -51,7 +51,7 @@ class TaxonomyMenuBox extends MenuBoxAbstract
     public function getData($item)
     {
         return [
-            'name' => $item['name'],
+            'label' => $item['label'],
             'model_class' => $this->taxonomy->get('model'),
             'model_id' => $item['model_id'],
         ];

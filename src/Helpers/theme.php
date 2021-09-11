@@ -138,9 +138,9 @@ if (!function_exists('jw_menu_items')) {
 }
 
 if (!function_exists('jw_page_menu')) {
-    function jw_page_menu()
+    function jw_page_menu($args)
     {
-
+        return trans('juzaweb::app.menu_not_found');
     }
 }
 
@@ -149,16 +149,29 @@ if (!function_exists('jw_nav_menu')) {
     {
         $defaults = [
             'menu' => '',
-            'container_before' => '',
-            'container_after' => '',
+            'container_before' => '<ul class="navbar-nav">',
+            'container_after' => '</ul>',
             'fallback_cb' => 'jw_page_menu',
             'theme_location' => '',
-            'item_view' => '',
+            'item_view' => view('juzaweb::items.menu_item'),
         ];
 
         $args = array_merge($defaults, $args);
+        $menu = null;
 
-        $items = jw_menu_items($args['menu']);
+        if ($args['menu']) {
+            $menu = $args['menu'];
+        }
+
+        if ($args['theme_location']) {
+            $menu = get_menu_by_theme_location($args['theme_location']);
+        }
+
+        if (empty($menu)) {
+            return call_user_func($args['fallback_cb'], $args);
+        }
+
+        $items = jw_menu_items($menu);
         $builder = new MenuBuilder($items, $args);
 
         return $builder->render();
@@ -183,5 +196,18 @@ if (!function_exists('get_theme_mod')) {
     function get_theme_mod($key, $default = null)
     {
         return ThemeConfig::getConfig($key, $default);
+    }
+}
+
+if (!file_exists('get_menu_by_theme_location')) {
+    function get_menu_by_theme_location($location)
+    {
+        $locations = get_theme_config('nav_location');
+        $menuId = $locations[$location] ?? null;
+        if ($menuId) {
+            return Menu::find($menuId);
+        }
+
+        return null;
     }
 }
