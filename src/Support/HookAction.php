@@ -317,6 +317,15 @@ class HookAction
             $this->registerMenuPostType($key, $args);
         }
 
+        if ($args->get('menu_box')) {
+            $this->registerMenuBox('post_type_' . $key, [
+                'title' => $args->get('label'),
+                'group' => 'post_type',
+                'menu_box' => new PostTypeMenuBox($key, $args),
+                'priority' => 10
+            ]);
+        }
+
         $supports = $args->get('supports', []);
         if (in_array('category', $supports)) {
             $this->registerTaxonomy('categories', $key, [
@@ -344,15 +353,6 @@ class HookAction
                 'label' => $args->get('label'),
                 'base' => $args->get('singular'),
                 'priority' => $args->get('priority'),
-            ]);
-        }
-
-        if ($args->get('menu_box')) {
-            $this->registerMenuBox('post_type_' . $key, [
-                'title' => $args->get('label'),
-                'group' => 'post_type',
-                'menu_box' => new PostTypeMenuBox($key, $args),
-                'priority' => 10
             ]);
         }
     }
@@ -470,26 +470,28 @@ class HookAction
         }
     }
 
-    public function enqueueScript($src = '', $ver = '1.0', $inFooter = false)
+    public function enqueueScript($key, $src = '', $ver = '1.0', $inFooter = false)
     {
         if (!is_url($src)) {
             $src = asset($src);
         }
 
         GlobalData::push('scripts', new Collection([
+            'key' => $key,
             'src' => $src,
             'ver' => $ver,
             'inFooter' => $inFooter,
         ]));
     }
 
-    public function enqueueStyle($src = '', $ver = '1.0', $inFooter = false)
+    public function enqueueStyle($key, $src = '', $ver = '1.0', $inFooter = false)
     {
         if (!is_url($src)) {
             $src = asset($src);
         }
 
         GlobalData::push('styles', new Collection([
+            'key' => $key,
             'src' => $src,
             'ver' => $ver,
             'inFooter' => $inFooter,

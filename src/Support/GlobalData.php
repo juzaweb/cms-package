@@ -23,7 +23,9 @@ class GlobalData
 
     public function push($key, $value)
     {
-        $this->values[$key][] = $value;
+        $data = $this->get($key);
+        $data[] = $value;
+        $this->set($key, $data);
     }
 
     public function get($key, $default = [])

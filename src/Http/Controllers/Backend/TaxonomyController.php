@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Juzaweb\Facades\GlobalData;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Http\Datatable\TaxonomyDataTable;
 use Juzaweb\Models\Taxonomy;
@@ -167,6 +168,11 @@ class TaxonomyController extends BackendController
         ], true);
     }
 
+    /**
+     * Get post type by url
+     *
+     * @return string
+     */
     protected function getPostType()
     {
         $split = explode('.', Route::currentRouteName());
@@ -178,10 +184,10 @@ class TaxonomyController extends BackendController
      *
      * @param string $taxonomy
      * @return \Illuminate\Support\Collection
-     **/
+     */
     protected function getSetting($taxonomy)
     {
-        $taxonomies = apply_filters('juzaweb.taxonomies', []);
+        $taxonomies = GlobalData::get('taxonomies');
         return $taxonomies[$this->getPostType()][$taxonomy] ?? collect([]);
     }
 }
