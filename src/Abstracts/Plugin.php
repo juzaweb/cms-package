@@ -440,7 +440,7 @@ abstract class Plugin
         return $this->getExtraJuzaweb('name');
     }
 
-    public function getDomain()
+    public function getDomainName()
     {
         return $this->getExtraJuzaweb('domain');
     }
