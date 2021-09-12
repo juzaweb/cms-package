@@ -515,4 +515,25 @@ class HookAction
             ]));
         }
     }
+
+    public function registerEmailHook($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'params' => [],
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('email_hooks.' . $key, new Collection($args));
+    }
+
+    public function getEmailHooks($key = null)
+    {
+        if ($key) {
+            return GlobalData::get('email_hooks.' . $key);
+        }
+
+        return new Collection(GlobalData::get('email_hooks'));
+    }
 }

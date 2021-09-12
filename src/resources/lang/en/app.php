@@ -337,5 +337,10 @@ return [
     'body' => 'Body',
     'information' => 'Information',
     'email_hook' => 'Email hook',
+    'logged_success' => 'Logged success',
+    'registered_success' => 'Registered success',
+    'user_name' => 'User name',
+    'user_email' => 'User email',
+    'verify_token' => 'Verify token',
 ];
 

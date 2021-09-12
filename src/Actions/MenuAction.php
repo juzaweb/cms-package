@@ -28,6 +28,7 @@ class MenuAction extends Action
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminStyles'], 10);
         $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addMenuBoxs'], 50);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addTaxonomiesForm']);
+        $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'registerEmailHooks']);
     }
 
     public function addBackendMenu()
@@ -300,5 +301,17 @@ class MenuAction extends Action
 
             return $items;
         });
+    }
+
+    public function registerEmailHooks()
+    {
+        HookAction::registerEmailHook('register_success', [
+            'label' => trans('juzaweb::app.registered_success'),
+            'params' => [
+                'name' => trans('juzaweb::app.user_name'),
+                'email' => trans('juzaweb::app.user_email'),
+                'verifyToken' => trans('juzaweb::app.verify_token'),
+            ],
+        ]);
     }
 }

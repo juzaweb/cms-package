@@ -453,3 +453,19 @@ if (!function_exists('get_enqueue_styles')) {
         return HookAction::getEnqueueStyles($inFooter);
     }
 }
+
+if (!function_exists('jw_get_select_options')) {
+    function jw_get_select_options($data)
+    {
+        $result = [];
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $result[$key] = $value['label'];
+            } else {
+                $result[$key] = $value->get('label');
+            }
+        }
+
+        return $result;
+    }
+}

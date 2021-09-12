@@ -126,22 +126,15 @@ class PostTypeDataTable extends DataTable
 
     public function rowAction($row)
     {
-        return [
-            'edit' => [
-                'label' => trans('juzaweb::app.edit'),
-                'url' => route("admin.{$this->postType['key']}.edit", [$row->id]),
-            ],
-            'trash' => [
-                'label' => trans('juzaweb::app.trash'),
-                'class' => 'text-danger',
-                'action' => 'trash',
-            ],
-            'view' => [
-                'label' => trans('juzaweb::app.view'),
-                'url' => $row->getLink(),
-                'target' => '_blank',
-            ]
+        $data = parent::rowAction($row);
+
+        $data['view'] = [
+            'label' => trans('juzaweb::app.view'),
+            'url' => $row->getLink(),
+            'target' => '_blank',
         ];
+
+        return $data;
     }
 
     /**

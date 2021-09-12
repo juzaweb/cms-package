@@ -38,7 +38,9 @@
                 @component('juzaweb::components.form_select', [
                     'label' => trans('juzaweb::app.email_hook'),
                     'name' => 'code',
-                    'options' => []
+                    'options' => array_merge([
+                        '' => trans('juzaweb::app.select', ['name' => trans('juzaweb::app.email_hook')])
+                    ], jw_get_select_options($emailHooks))
                 ])
                 @endcomponent
             </div>
@@ -58,6 +60,7 @@
                 lineNumbers: true,
                 styleActiveLine: true,
                 matchBrackets: true,
+                lineWrapping: true,
                 extraKeys: {"Ctrl-Space": "autocomplete"},
             });
 
