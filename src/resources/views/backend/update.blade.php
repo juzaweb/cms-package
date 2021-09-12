@@ -21,7 +21,7 @@
 
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-cloud-upload"></i>
-                        Update now
+                        {{ trans('juzaweb::app.update_now') }}
                     </button>
                 </form>
 

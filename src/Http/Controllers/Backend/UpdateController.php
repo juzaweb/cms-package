@@ -32,11 +32,17 @@ class UpdateController extends BackendController
 
     public function update()
     {
+        set_time_limit(0);
+
         DB::beginTransaction();
 
         try {
-
-
+            $update = new UpdateManager();
+            $update->updateStep1();
+            $update->updateStep2();
+            $update->updateStep3();
+            $update->updateStep4();
+            $update->updateStep5();
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();

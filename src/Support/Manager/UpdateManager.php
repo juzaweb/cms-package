@@ -130,7 +130,13 @@ class UpdateManager
 
     public function updateStep5()
     {
-        Artisan::call('migrate', ['--force' => true]);
+        switch ($this->tag) {
+            case 'core':
+                Artisan::call('migrate', ['--force' => true]);
+                break;
+            case 'plugin':
+                Artisan::call('plugin:migrate ' . $this->val, ['--force' => true]);
+        }
     }
 
     protected function getLocalFolder()

@@ -342,5 +342,6 @@ return [
     'user_name' => 'User name',
     'user_email' => 'User email',
     'verify_token' => 'Verify token',
+    'update_now' => 'Update now',
 ];
 

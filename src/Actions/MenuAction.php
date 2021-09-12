@@ -42,7 +42,7 @@ class MenuAction extends Action
             ]
         );
 
-        /*HookAction::addAdminMenu(
+        HookAction::addAdminMenu(
             'juzaweb::app.dashboard',
             'dashboard',
             [
@@ -60,7 +60,7 @@ class MenuAction extends Action
                 'position' => 2,
                 'parent' => 'dashboard',
             ]
-        );*/
+        );
 
         /*HookAction::addAdminMenu(
             trans('juzaweb::app.media'),
