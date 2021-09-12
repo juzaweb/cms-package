@@ -27,4 +27,6 @@ Route::group([
     Route::get('admin', 'Installer\AdminController@index')->name('installer.admin');
 
     Route::post('admin', 'Installer\AdminController@save')->name('installer.admin.save');
+
+    Route::get('final', 'Installer\FinalController@finish');
 });

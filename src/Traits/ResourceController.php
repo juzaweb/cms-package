@@ -66,8 +66,8 @@ trait ResourceController
         try {
             $this->beforeStore($request);
             $model = $this->getModel()::create($request->all());
-            $this->afterStore($request, $model);
-            $this->afterSave($request, $model);
+            $this->afterStore($request, $model, ...$params);
+            $this->afterSave($request, $model, ...$params);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -135,6 +135,7 @@ trait ResourceController
      *
      * @param Request $request
      * @param \Juzaweb\Models\Model $model
+     * @param mixed $params
      */
     protected function afterSave(Request $request, $model, ...$params)
     {

@@ -22,12 +22,16 @@
     },
     "autoload": {
       "psr-4": {
-        "Juzaweb\\Tests\\": "tests/",
         "Juzaweb\\": "src/"
       },
       "files": [
         "src/Helpers/helpers.php"
       ]
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Juzaweb\\Tests\\": "tests/"
+      }
     },
     "extra": {
       "laravel": {

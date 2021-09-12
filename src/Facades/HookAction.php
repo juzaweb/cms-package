@@ -21,6 +21,7 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static void registerNavMenus($locations = [])
  * @method static array getMenuBoxs(array $keys = [])
  * @method static \Illuminate\Support\Collection getMenuBox(string $key)
+ * @method static \Illuminate\Support\Collection getPermalinks(string $key = null)
  * @method static \Illuminate\Support\Collection getPostTypes($postType = null)
  * @method static \Illuminate\Support\Collection getTaxonomies($postType = null)
  *

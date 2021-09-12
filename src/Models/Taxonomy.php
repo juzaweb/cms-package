@@ -4,6 +4,7 @@ namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Traits\ResourceModel;
 use Juzaweb\Traits\UseSlug;
 use Juzaweb\Traits\UseThumbnail;
@@ -52,7 +53,6 @@ class Taxonomy extends Model
         'description',
         'thumbnail',
         'slug',
-        'posy_type',
         'taxonomy',
         'post_type',
         'parent_id',
@@ -67,6 +67,25 @@ class Taxonomy extends Model
     public function children()
     {
         return $this->hasMany(Taxonomy::class, 'parent_id', 'id');
+    }
+
+    public function posts()
+    {
+        $postModel = $this->getPostType('model');
+        $postType = $this->getPostType('key');
+        return $this->belongsToMany($postModel, 'term_taxonomies', 'taxonomy_id', 'term_id')
+            ->withPivot(['term_type'])
+            ->wherePivot('term_type', '=', $postType);
+    }
+
+    public function getPostType($key = null)
+    {
+        $postType = HookAction::getPostTypes($this->post_type);
+        if ($key) {
+            return $postType->get($key);
+        }
+
+        return $postType;
     }
 
     /**

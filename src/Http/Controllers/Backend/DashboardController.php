@@ -11,7 +11,11 @@ class DashboardController extends BackendController
 {
     public function index()
     {
-        return redirect()->route('admin.dashboard');
+        do_action(Action::BACKEND_DASHBOARD_ACTION);
+
+        return view('juzaweb::backend.dashboard', [
+            'title' => trans('juzaweb::app.dashboard'),
+        ]);
     }
 
     public function dashboard()
@@ -22,31 +26,7 @@ class DashboardController extends BackendController
             'title' => trans('juzaweb::app.dashboard'),
         ]);
     }
-    
-    public function getDataNotification(Request $request)
-    {
-        $offset = $request->get('offset', 0);
-        $limit = $request->get('limit', 20);
-    
-        $query = \Auth::user()->notifications();
-        
-        $query->orderBy('created_at', 'DESC');
-        $query->offset($offset);
-        $query->limit($limit);
-        $rows = $query->get();
-    
-        foreach ($rows as $row) {
-            $row->created = $row->created_at->format('Y-m-d');
-            $row->subject = $row->data['subject'];
-            $row->url = '';
-        }
-    
-        return response()->json([
-            'total' => count($rows),
-            'rows' => $rows
-        ]);
-    }
-    
+
     public function getDataUser(Request $request)
     {
         $offset = $request->get('offset', 0);
@@ -75,7 +55,7 @@ class DashboardController extends BackendController
             'rows' => $rows
         ]);
     }
-    
+
     public function viewsChart()
     {
         $max_day = date('t');
@@ -85,7 +65,7 @@ class DashboardController extends BackendController
             $day = $i < 10 ? '0'. $i : $i;
             $result[] = [(string) $day, (int) $this->countViewByDay(date('Y-m-' . $day))];
         }
-        
+
         return response()->json($result);
     }
 }
