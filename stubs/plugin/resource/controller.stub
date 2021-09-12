@@ -6,6 +6,13 @@ use Juzaweb\Http\Controllers\BackendController;
 
 class $CLASS$ extends BackendController
 {
+    protected $viewPrefix = 'juzaweb::backend.email_template';
+
+    protected function getDataTable()
+    {
+        return new EmailTemplateDataTable();
+    }
+
     public function index()
     {
         //

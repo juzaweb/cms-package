@@ -13,6 +13,7 @@ use Juzaweb\Console\Commands\Plugin\EventMakeCommand;
 use Juzaweb\Console\Commands\Plugin\FactoryMakeCommand;
 use Juzaweb\Console\Commands\InstallCommand;
 use Juzaweb\Console\Commands\Plugin\JobMakeCommand;
+use Juzaweb\Console\Commands\Resource\JwResouceMakeCommand;
 use Juzaweb\Console\Commands\Plugin\LaravelModulesV6Migrator;
 use Juzaweb\Console\Commands\Plugin\ListCommand;
 use Juzaweb\Console\Commands\Plugin\ListenerMakeCommand;
@@ -95,7 +96,8 @@ class ConsoleServiceProvider extends ServiceProvider
         ThemeGeneratorCommand::class,
         ThemeListCommand::class,
         ThemePublishCommand::class,
-        ActionMakeCommand::class
+        ActionMakeCommand::class,
+        JwResouceMakeCommand::class
     ];
 
     /**

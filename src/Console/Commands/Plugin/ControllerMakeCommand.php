@@ -53,21 +53,7 @@ class ControllerMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
-
-        return (new Stub($this->getStubName(), [
-            'MODULENAME'        => $module->getStudlyName(),
-            'CONTROLLERNAME'    => $this->getControllerName(),
-            'NAMESPACE'         => $module->getStudlyName(),
-            'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
-            'CLASS'             => $this->getControllerNameWithoutNamespace(),
-            'LOWER_NAME'        => $module->getLowerName(),
-            'SNAKE_NAME'        => $module->getSnakeName(),
-            'MODULE'            => $this->getModuleName(),
-            'NAME'              => $this->getModuleName(),
-            'STUDLY_NAME'       => $module->getStudlyName(),
-            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),
-        ]))->render();
+        return (new Stub($this->getStubName(), $this->getDataStub()))->render();
     }
 
     /**
@@ -125,7 +111,7 @@ class ControllerMakeCommand extends GeneratorCommand
      * Get the stub file name based on the options
      * @return string
      */
-    private function getStubName()
+    protected function getStubName()
     {
         if ($this->option('plain') === true) {
             $stub = '/controller-plain.stub';
@@ -136,5 +122,28 @@ class ControllerMakeCommand extends GeneratorCommand
         }
 
         return $stub;
+    }
+
+    protected function getDataStub()
+    {
+        /**
+         * @var \Juzaweb\Abstracts\Plugin $module
+         */
+        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+
+        return [
+            'MODULENAME'        => $module->getStudlyName(),
+            'CONTROLLERNAME'    => $this->getControllerName(),
+            'NAMESPACE'         => $module->getStudlyName(),
+            'DOMAIN_NAME'       => $module->getDomainName(),
+            'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
+            'CLASS'             => $this->getControllerNameWithoutNamespace(),
+            'LOWER_NAME'        => $module->getLowerName(),
+            'SNAKE_NAME'        => $module->getSnakeName(),
+            'MODULE'            => $this->getModuleName(),
+            'NAME'              => $this->getModuleName(),
+            'STUDLY_NAME'       => $module->getStudlyName(),
+            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),
+        ];
     }
 }
