@@ -13,7 +13,8 @@ class UpdateDatabaseV106 extends Migration
             $table->string('email_hook', 100)->nullable();
         });
 
-        DB::table('email_templates')->where('code', '=', 'verification')
+        DB::table('email_templates')
+            ->where('code', '=', 'verification')
             ->update(['email_hook' => 'register_success']);
     }
 

@@ -35,7 +35,7 @@ class InstallCommand extends Command
         FinalInstallManager $finalInstall
     )
     {
-        $this->info('MYMO CMS Installer');
+        $this->info('JUZAWEB CMS Installer');
         $this->info('-- Database Install');
         $databaseManager->run();
         $this->info('-- Publish assets');

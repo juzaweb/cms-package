@@ -69,10 +69,6 @@ class Config extends Model
             return $config->value;
         });
 
-        if (empty($value)) {
-            return $default;
-        }
-
         if (is_json($value)) {
             return json_decode($value, true);
         }
@@ -81,22 +77,17 @@ class Config extends Model
     }
     
     public static function setConfig($key, $value = null) {
-        $setting = null;
-        if (is_string($value)) {
-            $setting = $value;
-        }
-
         if (is_array($value)) {
-            $setting = array_merge(get_config($key, []), $value);
-            $setting = json_encode($setting);
+            $value = array_merge(get_config($key, []), $value);
+            $value = json_encode($value);
         }
 
         $config = Config::firstOrNew(['code' => $key]);
         $config->code = $key;
-        $config->value = $setting;
+        $config->value = $value;
         $config->save();
 
-        Cache::forever('jw_config.' . $key, $setting);
+        Cache::forever('jw_config.' . $key, $value);
 
         return $config;
     }
