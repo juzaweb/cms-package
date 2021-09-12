@@ -37,7 +37,8 @@
             <div class="col-md-4">
                 @component('juzaweb::components.form_select', [
                     'label' => trans('juzaweb::app.email_hook'),
-                    'name' => 'code',
+                    'name' => 'email_hook',
+                    'value' => $model->email_hook,
                     'options' => array_merge([
                         '' => trans('juzaweb::app.select', ['name' => trans('juzaweb::app.email_hook')])
                     ], jw_get_select_options($emailHooks))

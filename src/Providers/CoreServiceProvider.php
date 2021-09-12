@@ -58,8 +58,11 @@ class CoreServiceProvider extends ServiceProvider
 
     protected function bootMigrations()
     {
-        $mainPath = __DIR__ . '/../../database/migrations';
-        $this->loadMigrationsFrom($mainPath);
+        $mainPath = JW_PACKAGE_PATH . '/database/migrations';
+        $directories = glob($mainPath . '/*' , GLOB_ONLYDIR);
+        $paths = array_merge([$mainPath], $directories);
+
+        $this->loadMigrationsFrom($paths);
     }
 
     protected function bootPublishes()

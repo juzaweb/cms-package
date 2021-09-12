@@ -40,7 +40,8 @@ class EmailTemplate extends Model
         'code',
         'subject',
         'body',
-        'params'
+        'params',
+        'email_hook',
     ];
     
     protected $casts = [
