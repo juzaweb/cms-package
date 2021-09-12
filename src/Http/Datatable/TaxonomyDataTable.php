@@ -72,16 +72,7 @@ class TaxonomyDataTable extends DataTable
 
     public function rowAction($row)
     {
-        $data['edit'] = [
-            'label' => trans('juzaweb::app.edit'),
-            'url' => route("admin.{$this->taxonomy['type']}.taxonomy.edit", [$this->taxonomy['taxonomy'], $row->id]),
-        ];
-
-        $data['delete'] = [
-            'label' => trans('juzaweb::app.delete'),
-            'class' => 'text-danger',
-            'action' => 'delete',
-        ];
+        $data = parent::rowAction($row);
 
         $data['view'] = [
             'label' => trans('juzaweb::app.view'),

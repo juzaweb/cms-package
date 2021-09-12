@@ -42,9 +42,13 @@ trait ResourceController
 
     public function edit(...$params)
     {
+        $indexParams = $params;
+        unset($indexParams[$this->getPathIdIndex($indexParams)]);
+        $indexParams = collect($indexParams)->values()->toArray();
+
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$params),
+            'url' => action([static::class, 'index'], ...$indexParams),
         ]);
 
         $model = $this->makeModel()->findOrFail($this->getPathId($params));
@@ -175,9 +179,14 @@ trait ResourceController
         ];
     }
 
+    protected function getPathIdIndex($params)
+    {
+        return count($params) - 1;
+    }
+
     protected function getPathId($params)
     {
-        return $params[count($params) - 1];
+        return $params[$this->getPathIdIndex($params)];
     }
 
     protected function storeSuccessResponse($model, $request, ...$params)

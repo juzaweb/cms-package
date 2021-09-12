@@ -334,5 +334,8 @@ return [
     'page_template' => 'Page Template',
     'template' => 'Template',
     'templates' => 'Templates',
+    'body' => 'Body',
+    'information' => 'Information',
+    'email_hook' => 'Email hook',
 ];
 

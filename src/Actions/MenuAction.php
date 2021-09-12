@@ -274,7 +274,6 @@ class MenuAction extends Action
     {
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/vendor.js');
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/backend.js');
-        HookAction::enqueueScript('core', 'js/menu.js');
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/ckeditor/ckeditor.js');
     }
 

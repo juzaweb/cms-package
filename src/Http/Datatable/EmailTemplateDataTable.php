@@ -25,13 +25,13 @@ class EmailTemplateDataTable extends DataTable
     public function columns()
     {
         return [
+            'subject' => [
+                'label' => trans('juzaweb::app.subject'),
+                'formatter' => [$this, 'rowActionsFormatter'],
+            ],
             'code' => [
                 'label' => trans('juzaweb::app.code'),
                 'width' => '15%',
-                'formatter' => [$this, 'rowActionsFormatter'],
-            ],
-            'subject' => [
-                'label' => trans('juzaweb::app.subject'),
             ],
             'created' => [
                 'label' => trans('juzaweb::app.created_at'),

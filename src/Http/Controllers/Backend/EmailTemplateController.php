@@ -22,7 +22,7 @@ class EmailTemplateController extends BackendController
     protected function validator(array $attributes)
     {
         $validator = Validator::make($attributes, [
-            'code' => 'required|unique:id,' . $attributes['id'],
+            'code' => 'required|unique:email_templates,id,' . $attributes['id'],
             'subject' => 'required',
         ]);
 

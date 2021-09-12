@@ -124,7 +124,6 @@ trait PostTypeModel
             ->get();
 
         foreach ($taxonomies as $taxonomy) {
-
             $taxonomy->update([
                 'total_post' => $taxonomy->posts()->count()
             ]);

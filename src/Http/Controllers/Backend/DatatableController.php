@@ -75,6 +75,8 @@ class DatatableController extends BackendController
     {
         $table = Crypt::decryptString($request->get('table'));
         $table = app($table);
+        $table->currentUrl = $request->get('currentUrl');
+
         if (method_exists($table, 'mount')) {
             $data = json_decode(urldecode($request->get('data')), true);
             $table->mount(...$data);

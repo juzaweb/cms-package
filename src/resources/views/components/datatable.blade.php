@@ -11,7 +11,7 @@
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
+                <button type="submit" class="btn btn-primary px-3" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
     @endif
@@ -56,7 +56,7 @@
     var table = new JuzawebTable({
         table: "#{{ $uniqueId }}",
         page_size: parseInt("{{ $perPage }}"),
-        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
-        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}'
+        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}&currentUrl={{ url()->current() }}',
+        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}&currentUrl={{ url()->current() }}'
     });
 </script>
