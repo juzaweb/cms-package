@@ -25,18 +25,26 @@ class UpdateManager
     protected $curl;
     protected $api;
 
-    public function __construct
-    (
-        Curl $curl,
-        JuzawebApi $api
-    ) {
-        $this->curl = $curl;
-        $this->api = $api;
+    protected $tag;
+    protected $val;
+
+    protected $storage;
+    protected $response;
+    protected $tmpFolder;
+    protected $tmpFile;
+
+    public function __construct($tag = 'core', $val = '') {
+        $this->curl = app(Curl::class);
+        $this->api = app(JuzawebApi::class);
+
+        $this->tag = $tag;
+        $this->val = $val;
+        $this->storage = Storage::disk('tmp');
     }
 
-    public function checkUpdate($tag = 'core', $val = '')
+    public function checkUpdate()
     {
-        if ($this->getVersionAvailable($tag, $val) > $this->getCurrentVersion()) {
+        if ($this->getVersionAvailable() > $this->getCurrentVersion()) {
             return true;
         }
 
@@ -48,9 +56,9 @@ class UpdateManager
         return Version::getVersion();
     }
 
-    public function getVersionAvailable($tag = 'core', $val = '')
+    public function getVersionAvailable()
     {
-        $uri = ($val ? $tag . '/'. $val : $tag) . '/version-available';
+        $uri = $this->tag . '/version-available';
 
         $response = $this->api->get($uri, [
             'current_version' => $this->getCurrentVersion(),
@@ -59,65 +67,81 @@ class UpdateManager
         return $response->version;
     }
 
-    public function update($tag = 'core', $val = '')
+    public function updateStep1()
     {
-        $uri = ($val ? $tag . '/'. $val : $tag) . '/get-update';
+        $uri = $this->tag . '/get-update';
 
         $response = $this->api->get($uri, [
             'current_version' => $this->getCurrentVersion(),
         ]);
 
-        if (empty($response->download)) {
+        /* if (empty($response->update)) {
             return false;
-        }
+        }*/
 
-        $tmp = Storage::disk('tmp');
-
-        foreach ($response->download as $file) {
-            $tmpFolder = $tag . '/' . Str::random(5);
-            foreach (['zip', 'unzip', 'backup'] as $folder) {
-                if ($tmp->exists($tmpFolder . '/' . $folder)) {
-                    File::makeDirectory($tmp->exists($tmpFolder . '/' . $folder), 0775, true);
-                }
-            }
-
-            $tmpFile = $tmpFolder . '/zip/' . Str::random(10) . '.zip';
-            $tmpFile = $tmp->path($tmpFile);
-
-            if (!$this->downloadFile($file['link'], $tmpFile)) {
-                return false;
-            }
-
-            $zip = new \ZipArchive();
-            $op = $zip->open($tmpFile);
-
-            if ($op !== true) {
-                return false;
-            }
-
-            $zip->extractTo($tmp->path($tmpFolder . '/unzip'));
-            $zip->close();
-
-            $localFolder = $this->getLocalFolder($file, $tag, $val);
-            File::moveDirectory($localFolder, $tmp->path($tmpFolder . '/backup'));
-            File::moveDirectory($tmp->path($tmpFolder . '/unzip'), $localFolder);
-            File::deleteDirectory($tmpFolder, true);
-        }
-
-        Artisan::call('migrate');
+        $this->response = $response;
 
         return true;
     }
 
-    protected function getLocalFolder($file, $tag = 'core', $val = '')
+    public function updateStep2()
     {
-        switch ($tag) {
+        $file = $this->response->link;
+
+        $this->tmpFolder = $this->tag . '/' . Str::random(5);
+        foreach (['zip', 'unzip', 'backup'] as $folder) {
+            if (!$this->storage->exists($this->tmpFolder . '/' . $folder)) {
+                File::makeDirectory($this->storage->path($this->tmpFolder . '/' . $folder), 0775, true);
+            }
+        }
+
+        $this->tmpFile = $this->tmpFolder . '/zip/' . Str::random(10) . '.zip';
+        $this->tmpFile = $this->storage->path($this->tmpFile);
+
+        if (!$this->downloadFile($file, $this->tmpFile)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function updateStep3()
+    {
+        $zip = new \ZipArchive();
+        $op = $zip->open($this->tmpFile);
+
+        if ($op !== true) {
+            return false;
+        }
+
+        $zip->extractTo($this->storage->path($this->tmpFolder . '/unzip'));
+        $zip->close();
+        return true;
+    }
+
+    public function updateStep4()
+    {
+        $localFolder = $this->getLocalFolder();
+        File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup'));
+        File::moveDirectory($this->storage->path($this->tmpFolder . '/unzip'), $localFolder);
+        File::deleteDirectory($this->storage->path($this->tmpFolder), true);
+        File::deleteDirectory($this->storage->path($this->tmpFolder), true);
+    }
+
+    public function updateStep5()
+    {
+        Artisan::call('migrate', ['--force' => true]);
+    }
+
+    protected function getLocalFolder()
+    {
+        switch ($this->tag) {
             case 'core':
-                return base_path('vendor')[$file['path']];
+                return base_path('vendor/juzaweb/cms');
             case 'plugin':
-                return plugin_path($val);
+                return plugin_path($this->val);
             case 'theme':
-                return theme_path($val);
+                return theme_path($this->val);
         }
 
         return false;

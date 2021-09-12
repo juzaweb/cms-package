@@ -20,13 +20,21 @@ class UpdateCommand extends Command
 
     public function handle()
     {
-        try {
+        $update = new UpdateManager();
 
-            app(UpdateManager::class)
-                ->update('core');
+        $this->info('Check file update');
+        $update->updateStep1();
 
-        } catch (\Throwable $e) {
-            Log::error($e);
-        }
+        $this->info('Download File');
+        $update->updateStep2();
+
+        $this->info('Unzip File');
+        $update->updateStep3();
+
+        $this->info('Move to folder');
+        $update->updateStep4();
+
+        $this->info('Update database');
+        $update->updateStep5();
     }
 }
