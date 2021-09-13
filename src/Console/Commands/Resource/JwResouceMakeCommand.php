@@ -10,17 +10,13 @@
 
 namespace Juzaweb\Console\Commands\Resource;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Juzaweb\Traits\ModuleCommandTrait;
-use Juzaweb\Traits\ResourceCommandTrait;
+use Juzaweb\Abstracts\ResourceCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class JwResouceMakeCommand extends Command
+class JwResouceMakeCommand extends ResourceCommand
 {
-    use ModuleCommandTrait, ResourceCommandTrait;
-
     /**
      * The name of argument being used.
      *
@@ -35,30 +31,38 @@ class JwResouceMakeCommand extends Command
      */
     protected $name = 'plugin:make-jwresource';
 
-    /**
-     * @var \Juzaweb\Abstracts\Plugin $module
-     */
-    protected $module;
-
     public function handle()
     {
         $this->module = $this->laravel['modules']->find($this->getModuleName());
 
         $table = $this->argument('name');
-//        if (!Schema::hasTable($table)) {
-//            $this->error("Table [{$table}] does not exist.");
-//            exit(1);
-//        }
+        $realTable = $this->module->getDomainName().'_'.$table;
+
+        if (!Schema::hasTable($realTable)) {
+            $this->error("Table [{$realTable}] does not exist. Please create table.");
+            exit(1);
+        }
+
+        $this->columns = collect(Schema::getColumnListing($realTable))
+            ->filter(function ($item) {
+                return !in_array($item, [
+                    'id',
+                    'created_at',
+                    'updated_at',
+                    'updated_by',
+                    'updated_by',
+                ]);
+            })->toArray();
 
         $model = Str::studly($table);
 
-        $this->makeModel($model);
+        //$this->makeModel($model);
 
         $this->makeDataTable($model);
 
-        $this->makeController($table, $model);
+        //$this->makeController($table, $model);
 
-        $this->makeViews($table);
+        //$this->makeViews($table);
     }
 
     /**

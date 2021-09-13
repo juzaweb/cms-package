@@ -17,10 +17,7 @@ class $CLASS$ extends DataTable
     public function columns()
     {
         return [
-            // 'title' => [
-            //     'label' => trans('juzaweb::app.title'),
-            //     'formatter' => [$this, 'rowActionsFormatter'],
-            // ],
+            $COLUMNS$
             'created' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',

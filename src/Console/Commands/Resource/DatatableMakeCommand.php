@@ -126,6 +126,7 @@ class DatatableMakeCommand extends GeneratorCommand
     {
         return [
             ['model', null, InputOption::VALUE_OPTIONAL, 'The model for query.', null],
+            ['columns', null, InputOption::VALUE_OPTIONAL, 'The columns for table.', null],
         ];
     }
 
@@ -139,6 +140,7 @@ class DatatableMakeCommand extends GeneratorCommand
         $data = [
             'QUERY_TABLE' => '// Query handle',
             'USE_NAMESPACE' => '',
+            'COLUMNS' => '',
             'BULK_ACTIONS' => 'switch ($action) {
             case \'delete\':
                 
@@ -160,8 +162,68 @@ class DatatableMakeCommand extends GeneratorCommand
             $data['BULK_ACTIONS'] = $this->stubRender('resource/datatable/bulk-actions.stub', [
                 'MODEL_NAME' => $model
             ]);
+
+            $data['COLUMNS'] = $this->getDataColumns($module);
         }
 
         return $data;
+    }
+
+    protected function getDataColumns($module)
+    {
+        $result = '';
+        $columns = explode(',', $this->option('columns'));
+        $columns = collect($columns)
+            ->filter(function ($item) {
+                return !in_array($item, [
+                    'description',
+                    'content',
+                ]);
+            })->toArray();
+
+        foreach ($columns as $key => $column) {
+            if (in_array($column, ['name', 'title', 'subject'])) {
+                $result = $this->stubRender(
+                'resource/datatable/action-column.stub',
+                    [
+                    'MODULE_DOMAIN' => $module->getDomainName(),
+                    'COLUMN' => $column,
+                    ]
+                );
+
+                unset($columns[$key]);
+            }
+        }
+
+        if (empty($result)) {
+            $result = '// \'title\' => [
+            //     \'label\' => trans(\'juzaweb::app.title\'),
+            //     \'formatter\' => [$this, \'rowActionsFormatter\'],
+            // ],';
+        }
+
+        foreach ($columns as $column) {
+            $result .= "\n\t\t\t" . $this->stubRender(
+                $this->getColumnStubPath($column),
+                [
+                    'MODULE_DOMAIN' => $module->getDomainName(),
+                    'COLUMN' => $column,
+                ]
+            );
+        }
+
+        return $result;
+    }
+
+    protected function getColumnStubPath($column)
+    {
+        $stubPath = JW_PACKAGE_PATH . '/stubs/plugin/';
+        $columnStub = 'resource/datatable/columns/' . $column . '.stub';
+
+        if (file_exists($stubPath . '/' . $columnStub)) {
+            return $columnStub;
+        }
+
+        return 'resource/datatable/default-column.stub';
     }
 }

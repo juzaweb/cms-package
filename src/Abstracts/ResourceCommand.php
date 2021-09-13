@@ -8,19 +8,34 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Traits;
+namespace Juzaweb\Abstracts;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Juzaweb\Support\Config\GenerateConfigReader;
+use Juzaweb\Traits\ModuleCommandTrait;
 
-trait ResourceCommandTrait
+abstract class ResourceCommand extends Command
 {
+    /**
+     * @var \Juzaweb\Abstracts\Plugin $module
+     */
+    protected $module;
+
+    /**
+     * @var array $columns
+     */
+    protected $columns;
+
+    use ModuleCommandTrait;
+
     protected function makeModel($model)
     {
         $this->call('plugin:make-model', [
             'model' => $model,
             'module' => $this->getModuleName(),
-            '--stub' => 'resource/model.stub'
+            '--stub' => 'resource/model.stub',
+            '--fillable' => implode(',', $this->columns),
         ]);
     }
 
@@ -29,7 +44,8 @@ trait ResourceCommandTrait
         $this->call('plugin:make-datatable', [
             'name' => $model,
             'module' => $this->getModuleName(),
-            '--model' => $model
+            '--model' => $model,
+            '--columns' => implode(',', $this->columns)
         ]);
     }
 
