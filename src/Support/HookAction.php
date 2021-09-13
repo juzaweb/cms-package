@@ -13,6 +13,7 @@ use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Juzaweb\Http\Controllers\Frontend\PostController;
+use Juzaweb\Http\Controllers\Frontend\TaxonomyController;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
@@ -239,11 +240,11 @@ class HookAction
             }
 
             if ($args->get('rewrite')) {
-                $base = Str::singular($type . '-' . $taxonomy);
                 $this->registerPermalink($args->get('key'), [
                     'label' => $args->get('label'),
-                    'base' => $base,
+                    'base' => $args->get('singular'),
                     'priority' => $args->get('priority'),
+                    'callback' => TaxonomyController::class
                 ]);
             }
 
