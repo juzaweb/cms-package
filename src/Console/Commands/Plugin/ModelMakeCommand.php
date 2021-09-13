@@ -87,6 +87,7 @@ class ModelMakeCommand extends GeneratorCommand
             ['fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null],
             ['migration', 'm', InputOption::VALUE_NONE, 'Flag to create associated migrations', null],
             ['stub', null, InputOption::VALUE_NONE, 'Stub path to create model', null],
+            ['table', null, InputOption::VALUE_NONE, 'Table model', null],
         ];
     }
 
@@ -107,10 +108,15 @@ class ModelMakeCommand extends GeneratorCommand
     protected function getTemplateContents()
     {
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        if (!$table = $this->option('table')) {
+            $table = $this->createMigrationName();
+        }
+
+        $table = $module->getDomainName() .'_' . $table;
 
         return (new Stub($this->getStubPath(), [
             'NAME'              => $this->getModelName(),
-            'TABLE'             => $module->getDomainName() .'_'. $this->createMigrationName(),
+            'TABLE'             => $table,
             'FILLABLE'          => $this->getFillable(),
             'NAMESPACE'         => $this->getClassNamespace($module),
             'CLASS'             => $this->getClass(),

@@ -56,13 +56,13 @@ class JuzawebResouceMakeCommand extends ResourceCommand
 
         $model = Str::studly($table);
 
-        //$this->makeModel($model);
+        $this->makeModel($table, $model);
 
-        //$this->makeDataTable($model);
+        $this->makeDataTable($model);
 
-        //$this->makeController($table, $model);
+        $this->makeController($table, $model);
 
-        //$this->makeViews($table);
+        $this->makeViews($table);
 
         $routePath = $this->module->getPath() . '/src/routes/admin.php';
         $this->info('Add resource route ' . $routePath);

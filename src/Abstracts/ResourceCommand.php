@@ -29,11 +29,12 @@ abstract class ResourceCommand extends Command
 
     use ModuleCommandTrait;
 
-    protected function makeModel($model)
+    protected function makeModel($table, $model)
     {
         $this->call('plugin:make-model', [
             'model' => $model,
             'module' => $this->getModuleName(),
+            '--table' => $table,
             '--stub' => 'resource/model.stub',
             '--fillable' => implode(',', $this->columns),
         ]);
@@ -55,7 +56,7 @@ abstract class ResourceCommand extends Command
         $path = $this->getDestinationControllerFilePath($file);
 
         $contents = $this->stubRender('resource/controller.stub', [
-            'CLASS_NAMESPACE' => $this->module->getNamespace() . 'Http\Controllers',
+            'CLASS_NAMESPACE' => $this->module->getNamespace() . 'Http\Controllers\Backend',
             'DATATABLE' => $model . 'Datatable',
             'MODEL_NAME' => $model,
             'MODULE_NAMESPACE'  => $this->module->getNamespace(),

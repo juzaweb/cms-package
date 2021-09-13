@@ -2,13 +2,16 @@
 
 namespace $CLASS_NAMESPACE$;
 
-use Juzaweb\Abstracts\ResourceController;
+use Juzaweb\Traits\ResourceController;
 use Illuminate\Support\Facades\Validator;
+use Juzaweb\Http\Controllers\BackendController;
 use $MODULE_NAMESPACE$Http\Datatable\$DATATABLE$;
 use $MODULE_NAMESPACE$Models\$MODEL_NAME$;
 
-class $CLASS$ extends ResourceController
+class $CLASS$ extends BackendController
 {
+    use ResourceController;
+
     protected $viewPrefix = '$MODULE_DOMAIN$::backend.$TABLE_NAME$';
 
     protected function getDataTable()

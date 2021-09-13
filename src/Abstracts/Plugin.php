@@ -454,6 +454,9 @@ abstract class Plugin
 
     private function runMigrate()
     {
-        Artisan::call('plugin:migrate '. $this->name, ['--force' => true]);
+        Artisan::call('plugin:migrate', [
+            'module' => $this->name,
+            '--force' => true
+        ]);
     }
 }
