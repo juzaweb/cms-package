@@ -6,7 +6,6 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
 $USE_NAMESPACE$
-
 class $CLASS$ extends DataTable
 {
     /**

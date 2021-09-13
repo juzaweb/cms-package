@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Abstracts\ResourceCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class JwResouceMakeCommand extends ResourceCommand
+class JuzawebResouceMakeCommand extends ResourceCommand
 {
     /**
      * The name of argument being used.
@@ -58,11 +58,11 @@ class JwResouceMakeCommand extends ResourceCommand
 
         //$this->makeModel($model);
 
-        $this->makeDataTable($model);
+        //$this->makeDataTable($model);
 
         //$this->makeController($table, $model);
 
-        //$this->makeViews($table);
+        $this->makeViews($table);
     }
 
     /**

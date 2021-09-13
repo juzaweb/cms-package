@@ -9,9 +9,15 @@
         <input type="hidden" name="id" value="{{ $model->id }}">
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
 
                 $FORM_COL1$
+
+            </div>
+
+            <div class="col-md-4">
+
+                $FORM_COL2$
 
             </div>
         </div>

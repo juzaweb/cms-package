@@ -9,7 +9,7 @@ use $MODULE_NAMESPACE$Models\$MODEL_NAME$;
 
 class $CLASS$ extends ResourceController
 {
-    protected $viewPrefix = 'juzaweb::backend.$TABLE_NAME$';
+    protected $viewPrefix = '$MODULE_DOMAIN$::backend.$TABLE_NAME$';
 
     protected function getDataTable()
     {

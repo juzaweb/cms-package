@@ -156,7 +156,7 @@ class DatatableMakeCommand extends GeneratorCommand
             ]);
 
             $data['USE_NAMESPACE'] = $this->stubRender('resource/datatable/use-namespaces.stub', [
-                'NAMESPACE' => str_replace('/', '\\', $module->getStudlyName()) . '\Models\\' . $model,
+                'NAMESPACE' => str_replace('/', '\\', $module->getStudlyName()) . '\Models\\' . $model . "\n",
             ]);
 
             $data['BULK_ACTIONS'] = $this->stubRender('resource/datatable/bulk-actions.stub', [
