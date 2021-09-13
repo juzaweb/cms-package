@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Juzaweb\Http\Controllers\Frontend\PostController;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
@@ -41,6 +42,7 @@ class HookAction
             'base' => '',
             'key' => $key,
             'callback' => '',
+            'post_type' => '',
             'position' => 20,
         ], $args));
 
@@ -335,6 +337,8 @@ class HookAction
                 'label' => $args->get('label'),
                 'base' => $args->get('singular'),
                 'priority' => $args->get('priority'),
+                'callback' => PostController::class,
+                'post_type' => $key,
             ]);
         }
     }

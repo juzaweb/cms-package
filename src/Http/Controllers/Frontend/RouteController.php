@@ -15,7 +15,6 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
-use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 
 class RouteController extends FrontendController
@@ -24,20 +23,17 @@ class RouteController extends FrontendController
     {
         $slug = explode('/', $slug);
         $base = apply_filters('theme.permalink.base', $slug[0], $slug);
-        $permalinks = $this->getPermalinks();
-        $permalink = $permalinks->where('base', $base)->first();
+        $permalink = $this->getPermalinks($base);
 
         if ($permalink && $callback = $permalink->get('callback')) {
-            unset($slug[0]);
             return $this->callController($callback, 'index', $slug);
         }
 
-        return $this->callController(PageController::class, 'index', $slug);
-    }
-
-    protected function getPermalinks()
-    {
-        return collect(HookAction::getPermalinks());
+        return $this->callController(
+            PageController::class,
+            'index',
+            $slug
+        );
     }
 
     protected function callController($callback, $method = 'index', $parameters = [])

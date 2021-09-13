@@ -4,6 +4,7 @@ namespace Juzaweb\Http\Controllers;
 
 use Illuminate\Support\Arr;
 use Juzaweb\Facades\Theme;
+use Juzaweb\Facades\HookAction;
 
 class FrontendController extends Controller
 {
@@ -43,5 +44,16 @@ class FrontendController extends Controller
                 echo '<link rel="stylesheet" href="'. Theme::assets($item) .'?v='. $version .'">';
             }
         }, 10);
+    }
+
+    protected function getPermalinks($base = null)
+    {
+        if ($base) {
+            return collect(HookAction::getPermalinks())
+                ->where('base', $base)
+                ->first();
+        }
+
+        return collect(HookAction::getPermalinks());
     }
 }

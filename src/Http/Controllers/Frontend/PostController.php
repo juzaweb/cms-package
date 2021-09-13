@@ -11,18 +11,51 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Juzaweb\Http\Controllers\FrontendController;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Post;
 
 class PostController extends FrontendController
 {
     public function index(...$slug)
     {
-        $title = trans('juzaweb::app.title');
+        if (count($slug) > 1) {
+            return $this->detail(...$slug);
+        }
+
+        $title = get_config('title');
         $posts = Post::wherePublish()->paginate(10);
 
         return view('theme::post.index', compact(
             'posts',
             'title'
+        ));
+    }
+
+    public function detail(...$slug)
+    {
+        $base = $slug[0];
+        $postSlug = $slug[1];
+
+        $permalink = $this->getPermalinks($base);
+
+        $view = 'theme::post.detail';
+        if ($base != 'post') {
+            $typeView = "theme::post.{$base}.detail";
+            if (view()->exists($typeView)) {
+                $view = $typeView;
+            }
+        }
+
+        $postType = HookAction::getPostTypes($permalink->get('post_type'));
+        $post = app($postType->get('model'))
+            ->where('slug', $postSlug)
+            ->firstOrFail();
+
+        $title = $post->getTitle();
+
+        return view($view, compact(
+            'title',
+            'post'
         ));
     }
 }
