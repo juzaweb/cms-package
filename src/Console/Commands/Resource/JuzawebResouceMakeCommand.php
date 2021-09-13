@@ -62,7 +62,13 @@ class JuzawebResouceMakeCommand extends ResourceCommand
 
         //$this->makeController($table, $model);
 
-        $this->makeViews($table);
+        //$this->makeViews($table);
+
+        $routePath = $this->module->getPath() . '/src/routes/admin.php';
+        $this->info('Add resource route ' . $routePath);
+
+        $content = "Route::jwResource('{$table}', 'Backend\\{$model}Controller');";
+        file_put_contents($routePath, PHP_EOL.$content.PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 
     /**
