@@ -10,11 +10,11 @@
 
 namespace Juzaweb\Abstracts;
 
-use Juzaweb\Traits\ResourceController;
+use Juzaweb\Traits\PostTypeController as PostTypeControllerTrait;
 
-abstract class ResourceControllerAbstract
+abstract class PostTypeController
 {
-    use ResourceController;
+    use PostTypeControllerTrait;
 
 
 }

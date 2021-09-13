@@ -1,7 +1,22 @@
 @extends('juzaweb::layouts.backend')
 
 @section('content')
-    <h1>Hello World</h1>
+    @component('juzaweb::components.form_resource', [
+        'action' => $model->id ? route('admin.$ROUTE_NAME$.update', [$model->id]) : route('admin.$ROUTE_NAME$.store'),
+        'method' => $model->id ? 'put' : 'post'
+    ])
 
+        <input type="hidden" name="id" value="{{ $model->id }}">
 
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+
+            <div class="col-md-4">
+
+            </div>
+        </div>
+
+    @endcomponent
 @endsection

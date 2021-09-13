@@ -2,23 +2,36 @@
 
 namespace $CLASS_NAMESPACE$;
 
-use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Abstracts\ResourceController;
+use Illuminate\Support\Facades\Validator;
+use $MODULE_NAMESPACE$Http\Datatable\$DATATABLE$;
+use $MODULE_NAMESPACE$Models\$MODEL_NAME$;
 
-class $CLASS$ extends BackendController
+class $CLASS$ extends ResourceController
 {
-    protected $viewPrefix = 'juzaweb::backend.email_template';
+    protected $viewPrefix = 'juzaweb::backend.$TABLE_NAME$';
 
     protected function getDataTable()
     {
-        return new EmailTemplateDataTable();
+        return new $DATATABLE$();
     }
 
-    public function index()
+    protected function validator(array $attributes)
     {
-        //
-
-        return view('$DOMAIN_NAME$::index', [
-            'title' => 'Title Page',
+        $validator = Validator::make($attributes, [
+            // Rules
         ]);
+
+        return $validator;
+    }
+
+    protected function getModel()
+    {
+        return $MODEL_NAME$::class;
+    }
+
+    protected function getTitle()
+    {
+        return trans('$MODULE_DOMAIN$::content.$TABLE_NAME$');
     }
 }

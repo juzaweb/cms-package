@@ -29,7 +29,7 @@ use Illuminate\Support\Str;
  */
 trait PostTypeModel
 {
-    use ResourceModel, UseSlug, UseThumbnail;
+    use ResourceModel, UseSlug, UseThumbnail, UseChangeBy;
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder

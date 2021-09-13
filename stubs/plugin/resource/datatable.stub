@@ -5,7 +5,7 @@ namespace $CLASS_NAMESPACE$;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
-use Juzaweb\Models\EmailTemplate;
+$USE_NAMESPACE$
 
 class $CLASS$ extends DataTable
 {
@@ -17,14 +17,10 @@ class $CLASS$ extends DataTable
     public function columns()
     {
         return [
-            'subject' => [
-                'label' => trans('juzaweb::app.subject'),
-                'formatter' => [$this, 'rowActionsFormatter'],
-            ],
-            'code' => [
-                'label' => trans('juzaweb::app.code'),
-                'width' => '15%',
-            ],
+            // 'title' => [
+            //     'label' => trans('juzaweb::app.title'),
+            //     'formatter' => [$this, 'rowActionsFormatter'],
+            // ],
             'created' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
@@ -44,24 +40,11 @@ class $CLASS$ extends DataTable
      */
     public function query($data)
     {
-        $query = EmailTemplate::query();
-
-        if ($keyword = Arr::get($data, 'keyword')) {
-            $query->where(function (Builder $q) use ($keyword) {
-                $q->orWhere('code', 'like', '%'. $keyword .'%');
-                $q->orWhere('subject', 'like', '%'. $keyword .'%');
-            });
-        }
-
-        return $query;
+        $QUERY_TABLE$
     }
 
     public function bulkActions($action, $ids)
     {
-        switch ($action) {
-            case 'delete':
-                EmailTemplate::destroy($ids);
-                break;
-        }
+        $BULK_ACTIONS$
     }
 }

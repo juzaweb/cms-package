@@ -13,6 +13,16 @@ class UpdateDatabaseV106 extends Migration
             $table->string('email_hook', 100)->nullable();
         });
 
+        Schema::table('posts', function (Blueprint $table) {
+            $table->bigInteger('created_by')->nullable()->index();
+            $table->bigInteger('updated_by')->nullable()->index();
+        });
+
+        Schema::table('pages', function (Blueprint $table) {
+            $table->bigInteger('created_by')->nullable()->index();
+            $table->bigInteger('updated_by')->nullable()->index();
+        });
+
         DB::table('email_templates')
             ->where('code', '=', 'verification')
             ->update(['email_hook' => 'register_success']);
@@ -22,6 +32,14 @@ class UpdateDatabaseV106 extends Migration
     {
         Schema::table('email_templates', function (Blueprint $table) {
             $table->dropColumn('email_hook');
+        });
+
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn(['created_by', 'updated_by']);
+        });
+
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropColumn(['created_by', 'updated_by']);
         });
     }
 }
