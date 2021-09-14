@@ -43,7 +43,7 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            'juzaweb::app.dashboard',
+            trans('juzaweb::app.dashboard'),
             'dashboard',
             [
                 'icon' => 'fa fa-dashboard',
@@ -53,7 +53,7 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            'juzaweb::app.updates',
+            trans('juzaweb::app.updates'),
             'updates',
             [
                 'icon' => 'fa fa-refresh',

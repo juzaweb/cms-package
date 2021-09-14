@@ -104,6 +104,7 @@ class HookAction
         $opts = [
             'title' => $menuTitle,
             'key' => $menuSlug,
+            'slug' => str_replace('.', '-', $menuSlug),
             'icon' => 'fa fa-list-ul',
             'url' => str_replace('.', '/', $menuSlug),
             'parent' => null,
