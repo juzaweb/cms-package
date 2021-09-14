@@ -68,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
         'status'
     ];
 
+    public function posts()
+    {
+
+    }
+
     public static function getAllStatus()
     {
         return [

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="col-form-label" for="{{ $name }}">
-        {{ $label ?? $name }} @if($required) <abbr>*</abbr> @endif
+        {{ $label ?? $name }} @if($required ?? false) <abbr>*</abbr> @endif
     </label>
 
     <input

@@ -7,16 +7,16 @@ $items = app($postType->get('model'))
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" href="javascript:void(0);" data-toggle="tab">{{ trans('juzaweb::app.latest') }}</a>
+        <a class="nav-link active" id="box-{{ $key }}-latest-label" href="#box-{{ $key }}-latest-tab" data-toggle="tab">{{ trans('juzaweb::app.latest') }}</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);" data-toggle="tab">{{ trans('juzaweb::app.search') }}</a>
+        <a class="nav-link" id="box-{{ $key }}-search-label" href="#box-{{ $key }}-search-tab" data-toggle="tab">{{ trans('juzaweb::app.search') }}</a>
     </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade p-2 active show" id="box-{{ $key }}-latest" role="tabpanel" aria-labelledby="box-{{ $key }}-latest-tab">
+    <div class="tab-pane fade p-2 active show" id="box-{{ $key }}-latest-tab" role="tabpanel" aria-labelledby="box-{{ $key }}-latest-label">
         @foreach($items ?? [] as $item)
             <div class="form-check mt-1">
                 <label class="form-check-label">
@@ -38,8 +38,23 @@ $items = app($postType->get('model'))
         </div>
     </div>
 
-    <div class="tab-pane fade p-2" id="box-{{ $key }}-search" role="tabpanel" aria-labelledby="box-{{ $key }}-tab">
+    <div class="tab-pane fade p-2" id="box-{{ $key }}-search-tab" role="tabpanel" aria-labelledby="box-{{ $key }}-search-label">
+        <input class="form-control menu-box-post-type-search" type="text" placeholder="{{ trans('juzaweb::app.search') }}" data-post_type="{{ $postType->get('key') }}" >
 
+        <div class="box-tab-search-result mt-2">
+
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input select-all-checkbox" type="checkbox" data-select="select-all-search-{{ $key }}">
+                        {{ trans('juzaweb::app.select_all') }}
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

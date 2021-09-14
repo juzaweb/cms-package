@@ -344,5 +344,6 @@ return [
     'verify_token' => 'Verify token',
     'update_now' => 'Update now',
     'url_slug' => 'URL Slug',
+    'text' => 'Text',
 ];
 

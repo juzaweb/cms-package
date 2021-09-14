@@ -56,10 +56,6 @@ class Post extends Model
     protected $searchFields = [
         'title',
     ];
-    
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'post_id', 'id');
-    }
+
 
 }

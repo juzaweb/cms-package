@@ -4,6 +4,6 @@
 </div>
 
 <div class="form-group">
-    <label class="col-form-label">{{ trans('juzaweb::app.link_text') }}</label>
+    <label class="col-form-label">{{ trans('juzaweb::app.text') }}</label>
     <input type="text" class="form-control reset-after-add" name="label" autocomplete="off" required>
 </div>

@@ -33,11 +33,11 @@ class PageController extends FrontendController
         /**
          * @var Config $theme
          */
-        $theme = $this->getThemeInfo();
+        $theme = jw_theme_info();
         $view = $this->getViewPage($page, $theme);
 
         $params = [
-            'page' => $page,
+            'post' => $page,
             'title' => $page->name,
             'theme' => $theme,
         ];
@@ -59,7 +59,6 @@ class PageController extends FrontendController
      */
     protected function getViewPage(Page $page, $themeInfo)
     {
-        $view = 'theme::page.index';
         if (!empty($page->template)) {
             $templates = $themeInfo->get('templates');
             $templateView = $templates[$page->template]['view'] ?? null;
@@ -67,6 +66,13 @@ class PageController extends FrontendController
 
             if (view()->exists($templateView)) {
                 $view = $templateView;
+            }
+        }
+
+        if (empty($view)) {
+            $view = 'theme::post.content-page';
+            if (!view()->exists($view)) {
+                $view = 'theme::post.content';
             }
         }
 

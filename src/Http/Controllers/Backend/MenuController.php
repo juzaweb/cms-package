@@ -20,7 +20,7 @@ class MenuController extends BackendController
         $navMenus = GlobalData::get('nav_menus');
         $location = get_theme_config('nav_location');
 
-        $this->loadMenuBoxs();
+        add_action('juzaweb.add_menu_items', [$this, 'addMenuBoxs']);
 
         if (empty($id)) {
             $menu = Menu::first();
@@ -149,20 +149,16 @@ class MenuController extends BackendController
         ]);
     }
 
-    protected function loadMenuBoxs()
+    public function addMenuBoxs()
     {
         $menuBoxs = GlobalData::get('menu_boxs');
+
         foreach ($menuBoxs as $key => $item) {
-            add_action('juzaweb.add_menu_items', function () use (
-                $key,
-                $item
-            ) {
-                echo e(view('juzaweb::backend.items.menu_box', [
-                    'label' => $item['title'],
-                    'key' => $key,
-                    'slot' => $item['menu_box']->addView()->render()
-                ]));
-            });
+            echo e(view('juzaweb::backend.items.menu_box', [
+                'label' => $item['title'],
+                'key' => $key,
+                'slot' => $item['menu_box']->addView()->render()
+            ]));
         }
     }
 }

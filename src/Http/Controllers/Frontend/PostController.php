@@ -38,9 +38,9 @@ class PostController extends FrontendController
 
         $permalink = $this->getPermalinks($base);
 
-        $view = 'theme::post.detail';
+        $view = 'theme::post.content';
         if ($base != 'post') {
-            $typeView = "theme::post.{$base}.detail";
+            $typeView = "theme::post.content-{$base}";
             if (view()->exists($typeView)) {
                 $view = $typeView;
             }
