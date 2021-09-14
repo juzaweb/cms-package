@@ -369,6 +369,7 @@ abstract class Plugin
 
         $this->activator->enable($this);
         $this->runMigrate();
+        $this->publishAssets();
         $this->flushCache();
 
         $this->fireEvent('enabled');
@@ -457,6 +458,13 @@ abstract class Plugin
         Artisan::call('plugin:migrate', [
             'module' => $this->name,
             '--force' => true
+        ]);
+    }
+
+    private function publishAssets()
+    {
+        Artisan::call('plugin:publish', [
+            'module' => $this->name,
         ]);
     }
 }

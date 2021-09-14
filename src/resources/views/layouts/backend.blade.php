@@ -39,12 +39,13 @@
 
         <div class="juzaweb__menuLeft__outer">
             <div class="juzaweb__menuLeft__logo__container">
-                <a href="/{{ config('juzaweb.admin_prefix') }}/dashboard">
+                <a href="/{{ config('juzaweb.admin_prefix') }}">
                 <div class="juzaweb__menuLeft__logo">
                     <img src="{{ asset('vendor/juzaweb/styles/images/logo.svg') }}" class="mr-2" alt="Juzaweb">
                     <div class="juzaweb__menuLeft__logo__name">Juzaweb</div>
                     <div class="juzaweb__menuLeft__logo__descr">Cms</div>
                 </div>
+
                 </a>
                 {{--<div class="juzaweb__menuLeft__logo">
                     <div class="juzaweb__menuLeft__logo__name">

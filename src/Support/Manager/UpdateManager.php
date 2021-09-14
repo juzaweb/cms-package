@@ -75,9 +75,9 @@ class UpdateManager
             'current_version' => $this->getCurrentVersion(),
         ]);
 
-        /* if (empty($response->update)) {
+        if (empty($response->update)) {
             return false;
-        }*/
+        }
 
         $this->response = $response;
 
@@ -133,9 +133,22 @@ class UpdateManager
         switch ($this->tag) {
             case 'core':
                 Artisan::call('migrate', ['--force' => true]);
+                Artisan::call('vendor:publish', [
+                    '--tag' => 'juzaweb_assets',
+                    '--force' => true
+                ]);
                 break;
             case 'plugin':
-                Artisan::call('plugin:migrate ' . $this->val, ['--force' => true]);
+                $plugin = app('modules')->find($this->val);
+                $plugin->enable();
+                break;
+            case 'theme':
+                if ($this->val == get_config('activated_theme', 'default')) {
+                    Artisan::call('theme:publish', [
+                        'theme' => $this->val,
+                        'type' => 'assets',
+                    ]);
+                }
         }
     }
 

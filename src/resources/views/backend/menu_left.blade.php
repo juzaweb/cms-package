@@ -48,7 +48,7 @@
             @component('juzaweb::backend.items.menu_left_item', [
                 'adminUrl' => $adminUrl,
                 'item' => $item,
-                'active' => false
+                'active' => request()->is($adminPrefix .'/'. $item->get('url') . '*'),
             ])
             @endcomponent
         @endif
