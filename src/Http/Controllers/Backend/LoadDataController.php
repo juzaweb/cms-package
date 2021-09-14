@@ -4,6 +4,7 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
 use Juzaweb\Models\User;
@@ -21,6 +22,14 @@ class LoadDataController extends BackendController
         return response()->json([
             'status' => 'error',
             'message' => 'Function not found',
+        ]);
+    }
+
+    protected function generateSlug(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'slug' => Str::slug(Str::words($request->input('title'), 15))
         ]);
     }
 

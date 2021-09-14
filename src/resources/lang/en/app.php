@@ -343,5 +343,6 @@ return [
     'user_email' => 'User email',
     'verify_token' => 'Verify token',
     'update_now' => 'Update now',
+    'url_slug' => 'URL Slug',
 ];
 

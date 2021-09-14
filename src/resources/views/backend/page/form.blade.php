@@ -9,10 +9,15 @@
         <div class="row">
             <div class="col-md-8">
 
-                <div class="form-group">
-                    <label class="col-form-label" for="title">@lang('juzaweb::app.title')</label>
-                    <input type="text" name="title" class="form-control" id="title" value="{{ $model->title }}" autocomplete="off" required>
-                </div>
+                @component('juzaweb::components.form_input', [
+                    'label' => trans('juzaweb::app.title'),
+                    'name' => 'title',
+                    'value' => $model->title,
+                    'required' => true,
+                    'options' => [
+                        'class' => empty($model->slug) ? 'generate-slug' : '',
+                    ],
+                ])@endcomponent
 
                 @component('juzaweb::components.form_ckeditor', [
                     'label' => trans('juzaweb::app.content'),
@@ -33,6 +38,12 @@
                 ])
                 @endcomponent
 
+                @component('juzaweb::components.form_slug', [
+                    'label' => trans('juzaweb::app.slug'),
+                    'name' => 'slug',
+                    'value' => $model->slug,
+                ])@endcomponent
+
                 @component('juzaweb::components.form_select', [
                     'label' => trans('juzaweb::app.template'),
                     'name' => 'template',
@@ -49,6 +60,7 @@
                     'value' => $model->thumbnail
                 ])
                 @endcomponent
+
             </div>
         </div>
 

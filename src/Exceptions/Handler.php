@@ -47,13 +47,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        /*if ($exception instanceof NotFoundHttpException) {
-            if ($request->is(config('ad') . '/*')) {
-                return view('admin.404');
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->is(config('juzaweb.admin_prefix') . '/*')) {
+                return view('juzaweb::404');
             }
 
-            return view('user.404');
-        }*/
+            if (view()->exists('theme::404')) {
+                return view('user.404');
+            }
+
+            return view('juzaweb::404');
+        }
 
         return parent::render($request, $exception);
     }
