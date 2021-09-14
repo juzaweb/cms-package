@@ -39,7 +39,7 @@ class TaxonomyDataTable extends DataTable
                 'width' => '15%',
                 'align' => 'center',
             ],
-            'created' => [
+            'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
                 'align' => 'center',

@@ -39,7 +39,7 @@ class PostTypeDataTable extends DataTable
                 'label' => trans('juzaweb::app.title'),
                 'formatter' => [$this, 'rowActionsFormatter']
             ],
-            'created' => [
+            'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
                 'formatter' => function ($value, $row, $index) {

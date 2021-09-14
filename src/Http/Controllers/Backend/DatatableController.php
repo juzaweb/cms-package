@@ -32,18 +32,20 @@ class DatatableController extends BackendController
         $query->limit($limit);
         $rows = $query->get();
 
+        $results = [];
         $columns = $table->columns();
         foreach ($rows as $index => $row) {
+            $results[$index] = (object) $row->toArray();
             foreach ($columns as $key => $column) {
                 if (!empty($column['formatter'])) {
-                    $row->{$key} = $column['formatter']($row->{$key}, $row, $index);
+                    $results[$index]->{$key} = $column['formatter']($row->{$key}, $row, $index);
                 }
             }
         }
 
         return response()->json([
             'total' => $count,
-            'rows' => $rows
+            'rows' => $results
         ]);
     }
 

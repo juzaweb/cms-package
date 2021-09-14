@@ -33,7 +33,7 @@ class EmailTemplateDataTable extends DataTable
                 'label' => trans('juzaweb::app.code'),
                 'width' => '15%',
             ],
-            'created' => [
+            'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
                 'align' => 'center',
