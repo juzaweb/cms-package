@@ -59,6 +59,11 @@ return [
         'assets' => public_path('plugins'),
     ],
 
+    'performance' => [
+        'minify_views' => true,
+        'deny_iframe' => true,
+    ],
+
     'filemanager' => [
         'disk' => 'public',
         'types' => [

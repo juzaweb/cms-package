@@ -1,8 +1,7 @@
 <?php
 
-namespace Tadcms\System\Helpers;
+namespace Juzaweb\Support;
 
-use Juzaweb\Support\Blade;
 use Illuminate\View\Compilers\BladeCompiler as BaseCompiler;
 
 class BladeMinifyCompiler extends BaseCompiler
@@ -29,9 +28,9 @@ class BladeMinifyCompiler extends BaseCompiler
     protected function minifyString($value)
     {
         return Blade::minify($value, [
-            'cssMinifier' => [\Minify_CSSmin::class, 'minify'],
+            //'cssMinifier' => [CSSMin::class, 'minify'],
             'jsMinifier' => function ($contents) {
-                return \JSMin\JSMin::minify($contents);
+                return JSMin::minify($contents);
             },
         ]);
     }
