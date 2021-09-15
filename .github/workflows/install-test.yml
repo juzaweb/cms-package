@@ -1,5 +1,5 @@
 on: push
-name: Run phpunit testsuite
+name: Run phpunit test suite
 jobs:
   phpunit-test-suite:
     runs-on: ubuntu-latest
@@ -17,9 +17,13 @@ jobs:
 
       - name: Install composer dependencies
         run: |
-          composer require "juzaweb/laravel-cms:dev-master" "juzaweb/cms:dev-master" -q --no-interaction --no-update
-          composer update --prefer-dist --no-interaction --no-suggest
-      - name: Run Install
-        run: php artisan juzaweb:install
+          composer create-project juzaweb/laravel-cms .
+          composer require juzaweb/cms:dev-master
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
       - name: Run Tests
         run: vendor/bin/phpunit vendor/juzaweb/cms
