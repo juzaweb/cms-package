@@ -544,10 +544,60 @@ class HookAction
         return new Collection(GlobalData::get('email_hooks'));
     }
 
+    public function getWidgets($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('widgets'), $key);
+        }
+
+        return new Collection(GlobalData::get('widgets'));
+    }
+
+    public function getSidebars($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('sidebars'), $key);
+        }
+
+        return new Collection(GlobalData::get('sidebars'));
+    }
+
+    public function registerSidebar($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'key' => $key,
+            'description' => '',
+            'before_widget' => '',
+            'after_widget'  => '',
+            'before_title'  => '',
+            'after_title'   => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('sidebars.' . $key, new Collection($args));
+    }
+
+    public function registerWidget($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'description' => '',
+            'key' => $key,
+            'widget' => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('widgets.' . $key, new Collection($args));
+    }
+
     public function registerPageBlock($key, $args = [])
     {
         $defaults = [
             'label' => '',
+            'description' => '',
             'key' => $key,
             'block' => '',
         ];

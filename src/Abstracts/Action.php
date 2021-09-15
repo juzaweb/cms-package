@@ -24,6 +24,7 @@ abstract class Action
     const PERMALINKS_SAVED_ACTION = 'permalinks.saved';
     const BACKEND_HEADER_ACTION = 'juzaweb_header';
     const BACKEND_FOOTER_ACTION = 'juzaweb_footer';
+    const WIDGETS_INIT = 'juzaweb.widget_init';
 
     const DATATABLE_SEARCH_FIELD_TYPES_FILTER = 'datatable.search_field_types';
 
