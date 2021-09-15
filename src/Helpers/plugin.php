@@ -17,16 +17,6 @@ if (! function_exists('plugin_path')) {
     }
 }
 
-if (!function_exists('get_logo')) {
-    function get_logo()
-    {
-        return upload_url(
-            get_config('logo'),
-            asset('vendor/juzaweb/styles/images/logo.svg')
-        );
-    }
-}
-
 function namespace_snakename(string $namespace)
 {
     return Str::snake(preg_replace('/[^0-9a-z]/', ' ', strtolower($namespace)));

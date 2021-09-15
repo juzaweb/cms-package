@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Juzaweb\Models\MenuItem;
 
-abstract class MenuBoxAbstract
+abstract class MenuBox
 {
     /**
      * Get data from request

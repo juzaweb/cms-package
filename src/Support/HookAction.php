@@ -526,6 +526,7 @@ class HookAction
     {
         $defaults = [
             'label' => '',
+            'key' => $key,
             'params' => [],
         ];
 
@@ -541,5 +542,18 @@ class HookAction
         }
 
         return new Collection(GlobalData::get('email_hooks'));
+    }
+
+    public function registerPageBlock($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'key' => $key,
+            'block' => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('page_blocks.' . $key, new Collection($args));
     }
 }

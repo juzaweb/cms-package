@@ -10,10 +10,10 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBox;
 use Juzaweb\Facades\HookAction;
 
-class PostTypeMenuBox extends MenuBoxAbstract
+class PostTypeMenuBox extends MenuBox
 {
     protected $key;
     protected $postType;

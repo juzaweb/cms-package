@@ -13,7 +13,7 @@ namespace Juzaweb\Abstracts;
 use Illuminate\Support\Collection;
 use Juzaweb\Support\Theme\Customize;
 
-abstract class CustomizeControlAbstract
+abstract class CustomizeControl
 {
     /**
      * @var Customize $customize

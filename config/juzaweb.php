@@ -48,6 +48,8 @@ return [
          */
         'enable_upload' => true,
 
+        'path' => base_path('plugins'),
+
         /**
          * Plugins assets path
          *

@@ -11,13 +11,15 @@
 $loader = require JW_BASEPATH . '/vendor/autoload.php';
 
 $pluginFile = JW_BASEPATH . '/bootstrap/cache/plugins_statuses.php';
+$themeFile = JW_BASEPATH . '/bootstrap/cache/theme_statuses.php';
+
 if (file_exists($pluginFile)) {
     $plugins = require $pluginFile;
     $pluginsFolder = JW_BASEPATH . '/plugins';
 
     foreach ($plugins as $pluginInfo) {
         foreach ($pluginInfo as $key => $item) {
-            $path = $pluginsFolder . '/' . $item['path'];
+            $path = is_dir($item['path']) ? $item['path'] : $pluginsFolder . '/' . $item['path'];
             $namespace = $item['namespace'] ?? '';
 
             if (is_dir($path) && $namespace) {
@@ -25,5 +27,22 @@ if (file_exists($pluginFile)) {
             }
         }
     }
+}
+
+$themePath = JW_BASEPATH . '/themes';
+
+if (file_exists($themeFile)) {
+    $theme = require $themeFile;
+} else {
+    $theme = [
+        'namespace' => 'Theme\\',
+        'path' => $themePath . '/default/src',
+    ];
+}
+
+$path = is_dir($theme['path']) ? $theme['path'] : $themePath . '/' . $theme['path'];
+
+if (is_dir($path)) {
+    $loader->setPsr4('Theme\\', [$path]);
 }
 

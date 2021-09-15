@@ -13,6 +13,7 @@ use Juzaweb\Models\Menu;
 use Juzaweb\Support\Theme\MenuBuilder;
 use Juzaweb\Facades\ThemeConfig;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 
 function body_class($class = '')
 {
@@ -209,5 +210,29 @@ if (!file_exists('get_menu_by_theme_location')) {
         }
 
         return null;
+    }
+}
+
+if (!function_exists('get_logo')) {
+    function get_logo()
+    {
+        return upload_url(
+            get_config('logo'),
+            asset('vendor/juzaweb/styles/images/logo.svg')
+        );
+    }
+}
+
+if (!function_exists('is_home')) {
+    function is_home()
+    {
+        return Route::currentRouteName() == 'home';
+    }
+}
+
+if (!function_exists('page_block')) {
+    function page_block($key)
+    {
+
     }
 }
