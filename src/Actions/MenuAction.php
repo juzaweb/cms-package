@@ -91,8 +91,8 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.menu'),
-            'menu',
+            trans('juzaweb::app.widgets'),
+            'widgets',
             [
                 'icon' => 'fa fa-list',
                 'position' => 2,
@@ -101,10 +101,20 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.editor'),
-            'editor',
+            trans('juzaweb::app.menus'),
+            'menus',
             [
-                'icon' => 'fa fa-edit',
+                'icon' => 'fa fa-list',
+                'position' => 2,
+                'parent' => 'appearance',
+            ]
+        );
+
+        HookAction::addAdminMenu(
+            trans('juzaweb::app.background'),
+            'customize',
+            [
+                'icon' => 'fa fa-wrench',
                 'position' => 30,
                 'parent' => 'appearance',
                 'turbolinks' => false,

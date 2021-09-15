@@ -27,3 +27,22 @@ Route::group(['prefix' => 'permalinks'], function () {
     Route::post('/save', 'Backend\PermalinkController@save')->name('admin.permalink.save');
 });
 
+Route::group(['prefix' => 'menus'], function () {
+    Route::get('/', 'Backend\MenuController@index')->name('admin.menu');
+    Route::get('/{id}', 'Backend\MenuController@index')->name('admin.menu.id');
+    Route::post('/store', 'Backend\MenuController@store')->name('admin.menu.store');
+    Route::put('/{id}', 'Backend\MenuController@update')->name('admin.menu.update');
+    Route::delete('/{id}', 'Backend\MenuController@destroy')->name('admin.menu.destroy');
+    Route::post('/add-item', 'Backend\MenuController@addItem')->name('admin.menu.add-item');
+});
+
+Route::group(['prefix' => 'customize'], function () {
+    Route::get('/', 'Backend\ThemeEditorController@index')->name('admin.editor');
+
+    Route::post('/save', 'Backend\ThemeEditorController@save')->name('admin.editor.save');
+});
+
+Route::group(['prefix' => 'widgets'], function () {
+    Route::get('/', 'Backend\WidgetController@index')->name('admin.widget');
+
+});

@@ -2,6 +2,7 @@
 
 return [
     'home' => 'Home',
+    'widgets' => 'Widgets',
     'dashboard' => 'Dashboard',
     'key' => 'Key',
     'code' => 'Code',
@@ -57,6 +58,7 @@ return [
     'theme' => 'Theme',
     'themes' => 'Themes',
     'menu' => 'Menu',
+    'menus' => 'Menus',
     'menu_not_found' => 'Menu not found',
     'plugins' => 'Plugins',
     'author' => 'Author',
@@ -345,6 +347,7 @@ return [
     'update_now' => 'Update now',
     'url_slug' => 'URL Slug',
     'text' => 'Text',
-    'blocks' => 'Blocks'
+    'blocks' => 'Blocks',
+    'background' => 'Background',
 ];
 
