@@ -21,8 +21,7 @@ class InstallTest extends TestCase
         $this->artisan('juzaweb:install')
             ->expectsQuestion('Full Name?', 'Taylor Otwell')
             ->expectsQuestion('Email?', 'demo@gmail.com')
-            ->expectsQuestion('Password?', '12345678')
-            ->assertExitCode(0);
+            ->expectsQuestion('Password?', '12345678');
 
 
     }

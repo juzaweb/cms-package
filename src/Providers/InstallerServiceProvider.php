@@ -28,7 +28,11 @@ class InstallerServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'juzaweb');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $mainPath = JW_PACKAGE_PATH . '/database/migrations';
+        $directories = glob($mainPath . '/*' , GLOB_ONLYDIR);
+        $paths = array_merge([$mainPath], $directories);
+
+        $this->loadMigrationsFrom($paths);
 
         parent::boot();
     }
