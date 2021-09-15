@@ -17,6 +17,9 @@ jobs:
 
       - name: Install composer dependencies
         run: |
-          composer require "juzaweb/laravel-cms" "juzaweb/cms:dev-master" -q --no-interaction --no-update
+          composer require "juzaweb/laravel-cms:dev-master" "juzaweb/cms:dev-master" -q --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-suggest
+      - name: Run Install
+        run: php artisan juzaweb:install
       - name: Run Tests
         run: vendor/bin/phpunit vendor/juzaweb/cms
