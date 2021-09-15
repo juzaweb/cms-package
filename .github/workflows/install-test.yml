@@ -26,8 +26,13 @@ jobs:
         run: |
           mkdir -p cms/database
           touch cms/database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Config database
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: cms/database/database.sqlite
-        run: cms/vendor/bin/phpunit cms/vendor/juzaweb/cms
+      - name: Install manual
+        run: |
+          cd cms
+          php artisan migrate
+      - name: Execute tests Feature
+        run: cms/vendor/bin/phpunit cms/vendor/juzaweb/cms/Feature
