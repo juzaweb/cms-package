@@ -1,7 +1,6 @@
 on: push
 name: Run phpunit test suite
 jobs:
-  build:
   phpunit-test-suite:
     runs-on: ubuntu-latest
 
