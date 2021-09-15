@@ -345,5 +345,6 @@ return [
     'update_now' => 'Update now',
     'url_slug' => 'URL Slug',
     'text' => 'Text',
+    'blocks' => 'Blocks'
 ];
 
