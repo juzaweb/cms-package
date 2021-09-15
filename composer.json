@@ -26,6 +26,9 @@
       },
       "files": [
         "src/Helpers/helpers.php"
+      ],
+      "classmap": [
+        "database/seeds"
       ]
     },
     "autoload-dev": {
