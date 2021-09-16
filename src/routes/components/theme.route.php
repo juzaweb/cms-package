@@ -44,5 +44,5 @@ Route::group(['prefix' => 'customize'], function () {
 
 Route::group(['prefix' => 'widgets'], function () {
     Route::get('/', 'Backend\WidgetController@index')->name('admin.widget');
-
+    Route::get('/get-item', 'Backend\WidgetController@getWidgetItem')->name('admin.widget');
 });

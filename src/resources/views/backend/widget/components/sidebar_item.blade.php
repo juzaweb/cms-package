@@ -1,4 +1,4 @@
-<div class="card sidebar-item">
+<div class="card sidebar-item" id="sidebar-{{ $item->get('key') }}">
     <div class="card-header">
         <h5>{{ $item->get('label') }}</h5>
 
@@ -10,23 +10,12 @@
     </div>
 
     <div class="card-body box-hidden">
-        <div class="dd jw-widget-builder">
+        <div class="dd jw-widget-builder" data-key="{{ $item->get('key') }}">
             <ol class="dd-list">
-                <li class="dd-item">
-                    <div class="dd-handle">
-                        <span>The following code</span>
-                        <a href="javascript:void(0)" class="dd-nodrag">
-                            <i class="fa fa-sort-down"></i>
-                        </a>
-                    </div>
 
-                    <div class="form-item-edit box-hidden">
-
-                    </div>
-                </li>
             </ol>
         </div>
     </div>
 </div>
 
-<textarea name="content" class="form-control box-hidden"></textarea>
+<textarea name="content" class="form-control box-hidden" id="items-output-{{ $item->get('key') }}"></textarea>

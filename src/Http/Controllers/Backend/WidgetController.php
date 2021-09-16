@@ -34,6 +34,28 @@ class WidgetController extends BackendController
 
     public function getWidgetItem(Request $request)
     {
+        $this->validate($request, [
+            'widget' => 'required',
+            'sidebars' => 'required|array',
+        ]);
 
+        do_action(Action::WIDGETS_INIT);
+
+        $widget = $request->get('widget');
+        $sidebars = $request->get('sidebars');
+
+        $widgetData = HookAction::getWidgets($widget);
+
+        $results = [];
+        foreach ($sidebars as $sidebar) {
+            $results[$sidebar] = view('juzaweb::backend.widget.components.sidebar_widget_item', [
+                'slot' => $widgetData['widget']->form(),
+            ])->render();
+        }
+
+        return response()->json([
+            'widget' => $widget,
+            'items' => $results
+        ]);
     }
 }
