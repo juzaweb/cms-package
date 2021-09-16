@@ -18,6 +18,7 @@ require __DIR__ . '/theme.php';
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Juzaweb\Facades\HookAction;
+use Juzaweb\Facades\XssCleaner;
 use Juzaweb\Support\Breadcrumb;
 use Juzaweb\Facades\Config;
 use Juzaweb\Models\User;
@@ -26,6 +27,13 @@ use Illuminate\Support\Str;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
+
+if (!function_exists('e_html')) {
+    function e_html($str)
+    {
+        return XssCleaner::clean($str);
+    }
+}
 
 if (!function_exists('get_client_ip')) {
     /**

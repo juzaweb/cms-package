@@ -11,16 +11,20 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 
 class WidgetController extends BackendController
 {
-    public function index()
+    public function __construct()
     {
         do_action(Action::WIDGETS_INIT);
+    }
 
+    public function index()
+    {
         $title = trans('juzaweb::app.widgets');
         $widgets = HookAction::getWidgets();
         $sidebars = HookAction::getSidebars();
@@ -32,14 +36,33 @@ class WidgetController extends BackendController
         ));
     }
 
+    public function updateWidget(Request $request, $key)
+    {
+        $content = $request->input('content');
+
+        set_theme_config('sidebar_' . $key, $content);
+
+        return $this->success([
+            'message' => trans('juzaweb::app.save_successfully')
+        ]);
+    }
+
+    public function update(Request $request, $key)
+    {
+        $content = $request->input('content');
+        set_theme_config('sidebar_' . $key, $content);
+
+        return $this->success([
+            'message' => trans('juzaweb::app.save_successfully')
+        ]);
+    }
+
     public function getWidgetItem(Request $request)
     {
         $this->validate($request, [
             'widget' => 'required',
             'sidebars' => 'required|array',
         ]);
-
-        do_action(Action::WIDGETS_INIT);
 
         $widget = $request->get('widget');
         $sidebars = $request->get('sidebars');
@@ -48,9 +71,11 @@ class WidgetController extends BackendController
 
         $results = [];
         foreach ($sidebars as $sidebar) {
+            $key = Str::random(10);
             $results[$sidebar] = view('juzaweb::backend.widget.components.sidebar_widget_item', [
-                'slot' => $widgetData['widget']->form(),
-                'label' => $widgetData->get('label')
+                'widget' => $widgetData,
+                'sidebar' => $sidebar,
+                'key' => $key
             ])->render();
         }
 

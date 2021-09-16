@@ -11,8 +11,7 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Support\Str;
+use Juzaweb\Facades\XssCleaner;
 
 /**
  * Juzaweb\Models\Model
@@ -24,5 +23,13 @@ use Illuminate\Support\Str;
  */
 class Model extends EloquentModel
 {
-    //
+    public function getAttribute($key)
+    {
+        $value = parent::getAttribute($key);
+        if (is_string($value)) {
+            return XssCleaner::clean($value);
+        }
+
+        return $value;
+    }
 }

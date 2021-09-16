@@ -2,9 +2,7 @@
 
 namespace Juzaweb\Models;
 
-use Juzaweb\Models\Comment;
 use Juzaweb\Traits\PostTypeModel;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Juzaweb\Models\Post

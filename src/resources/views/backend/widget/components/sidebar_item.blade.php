@@ -9,13 +9,12 @@
         </div>
     </div>
 
-    <div class="card-body box-hidden">
+    <div class="card-body @if(empty($show)) box-hidden @endif">
         <div class="dd jw-widget-builder" data-key="{{ $item->get('key') }}">
+
             <ol class="dd-list">
 
             </ol>
         </div>
     </div>
 </div>
-
-<textarea name="content" class="form-control box-hidden" id="items-output-{{ $item->get('key') }}"></textarea>

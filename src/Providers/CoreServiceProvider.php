@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Schema;
 use Juzaweb\Console\Commands\UpdateCommand;
 use Juzaweb\Contracts\GlobalDataContract;
 use Juzaweb\Contracts\HookActionContract;
+use Juzaweb\Contracts\XssCleanerContract;
 use Juzaweb\Support\GlobalData;
 use Juzaweb\Support\HookAction;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Console\Scheduling\Schedule;
+use Juzaweb\Support\XssCleaner;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -81,6 +83,10 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->app->singleton(GlobalDataContract::class, function () {
             return new GlobalData();
+        });
+
+        $this->app->singleton(XssCleanerContract::class, function () {
+            return new XssCleaner();
         });
     }
 }

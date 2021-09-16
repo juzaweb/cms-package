@@ -2,11 +2,11 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package juzawebcms/juzawebcms
+ * @package laravel-cms/cms
  * @author The Anh Dang
  *
  * Developed based on Laravel Framework
- * Github: https://github.com/juzawebcms/juzawebcms
+ * Github: https://juzaweb.com/cms
  */
 
 Route::group(['prefix' => 'themes'], function () {
@@ -44,5 +44,6 @@ Route::group(['prefix' => 'customize'], function () {
 
 Route::group(['prefix' => 'widgets'], function () {
     Route::get('/', 'Backend\WidgetController@index')->name('admin.widget');
-    Route::get('/get-item', 'Backend\WidgetController@getWidgetItem')->name('admin.widget');
+    Route::get('/get-item', 'Backend\WidgetController@getWidgetItem')->name('admin.widget.get-item');
+    Route::put('/{key}', 'Backend\WidgetController@update')->name('admin.widget.update');
 });

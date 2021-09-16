@@ -236,3 +236,11 @@ if (!function_exists('page_block')) {
 
     }
 }
+
+if (!function_exists('jw_get_sidebar')) {
+    function jw_get_sidebar($key)
+    {
+        $content = get_theme_config('sidebar_' . $key);
+        return collect($content);
+    }
+}

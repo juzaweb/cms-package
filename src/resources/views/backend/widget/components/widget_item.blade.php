@@ -16,7 +16,7 @@
                 @endforeach
             </div>
 
-            <div class="text-center">
+            <div class="text-center mb-2">
                 <input type="hidden" name="widget" value="{{ $key }}">
 
                 <button type="submit" class="btn btn-success btn-sm mt-2">{{ trans('juzaweb::app.add_widget') }}</button>

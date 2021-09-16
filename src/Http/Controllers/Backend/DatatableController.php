@@ -34,11 +34,14 @@ class DatatableController extends BackendController
 
         $results = [];
         $columns = $table->columns();
+
         foreach ($rows as $index => $row) {
-            $results[$index] = (object) $row->toArray();
-            foreach ($columns as $key => $column) {
-                if (!empty($column['formatter'])) {
-                    $results[$index]->{$key} = $column['formatter']($row->{$key}, $row, $index);
+            $attributes = $row->getAttributes();
+            foreach ($attributes as $col => $value) {
+                if (!empty($columns[$col]['formatter'])) {
+                    $results[$index][$col] = $columns[$col]['formatter']($row->{$col}, $row, $index);
+                } else {
+                    $results[$index][$col] = $row->{$col};
                 }
             }
         }

@@ -16,7 +16,6 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 use Juzaweb\Models\Taxonomy;

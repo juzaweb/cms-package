@@ -15,11 +15,19 @@
         </div>
 
         <div class="col-md-8">
+            @php
+            $index = 0;
+            @endphp
             @foreach($sidebars as $key => $sidebar)
                 @component('juzaweb::backend.widget.components.sidebar_item', [
-                    'item' => $sidebar
+                    'item' => $sidebar,
+                    'show' => $index == 0,
                 ])
                 @endcomponent
+
+                @php
+                    $index ++;
+                @endphp
             @endforeach
         </div>
     </div>
