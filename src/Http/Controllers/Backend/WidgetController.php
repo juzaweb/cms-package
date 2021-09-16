@@ -50,6 +50,7 @@ class WidgetController extends BackendController
         foreach ($sidebars as $sidebar) {
             $results[$sidebar] = view('juzaweb::backend.widget.components.sidebar_widget_item', [
                 'slot' => $widgetData['widget']->form(),
+                'label' => $widgetData->get('label')
             ])->render();
         }
 
