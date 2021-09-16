@@ -18,6 +18,4 @@ class Application extends BaseApplication
     {
         return 'Juzaweb';
     }
-
-
 }

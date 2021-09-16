@@ -1,12 +1,15 @@
-<div class="card">
-    <div class="card-header pt-0 pb-1">
-        {{ $item->get('label') }}
-        <div class="text-right">
-            <a href="javascript:void(0)"><i class="fa fa-sort-down fa-2x"></i></a>
+<div class="card sidebar-item">
+    <div class="card-header">
+        <h5>{{ $item->get('label') }}</h5>
+
+        <div class="text-right right-actions">
+            <a href="javascript:void(0)" class="show-edit-form">
+                <i class="fa fa-sort-down fa-2x"></i>
+            </a>
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body box-hidden">
         <div class="dd jw-widget-builder">
             <ol class="dd-list">
                 <li class="dd-item">
@@ -26,4 +29,4 @@
     </div>
 </div>
 
-<textarea name="content" id="items-output" class="form-control box-hidden"></textarea>
+<textarea name="content" class="form-control box-hidden"></textarea>

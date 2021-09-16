@@ -349,5 +349,7 @@ return [
     'text' => 'Text',
     'blocks' => 'Blocks',
     'background' => 'Background',
+    'add_widget' => 'Add widget',
+    'add_to' => 'Add to :name',
 ];
 

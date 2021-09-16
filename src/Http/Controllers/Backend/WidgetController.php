@@ -10,6 +10,7 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
@@ -29,5 +30,10 @@ class WidgetController extends BackendController
             'widgets',
             'sidebars'
         ));
+    }
+
+    public function getWidgetItem(Request $request)
+    {
+
     }
 }
