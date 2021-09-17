@@ -2,9 +2,10 @@
 
 namespace Juzaweb\Tests;
 
-define('JW_BASEPATH', __DIR__ . '/../../../');
+define('JW_BASEPATH', __DIR__ . '/../../../..');
 
 $autoloadPath = JW_BASEPATH . '/vendor/juzaweb/cms/src/Helpers/autoload.php';
+
 if (!file_exists($autoloadPath)) {
     echo 'Missing vendor files, try running "composer install" or use the Wizard installer.' . PHP_EOL;
     exit(1);
