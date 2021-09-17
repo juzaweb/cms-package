@@ -34,6 +34,5 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: |
           vendor/bin/phpunit vendor/juzaweb/cms/tests/Install
-          php artisan db:seed
           vendor/bin/phpunit vendor/juzaweb/cms/tests/Feature
         working-directory: cms

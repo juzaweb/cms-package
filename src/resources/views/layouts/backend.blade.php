@@ -71,7 +71,7 @@
         </div>
 
         <div class="juzaweb__layout__content">
-            @if(!request()->is(config('juzaweb.admin_prefix') . '/dashboard'))
+            @if(!request()->is(config('juzaweb.admin_prefix')))
                 {{ jw_breadcrumb('admin', [
                         [
                             'title' => $title

@@ -414,7 +414,7 @@ class HookAction
     {
         $taxonomies = collect(GlobalData::get('taxonomies'));
 
-        if (empty($taxonomies)) {
+        if (empty($taxonomies) || empty($postType)) {
             return $taxonomies;
         }
 

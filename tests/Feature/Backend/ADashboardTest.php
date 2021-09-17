@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Juzaweb\Models\User;
 use Juzaweb\Tests\TestCase;
 
-class PostTest extends TestCase
+class ADashboardTest extends TestCase
 {
     protected $user;
 
@@ -29,17 +29,8 @@ class PostTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->get('/admin-cp/posts');
+        $response = $this->get('/admin-cp');
 
         $response->assertStatus(200);
     }
-
-    public function testCreate()
-    {
-        $response = $this->get('/admin-cp/posts/create');
-
-        $response->assertStatus(200);
-    }
-
-
 }
