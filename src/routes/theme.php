@@ -8,6 +8,8 @@
  * @license    MIT
  */
 
+require __DIR__ . '/installer.php';
+
 Route::group([
     'middleware' => 'guest'
 ], function () {

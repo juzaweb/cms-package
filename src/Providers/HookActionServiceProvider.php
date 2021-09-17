@@ -11,6 +11,7 @@ namespace Juzaweb\Providers;
 use Illuminate\Support\Facades\File;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Support\ServiceProvider;
+use Juzaweb\Support\Installer;
 
 class HookActionServiceProvider extends ServiceProvider
 {
@@ -21,14 +22,16 @@ class HookActionServiceProvider extends ServiceProvider
                 app($action)->handle();
             }
 
-            $currentTheme = jw_current_theme();
-            Theme::set($currentTheme);
+            if (Installer::alreadyInstalled()) {
+                $currentTheme = jw_current_theme();
+                Theme::set($currentTheme);
 
-            $actionPath = Theme::getThemePath($currentTheme . '/src/Actions');
-            if (is_dir($actionPath)) {
-                $files = File::files($actionPath);
-                foreach ($files as $file) {
-                    app('Theme\Actions\\' . str_replace('.php', '', $file->getFilename()))->handle();
+                $actionPath = Theme::getThemePath($currentTheme . '/src/Actions');
+                if (is_dir($actionPath)) {
+                    $files = File::files($actionPath);
+                    foreach ($files as $file) {
+                        app('Theme\Actions\\' . str_replace('.php', '', $file->getFilename()))->handle();
+                    }
                 }
             }
 

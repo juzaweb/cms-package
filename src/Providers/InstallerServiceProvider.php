@@ -2,9 +2,11 @@
 
 namespace Juzaweb\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Juzaweb\Console\Commands\InstallCommand;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
+use Juzaweb\Http\Middleware\CanInstall;
+use Juzaweb\Http\Middleware\Installed;
 
 class InstallerServiceProvider extends ServiceProvider
 {
@@ -22,30 +24,9 @@ class InstallerServiceProvider extends ServiceProvider
         ]);
     }
 
-    public function boot()
+    public function boot(Router $router)
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'juzaweb');
-
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'juzaweb');
-
-        $mainPath = JW_PACKAGE_PATH . '/database/migrations';
-        $directories = glob($mainPath . '/*' , GLOB_ONLYDIR);
-        $paths = array_merge([$mainPath], $directories);
-
-        $this->loadMigrationsFrom($paths);
-
-        parent::boot();
-    }
-
-    public function map()
-    {
-        $this->mapWebRoutes();
-    }
-
-    protected function mapWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../routes/installer.php');
+        $router->aliasMiddleware('install', CanInstall::class);
+        $router->pushMiddlewareToGroup('web', Installed::class);
     }
 }

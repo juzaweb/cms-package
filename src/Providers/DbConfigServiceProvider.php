@@ -5,14 +5,17 @@ namespace Juzaweb\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Contracts\ConfigContract;
-use Juzaweb\Support\Config as JwConfig;
 use Juzaweb\Contracts\ThemeConfigContract;
-use Juzaweb\Support\Theme\ThemeConfig;
+use Juzaweb\Support\Installer;
 
 class DbConfigServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        if (!Installer::alreadyInstalled()) {
+            return;
+        }
+
         $mail = get_config('email');
         $timezone = get_config('timezone');
         $language = get_config('language');
@@ -46,12 +49,16 @@ class DbConfigServiceProvider extends ServiceProvider
 
     public function register()
     {
+        if (!Installer::alreadyInstalled()) {
+            return;
+        }
+
         $this->app->singleton(ConfigContract::class, function () {
-            return new JwConfig();
+            return new \Juzaweb\Support\Config();
         });
 
         $this->app->singleton(ThemeConfigContract::class, function () {
-            return new ThemeConfig(jw_current_theme());
+            return new \Juzaweb\Support\Theme\ThemeConfig(jw_current_theme());
         });
     }
 }

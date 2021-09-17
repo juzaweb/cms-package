@@ -28,5 +28,5 @@ Route::group([
 
     Route::post('admin', 'Installer\AdminController@save')->name('installer.admin.save');
 
-    Route::get('final', 'Installer\FinalController@finish');
+    Route::get('final', 'Installer\FinalController@finish')->name('installer.finish');
 });

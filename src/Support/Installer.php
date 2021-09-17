@@ -6,10 +6,6 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 6/12/2021
- * Time: 6:20 PM
 */
 
 namespace Juzaweb\Support;

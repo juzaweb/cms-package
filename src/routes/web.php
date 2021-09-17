@@ -11,12 +11,6 @@
 $adminPrefix = config('juzaweb.admin_prefix');
 
 Route::group([
-    'prefix' => 'install'
-], function () {
-    Route::get('final', 'Installer\FinalController@finish');
-});
-
-Route::group([
     'prefix' => $adminPrefix,
     'middleware' => 'guest'
 ], function () {

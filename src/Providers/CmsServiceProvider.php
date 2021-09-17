@@ -12,22 +12,18 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Juzaweb\Support\Installer;
 
 class CmsServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        if (!$this->checkDbInstall()) {
-            $this->app->register(InstallerServiceProvider::class);
-        } else {
-            $this->registerProviders();
-        }
+        $this->registerProviders();
     }
 
     protected function registerProviders()
     {
+        $this->app->register(InstallerServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(BackendServiceProvider::class);
         $this->app->register(HooksServiceProvider::class);
@@ -59,16 +55,6 @@ class CmsServiceProvider extends ServiceProvider
             return true;
         }
 
-        if (!Schema::hasTable('configs')) {
-            return false;
-        }
-
-        if (!Schema::hasTable('users')) {
-            return false;
-        }
-
-        return DB::table('users')
-            ->where('is_admin', '=', 1)
-            ->exists();
+        return false;
     }
 }
