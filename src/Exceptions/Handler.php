@@ -42,9 +42,10 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $exception
      * @return \Illuminate\Http\Response
+     * @throws Exception
      */
     public function render($request, Exception $exception)
     {
@@ -54,7 +55,7 @@ class Handler extends ExceptionHandler
             }
 
             if (view()->exists('theme::404')) {
-                return response()->view('user.404');
+                return response()->view('theme::404');
             }
 
             return view('juzaweb::404');
