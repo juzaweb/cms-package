@@ -7,7 +7,7 @@ class PostTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(\Juzaweb\Models\Post::class, 50)->create()->each(function ($item) {
+        factory(\Juzaweb\Models\Post::class, 10)->create()->each(function ($item) {
             $categories = Taxonomy::where('taxonomy', '=', 'categories')
                 ->where('post_type', '=', 'posts')
                 ->inRandomOrder()
