@@ -33,6 +33,7 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: |
-          php artisan migrate --seed
+          vendor/bin/phpunit vendor/juzaweb/cms/tests/Install
+          php artisan db:seed
           vendor/bin/phpunit vendor/juzaweb/cms/tests/Feature
         working-directory: cms

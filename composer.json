@@ -20,6 +20,7 @@
     },
     "autoload": {
       "psr-4": {
+        "Juzaweb\\Tests\\": "tests/",
         "Juzaweb\\": "src/"
       },
       "files": [
@@ -28,11 +29,6 @@
       "classmap": [
         "database/seeds"
       ]
-    },
-    "autoload-dev": {
-      "psr-4": {
-        "Juzaweb\\Tests\\": "tests/"
-      }
     },
     "extra": {
       "laravel": {

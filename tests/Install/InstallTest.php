@@ -10,9 +10,8 @@
 
 namespace Juzaweb\Tests\Install;
 
-use Illuminate\Support\Facades\DB;
 use Juzaweb\Support\Installer;
-use Tests\TestCase;
+use Juzaweb\Tests\TestCase;
 
 class InstallTest extends TestCase
 {

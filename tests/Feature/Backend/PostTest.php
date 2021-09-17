@@ -12,7 +12,7 @@ namespace Juzaweb\Tests\Feature\Backend;
 
 use Illuminate\Support\Facades\Auth;
 use Juzaweb\Models\User;
-use Tests\TestCase;
+use Juzaweb\Tests\TestCase;
 
 class PostTest extends TestCase
 {

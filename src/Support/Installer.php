@@ -11,6 +11,8 @@
 namespace Juzaweb\Support;
 
 
+use Illuminate\Support\Facades\DB;
+
 class Installer
 {
     /**
@@ -20,11 +22,35 @@ class Installer
      */
     public static function alreadyInstalled()
     {
-        return file_exists(static::installedPath());
+        if (!self::checkDbInstall()) {
+            if (file_exists(static::installedPath())) {
+                unlink(static::installedPath());
+            }
+
+            return false;
+        }
+
+        if (file_exists(static::installedPath())) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function installedPath()
     {
         return storage_path('app/installed');
+    }
+
+    protected static function checkDbInstall()
+    {
+        try {
+            DB::connection()->getPdo();
+
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return false;
     }
 }

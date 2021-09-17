@@ -11,8 +11,6 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\DB;
-use Juzaweb\Support\Installer;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -40,21 +38,5 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(ThemeServiceProvider::class);
         $this->app->register(TranslationServiceProvider::class);
         //$this->app->register(SwaggerServiceProvider::class);
-    }
-
-    protected function checkDbInstall()
-    {
-        try {
-            DB::connection()->getPdo();
-
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        if (Installer::alreadyInstalled()) {
-            return true;
-        }
-
-        return false;
     }
 }
