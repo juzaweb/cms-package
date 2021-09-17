@@ -22,7 +22,8 @@ class PostTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::find(1);
+        $this->user = User::where('is_admin', '=', 1)
+            ->first();
         Auth::loginUsingId($this->user->id);
     }
 

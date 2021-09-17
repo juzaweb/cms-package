@@ -22,20 +22,14 @@ class DashboardTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::find(1);
+        $this->user = User::where('is_admin', '=', 1)
+            ->first();
         Auth::loginUsingId($this->user->id);
-    }
-
-    public function testRedirect()
-    {
-        $response = $this->get('/admin-cp');
-
-        $response->assertStatus(302);
     }
 
     public function testIndex()
     {
-        $response = $this->get('/admin-cp/dashboard');
+        $response = $this->get('/admin-cp');
 
         $response->assertStatus(200);
     }
