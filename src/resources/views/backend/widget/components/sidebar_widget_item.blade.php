@@ -8,10 +8,6 @@
 
     <div class="form-item-edit dd-nodrag box-hidden">
         <form action="" method="post" class="form-sidebar-widget">
-            @csrf
-
-            @method('PUT')
-
             <input type="hidden" name="key" value="{{ $key }}">
             <input type="hidden" name="widget" value="{{ $widget->get('key') }}">
 

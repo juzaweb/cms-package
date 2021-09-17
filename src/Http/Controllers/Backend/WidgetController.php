@@ -38,16 +38,15 @@ class WidgetController extends BackendController
 
     public function update(Request $request, $key)
     {
-        $content = $request->input('content');
-        $content = collect(json_decode($content, true))
+        $content = collect($request->input('content', []))
             ->keyBy('key');
 
-        foreach($content as $key => $widget) {
-            $widgetData = HookAction::getWidgets($widget->get('widget'));
-            $data = $widgetData->update($widget->values()->toArray());
-            $content->put($key, $data);
+        foreach($content as $wkey => $widget) {
+            $widgetData = HookAction::getWidgets($widget['widget']);
+            $data = $widgetData['widget']->update($widget);
+            $content->put($wkey, $data);
         }
-        dd($content);
+
         set_theme_config('sidebar_' . $key, $content->toArray());
 
         return $this->success([

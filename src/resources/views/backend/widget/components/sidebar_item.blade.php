@@ -17,20 +17,21 @@
             <ol class="dd-list">
                 @foreach($widgets as $key => $widget)
                     @php
-                    $widgetData = \Juzaweb\Facades\HookAction::getWidgets($widget->get('widget'));
+                    $widgetData = \Juzaweb\Facades\HookAction::getWidgets($widget['widget'] ?? 'null');
                     @endphp
+
                     @component('juzaweb::backend.widget.components.sidebar_widget_item', [
                         'widget' => $widgetData,
-                        'sidebar' => $sidebar,
-                        'key' => $item,
-                        'data' => $widget->values()
+                        'sidebar' => $item,
+                        'key' => $key,
+                        'data' => $widget
                     ])
                     @endcomponent
                 @endforeach
             </ol>
         </div>
 
-        <button type="button" class="btn btn-success save-sidebar-widget">
+        <button type="button" class="btn btn-success save-sidebar-widget" data-sidebar="{{ $item->get('key') }}">
             <i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}
         </button>
 
