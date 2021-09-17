@@ -6,15 +6,16 @@
         </a>
     </div>
 
-    <div class="form-item-edit box-hidden">
-        <form action="" method="post">
+    <div class="form-item-edit dd-nodrag box-hidden">
+        <form action="" method="post" class="form-sidebar-widget">
             @csrf
 
             @method('PUT')
 
             <input type="hidden" name="key" value="{{ $key }}">
+            <input type="hidden" name="widget" value="{{ $widget->get('key') }}">
 
-            {!! $widget['widget']->form() !!}
+            {!! $widget['widget']->form($data ?? []) !!}
         </form>
     </div>
 </li>

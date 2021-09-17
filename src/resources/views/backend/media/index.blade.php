@@ -4,6 +4,19 @@
     <div class="row mb-2">
         <div class="col-md-8">
 
+            <form action="{{ route('filemanager.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
+                <div class="form-group" id="attachment">
+                    <div class="controls text-center">
+                        <div class="input-group w-100">
+                            <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('juzaweb::filemanager.message-choose') }}</a>
+                        </div>
+                    </div>
+                </div>
+                <input type='hidden' name='working_dir' id='working_dir'>
+                <input type='hidden' name='type' id='type' value='{{ request("type") }}'>
+                <input type='hidden' name='_token' value='{{ csrf_token() }}'>
+            </form>
+
             <form action="" method="get" class="form-inline">
                 <input type="text" class="form-control w-25" name="search" placeholder="{{ trans('juzaweb::app.search_by_name') }}" autocomplete="off">
 
@@ -66,6 +79,36 @@
 @endsection
 
 @section('footer')
+
+    <script>
+        Dropzone.options.uploadForm = {
+            paramName: "upload",
+            uploadMultiple: false,
+            parallelUploads: 5,
+            timeout: 0,
+            clickable: '#upload-button',
+            dictDefaultMessage: lang['message-drop'],
+            init: function () {
+                var _this = this; // For the closure
+                this.on('success', function (file, response) {
+                    if (response == 'OK') {
+                        loadFolders();
+                    }
+                    else {
+                        this.defaultOptions.error(file, response.join('\n'));
+                    }
+                });
+            },
+            headers: {
+                'Authorization': 'Bearer ' + getUrlParam('token')
+            },
+            acceptedFiles: "{{ implode(',', $mimeTypes) }}",
+            maxFilesize: 1024,
+            chunking: true,
+            chunkSize: 1048576,
+        }
+    </script>
+
     <div class="modal fade" id="add-folder-modal" tabindex="-1" role="dialog" aria-labelledby="add-folder-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="{{ route('admin.media.add-folder') }}" method="post" class="form-ajax">

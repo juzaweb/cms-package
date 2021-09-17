@@ -36,21 +36,19 @@ class WidgetController extends BackendController
         ));
     }
 
-    public function updateWidget(Request $request, $key)
-    {
-        $content = $request->input('content');
-
-        set_theme_config('sidebar_' . $key, $content);
-
-        return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
-        ]);
-    }
-
     public function update(Request $request, $key)
     {
         $content = $request->input('content');
-        set_theme_config('sidebar_' . $key, $content);
+        $content = collect(json_decode($content, true))
+            ->keyBy('key');
+
+        foreach($content as $key => $widget) {
+            $widgetData = HookAction::getWidgets($widget->get('widget'));
+            $data = $widgetData->update($widget->values()->toArray());
+            $content->put($key, $data);
+        }
+        dd($content);
+        set_theme_config('sidebar_' . $key, $content->toArray());
 
         return $this->success([
             'message' => trans('juzaweb::app.save_successfully')

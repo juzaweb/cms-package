@@ -9,8 +9,19 @@
 */
 
 return [
+    /**
+     * Admin url prefix
+     *
+     * Default: admin-cp
+     */
     'admin_prefix' => env('ADMIN_PREFIX', 'admin-cp'),
 
+    /**
+     * Enable api for route
+     *
+     * Supported auth route
+     * Default: false
+     */
     'api_route' => (bool) env('API_ROUTE', false),
 
     'email' => [
@@ -48,6 +59,11 @@ return [
          */
         'enable_upload' => true,
 
+        /**
+         * Path plugins folder
+         *
+         * Default: plugins
+         */
         'path' => base_path('plugins'),
 
         /**
@@ -60,15 +76,27 @@ return [
     ],
 
     'performance' => [
+        /**
+         * Minify views when compile
+         *
+         * Default: true
+         */
         'minify_views' => true,
+
+        /**
+         * Deny iframe to website
+         *
+         * Default: true
+         */
         'deny_iframe' => true,
+
     ],
 
     'filemanager' => [
         'disk' => 'public',
         'types' => [
             'file'  => [
-                'max_size'     => 5, // size in MB
+                'max_size'     => 1024, // size in MB
                 'valid_mime'   => [
                     'image/jpeg',
                     'image/pjpeg',
@@ -80,7 +108,7 @@ return [
                 ],
             ],
             'image' => [
-                'max_size'     => 50, // size in MB
+                'max_size'     => 5, // size in MB
                 'valid_mime'   => [
                     'image/jpeg',
                     'image/pjpeg',

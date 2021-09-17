@@ -14,7 +14,6 @@
 
 namespace Juzaweb\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Juzaweb\Facades\HookAction;
 

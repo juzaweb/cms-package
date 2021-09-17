@@ -62,14 +62,14 @@ class MenuAction extends Action
             ]
         );
 
-        /*HookAction::addAdminMenu(
+        HookAction::addAdminMenu(
             trans('juzaweb::app.media'),
             'media',
             [
                 'icon' => 'fa fa-image',
                 'position' => 10
             ]
-        );*/
+        );
 
         HookAction::addAdminMenu(
             trans('juzaweb::app.appearance'),
@@ -211,6 +211,16 @@ class MenuAction extends Action
             'logs.email',
             [
                 'icon' => 'fa fa-cogs',
+                'position' => 1,
+                'parent' => 'logs',
+            ]
+        );
+
+        HookAction::addAdminMenu(
+            trans('juzaweb::app.error_logs'),
+            'logs.error',
+            [
+                'icon' => 'fa fa-exclamation-triangle',
                 'position' => 1,
                 'parent' => 'logs',
             ]

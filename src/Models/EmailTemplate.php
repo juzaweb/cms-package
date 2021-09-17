@@ -2,7 +2,6 @@
 
 namespace Juzaweb\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Juzaweb\Traits\ResourceModel;
 
 /**

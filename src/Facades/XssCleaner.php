@@ -15,6 +15,8 @@ use Juzaweb\Contracts\XssCleanerContract;
 
 /**
  * @method static string clean(string $value)
+ *
+ * @see \Juzaweb\Support\XssCleaner
  */
 class XssCleaner extends Facade
 {

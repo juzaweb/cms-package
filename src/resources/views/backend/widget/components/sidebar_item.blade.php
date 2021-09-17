@@ -11,10 +11,28 @@
 
     <div class="card-body @if(empty($show)) box-hidden @endif">
         <div class="dd jw-widget-builder" data-key="{{ $item->get('key') }}">
-
+            @php
+            $widgets = jw_get_sidebar($item->get('key'));
+            @endphp
             <ol class="dd-list">
-
+                @foreach($widgets as $key => $widget)
+                    @php
+                    $widgetData = \Juzaweb\Facades\HookAction::getWidgets($widget->get('widget'));
+                    @endphp
+                    @component('juzaweb::backend.widget.components.sidebar_widget_item', [
+                        'widget' => $widgetData,
+                        'sidebar' => $sidebar,
+                        'key' => $item,
+                        'data' => $widget->values()
+                    ])
+                    @endcomponent
+                @endforeach
             </ol>
         </div>
+
+        <button type="button" class="btn btn-success save-sidebar-widget">
+            <i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}
+        </button>
+
     </div>
 </div>

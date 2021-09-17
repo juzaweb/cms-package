@@ -17,9 +17,10 @@ abstract class Widget
     /**
      * Creating widget Backend
      *
+     * @param array $data
      * @return View
      */
-    abstract public function form();
+    abstract public function form($data);
 
     /**
      * Creating widget front-end

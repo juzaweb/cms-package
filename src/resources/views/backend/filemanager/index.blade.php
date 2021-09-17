@@ -4,35 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE"/>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#333844">
-    <!-- Windows Phone -->
     <meta name="msapplication-navbutton-color" content="#333844">
-    <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#333844">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ trans('juzaweb::filemanager.title-page') }}</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/juzaweb/filemanager/images/72px color.png') }}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
-    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/filemanager/css/cropper.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/filemanager/css/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/filemanager/css/mime-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/filemanager/css/lfm.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/juzaweb/styles/images/favicon.ico') }}">
+
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/styles/css/filemanager.css') }}">
+
 </head>
 <body>
+
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="nav">
     <a class="navbar-brand invisible-lg d-none d-lg-inline" id="to-previous">
-        <i class="fas fa-arrow-left fa-fw"></i>
+        <i class="fa fa-arrow-left fa-fw"></i>
         <span class="d-none d-lg-inline">{{ trans('juzaweb::filemanager.nav-back') }}</span>
     </a>
     <a class="navbar-brand d-block d-lg-none" id="show_tree">
-        <i class="fas fa-bars fa-fw"></i>
+        <i class="fa fa-bars fa-fw"></i>
     </a>
     <a class="navbar-brand d-block d-lg-none" id="current_folder"></a>
-    <a id="loading" class="navbar-brand"><i class="fas fa-spinner fa-spin"></i></a>
+    <a id="loading" class="navbar-brand"><i class="fa fa-spinner fa-spin"></i></a>
     <div class="ml-auto px-2">
         {{--<a class="navbar-link d-none" id="multi_selection_toggle">
             <i class="fa fa-check-double fa-fw"></i>
@@ -40,25 +34,25 @@
         </a>--}}
     </div>
     <a class="navbar-toggler collapsed border-0 px-1 py-2 m-0" data-toggle="collapse" data-target="#nav-buttons">
-        <i class="fas fa-cog fa-fw"></i>
+        <i class="fa fa-cog fa-fw"></i>
     </a>
     <div class="collapse navbar-collapse flex-grow-0" id="nav-buttons">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-display="grid">
-                    <i class="fas fa-th-large fa-fw"></i>
+                    <i class="fa fa-th-large fa-fw"></i>
                     <span>{{ trans('juzaweb::filemanager.nav-thumbnails') }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-display="list">
-                    <i class="fas fa-list-ul fa-fw"></i>
+                    <i class="fa fa-list-ul fa-fw"></i>
                     <span>{{ trans('juzaweb::filemanager.nav-list') }}</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-sort fa-fw"></i>{{ trans('juzaweb::filemanager.nav-sort') }}
+                    <i class="fa fa-sort fa-fw"></i>{{ trans('juzaweb::filemanager.nav-sort') }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right border-0"></div>
             </li>
@@ -67,11 +61,11 @@
 </nav>
 
 <nav class="bg-light fixed-bottom border-top d-none" id="actions">
-    <a data-action="open" data-multiple="false"><i class="fas fa-folder-open"></i>{{ trans('juzaweb::filemanager.btn-open') }}
+    <a data-action="open" data-multiple="false"><i class="fa fa-folder-open"></i>{{ trans('juzaweb::filemanager.btn-open') }}
     </a>
-    <a data-action="preview" data-multiple="true"><i class="fas fa-images"></i>{{ trans('juzaweb::filemanager.menu-view') }}
+    <a data-action="preview" data-multiple="true"><i class="fa fa-images"></i>{{ trans('juzaweb::filemanager.menu-view') }}
     </a>
-    <a data-action="use" data-multiple="true"><i class="fas fa-check"></i>{{ trans('juzaweb::filemanager.btn-confirm') }}
+    <a data-action="use" data-multiple="true"><i class="fa fa-check"></i>{{ trans('juzaweb::filemanager.btn-confirm') }}
     </a>
 </nav>
 
@@ -88,7 +82,7 @@
         </nav>
 
         <div id="empty" class="d-none">
-            <i class="far fa-folder-open"></i>
+            <i class="fa fa-folder-open"></i>
             {{ trans('juzaweb::filemanager.message-empty') }}
         </div>
 
@@ -127,7 +121,7 @@
                     </div>
                     <input type='hidden' name='working_dir' id='working_dir'>
                     <input type='hidden' name='type' id='type' value='{{ request("type") }}'>
-                    <input type='hidden' name='_token' value='{{csrf_token()}}'>
+                    <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                 </form>
             </div>
             <div class="modal-footer">
@@ -178,24 +172,18 @@
     </div>
     <a class="carousel-control-prev" href="#previewCarousel" role="button" data-slide="prev">
         <div class="carousel-control-background" aria-hidden="true">
-            <i class="fas fa-chevron-left"></i>
+            <i class="fa fa-chevron-left"></i>
         </div>
         <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#previewCarousel" role="button" data-slide="next">
         <div class="carousel-control-background" aria-hidden="true">
-            <i class="fas fa-chevron-right"></i>
+            <i class="fa fa-chevron-right"></i>
         </div>
         <span class="sr-only">Next</span>
     </a>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="{{ asset('vendor/juzaweb/filemanager/js/cropper.min.js') }}"></script>
-<script src="{{ asset('vendor/juzaweb/filemanager/js/dropzone.min.js') }}"></script>
 <script>
     var lang = @json(trans('juzaweb::filemanager'));
     var actions = [
@@ -223,24 +211,24 @@
         //   label: lang['menu-view'],
         //   multiple: true
         // },
-       /* {
-            name: 'move',
-            icon: 'paste',
-            label: lang['menu-move'],
-            multiple: true
-        },
-        {
-            name: 'resize',
-            icon: 'arrows-alt',
-            label: lang['menu-resize'],
-            multiple: false
-        },
-        {
-            name: 'crop',
-            icon: 'crop',
-            label: lang['menu-crop'],
-            multiple: false
-        },*/
+        /* {
+             name: 'move',
+             icon: 'paste',
+             label: lang['menu-move'],
+             multiple: true
+         },
+         {
+             name: 'resize',
+             icon: 'arrows-alt',
+             label: lang['menu-resize'],
+             multiple: false
+         },
+         {
+             name: 'crop',
+             icon: 'crop',
+             label: lang['menu-crop'],
+             multiple: false
+         },*/
         {
             name: 'trash',
             icon: 'trash',
@@ -262,7 +250,9 @@
         }
     ];
 </script>
-<script src="{{ asset('vendor/juzaweb/filemanager/js/script.js') }}"></script>
+
+<script src="{{ asset('vendor/juzaweb/styles/js/filemanager.js') }}"></script>
+
 <script>
     Dropzone.options.uploadForm = {
         paramName: "upload",
@@ -286,7 +276,7 @@
             'Authorization': 'Bearer ' + getUrlParam('token')
         },
         acceptedFiles: "{{ implode(',', $mimeTypes) }}",
-        maxFilesize: 1024,
+        maxFilesize: parseInt("{{ $maxSize }}"),
         chunking: true,
         chunkSize: 1048576,
     }

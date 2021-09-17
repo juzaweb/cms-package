@@ -43,11 +43,14 @@ class MediaController extends BackendController
             $this->getFiles($query, $folderId)
         );
 
+        $mimeTypes = config("juzaweb.filemanager.types.image.valid_mime");
+
         return view('juzaweb::backend.media.index', [
             'fileTypes' => $this->getFileTypes(),
             'folderId' => $folderId,
             'mediaItems' => $mediaItems,
-            'title' => $title
+            'title' => $title,
+            'mimeTypes' => $mimeTypes
         ]);
     }
 
@@ -108,7 +111,7 @@ class MediaController extends BackendController
     /**
      * Get files in folder
      *
-     * @param Collection $sQuery
+     * @param \Illuminate\Support\Collection $sQuery
      * @param integer $folderId
      * @return array
      */
@@ -150,7 +153,7 @@ class MediaController extends BackendController
     /**
      * Get directories in folder
      *
-     * @param Collection $sQuery
+     * @param \Illuminate\Support\Collection $sQuery
      * @param integer $folderId
      * @return array
      */
