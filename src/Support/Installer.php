@@ -51,7 +51,5 @@ class Installer
         } catch (\Exception $e) {
             return false;
         }
-
-        return false;
     }
 }
