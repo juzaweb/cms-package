@@ -351,5 +351,14 @@ return [
     'background' => 'Background',
     'add_widget' => 'Add widget',
     'add_to' => 'Add to :name',
+    'emergency' => 'Emergency',
+    'date' => 'Date',
+    'info' => 'Info',
+    'stack' => 'Stack',
+    'notice' => 'Notice',
+    'warning' => 'Warning',
+    'level' => 'Level',
+    'datetime' => 'Date time',
+    'time' => 'Time',
 ];
 

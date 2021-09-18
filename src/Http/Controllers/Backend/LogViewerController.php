@@ -10,171 +10,82 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Juzaweb\Contracts\LogViewer as LogViewerContract;
-use Juzaweb\Entities\LogEntry;
-use Juzaweb\Entities\LogEntryCollection;
-use Juzaweb\Exceptions\LogNotFoundException;
-use Juzaweb\Tables\StatsTable;
+use Arcanedev\LogViewer\Contracts\LogViewer;
+use Arcanedev\LogViewer\Exceptions\LogNotFoundException;
 use Illuminate\Http\Request;
+use Juzaweb\Http\Controllers\BackendController;
+use Illuminate\Support\{Arr, Collection, Str};
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
-class LogViewerController
+class LogViewerController extends BackendController
 {
-    /* -----------------------------------------------------------------
-         |  Properties
-         | -----------------------------------------------------------------
-         */
+    protected $perPage = 10;
 
     /**
      * The log viewer instance
      *
-     * @var \Juzaweb\Contracts\LogViewer
+     * @var \Arcanedev\LogViewer\Contracts\LogViewer
      */
     protected $logViewer;
 
-    /** @var int */
-    protected $perPage = 30;
-
-    /** @var string */
-    protected $showRoute = 'log-viewer::logs.show';
-
-    /* -----------------------------------------------------------------
-     |  Constructor
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * LogViewerController constructor.
-     *
-     * @param  \Juzaweb\Contracts\LogViewer  $logViewer
-     */
-    public function __construct(LogViewerContract $logViewer)
+    public function __construct(LogViewer $logViewer)
     {
         $this->logViewer = $logViewer;
-        $this->perPage = config('log-viewer.per-page', $this->perPage);
     }
 
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Show the dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index2()
+    public function index()
     {
-        $stats     = $this->logViewer->statsTable();
-        $chartData = $this->prepareChartData($stats);
-        $percents  = $this->calcPercentages($stats->footer(), $stats->header());
+        $title = trans('juzaweb::app.error_logs');
 
-        return $this->view('dashboard', compact('chartData', 'percents'));
+        return view('juzaweb::backend.logs.error.index', compact(
+            'title'
+        ));
     }
 
-    /**
-     * List all logs.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request)
+    public function show($date)
     {
-        $stats   = $this->logViewer->statsTable();
-        $headers = $stats->header();
-        $rows    = $this->paginate($stats->rows(), $request);
+        $this->addBreadcrumb([
+            'title' => trans('juzaweb::app.error_logs'),
+            'url' => action([static::class, 'index'])
+        ]);
 
-        return $this->view('logs', compact('headers', 'rows'));
+        $this->getLogOrFail($date);
+        $title = trans('juzaweb::app.error_logs') .' '. $date;
+
+        return view('juzaweb::backend.logs.error.logs', compact(
+            'title',
+            'date'
+        ));
     }
 
-    /**
-     * Show the log.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $date
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show(Request $request, $date)
+    public function listLogs(Request $request)
+    {
+        $stats = $this->logViewer->statsTable();
+        $rows = $this->paginate($stats->rows(), $request);
+
+        foreach ($rows as $index => $row) {
+            $row['edit_url'] = route('admin.logs.error.date', [
+                $row['date']
+            ]);
+            $rows->put($index, $row);
+        }
+
+        return response()->json([
+            'total' => count($stats->rows()),
+            'rows' => $rows->values()
+        ]);
+    }
+
+    public function listLogsDate(Request $request, $date)
     {
         $level   = 'all';
         $log     = $this->getLogOrFail($date);
-        $query   = $request->get('query');
-        $levels  = $this->logViewer->levelsNames();
         $entries = $log->entries($level)->paginate($this->perPage);
 
-        return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
-    }
-
-    /**
-     * Filter the log entries by level.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $date
-     * @param  string                    $level
-     *
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
-    public function showByLevel(Request $request, $date, $level)
-    {
-        if ($level === 'all')
-            return redirect()->route($this->showRoute, [$date]);
-
-        $log     = $this->getLogOrFail($date);
-        $query   = $request->get('query');
-        $levels  = $this->logViewer->levelsNames();
-        $entries = $this->logViewer->entries($date, $level)->paginate($this->perPage);
-
-        //return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
-    }
-
-    /**
-     * Show the log with the search query.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $date
-     * @param  string                    $level
-     *
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
-     */
-    public function search(Request $request, $date, $level = 'all')
-    {
-        $query   = $request->get('query');
-
-        if (is_null($query))
-            return redirect()->route($this->showRoute, [$date]);
-
-        $log     = $this->getLogOrFail($date);
-        $levels  = $this->logViewer->levelsNames();
-        $needles = array_map(function ($needle) {
-            return Str::lower($needle);
-        }, array_filter(explode(' ', $query)));
-        $entries = $log->entries($level)
-            ->unless(empty($needles), function (LogEntryCollection $entries) use ($needles) {
-                return $entries->filter(function (LogEntry $entry) use ($needles) {
-                    return Str::containsAll(Str::lower($entry->header), $needles);
-                });
-            })
-            ->paginate($this->perPage);
-
-        //return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
-    }
-
-    /**
-     * Download the log
-     *
-     * @param  string  $date
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function download($date)
-    {
-        return $this->logViewer->download($date);
+        return response()->json([
+            'total' => $entries->total(),
+            'rows' => $entries->values()
+        ]);
     }
 
     /**
@@ -186,34 +97,11 @@ class LogViewerController
      */
     public function delete(Request $request)
     {
-        abort_unless($request->ajax(), 405, 'Method Not Allowed');
+        $date = $request->input('date');
 
-        $date = $request->get('date');
-
-//        return response()->json([
-//            'result' => $this->logViewer->delete($date) ? 'success' : 'error'
-//        ]);
-    }
-
-    /* -----------------------------------------------------------------
-     |  Other Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Get the evaluated view contents for the given view.
-     *
-     * @param  string  $view
-     * @param  array   $data
-     * @param  array   $mergeData
-     *
-     * @return \Illuminate\View\View
-     */
-    protected function view($view, $data = [], $mergeData = [])
-    {
-        $theme = config('log-viewer.theme');
-
-        return view()->make("log-viewer::{$theme}.{$view}", $data, $mergeData);
+        return response()->json([
+            'result' => $this->logViewer->delete($date) ? 'success' : 'error'
+        ]);
     }
 
     /**
@@ -231,9 +119,9 @@ class LogViewerController
         $path = $request->url();
 
         return new LengthAwarePaginator(
-            $data->forPage($page, $this->perPage),
+            $data->forPage($page, 10),
             $data->count(),
-            $this->perPage,
+            10,
             $page,
             compact('path')
         );
@@ -244,7 +132,7 @@ class LogViewerController
      *
      * @param  string  $date
      *
-     * @return \Juzaweb\Entities\Log|null
+     * @return \Arcanedev\LogViewer\Entities\Log|null
      */
     protected function getLogOrFail($date)
     {
@@ -258,52 +146,5 @@ class LogViewerController
         }
 
         return $log;
-    }
-
-    /**
-     * Prepare chart data.
-     *
-     * @param  \Juzaweb\Tables\StatsTable  $stats
-     *
-     * @return string
-     */
-    protected function prepareChartData(StatsTable $stats)
-    {
-        $totals = $stats->totals()->all();
-
-        return json_encode([
-            'labels'   => Arr::pluck($totals, 'label'),
-            'datasets' => [
-                [
-                    'data'                 => Arr::pluck($totals, 'value'),
-                    'backgroundColor'      => Arr::pluck($totals, 'color'),
-                    'hoverBackgroundColor' => Arr::pluck($totals, 'highlight'),
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * Calculate the percentage.
-     *
-     * @param  array  $total
-     * @param  array  $names
-     *
-     * @return array
-     */
-    protected function calcPercentages(array $total, array $names)
-    {
-        $percents = [];
-        $all      = Arr::get($total, 'all');
-
-        foreach ($total as $level => $count) {
-            $percents[$level] = [
-                'name'    => $names[$level],
-                'count'   => $count,
-                'percent' => $all ? round(($count / $all) * 100, 2) : 0,
-            ];
-        }
-
-        return $percents;
     }
 }

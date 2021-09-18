@@ -31,5 +31,10 @@ Route::group(['prefix' => 'logs/email'], function () {
 });
 
 Route::group(['prefix' => 'logs/error'], function () {
-    Route::get('/', 'Backend\LogViewerController@index')->name('admin.logs.email');
+    Route::get('/', 'Backend\LogViewerController@index')->name('admin.logs.error');
+    Route::get('/get-data', 'Backend\LogViewerController@listLogs')->name('admin.logs.error.get-logs');
+    Route::delete('/delete', 'Backend\LogViewerController@delete')->name('admin.logs.delete');
+
+    Route::get('/{date}', 'Backend\LogViewerController@show')->name('admin.logs.error.date');
+    Route::get('/{date}/get-data', 'Backend\LogViewerController@listLogsDate')->name('admin.logs.error.get-logs-date');
 });
