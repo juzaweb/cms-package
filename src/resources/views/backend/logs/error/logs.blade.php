@@ -2,13 +2,16 @@
 
 @section('content')
 
-    <table class="table juzaweb-table">
+    <table class="table juzaweb-table"
+           data-detail-view="true"
+           data-detail-formatter="content_formatter"
+           data-detail-view-by-click="true"
+    >
         <thead>
             <tr>
                 <th data-field="datetime" data-width="5%" data-formatter="time_formatter">@lang('juzaweb::app.time')</th>
                 <th data-width="5%" data-align="center" data-field="level" data-formatter="level_formatter">@lang('juzaweb::app.level')</th>
-                <th data-field="header" data-formatter="header_formatter" data-width="50%">@lang('juzaweb::app.header')</th>
-                <th data-width="10%" data-align="center" data-formatter="actions_formatter">@lang('juzaweb::app.actions')</th>
+                <th data-field="header" data-formatter="header_formatter">@lang('juzaweb::app.header')</th>
             </tr>
         </thead>
     </table>
@@ -28,22 +31,15 @@
         }
         
         function header_formatter(value, row, index) {
-            let key = row.datetime.split(' ')[1] ?? '';
-            key = key.replace(/:/g, '-');
-
-            return `<div style="max-width: 100px;
+            return `<div style="max-width: 780px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    text-align: center;">${value}</div>  <div class="stack-content collapse" id="log-stack-${key}" style="overflow: hidden;"><pre>${row.stack}</pre></div>`;
+    text-align: center;">${value}</div>`;
         }
 
-        function actions_formatter(value, row, index) {
-            let key = row.datetime.split(' ')[1] ?? '';
-            key = key.replace(/:/g, '-');
-
-            let str = `<a class="btn btn-info px-2 btn-sm stack-log" data-toggle="collapse" href="#log-stack-${key}" aria-expanded="false" aria-controls="log-stack-${key}"><i class="fa fa-toggle-off"></i> ${juzaweb.lang.stack}</a>`;
-            return str;
+        function content_formatter(value, row, index) {
+            return `<code>${row.stack}</code>`;
         }
         
         var table = new JuzawebTable({

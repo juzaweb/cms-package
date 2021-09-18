@@ -38,7 +38,7 @@
     <script type="text/javascript">
         function action_formatter(value, row, index) {
             let str = `<a href="${row.edit_url}" class="btn btn-info px-2"><i class="fa fa-search"></i></a>`;
-            str += `<a href="javascript:void(0)" class="btn btn-danger px-2 text-danger"><i class="fa fa-trash"></i></a>`;
+            str += `<a href="javascript:void(0)" class="btn btn-danger px-2"><i class="fa fa-trash"></i></a>`;
             return str;
         }
 
