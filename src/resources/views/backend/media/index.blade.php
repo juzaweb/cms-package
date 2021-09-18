@@ -109,7 +109,7 @@
                 var _this = this; // For the closure
                 this.on('success', function (file, response) {
                     if (response == 'OK') {
-                        window.location="";
+                        Turbolinks.visit("", {action: "replace"});
                     }
                     else {
                         this.defaultOptions.error(file, response.join('\n'));
@@ -124,11 +124,15 @@
             chunking: true,
             chunkSize: 1048576,
         }
+        
+        function add_folder_success(form) {
+            Turbolinks.visit("", {action: "replace"});
+        }
     </script>
 
     <div class="modal fade" id="add-folder-modal" tabindex="-1" role="dialog" aria-labelledby="add-folder-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="{{ route('admin.media.add-folder') }}" method="post" class="form-ajax">
+            <form action="{{ route('admin.media.add-folder') }}" method="post" class="form-ajax" data-success="add_folder_success">
 
                 <div class="modal-content">
                     <div class="modal-header">

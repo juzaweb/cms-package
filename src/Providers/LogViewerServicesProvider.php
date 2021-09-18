@@ -10,9 +10,10 @@
 
 namespace Juzaweb\Providers;
 
+use Arcanedev\LogViewer\Utilities\LogLevels;
 use Juzaweb\Support\ServiceProvider;
-use Arcanedev\LogViewer\{Contracts, LogViewer, Utilities};
-use Illuminate\Contracts\Support\DeferrableProvider;
+use Juzaweb\Contracts\LogViewer;
+use Juzaweb\Contracts\Utilities;
 
 class LogViewerServicesProvider extends ServiceProvider
 {
@@ -38,13 +39,13 @@ class LogViewerServicesProvider extends ServiceProvider
     public function provides(): array
     {
         return [
-            Contracts\LogViewer::class,
-            Contracts\Utilities\LogLevels::class,
-            Contracts\Utilities\LogStyler::class,
-            Contracts\Utilities\LogMenu::class,
-            Contracts\Utilities\Filesystem::class,
-            Contracts\Utilities\Factory::class,
-            Contracts\Utilities\LogChecker::class,
+            LogViewer::class,
+            Utilities\LogLevels::class,
+            Utilities\LogStyler::class,
+            Utilities\LogMenu::class,
+            Utilities\Filesystem::class,
+            Utilities\Factory::class,
+            Utilities\LogChecker::class,
         ];
     }
 
@@ -58,7 +59,7 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerLogViewer(): void
     {
-        $this->singleton(Contracts\LogViewer::class, LogViewer::class);
+        $this->app->singleton(LogViewer::class, LogViewer::class);
     }
 
     /**
@@ -66,8 +67,8 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerLogLevels(): void
     {
-        $this->singleton(Contracts\Utilities\LogLevels::class, function ($app) {
-            return new Utilities\LogLevels(
+        $this->app->singleton(Utilities\LogLevels::class, function ($app) {
+            return new LogLevels(
                 $app['translator'],
                 $app['config']->get('log-viewer.locale')
             );
@@ -79,7 +80,7 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerStyler(): void
     {
-        $this->singleton(Contracts\Utilities\LogStyler::class, Utilities\LogStyler::class);
+        $this->app->singleton(Utilities\LogStyler::class, Utilities\LogStyler::class);
     }
 
     /**
@@ -87,7 +88,7 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerLogMenu(): void
     {
-        $this->singleton(Contracts\Utilities\LogMenu::class, Utilities\LogMenu::class);
+        $this->app->singleton(Utilities\LogMenu::class, Utilities\LogMenu::class);
     }
 
     /**
@@ -95,10 +96,10 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerFilesystem(): void
     {
-        $this->singleton(Contracts\Utilities\Filesystem::class, function ($app) {
+        $this->app->singleton(Utilities\Filesystem::class, function ($app) {
             /** @var  \Illuminate\Config\Repository  $config */
             $config     = $app['config'];
-            $filesystem = new Utilities\Filesystem($app['files'], $config->get('log-viewer.storage-path'));
+            $filesystem = new Filesystem($app['files'], $config->get('log-viewer.storage-path'));
 
             return $filesystem->setPattern(
                 $config->get('log-viewer.pattern.prefix', Utilities\Filesystem::PATTERN_PREFIX),
@@ -113,7 +114,7 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerFactory(): void
     {
-        $this->singleton(Contracts\Utilities\Factory::class, Utilities\Factory::class);
+        $this->app->singleton(Utilities\Factory::class, Utilities\Factory::class);
     }
 
     /**
@@ -121,6 +122,6 @@ class LogViewerServicesProvider extends ServiceProvider
      */
     private function registerChecker(): void
     {
-        $this->singleton(Contracts\Utilities\LogChecker::class, Utilities\LogChecker::class);
+        $this->app->singleton(Utilities\LogChecker::class, Utilities\LogChecker::class);
     }
 }

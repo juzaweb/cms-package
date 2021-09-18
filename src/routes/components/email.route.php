@@ -29,3 +29,7 @@ Route::group(['prefix' => 'logs/email'], function () {
 
     Route::post('/remove', 'Backend\EmailLogController@remove')->name('admin.logs.email.remove');
 });
+
+Route::group(['prefix' => 'logs/error'], function () {
+    Route::get('/', 'Backend\LogViewerController@index')->name('admin.logs.email');
+});

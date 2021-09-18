@@ -61,7 +61,7 @@ class MediaController extends BackendController
     {
         $request->validate([
             'name' => 'required|string|max:150',
-            'folder_id' => 'nullable|exists:folders,id',
+            'folder_id' => 'nullable|exists:media_folders,id',
         ], [], [
             'name' => trans('juzaweb::filemanager.folder-name'),
             'folder_id' => trans('juzaweb::filemanager.parent')

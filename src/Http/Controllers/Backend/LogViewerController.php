@@ -10,14 +10,13 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Arcanedev\LogViewer\Contracts\LogViewer as LogViewerContract;
-use Arcanedev\LogViewer\Entities\LogEntry;
-use Arcanedev\LogViewer\Entities\LogEntryCollection;
-use Arcanedev\LogViewer\Exceptions\LogNotFoundException;
-use Arcanedev\LogViewer\Tables\StatsTable;
+use Juzaweb\Contracts\LogViewer as LogViewerContract;
+use Juzaweb\Entities\LogEntry;
+use Juzaweb\Entities\LogEntryCollection;
+use Juzaweb\Exceptions\LogNotFoundException;
+use Juzaweb\Tables\StatsTable;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -32,7 +31,7 @@ class LogViewerController
     /**
      * The log viewer instance
      *
-     * @var \Arcanedev\LogViewer\Contracts\LogViewer
+     * @var \Juzaweb\Contracts\LogViewer
      */
     protected $logViewer;
 
@@ -50,7 +49,7 @@ class LogViewerController
     /**
      * LogViewerController constructor.
      *
-     * @param  \Arcanedev\LogViewer\Contracts\LogViewer  $logViewer
+     * @param  \Juzaweb\Contracts\LogViewer  $logViewer
      */
     public function __construct(LogViewerContract $logViewer)
     {
@@ -68,7 +67,7 @@ class LogViewerController
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index2()
     {
         $stats     = $this->logViewer->statsTable();
         $chartData = $this->prepareChartData($stats);
@@ -84,7 +83,7 @@ class LogViewerController
      *
      * @return \Illuminate\View\View
      */
-    public function listLogs(Request $request)
+    public function index(Request $request)
     {
         $stats   = $this->logViewer->statsTable();
         $headers = $stats->header();
@@ -131,7 +130,7 @@ class LogViewerController
         $levels  = $this->logViewer->levelsNames();
         $entries = $this->logViewer->entries($date, $level)->paginate($this->perPage);
 
-        return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
+        //return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
     }
 
     /**
@@ -163,7 +162,7 @@ class LogViewerController
             })
             ->paginate($this->perPage);
 
-        return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
+        //return $this->view('show', compact('level', 'log', 'query', 'levels', 'entries'));
     }
 
     /**
@@ -191,9 +190,9 @@ class LogViewerController
 
         $date = $request->get('date');
 
-        return response()->json([
-            'result' => $this->logViewer->delete($date) ? 'success' : 'error'
-        ]);
+//        return response()->json([
+//            'result' => $this->logViewer->delete($date) ? 'success' : 'error'
+//        ]);
     }
 
     /* -----------------------------------------------------------------
@@ -245,7 +244,7 @@ class LogViewerController
      *
      * @param  string  $date
      *
-     * @return \Arcanedev\LogViewer\Entities\Log|null
+     * @return \Juzaweb\Entities\Log|null
      */
     protected function getLogOrFail($date)
     {
@@ -264,7 +263,7 @@ class LogViewerController
     /**
      * Prepare chart data.
      *
-     * @param  \Arcanedev\LogViewer\Tables\StatsTable  $stats
+     * @param  \Juzaweb\Tables\StatsTable  $stats
      *
      * @return string
      */

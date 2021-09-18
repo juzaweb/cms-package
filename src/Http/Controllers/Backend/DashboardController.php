@@ -18,15 +18,6 @@ class DashboardController extends BackendController
         ]);
     }
 
-    public function dashboard()
-    {
-        do_action(Action::BACKEND_DASHBOARD_ACTION);
-
-        return view('juzaweb::backend.dashboard', [
-            'title' => trans('juzaweb::app.dashboard'),
-        ]);
-    }
-
     public function getDataUser(Request $request)
     {
         $offset = $request->get('offset', 0);
