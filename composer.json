@@ -7,13 +7,13 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "guzzlehttp/guzzle": "^6.5",
-        "hassankhan/config": "^2.2",
         "intervention/image": "^2.5",
-        "pion/laravel-chunk-upload": "^1.4",
+        "juzaweb/config": "^2.2",
+        "juzaweb/laravel-chunk-upload": "^1.4",
+        "juzaweb/log-viewer": "^5.2",
         "spatie/image-optimizer": "^1.4",
         "tymon/jwt-auth": "^1.0",
-        "darkaonline/l5-swagger": "^6.0",
-        "juzaweb/log-viewer": "^5.2"
+        "darkaonline/l5-swagger": "^6.0"
     },
     "require-dev": {
       "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
