@@ -8,6 +8,8 @@
  * @license    MIT
  */
 
+use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Models\Menu;
 use Juzaweb\Support\Theme\MenuBuilder;
@@ -242,5 +244,21 @@ if (!function_exists('jw_get_sidebar')) {
     {
         $content = get_theme_config('sidebar_' . $key);
         return collect($content);
+    }
+}
+
+if (!function_exists('dynamic_sidebar')) {
+    function dynamic_sidebar($key)
+    {
+        do_action(Action::WIDGETS_INIT);
+
+        $html = '';
+        $widgets = jw_get_sidebar($key);
+        foreach ($widgets as $widget) {
+            $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
+            $html .= "\n" . e_html($widgetData['widget']->show($widget)->render());
+        }
+
+        return $html;
     }
 }
