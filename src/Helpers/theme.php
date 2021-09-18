@@ -256,8 +256,6 @@ if (!function_exists('jw_get_widgets_sidebar')) {
 if (!function_exists('dynamic_sidebar')) {
     function dynamic_sidebar($key)
     {
-        do_action(Action::WIDGETS_INIT);
-
         $html = '';
         $sidebar = HookAction::getSidebars($key);
         if (empty($sidebar)) {
@@ -267,13 +265,11 @@ if (!function_exists('dynamic_sidebar')) {
         $widgets = jw_get_widgets_sidebar($key);
         foreach ($widgets as $widget) {
             $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
-            $html .= "\n" . e_html(
-                    $sidebar->get('before_widget') .
+            $html .= $sidebar->get('before_widget') .
                 $widgetData['widget']->show($widget)->render() .
-                    $sidebar->get('after_widget')
-                );
+                $sidebar->get('after_widget');
         }
 
-        return $html;
+        return e_html($html);
     }
 }

@@ -3,6 +3,7 @@
 namespace Juzaweb\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Facades\HookAction;
 
@@ -15,6 +16,8 @@ class FrontendController extends Controller
          * Add action to this hook add_action('theme.call_action', $callback)
          */
         do_action('theme.call_action', $method, $parameters);
+
+        do_action(Action::WIDGETS_INIT);
 
         $this->addThemeStyles();
 
