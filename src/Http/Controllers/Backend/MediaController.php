@@ -2,14 +2,10 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzaweb/cms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 6/25/2021
- * Time: 11:47 PM
  */
 
 namespace Juzaweb\Http\Controllers\Backend;
