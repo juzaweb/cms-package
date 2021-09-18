@@ -12,7 +12,7 @@
     <div class="card-body @if(empty($show)) box-hidden @endif">
         <div class="dd jw-widget-builder" data-key="{{ $item->get('key') }}">
             @php
-            $widgets = jw_get_sidebar($item->get('key'));
+            $widgets = jw_get_widgets_sidebar($item->get('key'));
             @endphp
             <ol class="dd-list">
                 @foreach($widgets as $key => $widget)

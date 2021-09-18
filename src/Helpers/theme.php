@@ -240,7 +240,13 @@ if (!function_exists('page_block')) {
 }
 
 if (!function_exists('jw_get_sidebar')) {
-    function jw_get_sidebar($key)
+    function jw_get_sidebar($key) {
+        return HookAction::getSidebars($key);
+    }
+}
+
+if (!function_exists('jw_get_widgets_sidebar')) {
+    function jw_get_widgets_sidebar($key)
     {
         $content = get_theme_config('sidebar_' . $key);
         return collect($content);
@@ -253,10 +259,19 @@ if (!function_exists('dynamic_sidebar')) {
         do_action(Action::WIDGETS_INIT);
 
         $html = '';
-        $widgets = jw_get_sidebar($key);
+        $sidebar = HookAction::getSidebars($key);
+        if (empty($sidebar)) {
+            return $html;
+        }
+
+        $widgets = jw_get_widgets_sidebar($key);
         foreach ($widgets as $widget) {
             $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
-            $html .= "\n" . e_html($widgetData['widget']->show($widget)->render());
+            $html .= "\n" . e_html(
+                    $sidebar->get('before_widget') .
+                $widgetData['widget']->show($widget)->render() .
+                    $sidebar->get('after_widget')
+                );
         }
 
         return $html;

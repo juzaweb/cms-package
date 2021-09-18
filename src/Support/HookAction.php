@@ -570,8 +570,6 @@ class HookAction
             'description' => '',
             'before_widget' => '',
             'after_widget'  => '',
-            'before_title'  => '',
-            'after_title'   => '',
         ];
 
         $args = array_merge($defaults, $args);
