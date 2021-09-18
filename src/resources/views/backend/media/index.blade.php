@@ -5,9 +5,8 @@
     <div id="media-container">
         <div class="box-hidden media-upload-form">
             <div class="row mb-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <form action="{{ route('filemanager.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
+                <div class="col-md-12">
+                <form action="{{ route('filemanager.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' class="dropzone" enctype='multipart/form-data'>
 
                     <div class="form-group" id="attachment">
                         <div class="controls text-center">
@@ -17,13 +16,12 @@
                         </div>
                     </div>
 
-                    <input type='hidden' name='working_dir' id='working_dir'>
+                    <input type='hidden' name='working_dir' id='working_dir' value="{{ $folderId }}">
                     <input type='hidden' name='type' id='type' value='{{ $type }}'>
                     <input type='hidden' name='_token' value='{{ csrf_token() }}'>
                 </form>
             </div>
-
-        </div>
+            </div>
         </div>
 
         <div class="row mb-2">
@@ -93,38 +91,44 @@
         </div>
     </div>
 
+
+
 @endsection
 
 @section('footer')
 
     <script>
-        Dropzone.options.uploadForm = {
-            paramName: "upload",
-            uploadMultiple: false,
-            parallelUploads: 5,
-            timeout: 0,
-            clickable: '#upload-button',
-            dictDefaultMessage: "{{ trans('juzaweb::filemanager.message-drop') }}",
-            init: function () {
-                var _this = this; // For the closure
-                this.on('success', function (file, response) {
-                    if (response == 'OK') {
-                        Turbolinks.visit("", {action: "replace"});
-                    }
-                    else {
-                        this.defaultOptions.error(file, response.join('\n'));
-                    }
-                });
-            },
-            headers: {
-                'Authorization': "Bearer {{ csrf_token() }}"
-            },
-            acceptedFiles: "{{ implode(',', $mimeTypes) }}",
-            maxFilesize: 1024,
-            chunking: true,
-            chunkSize: 1048576,
-        }
-        
+        Dropzone.autoDiscover = false;
+
+        document.addEventListener("turbolinks:load", function () {
+            new Dropzone("#uploadForm", {
+                paramName: "upload",
+                uploadMultiple: false,
+                parallelUploads: 5,
+                timeout: 0,
+                clickable: '#upload-button',
+                dictDefaultMessage: "{{ trans('juzaweb::filemanager.message-drop') }}",
+                init: function () {
+                    var _this = this; // For the closure
+                    this.on('success', function (file, response) {
+                        if (response == 'OK') {
+                            Turbolinks.visit("", {action: "replace"});
+                        }
+                        else {
+                            this.defaultOptions.error(file, response.join('\n'));
+                        }
+                    });
+                },
+                headers: {
+                    'Authorization': "Bearer {{ csrf_token() }}"
+                },
+                acceptedFiles: "{{ implode(',', $mimeTypes) }}",
+                maxFilesize: parseInt("{{ $maxSize }}"),
+                chunking: true,
+                chunkSize: 1048576,
+            });
+        });
+
         function add_folder_success(form) {
             Turbolinks.visit("", {action: "replace"});
         }

@@ -26,6 +26,7 @@ class MediaController extends BackendController
     {
         $title = trans('juzaweb::app.media');
         $type = $request->get('type', 'image');
+        $maxSize = config("juzaweb.filemanager.types.{$type}.max_size");
 
         if ($folderId) {
             $this->addBreadcrumb([
@@ -53,7 +54,8 @@ class MediaController extends BackendController
             'mediaItems' => $mediaItems,
             'title' => $title,
             'mimeTypes' => $mimeTypes,
-            'type' => $type
+            'type' => $type,
+            'maxSize' => $maxSize
         ]);
     }
 
