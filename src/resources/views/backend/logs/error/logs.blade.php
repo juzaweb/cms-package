@@ -39,7 +39,7 @@
         }
 
         function content_formatter(value, row, index) {
-            return `<code>${row.stack}</code>`;
+            return `<code style="color: black;">${row.stack}</code>`;
         }
         
         var table = new JuzawebTable({

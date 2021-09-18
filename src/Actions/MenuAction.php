@@ -216,15 +216,17 @@ class MenuAction extends Action
             ]
         );
 
-        HookAction::addAdminMenu(
-            trans('juzaweb::app.error_logs'),
-            'logs.error',
-            [
-                'icon' => 'fa fa-exclamation-triangle',
-                'position' => 1,
-                'parent' => 'logs',
-            ]
-        );
+        if (config('juzaweb.logs_viewer')) {
+            HookAction::addAdminMenu(
+                trans('juzaweb::app.error_logs'),
+                'logs.error',
+                [
+                    'icon' => 'fa fa-exclamation-triangle',
+                    'position' => 1,
+                    'parent' => 'logs',
+                ]
+            );
+        }
     }
 
     public function addSettingPage()

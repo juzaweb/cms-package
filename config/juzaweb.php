@@ -24,6 +24,11 @@ return [
      */
     'api_route' => (bool) env('API_ROUTE', false),
 
+    /**
+     * Show logs in admin page
+     */
+    'logs_viewer' => true,
+
     'email' => [
         /**
          * Method send email
