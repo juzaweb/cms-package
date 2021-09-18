@@ -8,11 +8,14 @@
  * @license    MIT
  */
 
+use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Models\Menu;
 use Juzaweb\Support\Theme\MenuBuilder;
 use Juzaweb\Facades\ThemeConfig;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 
 function body_class($class = '')
 {
@@ -209,5 +212,64 @@ if (!file_exists('get_menu_by_theme_location')) {
         }
 
         return null;
+    }
+}
+
+if (!function_exists('get_logo')) {
+    function get_logo()
+    {
+        return upload_url(
+            get_config('logo'),
+            asset('vendor/juzaweb/styles/images/logo.svg')
+        );
+    }
+}
+
+if (!function_exists('is_home')) {
+    function is_home()
+    {
+        return Route::currentRouteName() == 'home';
+    }
+}
+
+if (!function_exists('page_block')) {
+    function page_block($key)
+    {
+
+    }
+}
+
+if (!function_exists('jw_get_sidebar')) {
+    function jw_get_sidebar($key) {
+        return HookAction::getSidebars($key);
+    }
+}
+
+if (!function_exists('jw_get_widgets_sidebar')) {
+    function jw_get_widgets_sidebar($key)
+    {
+        $content = get_theme_config('sidebar_' . $key);
+        return collect($content);
+    }
+}
+
+if (!function_exists('dynamic_sidebar')) {
+    function dynamic_sidebar($key)
+    {
+        $html = '';
+        $sidebar = HookAction::getSidebars($key);
+        if (empty($sidebar)) {
+            return $html;
+        }
+
+        $widgets = jw_get_widgets_sidebar($key);
+        foreach ($widgets as $widget) {
+            $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
+            $html .= $sidebar->get('before_widget') .
+                $widgetData['widget']->show($widget)->render() .
+                $sidebar->get('after_widget');
+        }
+
+        return e_html($html);
     }
 }

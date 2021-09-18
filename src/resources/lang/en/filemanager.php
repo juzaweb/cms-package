@@ -76,4 +76,8 @@ return [
     'resize-old-width'  => 'Original Width:',
     'resize-new-height' => 'Height:',
     'resize-new-width'  => 'Width:',
+    'folder-exists'  => 'Folder exists',
+
+
+    'add-folder-successfully'  => 'Add folder successfully',
 ];

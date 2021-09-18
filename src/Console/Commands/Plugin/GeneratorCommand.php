@@ -97,4 +97,10 @@ abstract class GeneratorCommand extends Command
     {
         return str_replace('/', '\\', $module->getStudlyName());
     }
+
+    public function getDomainName()
+    {
+        $module = $this->laravel['modules']->find($this->getModuleName());
+        return $module->getExtraJuzaweb('domain');
+    }
 }

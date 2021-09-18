@@ -136,7 +136,8 @@ class FileActivator implements ActivatorInterface
     public function setActiveByName($name, $status): void
     {
         if ($status) {
-            $pluginFile = base_path('plugins') . '/' . $name . '/composer.json';
+            $pluginPath = config('juzaweb.plugin.path');
+            $pluginFile = $pluginPath . '/' . $name . '/composer.json';
             $setting = @json_decode($this->files->get($pluginFile), true);
 
             if (isset($setting['autoload']['psr-4'])) {
@@ -151,7 +152,7 @@ class FileActivator implements ActivatorInterface
 
                     $classMap[] = [
                         'namespace' => $key,
-                        'path' => $name . '/' . $path,
+                        'path' => $pluginPath .'/'. $name . '/' . $path,
                         'domain' => $domain
                     ];
                 }

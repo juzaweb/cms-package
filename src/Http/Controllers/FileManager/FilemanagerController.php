@@ -13,14 +13,16 @@ class FilemanagerController extends Controller
     {
         $type = $this->getType();
         $mimeTypes = config("juzaweb.filemanager.types.{$type}.valid_mime");
+        $maxSize = config("juzaweb.filemanager.types.{$type}.max_size");
 
         if (empty($mimeTypes)) {
             return abort(404);
         }
 
-        return view('juzaweb::backend.filemanager.index', [
-            'mimeTypes' => $mimeTypes
-        ]);
+        return view('juzaweb::backend.filemanager.index', compact(
+            'mimeTypes',
+            'maxSize'
+        ));
     }
     
     public function getErrors()

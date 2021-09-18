@@ -73,11 +73,12 @@ class MigrationMakeCommand extends GeneratorCommand
     protected function getTemplateContents()
     {
         $parser = new NameParser($this->argument('name'));
+        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         if ($parser->isCreate()) {
             return Stub::create('/migration/create.stub', [
                 'class' => $this->getClass(),
-                'table' => $parser->getTableName(),
+                'table' => $module->getDomainName() .'_' . $parser->getTableName(),
                 'fields' => $this->getSchemaParser()->render(),
             ]);
         } elseif ($parser->isAdd()) {

@@ -8,10 +8,9 @@
  * @license    MIT
  */
 
-Route::get('/', 'Installer\WelcomeController@index')->name('installer.home');
-
 Route::group([
-    'prefix' => 'install'
+    'prefix' => 'install',
+    'middleware' => 'install'
 ], function () {
     Route::get('/', 'Installer\WelcomeController@welcome')->name('installer.welcome');
     Route::get('environment', 'Installer\EnvironmentController@environment')->name('installer.environment');
@@ -27,4 +26,6 @@ Route::group([
     Route::get('admin', 'Installer\AdminController@index')->name('installer.admin');
 
     Route::post('admin', 'Installer\AdminController@save')->name('installer.admin.save');
+
+    Route::get('final', 'Installer\FinalController@finish')->name('installer.finish');
 });

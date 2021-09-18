@@ -4,6 +4,7 @@ namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\App;
 use Juzaweb\Http\Controllers\FrontendController;
+use Juzaweb\Models\Post;
 
 class HomeController extends FrontendController
 {
@@ -15,20 +16,22 @@ class HomeController extends FrontendController
             return App::call('Juzaweb\Http\Controllers\Frontend\PageController@detail', ['id' => $pageId]);
         }
 
-        return App::call('Juzaweb\Http\Controllers\Frontend\PostController@index', []);
+        return $this->handlePage();
     }
 
     protected function handlePage()
     {
         $config = get_configs(['title', 'description']);
-        $theme = $this->getThemeInfo();
+        $theme = jw_theme_info();
         $view = $this->getViewPage();
+        $posts = Post::wherePublish()->paginate(10);
 
         $params = [
             'title' => $config['title'],
             'description' => $config['description'],
             'theme' => $theme,
             'config' => $config,
+            'posts' => $posts,
         ];
 
         return apply_filters(
@@ -40,7 +43,7 @@ class HomeController extends FrontendController
 
     protected function getViewPage()
     {
-        $view = 'theme::post.index';
+        $view = 'theme::index';
 
         return $view;
     }

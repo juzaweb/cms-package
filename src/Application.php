@@ -14,5 +14,8 @@ use Illuminate\Foundation\Application as BaseApplication;
 
 class Application extends BaseApplication
 {
-
+    public function getNamespace()
+    {
+        return 'Juzaweb';
+    }
 }

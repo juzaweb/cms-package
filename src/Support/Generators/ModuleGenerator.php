@@ -430,25 +430,7 @@ class ModuleGenerator extends Generator
      */
     public function getReplacements()
     {
-        return [
-            'routes/admin' => ['LOWER_NAME', 'STUDLY_NAME'],
-            'routes/api' => ['LOWER_NAME'],
-            'webpack' => ['LOWER_NAME'],
-            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
-            'views/index' => ['LOWER_NAME'],
-            'views/master' => ['LOWER_NAME', 'STUDLY_NAME'],
-            'composer' => [
-                'LOWER_NAME',
-                'STUDLY_NAME',
-                'SNAKE_NAME',
-                'VENDOR',
-                'AUTHOR_NAME',
-                'AUTHOR_EMAIL',
-                'MODULE_NAME',
-                'MODULE_NAMESPACE',
-                'PROVIDER_NAMESPACE',
-            ],
-        ];
+        return $this->module->config('stubs.replacements');
     }
 
     /**
@@ -618,5 +600,13 @@ class ModuleGenerator extends Generator
     protected function getProviderNamespaceReplacement(): string
     {
         return 'Providers';
+    }
+
+    protected function getModuleDomainReplacement()
+    {
+        $name = explode('/', $this->getName());
+        $author = $name[0];
+        $plugin = $name[1];
+        return substr($author, 0, 2) . substr($plugin, 0, 2);
     }
 }

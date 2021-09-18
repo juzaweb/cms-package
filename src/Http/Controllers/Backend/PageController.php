@@ -22,7 +22,7 @@ class PageController extends BackendController
         return Page::class;
     }
 
-    protected function getDataForForm($model, ...$params)
+    protected function getDataForForm($model)
     {
         $data = $this->DataForForm($model);
         $templates = jw_theme_config()['templates'] ?? [];

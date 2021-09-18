@@ -2,14 +2,10 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package    juzawebcms/juzawebcms
+ * @package    juzaweb/cms
  * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://github.com/juzawebcms/juzawebcms
+ * @link       https://juzaweb.com/cms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 6/25/2021
- * Time: 11:47 PM
  */
 
 namespace Juzaweb\Http\Controllers\Backend;
@@ -22,9 +18,12 @@ use Juzaweb\Models\MediaFolder;
 
 class MediaController extends BackendController
 {
-    public function index($folderId = null)
+    public function index(Request $request, $folderId = null)
     {
         $title = trans('juzaweb::app.media');
+        $type = $request->get('type', 'image');
+        $maxSize = config("juzaweb.filemanager.types.{$type}.max_size");
+
         if ($folderId) {
             $this->addBreadcrumb([
                 'title' => $title,
@@ -43,11 +42,16 @@ class MediaController extends BackendController
             $this->getFiles($query, $folderId)
         );
 
+        $mimeTypes = config("juzaweb.filemanager.types.{$type}.valid_mime");
+
         return view('juzaweb::backend.media.index', [
             'fileTypes' => $this->getFileTypes(),
             'folderId' => $folderId,
             'mediaItems' => $mediaItems,
-            'title' => $title
+            'title' => $title,
+            'mimeTypes' => $mimeTypes,
+            'type' => $type,
+            'maxSize' => $maxSize
         ]);
     }
 
@@ -55,7 +59,7 @@ class MediaController extends BackendController
     {
         $request->validate([
             'name' => 'required|string|max:150',
-            'folder_id' => 'nullable|exists:folders,id',
+            'folder_id' => 'nullable|exists:media_folders,id',
         ], [], [
             'name' => trans('juzaweb::filemanager.folder-name'),
             'folder_id' => trans('juzaweb::filemanager.parent')
@@ -63,10 +67,11 @@ class MediaController extends BackendController
 
         $name = $request->post('name');
         $parentId = $request->post('folder_id');
+        $type = $request->post('type');
 
-        if (MediaFolder::folderExists($name, $parentId)) {
+        if (MediaFolder::folderExists($name, $parentId, $type)) {
             return $this->error([
-                'message' => trans('juzaweb::filemanager.errors.folder-exists')
+                'message' => trans('juzaweb::filemanager.folder-exists')
             ]);
         }
 
@@ -108,7 +113,7 @@ class MediaController extends BackendController
     /**
      * Get files in folder
      *
-     * @param Collection $sQuery
+     * @param \Illuminate\Support\Collection $sQuery
      * @param integer $folderId
      * @return array
      */
@@ -125,7 +130,7 @@ class MediaController extends BackendController
         $files = $query->get();
         foreach ($files as $row) {
             $fileUrl = upload_url($row->path);
-            $thumb = $row->isImage($row) ? $fileUrl : null;
+            $thumb = $row->isImage() ? $fileUrl : null;
             $icon = isset($fileIcon[strtolower($row->extension)]) ?
                 $fileIcon[strtolower($row->extension)] : 'fa-file-o';
 
@@ -150,7 +155,7 @@ class MediaController extends BackendController
     /**
      * Get directories in folder
      *
-     * @param Collection $sQuery
+     * @param \Illuminate\Support\Collection $sQuery
      * @param integer $folderId
      * @return array
      */
@@ -175,7 +180,7 @@ class MediaController extends BackendController
                 'time' => (string) $row->created_at,
                 'type' => $row->type,
                 'icon' => 'fa-folder-o',
-                'thumb' => asset('vendor/juzaweb/filemanager/images/folder.png'),
+                'thumb' => asset('vendor/juzaweb/styles/images/folder.png'),
                 'is_file' => false
             ];
         }

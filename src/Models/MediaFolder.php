@@ -32,7 +32,8 @@ class MediaFolder extends Model
     protected $table = 'media_folders';
     protected $fillable = [
         'name',
-        'folder_id'
+        'folder_id',
+        'type'
     ];
     
     public function files()
@@ -63,10 +64,11 @@ class MediaFolder extends Model
         return $this->delete();
     }
     
-    public static function folderExists($name, $parentId)
+    public static function folderExists($name, $parentId, $type)
     {
         return self::where('name', '=', $name)
             ->where('folder_id', '=', $parentId)
+            ->where('type', '=', $type)
             ->exists();
     }
 }

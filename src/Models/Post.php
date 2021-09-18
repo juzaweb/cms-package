@@ -2,9 +2,7 @@
 
 namespace Juzaweb\Models;
 
-use Juzaweb\Models\Comment;
 use Juzaweb\Traits\PostTypeModel;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Juzaweb\Models\Post
@@ -56,10 +54,6 @@ class Post extends Model
     protected $searchFields = [
         'title',
     ];
-    
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'post_id', 'id');
-    }
+
 
 }

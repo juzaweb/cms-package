@@ -14,10 +14,22 @@
 
 namespace Juzaweb\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
 class ApiController extends Controller
 {
+    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
+    {
+        $validator = $this->getValidationFactory()
+            ->make($request->all(), $rules, $messages, $customAttributes);
+
+        if ($validator->fails()) {
+            $this->restFail($validator->errors())->send();
+            exit(1);
+        }
+    }
+
     protected function restSuccess($data, string $message = '', int $status = 200)
     {
         $response = [

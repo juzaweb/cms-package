@@ -10,10 +10,10 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBox;
 use Juzaweb\Facades\HookAction;
 
-class TaxonomyMenuBox extends MenuBoxAbstract
+class TaxonomyMenuBox extends MenuBox
 {
     protected $key;
     /**

@@ -5,10 +5,8 @@
         <div class="col-md-12">
             <div class="alert alert-success">
                 <p>You are using Juzaweb CMS Version: {{ \Juzaweb\Version::getVersion() }}</p>
-                <p>View CMS change logs: <a href="https://github.com/juzaweb/laravel-cms/blob/master/CHANGELOG.md" target="_blank">click here</a></p>
+                <p>View CMS change logs: <a href="https://github.com/juzaweb/laravel-cms/releases" target="_blank">click here</a></p>
             </div>
-
-            <div class="alert alert-warning">Important: Before updating, please back up your database and files.</div>
 
             @if($updater->checkUpdate())
                 @php
@@ -21,7 +19,7 @@
 
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-cloud-upload"></i>
-                        Update now
+                        {{ trans('juzaweb::app.update_now') }}
                     </button>
                 </form>
 

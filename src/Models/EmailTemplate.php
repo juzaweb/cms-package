@@ -2,7 +2,6 @@
 
 namespace Juzaweb\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Juzaweb\Traits\ResourceModel;
 
 /**
@@ -40,7 +39,8 @@ class EmailTemplate extends Model
         'code',
         'subject',
         'body',
-        'params'
+        'params',
+        'email_hook',
     ];
     
     protected $casts = [

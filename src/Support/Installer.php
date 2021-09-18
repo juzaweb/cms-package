@@ -6,14 +6,12 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 6/12/2021
- * Time: 6:20 PM
 */
 
 namespace Juzaweb\Support;
 
+
+use Illuminate\Support\Facades\DB;
 
 class Installer
 {
@@ -24,11 +22,34 @@ class Installer
      */
     public static function alreadyInstalled()
     {
-        return file_exists(static::installedPath());
+        if (!self::checkDbInstall()) {
+            if (file_exists(static::installedPath())) {
+                unlink(static::installedPath());
+            }
+
+            return false;
+        }
+
+        if (file_exists(static::installedPath())) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function installedPath()
     {
         return storage_path('app/installed');
+    }
+
+    protected static function checkDbInstall()
+    {
+        try {
+            DB::connection()->getPdo();
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

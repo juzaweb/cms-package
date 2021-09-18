@@ -10,9 +10,9 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Juzaweb\Abstracts\MenuBoxAbstract;
+use Juzaweb\Abstracts\MenuBox;
 
-class CustomMenuBox extends MenuBoxAbstract
+class CustomMenuBox extends MenuBox
 {
     public function mapData($data)
     {

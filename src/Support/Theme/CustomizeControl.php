@@ -10,9 +10,9 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Juzaweb\Abstracts\CustomizeControlAbstract;
+use Juzaweb\Abstracts\CustomizeControl as BaseCustomizeControl;
 
-class CustomizeControl extends CustomizeControlAbstract
+class CustomizeControl extends BaseCustomizeControl
 {
     public function contentTemplate()
     {

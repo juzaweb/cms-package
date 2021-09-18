@@ -6,6 +6,6 @@
 <script type="text/javascript">
     CKEDITOR.replace("ckeditor-{{ $name }}", {
         filebrowserImageBrowseUrl: '/admin-cp/file-manager?type=image',
-        filebrowserBrowseUrl: '/admin-cp/file-manager?type=file'
+        filebrowserBrowseUrl: '/admin-cp/file-manager?type=file',
     });
 </script>

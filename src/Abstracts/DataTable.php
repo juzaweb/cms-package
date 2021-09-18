@@ -22,7 +22,9 @@ abstract class DataTable
 {
     protected $perPage = 10;
 
-    protected $params;
+    protected $params = [];
+
+    public $currentUrl;
 
     /**
      * Columns datatable
@@ -53,6 +55,7 @@ abstract class DataTable
     {
         $uniqueId = 'juzaweb_' . Str::random(10);
         $searchFields = $this->searchFields();
+        $this->currentUrl = url()->current();
 
         return view('juzaweb::components.datatable', [
             'columns' => $this->columns(),
@@ -94,7 +97,7 @@ abstract class DataTable
         return [
             'edit' => [
                 'label' => trans('juzaweb::app.edit'),
-                'url' => 'edit/' . $row->id,
+                'url' => $this->currentUrl .'/'. $row->id . '/edit',
             ],
             'delete' => [
                 'label' => trans('juzaweb::app.delete'),

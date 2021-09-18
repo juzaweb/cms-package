@@ -369,6 +369,7 @@ abstract class Plugin
 
         $this->activator->enable($this);
         $this->runMigrate();
+        $this->publishAssets();
         $this->flushCache();
 
         $this->fireEvent('enabled');
@@ -440,7 +441,7 @@ abstract class Plugin
         return $this->getExtraJuzaweb('name');
     }
 
-    public function getDomain()
+    public function getDomainName()
     {
         return $this->getExtraJuzaweb('domain');
     }
@@ -454,6 +455,16 @@ abstract class Plugin
 
     private function runMigrate()
     {
-        Artisan::call('plugin:migrate');
+        Artisan::call('plugin:migrate', [
+            'module' => $this->name,
+            '--force' => true
+        ]);
+    }
+
+    private function publishAssets()
+    {
+        Artisan::call('plugin:publish', [
+            'module' => $this->name,
+        ]);
     }
 }

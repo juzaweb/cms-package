@@ -52,6 +52,12 @@ class MediaFile extends Model
 
     public function isImage()
     {
-
+        return in_array($this->mime_type, [
+            'image/png',
+            'image/jpeg',
+            'image/gif',
+            'image/pjpeg',
+            'image/svg+xml',
+        ]);
     }
 }

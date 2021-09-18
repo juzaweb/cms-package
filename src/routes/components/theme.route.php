@@ -2,11 +2,11 @@
 /**
  * JUZAWEB CMS - The Best CMS for Laravel Project
  *
- * @package juzawebcms/juzawebcms
+ * @package laravel-cms/cms
  * @author The Anh Dang
  *
  * Developed based on Laravel Framework
- * Github: https://github.com/juzawebcms/juzawebcms
+ * Github: https://juzaweb.com/cms
  */
 
 Route::group(['prefix' => 'themes'], function () {
@@ -27,3 +27,23 @@ Route::group(['prefix' => 'permalinks'], function () {
     Route::post('/save', 'Backend\PermalinkController@save')->name('admin.permalink.save');
 });
 
+Route::group(['prefix' => 'menus'], function () {
+    Route::get('/', 'Backend\MenuController@index')->name('admin.menu');
+    Route::get('/{id}', 'Backend\MenuController@index')->name('admin.menu.id');
+    Route::post('/store', 'Backend\MenuController@store')->name('admin.menu.store');
+    Route::put('/{id}', 'Backend\MenuController@update')->name('admin.menu.update');
+    Route::delete('/{id}', 'Backend\MenuController@destroy')->name('admin.menu.destroy');
+    Route::post('/add-item', 'Backend\MenuController@addItem')->name('admin.menu.add-item');
+});
+
+Route::group(['prefix' => 'customize'], function () {
+    Route::get('/', 'Backend\ThemeEditorController@index')->name('admin.editor');
+
+    Route::post('/save', 'Backend\ThemeEditorController@save')->name('admin.editor.save');
+});
+
+Route::group(['prefix' => 'widgets'], function () {
+    Route::get('/', 'Backend\WidgetController@index')->name('admin.widget');
+    Route::get('/get-item', 'Backend\WidgetController@getWidgetItem')->name('admin.widget.get-item');
+    Route::put('/{key}', 'Backend\WidgetController@update')->name('admin.widget.update');
+});

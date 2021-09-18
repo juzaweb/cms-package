@@ -28,6 +28,7 @@ class MenuAction extends Action
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addAdminStyles'], 10);
         $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'addMenuBoxs'], 50);
         $this->addAction(self::BACKEND_CALL_ACTION, [$this, 'addTaxonomiesForm']);
+        $this->addAction(self::JUZAWEB_INIT_ACTION, [$this, 'registerEmailHooks']);
     }
 
     public function addBackendMenu()
@@ -41,8 +42,8 @@ class MenuAction extends Action
             ]
         );
 
-        /*HookAction::addAdminMenu(
-            'juzaweb::app.dashboard',
+        HookAction::addAdminMenu(
+            trans('juzaweb::app.dashboard'),
             'dashboard',
             [
                 'icon' => 'fa fa-dashboard',
@@ -52,23 +53,23 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            'juzaweb::app.updates',
+            trans('juzaweb::app.updates'),
             'updates',
             [
                 'icon' => 'fa fa-refresh',
                 'position' => 2,
                 'parent' => 'dashboard',
             ]
-        );*/
+        );
 
-        /*HookAction::addAdminMenu(
+        HookAction::addAdminMenu(
             trans('juzaweb::app.media'),
             'media',
             [
                 'icon' => 'fa fa-image',
                 'position' => 10
             ]
-        );*/
+        );
 
         HookAction::addAdminMenu(
             trans('juzaweb::app.appearance'),
@@ -90,8 +91,8 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.menu'),
-            'menu',
+            trans('juzaweb::app.widgets'),
+            'widgets',
             [
                 'icon' => 'fa fa-list',
                 'position' => 2,
@@ -100,10 +101,20 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.editor'),
-            'editor',
+            trans('juzaweb::app.menus'),
+            'menus',
             [
-                'icon' => 'fa fa-edit',
+                'icon' => 'fa fa-list',
+                'position' => 2,
+                'parent' => 'appearance',
+            ]
+        );
+
+        HookAction::addAdminMenu(
+            trans('juzaweb::app.background'),
+            'customize',
+            [
+                'icon' => 'fa fa-wrench',
                 'position' => 30,
                 'parent' => 'appearance',
                 'turbolinks' => false,
@@ -204,6 +215,18 @@ class MenuAction extends Action
                 'parent' => 'logs',
             ]
         );
+
+        if (config('juzaweb.logs_viewer')) {
+            HookAction::addAdminMenu(
+                trans('juzaweb::app.error_logs'),
+                'logs.error',
+                [
+                    'icon' => 'fa fa-exclamation-triangle',
+                    'position' => 1,
+                    'parent' => 'logs',
+                ]
+            );
+        }
     }
 
     public function addSettingPage()
@@ -274,7 +297,6 @@ class MenuAction extends Action
     {
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/vendor.js');
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/backend.js');
-        HookAction::enqueueScript('core', 'js/menu.js');
         HookAction::enqueueScript('core', 'vendor/juzaweb/styles/ckeditor/ckeditor.js');
     }
 
@@ -301,5 +323,17 @@ class MenuAction extends Action
 
             return $items;
         });
+    }
+
+    public function registerEmailHooks()
+    {
+        HookAction::registerEmailHook('register_success', [
+            'label' => trans('juzaweb::app.registered_success'),
+            'params' => [
+                'name' => trans('juzaweb::app.user_name'),
+                'email' => trans('juzaweb::app.user_email'),
+                'verifyToken' => trans('juzaweb::app.verify_token'),
+            ],
+        ]);
     }
 }

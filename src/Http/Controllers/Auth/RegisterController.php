@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Auth;
 
+use Juzaweb\Events\EmailHook;
 use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +70,14 @@ class RegisterController extends Controller
                 'verification_token' => $verifyToken,
             ]);
 
+            event(new EmailHook('register_success', [
+                'params' => [
+                    'name' => $name,
+                    'email' => $email,
+                    'verifyToken' => $verifyToken,
+                ],
+            ]));
+
             Email::make()
                 ->withTemplate('verification')
                 ->setParams([
@@ -81,6 +90,13 @@ class RegisterController extends Controller
             return $this->success([
                 'redirect' => route('auth.register')
             ]);
+        } else {
+            event(new EmailHook('register_success', [
+                'params' => [
+                    'name' => $name,
+                    'email' => $email,
+                ],
+            ]));
         }
 
         do_action('auth.register.success', $user);

@@ -10,7 +10,7 @@ class $CLASS$ extends BackendController
     {
         //
 
-        return view('$SNAKE_NAME$::index', [
+        return view('$DOMAIN_NAME$::index', [
             'title' => 'Title Page',
         ]);
     }

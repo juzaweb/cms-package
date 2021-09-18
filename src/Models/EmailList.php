@@ -2,8 +2,6 @@
 
 namespace Juzaweb\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Juzaweb\Models\EmailList
  *

@@ -2,9 +2,10 @@
 
 namespace $NAMESPACE$;
 
-use Juzaweb\Core\Models\Model;
+use Juzaweb\Models\Model;
 
 class $CLASS$ extends Model
 {
+    protected $table = '$TABLE$';
     protected $fillable = $FILLABLE$;
 }

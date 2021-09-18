@@ -12,7 +12,7 @@
                 <div class="juzaweb__auth__containerInner">
                     <div class="text-center mb-5">
                         <h1 class="mb-5 px-3">
-                            <strong>@lang('juzaweb::message.login_form.welcome', ['name' => get_config('sitename', 'MYMO CMS')])</strong>
+                            <strong>@lang('juzaweb::message.login_form.welcome', ['name' => get_config('sitename', 'JUZAWEB CMS')])</strong>
                         </h1>
 
                         <p class="mb-4">

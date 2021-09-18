@@ -6,16 +6,21 @@ use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController
 {
-    public function index()
+    public function index(...$slug)
     {
-        return view('pages.taxonomy');
-    }
-
-    public function content($slug)
-    {
-        $tax = Taxonomy::with(['translations'])
-            ->where('slug', $slug)
+        $taxSlug = $slug[1];
+        $taxonomy = Taxonomy::where('slug', $taxSlug)
             ->first();
-        dd($tax);
+
+        $title = $taxonomy->name;
+        $posts = $taxonomy->posts()
+            ->wherePublish()
+            ->paginate();
+
+        return view('theme::taxonomy.index', compact(
+            'title',
+            'taxonomy',
+            'posts'
+        ));
     }
 }

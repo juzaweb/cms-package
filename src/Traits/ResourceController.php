@@ -42,9 +42,13 @@ trait ResourceController
 
     public function edit(...$params)
     {
+        $indexParams = $params;
+        unset($indexParams[$this->getPathIdIndex($indexParams)]);
+        $indexParams = collect($indexParams)->values()->toArray();
+
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$params),
+            'url' => action([static::class, 'index'], ...$indexParams),
         ]);
 
         $model = $this->makeModel()->findOrFail($this->getPathId($params));
@@ -66,8 +70,8 @@ trait ResourceController
         try {
             $this->beforeStore($request);
             $model = $this->getModel()::create($request->all());
-            $this->afterStore($request, $model);
-            $this->afterSave($request, $model);
+            $this->afterStore($request, $model, ...$params);
+            $this->afterSave($request, $model, ...$params);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -135,6 +139,7 @@ trait ResourceController
      *
      * @param Request $request
      * @param \Juzaweb\Models\Model $model
+     * @param mixed $params
      */
     protected function afterSave(Request $request, $model, ...$params)
     {
@@ -174,9 +179,14 @@ trait ResourceController
         ];
     }
 
+    protected function getPathIdIndex($params)
+    {
+        return count($params) - 1;
+    }
+
     protected function getPathId($params)
     {
-        return $params[count($params) - 1];
+        return $params[$this->getPathIdIndex($params)];
     }
 
     protected function storeSuccessResponse($model, $request, ...$params)

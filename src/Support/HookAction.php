@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Juzaweb\Http\Controllers\Frontend\PostController;
+use Juzaweb\Http\Controllers\Frontend\TaxonomyController;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
@@ -41,6 +43,7 @@ class HookAction
             'base' => '',
             'key' => $key,
             'callback' => '',
+            'post_type' => '',
             'position' => 20,
         ], $args));
 
@@ -101,6 +104,7 @@ class HookAction
         $opts = [
             'title' => $menuTitle,
             'key' => $menuSlug,
+            'slug' => str_replace('.', '-', $menuSlug),
             'icon' => 'fa fa-list-ul',
             'url' => str_replace('.', '/', $menuSlug),
             'parent' => null,
@@ -237,11 +241,11 @@ class HookAction
             }
 
             if ($args->get('rewrite')) {
-                $base = Str::singular($type . '-' . $taxonomy);
                 $this->registerPermalink($args->get('key'), [
                     'label' => $args->get('label'),
-                    'base' => $base,
+                    'base' => $args->get('singular'),
                     'priority' => $args->get('priority'),
+                    'callback' => TaxonomyController::class
                 ]);
             }
 
@@ -335,6 +339,8 @@ class HookAction
                 'label' => $args->get('label'),
                 'base' => $args->get('singular'),
                 'priority' => $args->get('priority'),
+                'callback' => PostController::class,
+                'post_type' => $key,
             ]);
         }
     }
@@ -408,7 +414,7 @@ class HookAction
     {
         $taxonomies = collect(GlobalData::get('taxonomies'));
 
-        if (empty($taxonomies)) {
+        if (empty($taxonomies) || empty($postType)) {
             return $taxonomies;
         }
 
@@ -514,5 +520,88 @@ class HookAction
                 'location' => $location
             ]));
         }
+    }
+
+    public function registerEmailHook($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'key' => $key,
+            'params' => [],
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('email_hooks.' . $key, new Collection($args));
+    }
+
+    public function getEmailHooks($key = null)
+    {
+        if ($key) {
+            return GlobalData::get('email_hooks.' . $key);
+        }
+
+        return new Collection(GlobalData::get('email_hooks'));
+    }
+
+    public function getWidgets($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('widgets'), $key);
+        }
+
+        return new Collection(GlobalData::get('widgets'));
+    }
+
+    public function getSidebars($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('sidebars'), $key);
+        }
+
+        return new Collection(GlobalData::get('sidebars'));
+    }
+
+    public function registerSidebar($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'key' => $key,
+            'description' => '',
+            'before_widget' => '',
+            'after_widget'  => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('sidebars.' . $key, new Collection($args));
+    }
+
+    public function registerWidget($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'description' => '',
+            'key' => $key,
+            'widget' => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('widgets.' . $key, new Collection($args));
+    }
+
+    public function registerPageBlock($key, $args = [])
+    {
+        $defaults = [
+            'label' => '',
+            'description' => '',
+            'key' => $key,
+            'block' => '',
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('page_blocks.' . $key, new Collection($args));
     }
 }

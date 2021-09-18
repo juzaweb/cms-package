@@ -6,10 +6,6 @@
  * @author     The Anh Dang <dangtheanh16@gmail.com>
  * @link       https://github.com/juzawebcms/juzawebcms
  * @license    MIT
- *
- * Created by JUZAWEB.
- * Date: 5/25/2021
- * Time: 10:29 PM
  */
 
 namespace Juzaweb\Providers;
@@ -17,13 +13,24 @@ namespace Juzaweb\Providers;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Http\Middleware\XFrameHeadersMiddleware;
 use Illuminate\Support\Facades\URL;
+use Juzaweb\Support\BladeMinifyCompiler;
 
 class PerformanceServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->bootMiddlewares();
+        if (config('juzaweb.performance.deny_iframe')) {
+            $this->bootMiddlewares();
+        }
+
         $this->bootSchemeSsl();
+    }
+
+    public function register()
+    {
+        if (config('juzaweb.performance.minify_views')) {
+            $this->registerBladeCompiler();
+        }
     }
 
     protected function bootMiddlewares()
@@ -43,5 +50,12 @@ class PerformanceServiceProvider extends ServiceProvider
                 URL::forceScheme('https');
             }
         }
+    }
+
+    protected function registerBladeCompiler()
+    {
+        $this->app->singleton('blade.compiler', function ($app) {
+            return new BladeMinifyCompiler($app['files'], $app['config']['view.compiled']);
+        });
     }
 }

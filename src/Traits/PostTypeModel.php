@@ -28,7 +28,7 @@ use Illuminate\Support\Str;
  */
 trait PostTypeModel
 {
-    use ResourceModel, UseSlug, UseThumbnail;
+    use ResourceModel, UseSlug, UseThumbnail, UseChangeBy;
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
@@ -98,20 +98,12 @@ trait PostTypeModel
         $postType = $this->getPostType('key');
         $taxonomies = HookAction::getTaxonomies($postType);
         foreach ($taxonomies as $taxonomy) {
-            if (!Arr::has($attributes, $taxonomy->get('taxonomy'))) {
-                continue;
-            }
-
             $this->syncTaxonomy($taxonomy->get('taxonomy'), $attributes, $postType);
         }
     }
 
     public function syncTaxonomy(string $taxonomy, array $attributes, string $postType = null)
     {
-        if (!Arr::has($attributes, $taxonomy)) {
-            return;
-        }
-
         $postType = $postType ?? $this->getPostType('key');
         $data = Arr::get($attributes, $taxonomy, []);
         $detachIds = $this->taxonomies()
@@ -125,6 +117,16 @@ trait PostTypeModel
             ->syncWithoutDetaching(combine_pivot($data, [
                 'term_type' => $postType
             ]), ['term_type' => $postType]);
+
+        $taxonomies = Taxonomy::where('taxonomy', '=', $taxonomy)
+            ->whereIn('id', array_merge($detachIds, $data))
+            ->get();
+
+        foreach ($taxonomies as $taxonomy) {
+            $taxonomy->update([
+                'total_post' => $taxonomy->posts()->count()
+            ]);
+        }
     }
 
     public function getPostType($key = null)

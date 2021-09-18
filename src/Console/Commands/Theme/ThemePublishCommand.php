@@ -20,8 +20,6 @@ class ThemePublishCommand extends Command
         }
 
         if (empty($type)) {
-            $this->publishViews($theme);
-            $this->publishLang($theme);
             $this->publishAssets($theme);
         } else {
             switch ($type) {

@@ -13,9 +13,7 @@
  */
 
 Route::group(['prefix' => '/'], function () {
-    Route::get('/', 'Backend\DashboardController@index');
-
-    Route::get('/dashboard', 'Backend\DashboardController@dashboard')->name('admin.dashboard');
+    Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
 
     Route::get('/updates', 'Backend\UpdateController@index')->name('admin.update');
     Route::post('/updates', 'Backend\UpdateController@update');

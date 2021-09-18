@@ -3,7 +3,6 @@
 namespace Juzaweb\Models;
 
 use Juzaweb\Traits\PostTypeModel;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Juzaweb\Models\Page

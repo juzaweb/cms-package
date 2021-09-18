@@ -4,6 +4,8 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
 use Juzaweb\Models\User;
@@ -21,6 +23,14 @@ class LoadDataController extends BackendController
         return response()->json([
             'status' => 'error',
             'message' => 'Function not found',
+        ]);
+    }
+
+    protected function generateSlug(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'slug' => Str::slug(Str::words($request->input('title'), 15))
         ]);
     }
 
@@ -168,6 +178,34 @@ class LoadDataController extends BackendController
         }
 
         $paginate = $query->paginate(10);
+        $data['results'] = $query->get();
+
+        if ($paginate->nextPageUrl()) {
+            $data['pagination'] = ['more' => true];
+        }
+
+        return response()->json($data);
+    }
+
+    protected function loadPostType(Request $request)
+    {
+        $search = $request->get('search');
+        $postType = $request->get('post_type');
+        $perPage = $request->get('per_page', 10);
+
+        $postType = HookAction::getPostTypes($postType);
+
+        $query = app($postType->get('model'))->query();
+        $query->select([
+            'id',
+            'title as text'
+        ]);
+
+        if ($search) {
+            $query->where('title', 'like', '%'. $search .'%');
+        }
+
+        $paginate = $query->paginate($perPage);
         $data['results'] = $query->get();
 
         if ($paginate->nextPageUrl()) {

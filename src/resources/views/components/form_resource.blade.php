@@ -1,12 +1,32 @@
+@php
+    if (!isset($action)) {
+        $currentUrl = url()->current();
+        if (isset($model)) {
+            $action = $model->id ?
+                str_replace('/edit', '', $currentUrl) :
+                str_replace('/create', '', $currentUrl);
+        } else {
+            $action = '';
+        }
+    }
+
+    if (!isset($method)) {
+        if (isset($model)) {
+            $method = $model->id ? 'put' : 'post';
+        } else {
+            $method = 'post';
+        }
+    }
+@endphp
+
 <form
-        action="{{ $action ?? '' }}"
+        action="{{ $action }}"
         method="post"
         class="form-ajax"
-        id="{{ random_string() }}"
 >
     @csrf
 
-    @if(isset($method) && $method == 'put')
+    @if($method == 'put')
         @method('PUT')
     @endif
 
@@ -15,22 +35,13 @@
 
         <div class="col-md-6">
             <div class="btn-group float-right">
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzaweb::app.save')</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
 
-                <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> @lang('juzaweb::app.reset')</button>
+                <button type="button" class="btn btn-warning cancel-button px-3"><i class="fa fa-refresh"></i> {{ trans('juzaweb::app.reset') }}</button>
             </div>
         </div>
     </div>
 
     {{ $slot ?? '' }}
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="btn-group">
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> @lang('juzaweb::app.save')</button>
-                <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> @lang('juzaweb::app.reset')</button>
-            </div>
-        </div>
-    </div>
 
 </form>

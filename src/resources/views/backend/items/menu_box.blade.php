@@ -16,7 +16,7 @@
             <input type="hidden" name="key" value="{{ $key }}">
             <input type="hidden" name="reload_after_save" value="0">
 
-            <button type="submit" class="btn btn-primary btn-sm mt-2"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_to_menu') }}</button>
+            <button type="submit" class="btn btn-primary btn-sm mt-2 px-3"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_to_menu') }}</button>
         </form>
     </div>
 </div>

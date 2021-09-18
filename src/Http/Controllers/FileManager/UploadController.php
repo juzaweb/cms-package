@@ -107,7 +107,7 @@ class UploadController extends FileManagerController
         $config = config('juzaweb.filemanager.types.' . $type);
 
         if (empty($config)) {
-            array_push($this->errors, 'File type not sopport');
+            array_push($this->errors, 'File type not support.');
             return false;
         }
 

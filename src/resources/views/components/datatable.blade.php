@@ -11,7 +11,7 @@
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
+                <button type="submit" class="btn btn-primary px-3" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
     @endif
@@ -41,9 +41,11 @@
                 <th data-width="3%" data-checkbox="true"></th>
                 @foreach($columns as $key => $column)
                     <th
-                            data-width="{{ $column['width'] ?? 'auto' }}"
-                            data-align="{{ $column['align'] ?? 'left' }}"
-                            data-field="{{ $key }}">{{
+                        data-width="{{ $column['width'] ?? 'auto' }}"
+                        data-align="{{ $column['align'] ?? 'left' }}"
+                        data-field="{{ $key }}"
+                        data-sortable="{{ $column['sortable'] ?? true }}"
+                    >{{
                                 $column['label'] ?? strtoupper($key) }}
                     </th>
                 @endforeach
@@ -56,7 +58,7 @@
     var table = new JuzawebTable({
         table: "#{{ $uniqueId }}",
         page_size: parseInt("{{ $perPage }}"),
-        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}',
-        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}'
+        url: '{{ route('admin.datatable.get-data') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}&currentUrl={{ url()->current() }}',
+        action_url: '{{ route('admin.datatable.bulk-actions') }}?table={{ urlencode($table) }}&data={{ urlencode(json_encode($params)) }}&currentUrl={{ url()->current() }}'
     });
 </script>

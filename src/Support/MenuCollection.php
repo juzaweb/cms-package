@@ -42,6 +42,16 @@ class MenuCollection
     {
         return $this->item->get($key, $default);
     }
+
+    public function getUrl()
+    {
+        $url = $this->get('url');
+        if ($url == 'dashboard') {
+            return '';
+        }
+
+        return '/' . $url;
+    }
     
     public function getChildrens()
     {

@@ -32,18 +32,23 @@ class DatatableController extends BackendController
         $query->limit($limit);
         $rows = $query->get();
 
+        $results = [];
         $columns = $table->columns();
+
         foreach ($rows as $index => $row) {
-            foreach ($columns as $key => $column) {
-                if (!empty($column['formatter'])) {
-                    $row->{$key} = $column['formatter']($row->{$key}, $row, $index);
+            $attributes = $row->getAttributes();
+            foreach ($attributes as $col => $value) {
+                if (!empty($columns[$col]['formatter'])) {
+                    $results[$index][$col] = $columns[$col]['formatter']($row->{$col}, $row, $index);
+                } else {
+                    $results[$index][$col] = $row->{$col};
                 }
             }
         }
 
         return response()->json([
             'total' => $count,
-            'rows' => $rows
+            'rows' => $results
         ]);
     }
 
@@ -75,6 +80,8 @@ class DatatableController extends BackendController
     {
         $table = Crypt::decryptString($request->get('table'));
         $table = app($table);
+        $table->currentUrl = $request->get('currentUrl');
+
         if (method_exists($table, 'mount')) {
             $data = json_decode(urldecode($request->get('data')), true);
             $table->mount(...$data);

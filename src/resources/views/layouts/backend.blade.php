@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-kit-theme="default">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -39,12 +39,13 @@
 
         <div class="juzaweb__menuLeft__outer">
             <div class="juzaweb__menuLeft__logo__container">
-                <a href="/{{ config('juzaweb.admin_prefix') }}/dashboard">
+                <a href="/{{ config('juzaweb.admin_prefix') }}">
                 <div class="juzaweb__menuLeft__logo">
                     <img src="{{ asset('vendor/juzaweb/styles/images/logo.svg') }}" class="mr-2" alt="Juzaweb">
                     <div class="juzaweb__menuLeft__logo__name">Juzaweb</div>
                     <div class="juzaweb__menuLeft__logo__descr">Cms</div>
                 </div>
+
                 </a>
                 {{--<div class="juzaweb__menuLeft__logo">
                     <div class="juzaweb__menuLeft__logo__name">
@@ -68,7 +69,7 @@
         </div>
 
         <div class="juzaweb__layout__content">
-            @if(!request()->is(config('juzaweb.admin_prefix') . '/dashboard'))
+            @if(!request()->is(config('juzaweb.admin_prefix')))
                 {{ jw_breadcrumb('admin', [
                         [
                             'title' => $title

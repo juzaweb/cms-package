@@ -1,0 +1,5 @@
+@component('juzaweb::components.form_input', [
+                'label' => trans('$MODULE_DOMAIN$::content.$COLUMN$'),
+                'name' => '$COLUMN$',
+                'value' => $model->$COLUMN$,
+            ])@endcomponent

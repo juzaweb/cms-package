@@ -15,6 +15,7 @@ return [
             'routes/admin' => 'src/routes/admin.php',
             'routes/api' => 'src/routes/api.php',
             'views/index' => 'src/resources/views/index.blade.php',
+            'lang/en' => 'src/resources/lang/en/content.php',
             'composer' => 'composer.json',
             'webpack' => 'webpack.mix.js',
             'package' => 'package.json',
