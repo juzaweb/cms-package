@@ -22,9 +22,11 @@ use Juzaweb\Models\MediaFolder;
 
 class MediaController extends BackendController
 {
-    public function index($folderId = null)
+    public function index(Request $request, $folderId = null)
     {
         $title = trans('juzaweb::app.media');
+        $type = $request->get('type', 'image');
+
         if ($folderId) {
             $this->addBreadcrumb([
                 'title' => $title,
@@ -43,14 +45,15 @@ class MediaController extends BackendController
             $this->getFiles($query, $folderId)
         );
 
-        $mimeTypes = config("juzaweb.filemanager.types.image.valid_mime");
+        $mimeTypes = config("juzaweb.filemanager.types.{$type}.valid_mime");
 
         return view('juzaweb::backend.media.index', [
             'fileTypes' => $this->getFileTypes(),
             'folderId' => $folderId,
             'mediaItems' => $mediaItems,
             'title' => $title,
-            'mimeTypes' => $mimeTypes
+            'mimeTypes' => $mimeTypes,
+            'type' => $type
         ]);
     }
 
@@ -66,10 +69,11 @@ class MediaController extends BackendController
 
         $name = $request->post('name');
         $parentId = $request->post('folder_id');
+        $type = $request->post('type');
 
-        if (MediaFolder::folderExists($name, $parentId)) {
+        if (MediaFolder::folderExists($name, $parentId, $type)) {
             return $this->error([
-                'message' => trans('juzaweb::filemanager.errors.folder-exists')
+                'message' => trans('juzaweb::filemanager.folder-exists')
             ]);
         }
 
@@ -128,7 +132,7 @@ class MediaController extends BackendController
         $files = $query->get();
         foreach ($files as $row) {
             $fileUrl = upload_url($row->path);
-            $thumb = $row->isImage($row) ? $fileUrl : null;
+            $thumb = $row->isImage() ? $fileUrl : null;
             $icon = isset($fileIcon[strtolower($row->extension)]) ?
                 $fileIcon[strtolower($row->extension)] : 'fa-file-o';
 
@@ -178,7 +182,7 @@ class MediaController extends BackendController
                 'time' => (string) $row->created_at,
                 'type' => $row->type,
                 'icon' => 'fa-folder-o',
-                'thumb' => asset('vendor/juzaweb/filemanager/images/folder.png'),
+                'thumb' => asset('vendor/juzaweb/styles/images/folder.png'),
                 'is_file' => false
             ];
         }

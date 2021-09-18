@@ -1,7 +1,7 @@
 <ul class="juzaweb__menuLeft__navigation">
     @php
         $adminPrefix = config('juzaweb.admin_prefix');
-        $adminUrl = url($adminPrefix) . '/';
+        $adminUrl = url($adminPrefix);
         $currentUrl = url()->current();
         $segment3 = request()->segment(3);
         $segment2 = request()->segment(2);

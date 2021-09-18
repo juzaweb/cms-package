@@ -27,6 +27,7 @@
     @endforeach
     <link rel="stylesheet" href="{{ asset('css/widget.css') }}">
     <script src="{{ asset('js/widget.js') }}"></script>
+    <script src="{{ asset('js/media.js') }}"></script>
 
     @do_action('juzaweb_header')
 

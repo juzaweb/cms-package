@@ -50,7 +50,7 @@ class MenuCollection
             return '';
         }
 
-        return $url;
+        return '/' . $url;
     }
     
     public function getChildrens()

@@ -8,10 +8,9 @@
  * @license    MIT
  */
 
-Route::get('/', 'Installer\WelcomeController@index')->name('installer.home');
-
 Route::group([
-    'prefix' => 'install'
+    'prefix' => 'install',
+    'middleware' => 'install'
 ], function () {
     Route::get('/', 'Installer\WelcomeController@welcome')->name('installer.welcome');
     Route::get('environment', 'Installer\EnvironmentController@environment')->name('installer.environment');
