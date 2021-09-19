@@ -65,11 +65,12 @@ trait ResourceController
         }
 
         $validator->validate();
+        $data = $this->parseDataForSave($request->all());
 
         DB::beginTransaction();
         try {
             $this->beforeStore($request);
-            $model = $this->getModel()::create($request->all());
+            $model = $this->getModel()::create($data);
             $this->afterStore($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -93,12 +94,13 @@ trait ResourceController
         }
 
         $validator->validate();
+        $data = $this->parseDataForSave($request->all());
 
         $model = $this->makeModel()->findOrFail($this->getPathId($params));
         DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
-            $model->update($request->all());
+            $model->update($data);
             $this->afterUpdate($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -175,7 +177,8 @@ trait ResourceController
 
         return [
             'title' => $this->getTitle(...$params),
-            'dataTable' => $dataTable
+            'dataTable' => $dataTable,
+            'linkCreate' => action([static::class, 'create'], ...$params)
         ];
     }
 
