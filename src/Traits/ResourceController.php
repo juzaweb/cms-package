@@ -31,10 +31,10 @@ trait ResourceController
     {
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$params),
+            'url' => action([static::class, 'index'], $params),
         ]);
 
-        $model = $this->makeModel();
+        $model = $this->makeModel(...$params);
         return view($this->viewPrefix . '.form', array_merge([
             'title' => trans('juzaweb::app.add_new')
         ], $this->getDataForForm($model, ...$params)));
@@ -48,7 +48,7 @@ trait ResourceController
 
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$indexParams),
+            'url' => action([static::class, 'index'], $indexParams),
         ]);
 
         $model = $this->makeModel()->findOrFail($this->getPathId($params));
@@ -148,9 +148,9 @@ trait ResourceController
         //
     }
 
-    protected function makeModel()
+    protected function makeModel(...$params)
     {
-        return app($this->getModel());
+        return app($this->getModel(...$params));
     }
 
     protected function parseDataForSave(array $attributes, ...$params)
