@@ -67,7 +67,7 @@ class MenuAction extends Action
             'media',
             [
                 'icon' => 'fa fa-image',
-                'position' => 10
+                'position' => 3
             ]
         );
 
