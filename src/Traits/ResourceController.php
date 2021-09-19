@@ -59,7 +59,7 @@ trait ResourceController
 
     public function store(Request $request, ...$params)
     {
-        $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all(), ...$params);
         if (is_array($validator)) {
             $validator = Validator::make($request->all(), $validator);
         }
@@ -70,7 +70,7 @@ trait ResourceController
         DB::beginTransaction();
         try {
             $this->beforeStore($request);
-            $model = $this->getModel()::create($data);
+            $model = $this->getModel(...$params)::create($data);
             $this->afterStore($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -88,7 +88,7 @@ trait ResourceController
 
     public function update(Request $request, ...$params)
     {
-        $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all(), ...$params);
         if (is_array($validator)) {
             $validator = Validator::make($request->all(), $validator);
         }
@@ -96,7 +96,7 @@ trait ResourceController
         $validator->validate();
         $data = $this->parseDataForSave($request->all());
 
-        $model = $this->makeModel()->findOrFail($this->getPathId($params));
+        $model = $this->makeModel(...$params)->findOrFail($this->getPathId($params));
         DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
@@ -178,7 +178,7 @@ trait ResourceController
         return [
             'title' => $this->getTitle(...$params),
             'dataTable' => $dataTable,
-            'linkCreate' => action([static::class, 'create'], ...$params)
+            'linkCreate' => action([static::class, 'create'], $params)
         ];
     }
 
