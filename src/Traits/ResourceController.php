@@ -51,7 +51,7 @@ trait ResourceController
             'url' => action([static::class, 'index'], $indexParams),
         ]);
 
-        $model = $this->makeModel()->findOrFail($this->getPathId($params));
+        $model = $this->makeModel(...$indexParams)->findOrFail($this->getPathId($params));
         return view($this->viewPrefix . '.form', array_merge([
             'title' => $model->{$model->getFieldName()}
         ], $this->getDataForForm($model, ...$params)));
@@ -196,7 +196,7 @@ trait ResourceController
     {
         return $this->success([
             'message' => trans('juzaweb::app.created_successfully'),
-            'redirect' => action([static::class, 'index'], ...$params)
+            'redirect' => action([static::class, 'index'], $params)
         ]);
     }
 
