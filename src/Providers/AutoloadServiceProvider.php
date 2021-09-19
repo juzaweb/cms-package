@@ -27,7 +27,11 @@ class AutoloadServiceProvider extends ServiceProvider
         $pluginsFolder = $this->getPluginsPath();
         foreach ($plugins as $pluginInfo) {
             foreach ($pluginInfo as $key => $item) {
-                $path = $pluginsFolder . '/' . $item['path'];
+                $path = $item['path'];
+                if (!is_dir($path)) {
+                    $path = $pluginsFolder . '/' . $path;
+                }
+
                 $namespace = Arr::get($item, 'namespace');
                 $domain = Arr::get($item, 'domain');
 
@@ -49,7 +53,11 @@ class AutoloadServiceProvider extends ServiceProvider
 
         foreach ($plugins as $pluginInfo) {
             foreach ($pluginInfo as $key => $item) {
-                $path = $pluginsFolder . '/' . $item['path'];
+                $path = $item['path'];
+                if (!is_dir($path)) {
+                    $path = $pluginsFolder . '/' . $path;
+                }
+
                 $namespace = Arr::get($item, 'namespace');
 
                 if (is_dir($path) && $namespace) {
@@ -85,7 +93,7 @@ class AutoloadServiceProvider extends ServiceProvider
 
     protected function getPluginsPath()
     {
-        return base_path('plugins');
+        return config('juzaweb.plugin.path');
     }
 
     protected function registerRoute($path, $namespace)
