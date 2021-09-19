@@ -28,7 +28,7 @@ trait PostTypeController
         $dataTable = $this->getDataTable();
 
         return view($viewPrefix . '.index', [
-            'title' => $postType->get('label'),
+            'title' => $this->getTitle(),
             'postType' => $postType,
             'dataTable' => $dataTable
         ]);
@@ -37,7 +37,7 @@ trait PostTypeController
     public function create()
     {
         $this->addBreadcrumb([
-            'title' => $this->getSetting()->get('label'),
+            'title' => $this->getTitle(),
             'url' => action([static::class, 'index']),
         ]);
 
@@ -52,7 +52,7 @@ trait PostTypeController
     public function edit($id)
     {
         $this->addBreadcrumb([
-            'title' => $this->getSetting()->get('label'),
+            'title' => $this->getTitle(),
             'url' => action([static::class, 'index']),
         ]);
 
