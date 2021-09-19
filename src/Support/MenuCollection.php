@@ -12,7 +12,7 @@ class MenuCollection
      * @param array $items
      * @param string $sortBy
      * @return MenuCollection[]
-     * */
+     */
     public static function make($items, $sortBy = 'position')
     {
         $results = [];

@@ -2778,7 +2778,11 @@ namespace  {
 
     class Response extends \Illuminate\Support\Facades\Response {}
 
-    class Route extends \Illuminate\Support\Facades\Route {}
+    class Route extends \Illuminate\Support\Facades\Route {
+        public static function jwResource($uri, $controller, $options = []) {}
+
+        public static function postTypeResource($uri, $controller, $options = []) {}
+    }
 
     class Schema extends \Illuminate\Support\Facades\Schema {}
 
