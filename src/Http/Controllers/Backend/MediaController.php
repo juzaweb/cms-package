@@ -22,12 +22,11 @@ class MediaController extends BackendController
     {
         $title = trans('juzaweb::app.media');
         $type = $request->get('type', 'image');
-        $maxSize = config("juzaweb.filemanager.types.{$type}.max_size");
 
         if ($folderId) {
             $this->addBreadcrumb([
                 'title' => $title,
-                'url' => route('admin.media'),
+                'url' => route('admin.media.index'),
             ]);
 
             $folder = MediaFolder::find($folderId);
@@ -42,6 +41,7 @@ class MediaController extends BackendController
             $this->getFiles($query, $folderId)
         );
 
+        $maxSize = config("juzaweb.filemanager.types.{$type}.max_size");
         $mimeTypes = config("juzaweb.filemanager.types.{$type}.valid_mime");
 
         return view('juzaweb::backend.media.index', [
@@ -67,9 +67,8 @@ class MediaController extends BackendController
 
         $name = $request->post('name');
         $parentId = $request->post('folder_id');
-        $type = $request->post('type');
 
-        if (MediaFolder::folderExists($name, $parentId, $type)) {
+        if (MediaFolder::folderExists($name, $parentId)) {
             return $this->error([
                 'message' => trans('juzaweb::filemanager.folder-exists')
             ]);
@@ -163,10 +162,6 @@ class MediaController extends BackendController
     {
         $result = [];
         $query = MediaFolder::whereFolderId($folderId);
-
-        if ($sQuery->get('type')) {
-            $query->where('type', '=', $sQuery->get('type'));
-        }
 
         $directories = $query->get();
         foreach ($directories as $row) {

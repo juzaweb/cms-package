@@ -25,7 +25,7 @@ class PostController extends FrontendController
         $title = get_config('title');
         $posts = Post::wherePublish()->paginate(10);
 
-        return view('theme::post.index', compact(
+        return view('theme::index', compact(
             'posts',
             'title'
         ));
@@ -37,23 +37,15 @@ class PostController extends FrontendController
         $postSlug = $slug[1];
 
         $permalink = $this->getPermalinks($base);
-
-        $view = 'theme::post.content';
-        if ($base != 'post') {
-            $typeView = "theme::post.content-{$base}";
-            if (view()->exists($typeView)) {
-                $view = $typeView;
-            }
-        }
-
         $postType = HookAction::getPostTypes($permalink->get('post_type'));
+
         $post = app($postType->get('model'))
             ->where('slug', $postSlug)
             ->firstOrFail();
 
         $title = $post->getTitle();
 
-        return view($view, compact(
+        return view('theme::single', compact(
             'title',
             'post'
         ));

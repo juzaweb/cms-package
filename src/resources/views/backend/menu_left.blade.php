@@ -16,8 +16,6 @@
             foreach($item->getChildrens() as $child) {
                 if (empty($segment2)) {
                     $active = empty($child->getUrl());
-                } else if ($segment3 == 'create') {
-                    $active = request()->is($adminPrefix .'/'. $child->get('url'));
                 } else {
                     $active = request()->is($adminPrefix .'/'. $child->get('url') . '*');
                 }

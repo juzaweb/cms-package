@@ -98,7 +98,7 @@ if (!function_exists('home_page')) {
 /**
  * Loads a template part into a template.
  *
- * @param \Juzaweb\Models\Model $post
+ * @param \Juzaweb\Traits\PostTypeModel $post
  * @param string $slug
  * @param string $name
  * @param array $args
@@ -112,6 +112,18 @@ function get_template_part($post, $slug, $name = null, $args = [])
 
     if ($name !== '') {
         $template = "{$slug}-{$name}";
+
+        if (view()->exists('theme::template-parts.' . $template)) {
+            return view('theme::template-parts.' . $template, [
+                'post' => $post
+            ]);
+        }
+    }
+
+    $type = $post->getPostType('singular');
+
+    if (!in_array($type, ['post', 'page'])) {
+        $template = "{$slug}-{$type}";
 
         if (view()->exists('theme::template-parts.' . $template)) {
             return view('theme::template-parts.' . $template, [

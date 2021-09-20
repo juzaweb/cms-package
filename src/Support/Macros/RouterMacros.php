@@ -9,15 +9,20 @@ class RouterMacros
     public function jwResource()
     {
         return function ($uri, $controller, $options = []) {
-            $uriName = $options['name'] ?? str_replace('/', '.', $uri);
-            $uriName = 'admin.' . $uriName;
+            if (!empty($options['name'])) {
+                $routeName = $options['name'];
+            } else {
+                $routeName = str_replace(['{', '}'], '', $uri);
+                $routeName = str_replace('/', '.', $routeName);
+            }
 
-            $this->get($uri, $controller . '@index')->name($uriName .'.index');
-            $this->get($uri . '/create', $controller . '@create')->name($uriName . '.create');
-            $this->get($uri . '/{id}/edit', $controller . '@edit')->name($uriName . '.edit')->where('id', '[0-9]+');
-            $this->post($uri, $controller . '@store')->name($uriName . '.store');
-            $this->put($uri . '/{id}', $controller . '@update')->name($uriName . '.update');
-            $this->post($uri . '/bulk-actions', $controller . '@bulkActions')->name($uriName . '.bulk-actions');
+            $routeName = 'admin.' . $routeName;
+
+            $this->get($uri, $controller . '@index')->name($routeName .'.index');
+            $this->get($uri . '/create', $controller . '@create')->name($routeName . '.create');
+            $this->get($uri . '/{id}/edit', $controller . '@edit')->name($routeName . '.edit')->where('id', '[0-9]+');
+            $this->post($uri, $controller . '@store')->name($routeName . '.store');
+            $this->put($uri . '/{id}', $controller . '@update')->name($routeName . '.update');
         };
     }
 

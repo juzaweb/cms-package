@@ -131,8 +131,9 @@ trait PostTypeModel
 
     public function getPostType($key = null)
     {
+        $modelClass = str_replace('\\', '_', static::class);
         $postType = HookAction::getPostTypes()
-            ->where('model_key', '=', str_replace('\\', '_', static::class))
+            ->where('model_key', '=', $modelClass)
             ->first();
 
         if (empty($key)) {

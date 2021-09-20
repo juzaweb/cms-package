@@ -22,7 +22,7 @@
                     <option value="deactivate">@lang('juzaweb::app.deactivate')</option>
                 </select>
 
-                <button type="submit" class="btn btn-primary mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
+                <button type="submit" class="btn btn-primary px-2 mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
             </form>
         </div>
 

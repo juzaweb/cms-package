@@ -31,10 +31,10 @@ trait ResourceController
     {
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$params),
+            'url' => action([static::class, 'index'], $params),
         ]);
 
-        $model = $this->makeModel();
+        $model = $this->makeModel(...$params);
         return view($this->viewPrefix . '.form', array_merge([
             'title' => trans('juzaweb::app.add_new')
         ], $this->getDataForForm($model, ...$params)));
@@ -48,10 +48,10 @@ trait ResourceController
 
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], ...$indexParams),
+            'url' => action([static::class, 'index'], $indexParams),
         ]);
 
-        $model = $this->makeModel()->findOrFail($this->getPathId($params));
+        $model = $this->makeModel(...$indexParams)->findOrFail($this->getPathId($params));
         return view($this->viewPrefix . '.form', array_merge([
             'title' => $model->{$model->getFieldName()}
         ], $this->getDataForForm($model, ...$params)));
@@ -59,17 +59,18 @@ trait ResourceController
 
     public function store(Request $request, ...$params)
     {
-        $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all(), ...$params);
         if (is_array($validator)) {
             $validator = Validator::make($request->all(), $validator);
         }
 
         $validator->validate();
+        $data = $this->parseDataForSave($request->all());
 
         DB::beginTransaction();
         try {
             $this->beforeStore($request);
-            $model = $this->getModel()::create($request->all());
+            $model = $this->getModel(...$params)::create($data);
             $this->afterStore($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -87,18 +88,19 @@ trait ResourceController
 
     public function update(Request $request, ...$params)
     {
-        $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all(), ...$params);
         if (is_array($validator)) {
             $validator = Validator::make($request->all(), $validator);
         }
 
         $validator->validate();
+        $data = $this->parseDataForSave($request->all());
 
-        $model = $this->makeModel()->findOrFail($this->getPathId($params));
+        $model = $this->makeModel(...$params)->findOrFail($this->getPathId($params));
         DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
-            $model->update($request->all());
+            $model->update($data);
             $this->afterUpdate($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -146,9 +148,9 @@ trait ResourceController
         //
     }
 
-    protected function makeModel()
+    protected function makeModel(...$params)
     {
-        return app($this->getModel());
+        return app($this->getModel(...$params));
     }
 
     protected function parseDataForSave(array $attributes, ...$params)
@@ -175,7 +177,8 @@ trait ResourceController
 
         return [
             'title' => $this->getTitle(...$params),
-            'dataTable' => $dataTable
+            'dataTable' => $dataTable,
+            'linkCreate' => action([static::class, 'create'], $params)
         ];
     }
 
@@ -193,7 +196,7 @@ trait ResourceController
     {
         return $this->success([
             'message' => trans('juzaweb::app.created_successfully'),
-            'redirect' => action([static::class, 'index'], ...$params)
+            'redirect' => action([static::class, 'index'], $params)
         ]);
     }
 

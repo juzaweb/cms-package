@@ -3,26 +3,7 @@
 @section('content')
 
     <div id="media-container">
-        <div class="box-hidden media-upload-form">
-            <div class="row mb-5">
-                <div class="col-md-12">
-                <form action="{{ route('filemanager.upload') }}" role='form' id='uploadForm' name='uploadForm' method='post' class="dropzone" enctype='multipart/form-data'>
 
-                    <div class="form-group" id="attachment">
-                        <div class="controls text-center">
-                            <div class="input-group w-100">
-                                <a class="btn btn-primary w-100 text-white" id="upload-button">{{ trans('juzaweb::filemanager.message-choose') }}</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type='hidden' name='working_dir' id='working_dir' value="{{ $folderId }}">
-                    <input type='hidden' name='type' id='type' value='{{ $type }}'>
-                    <input type='hidden' name='_token' value='{{ csrf_token() }}'>
-                </form>
-            </div>
-            </div>
-        </div>
 
         <div class="row mb-2">
             <div class="col-md-8">
@@ -55,7 +36,7 @@
             <div class="col-md-4">
                 <div class="btn-group float-right">
                     <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#add-folder-modal"><i class="fa fa-plus"></i> {{ trans('juzaweb::app.add_folder') }}</a>
-                    <a href="javascript:void(0)" class="btn btn-success show-form-upload"><i class="fa fa-cloud-upload"></i> {{ trans('juzaweb::app.upload') }}</a>
+                    <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-cloud-upload"></i> {{ trans('juzaweb::app.upload') }}</a>
                 </div>
             </div>
         </div>
@@ -97,6 +78,10 @@
 
 @section('footer')
 
+    @include('juzaweb::backend.media.add_modal')
+
+    @include('juzaweb::backend.media.upload_modal')
+
     <script>
         Dropzone.autoDiscover = false;
 
@@ -133,38 +118,5 @@
             Turbolinks.visit("", {action: "replace"});
         }
     </script>
-
-    <div class="modal fade" id="add-folder-modal" tabindex="-1" role="dialog" aria-labelledby="add-folder-modal-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form action="{{ route('admin.media.add-folder') }}" method="post" class="form-ajax" data-success="add_folder_success">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="add-folder-modal-label">
-                            {{ trans(('juzaweb::app.add_folder')) }}
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('juzaweb::app.close') }}">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        @component('juzaweb::components.form_input', [
-                            'label' => trans('juzaweb::app.folder_name'),
-                            'name' => 'name'
-                        ])
-                        @endcomponent
-
-                        <input type="hidden" name="folder_id" value="{{ $folderId }}">
-                        <input type="hidden" name="type" value="{{ $type }}">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> @lang('juzaweb::app.close')</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('juzaweb::app.add_folder')</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
 @endsection

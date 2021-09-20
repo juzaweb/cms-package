@@ -463,8 +463,8 @@ abstract class Plugin
 
     private function publishAssets()
     {
-        Artisan::call('plugin:publish', [
-            'module' => $this->name,
+        Artisan::call('vendor:publish', [
+            '--tag' => $this->getDomainName() . '_assets',
         ]);
     }
 }

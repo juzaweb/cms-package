@@ -11,9 +11,6 @@
                 'information' => [
                     'label' => trans('juzaweb::app.information'),
                 ],
-                'blocks' => [
-                    'label' => trans('juzaweb::app.blocks'),
-                ],
             ],
         ])
 

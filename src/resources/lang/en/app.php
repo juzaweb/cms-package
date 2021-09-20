@@ -360,5 +360,6 @@ return [
     'level' => 'Level',
     'datetime' => 'Date time',
     'time' => 'Time',
+    'upload_media' => 'Upload media',
 ];
 
