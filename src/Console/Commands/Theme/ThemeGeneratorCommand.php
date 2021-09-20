@@ -60,7 +60,9 @@ class ThemeGeneratorCommand extends Command
     public function handle()
     {
         $this->themePath = config('juzaweb.theme.path');
+        $this->themeFolders = config('theme.stubs.folders');
         $this->theme['name'] = strtolower($this->argument('name'));
+        $this->themeStubPath = $this->getThemeStubPath();
         $this->init();
     }
 
@@ -79,9 +81,8 @@ class ThemeGeneratorCommand extends Command
         }
 
         $this->generateThemeInfo();
-        $this->themeFolders = $this->getThemeFolders();
-        $this->themeStubPath = $this->getThemeStubPath();
-        $themeStubFiles = $this->getThemeStubFiles();
+
+        $themeStubFiles = config('theme.stubs.files');
         $themeStubFiles['theme'] = 'theme.json';
         $themeStubFiles['changelog'] = 'changelog.yml';
         $this->makeDir($createdThemePath);
@@ -107,8 +108,6 @@ class ThemeGeneratorCommand extends Command
         $this->theme['author'] = 'Author Name';
         $this->theme['version'] = '1.0';
         $this->theme['parent'] = '';
-        $this->theme['css'] = '';
-        $this->theme['js'] = '';
     }
 
     /**
@@ -192,8 +191,6 @@ class ThemeGeneratorCommand extends Command
             $this->theme['author'],
             $this->theme['parent'],
             $this->theme['version'],
-            $this->theme['css'],
-            $this->theme['js'],
         ];
 
         $replaceContents = str_replace($mainString, $replaceString, $contents);
@@ -203,37 +200,5 @@ class ThemeGeneratorCommand extends Command
     protected function getThemeStubPath()
     {
         return JW_PACKAGE_PATH . '/stubs/theme';
-    }
-
-    protected function getThemeStubFiles()
-    {
-        return [
-            'css' => 'assets/css/app.css',
-            'layout' => 'views/layouts/master.blade.php',
-            'page_index' => 'views/page/index.blade.php',
-            'profile_index' => 'views/profile/index.blade.php',
-            'page_detail' => 'views/page/detail.blade.php',
-            'post_index' => 'views/post/index.blade.php',
-            'post_detail' => 'views/post/detail.blade.php',
-            'lang' => 'lang/en/content.php',
-        ];
-    }
-
-    protected function getThemeFolders()
-    {
-        return [
-            'assets' => 'assets',
-            'views' => 'views',
-            'views/page' => 'views/page',
-            'views/post' => 'views/post',
-            'views/auth' => 'views/auth',
-            'views/profile' => 'views/profile',
-            'lang' => 'lang',
-            'lang/en' => 'lang/en',
-            'css' => 'assets/css',
-            'js' => 'assets/js',
-            'img' => 'assets/images',
-            'layouts' => 'views/layouts',
-        ];
     }
 }

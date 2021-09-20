@@ -1,7 +1,5 @@
 <?php
 
 return [
-
-    "title" => "[TITLE]"
-
+    'title' => '[TITLE]'
 ];
