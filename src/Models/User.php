@@ -56,6 +56,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereVerificationToken($value)
  * @mixin \Eloquent
+ * @method static Builder|User whereFilter($params = [])
  */
 class User extends Authenticatable implements JWTSubject
 {

@@ -2,7 +2,9 @@
 
 namespace Juzaweb\Tests;
 
-define('JW_BASEPATH', __DIR__ . '/../../../..');
+if (!defined('JW_BASEPATH')) {
+    define('JW_BASEPATH', __DIR__ . '/../../../..');
+}
 
 $autoloadPath = JW_BASEPATH . '/vendor/juzaweb/cms/src/Helpers/autoload.php';
 

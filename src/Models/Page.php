@@ -41,6 +41,14 @@ use Juzaweb\Traits\PostTypeModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereTaxonomyIn($taxonomies)
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereTemplate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereTemplateData($value)
+ * @property string $title
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property-read \Juzaweb\Models\User|null $createdBy
+ * @property-read \Juzaweb\Models\User|null $updatedBy
+ * @method static \Illuminate\Database\Eloquent\Builder|Page whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Page whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Page whereUpdatedBy($value)
  */
 class Page extends Model
 {

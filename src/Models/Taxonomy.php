@@ -26,20 +26,21 @@ use Juzaweb\Traits\UseThumbnail;
  * @property-read \Illuminate\Database\Eloquent\Collection|Taxonomy[] $children
  * @property-read int|null $children_count
  * @property-read Taxonomy|null $parent
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy query()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereParentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy wherePostType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereTaxonomy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereThumbnail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereTotalPost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereUpdatedAt($value)
+ * @method static Builder|Taxonomy newModelQuery()
+ * @method static Builder|Taxonomy newQuery()
+ * @method static Builder|Taxonomy query()
+ * @method static Builder|Taxonomy whereCreatedAt($value)
+ * @method static Builder|Taxonomy whereDescription($value)
+ * @method static Builder|Taxonomy whereId($value)
+ * @method static Builder|Taxonomy whereName($value)
+ * @method static Builder|Taxonomy whereParentId($value)
+ * @method static Builder|Taxonomy wherePostType($value)
+ * @method static Builder|Taxonomy whereSlug($value)
+ * @method static Builder|Taxonomy whereTaxonomy($value)
+ * @method static Builder|Taxonomy whereThumbnail($value)
+ * @method static Builder|Taxonomy whereTotalPost($value)
+ * @method static Builder|Taxonomy whereUpdatedAt($value)
+ * @method static Builder|Taxonomy whereFilter($params = [])
  * @mixin \Eloquent
  */
 class Taxonomy extends Model
@@ -69,10 +70,9 @@ class Taxonomy extends Model
         return $this->hasMany(Taxonomy::class, 'parent_id', 'id');
     }
 
-    public function posts()
+    public function posts($postType)
     {
         $postModel = $this->getPostType('model');
-        $postType = $this->getPostType('key');
         return $this->belongsToMany($postModel, 'term_taxonomies', 'taxonomy_id', 'term_id')
             ->withPivot(['term_type'])
             ->wherePivot('term_type', '=', $postType);
