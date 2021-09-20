@@ -30,7 +30,6 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(DbConfigServiceProvider::class);
         $this->app->register(HookActionServiceProvider::class);
         $this->app->register(PerformanceServiceProvider::class);
-        $this->app->register(FilemanagerServiceProvider::class);
         $this->app->register(HooksServiceProvider::class);
         $this->app->register(HookBladeServiceProvider::class);
         $this->app->register(PostTypeServiceProvider::class);
