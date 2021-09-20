@@ -64,11 +64,10 @@ class MediaFolder extends Model
         return $this->delete();
     }
     
-    public static function folderExists($name, $parentId, $type)
+    public static function folderExists($name, $parentId)
     {
         return self::where('name', '=', $name)
             ->where('folder_id', '=', $parentId)
-            ->where('type', '=', $type)
             ->exists();
     }
 }
