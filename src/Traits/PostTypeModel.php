@@ -93,6 +93,15 @@ trait PostTypeModel
         return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
     }
 
+    public function getTaxonomies($taxonomy = null)
+    {
+        if (empty($taxonomy)) {
+            return $this->taxonomies;
+        }
+
+        return $this->taxonomies->where('taxonomy', $taxonomy);
+    }
+
     public function syncTaxonomies(array $attributes)
     {
         $postType = $this->getPostType('key');

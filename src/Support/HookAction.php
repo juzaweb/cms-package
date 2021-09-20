@@ -241,7 +241,7 @@ class HookAction
             }
 
             if ($args->get('rewrite')) {
-                $this->registerPermalink($args->get('key'), [
+                $this->registerPermalink($args->get('taxonomy'), [
                     'label' => $args->get('label'),
                     'base' => $args->get('singular'),
                     'priority' => $args->get('priority'),

@@ -70,22 +70,13 @@ class Taxonomy extends Model
         return $this->hasMany(Taxonomy::class, 'parent_id', 'id');
     }
 
-    public function posts($postType)
+    public function posts($postType = null)
     {
+        $postType = $postType ? $postType : $this->getPostType('key');
         $postModel = $this->getPostType('model');
         return $this->belongsToMany($postModel, 'term_taxonomies', 'taxonomy_id', 'term_id')
             ->withPivot(['term_type'])
             ->wherePivot('term_type', '=', $postType);
-    }
-
-    public function getPostType($key = null)
-    {
-        $postType = HookAction::getPostTypes($this->post_type);
-        if ($key) {
-            return $postType->get($key);
-        }
-
-        return $postType;
     }
 
     /**
@@ -112,5 +103,45 @@ class Taxonomy extends Model
         }
 
         return $builder;
+    }
+
+    public function getPostType($key = null)
+    {
+        $postType = HookAction::getPostTypes($this->post_type);
+        if ($key) {
+            return $postType->get($key);
+        }
+
+        return $postType;
+    }
+
+    public function getPermalink($key = null)
+    {
+        $permalink = HookAction::getPermalinks($this->taxonomy);
+
+        if (empty($permalink)) {
+            return false;
+        }
+
+        if (empty($key)) {
+            return $permalink;
+        }
+
+        return $permalink->get($key);
+    }
+
+    public function getLink()
+    {
+        $permalink = $this->getPermalink('base');
+        if (empty($permalink)) {
+            return false;
+        }
+
+        return url()->to($permalink . '/' . $this->slug) . '/';
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
