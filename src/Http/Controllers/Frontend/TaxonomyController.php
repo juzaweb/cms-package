@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Illuminate\Support\Str;
 use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController
@@ -17,10 +18,16 @@ class TaxonomyController
             ->wherePublish()
             ->paginate();
 
-        return view('theme::taxonomy.index', compact(
+        $template = get_name_template_part(
+            Str::singular($taxonomy->post_type),
+            'taxonomy'
+        );
+
+        return view('theme::template-parts.' . $template, compact(
             'title',
             'taxonomy',
-            'posts'
+            'posts',
+            'template'
         ));
     }
 }

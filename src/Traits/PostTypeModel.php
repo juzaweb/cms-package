@@ -16,6 +16,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 use Juzaweb\Models\Taxonomy;
@@ -93,6 +94,12 @@ trait PostTypeModel
         return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
     }
 
+    /**
+     * Get taxonomies by taxonomy
+     *
+     * @param string $taxonomy
+     * @return Collection
+     */
     public function getTaxonomies($taxonomy = null)
     {
         if (empty($taxonomy)) {
@@ -100,6 +107,26 @@ trait PostTypeModel
         }
 
         return $this->taxonomies->where('taxonomy', $taxonomy);
+    }
+
+    /**
+     * Get Related Posts
+     *
+     * @param int $limit
+     * @param string $taxonomy
+     * @return Collection
+     */
+    public function getRelatedPosts($limit = 5, $taxonomy = null)
+    {
+        $ids = $this->getTaxonomies($taxonomy)->pluck('id')->toArray();
+
+        return app(static::class)
+            ->whereHas('taxonomies', function (Builder $q) use($ids) {
+                $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
+            })
+            ->where('id', '!=', $this->id)
+            ->take($limit)
+            ->get();
     }
 
     public function syncTaxonomies(array $attributes)

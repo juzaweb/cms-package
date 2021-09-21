@@ -45,8 +45,10 @@ class PostController extends FrontendController
             ->firstOrFail();
 
         $title = $post->getTitle();
+        $type = $post->getPostType('singular');
+        $template = get_name_template_part($type, 'single');
 
-        return view('theme::single', compact(
+        return view('theme::template-parts.' . $template, compact(
             'title',
             'post'
         ));
