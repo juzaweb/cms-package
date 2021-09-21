@@ -29,7 +29,11 @@ use Illuminate\Support\Str;
  */
 trait PostTypeModel
 {
-    use ResourceModel, UseSlug, UseThumbnail, UseChangeBy;
+    use ResourceModel,
+        UseSlug,
+        UseThumbnail,
+        UseChangeBy,
+        UseDescription;
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
@@ -120,8 +124,7 @@ trait PostTypeModel
     {
         $ids = $this->getTaxonomies($taxonomy)->pluck('id')->toArray();
 
-        return app(static::class)
-            ->whereHas('taxonomies', function (Builder $q) use($ids) {
+        return self::whereHas('taxonomies', function (Builder $q) use($ids) {
                 $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
             })
             ->where('id', '!=', $this->id)
@@ -167,6 +170,10 @@ trait PostTypeModel
 
     public function getPostType($key = null)
     {
+        if (isset($this->postType) && $key == 'key') {
+            return $this->postType;
+        }
+
         $modelClass = str_replace('\\', '_', static::class);
         $postType = HookAction::getPostTypes()
             ->where('model_key', '=', $modelClass)
@@ -240,11 +247,6 @@ trait PostTypeModel
         }
 
         return apply_filters($this->getPostType('key') . '.get_title', $this->{$this->getFieldName()}, $words);
-    }
-
-    public function getDescription($words = 24)
-    {
-        return apply_filters($this->getPostType('key') . '.get_description', Str::words($this->description, $words), $words);
     }
 
     public function getContent()

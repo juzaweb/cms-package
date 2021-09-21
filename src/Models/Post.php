@@ -51,6 +51,8 @@ class Post extends Model
     use PostTypeModel;
     
     protected $table = 'posts';
+    protected $postType = 'posts';
+
     protected $fillable = [
         'title',
         'content',

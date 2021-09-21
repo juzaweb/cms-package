@@ -477,3 +477,15 @@ if (!function_exists('jw_get_select_options')) {
         return $result;
     }
 }
+
+if (!function_exists('str_words_length')) {
+    function str_words_length($string, $words, $max_length)
+    {
+        while (strlen($string) > $max_length) {
+            $string = Str::words($string, $words);
+            $words--;
+        }
+
+        return $string;
+    }
+}

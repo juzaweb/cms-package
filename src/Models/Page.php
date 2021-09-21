@@ -55,6 +55,8 @@ class Page extends Model
     use PostTypeModel;
     
     protected $table = 'pages';
+    protected $postType = 'pages';
+
     protected $fillable = [
         'title',
         'content',
@@ -69,10 +71,5 @@ class Page extends Model
         'template_data' => 'array',
     ];
 
-    public static function findBySlugOrFail($slug)
-    {
-        return self::query()
-            ->where('slug', '=', $slug)
-            ->firstOrFail();
-    }
+
 }
