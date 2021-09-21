@@ -11,9 +11,9 @@ class TaxonomyController
     {
         $taxSlug = $slug[1];
         $taxonomy = Taxonomy::where('slug', $taxSlug)
-            ->first();
+            ->firstOrFail();
 
-        $title = $taxonomy->name;
+        $title = $taxonomy->getName();
         $posts = $taxonomy->posts()
             ->wherePublish()
             ->paginate();

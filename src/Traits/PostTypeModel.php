@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
 trait PostTypeModel
 {
     use ResourceModel,
+        PostTypeSearch,
         UseSlug,
         UseThumbnail,
         UseChangeBy,
@@ -102,15 +103,26 @@ trait PostTypeModel
      * Get taxonomies by taxonomy
      *
      * @param string $taxonomy
+     * @param int $limit
+     * @param bool $tree
      * @return Collection
      */
-    public function getTaxonomies($taxonomy = null)
+    public function getTaxonomies($taxonomy = null, $limit = null, $tree = false)
     {
-        if (empty($taxonomy)) {
-            return $this->taxonomies;
+        $taxonomies = $this->taxonomies();
+        if (!empty($taxonomy)) {
+            $taxonomies = $taxonomies->where('taxonomy', $taxonomy);
         }
 
-        return $this->taxonomies->where('taxonomy', $taxonomy);
+        if ($tree) {
+            $taxonomies = $taxonomies->orderBy('level', 'ASC');
+        }
+
+        if ($limit) {
+            $taxonomies->limit($limit);
+        }
+
+        return $taxonomies->get();
     }
 
     /**

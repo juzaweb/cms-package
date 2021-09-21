@@ -20,7 +20,7 @@ trait UseDescription
             $model->description = str_words_length(
                 strip_tags($model->content),
                 55,
-                320
+                200
             );
         });
     }

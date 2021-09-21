@@ -489,3 +489,18 @@ if (!function_exists('str_words_length')) {
         return $string;
     }
 }
+
+if (!function_exists('recursive_level_model')) {
+    function recursive_level_model(&$level, $model, $limit = 5)
+    {
+        if ($level > $limit) {
+            $level = 0;
+            return;
+        }
+
+        if ($model->parent) {
+            $level ++;
+            recursive_level_model($level, $model->parent);
+        }
+    }
+}

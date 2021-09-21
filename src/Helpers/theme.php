@@ -140,7 +140,7 @@ function get_template_part($post, $slug, $name = null, $args = [])
     do_action("get_template_part_{$slug}", $post, $slug, $name, $args);
 
     $name = (string) $name;
-    $type = $post->getPostType('singular');
+    $type = $post ? $post->getPostType('singular') : 'none';
     $template = get_name_template_part($type, $slug, $name);
 
     return view('theme::template-parts.' . $template, [

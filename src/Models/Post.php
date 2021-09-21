@@ -58,7 +58,8 @@ class Post extends Model
         'content',
         'status',
         'views',
-        'thumbnail'
+        'thumbnail',
+        'slug'
     ];
 
     protected $searchFields = [

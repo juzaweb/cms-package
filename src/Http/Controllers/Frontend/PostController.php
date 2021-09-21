@@ -40,7 +40,6 @@ class PostController extends FrontendController
         $postType = HookAction::getPostTypes($permalink->get('post_type'));
 
         $post = app($postType->get('model'))
-            ->with(['taxonomies'])
             ->where('slug', $postSlug)
             ->firstOrFail();
 

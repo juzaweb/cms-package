@@ -70,7 +70,14 @@ trait ResourceController
         DB::beginTransaction();
         try {
             $this->beforeStore($request);
-            $model = $this->getModel(...$params)::create($data);
+            $model = $this->makeModel(...$params);
+            if (method_exists($model, 'generateSlug')) {
+                $slug = $request->get('slug');
+                $model->generateSlug($slug);
+            }
+
+            $model->create($data);
+
             $this->afterStore($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
@@ -100,7 +107,14 @@ trait ResourceController
         DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
+
+            if (method_exists($model, 'generateSlug')) {
+                $slug = $request->get('slug');
+                $model->generateSlug($slug);
+            }
+
             $model->update($data);
+
             $this->afterUpdate($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
             DB::commit();
