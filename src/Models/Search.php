@@ -10,8 +10,10 @@
 
 namespace Juzaweb\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\HookAction;
+use Illuminate\Support\Arr;
 
 class Search extends Model
 {
@@ -44,9 +46,9 @@ class Search extends Model
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param Builder $builder
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      **/
     public function scopeWherePublish($builder)
     {
@@ -55,25 +57,35 @@ class Search extends Model
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param string $keyword
+     * @param Builder $builder
+     * @param array $params
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeWhereSearch($builder, $keyword)
+    public function scopeWhereSearch($builder, $params)
     {
-        if (DB::getDefaultConnection() == 'mysql') {
-//            $builder->addSelect([
-//                'match_score' => DB::raw('MATCH (`title`) AGAINST (?) AS match_score', [$keyword]),
-//            ]);
-            $builder->whereRaw('MATCH (`title`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
-        } else {
-            $builder->addSelect(DB::raw('NULL AS match_score'));
-            $builder->where(function ($q) use ($keyword) {
-                $q->where('title', 'like', '%'.$keyword.'%');
-                $q->orWhere('description', 'like', '%'.$keyword.'%');
-                $q->orWhere('keyword', 'like', '%'.$keyword.'%');
-            });
+        if ($keyword = Arr::get($params, 'q')) {
+            $keyword = trim($keyword);
+            if (DB::getDefaultConnection() == 'mysql') {
+                //$builder->selectRaw(DB::raw('MATCH (`title`) AGAINST (?) AS match_score', [$keyword]));
+                $builder->where(function (Builder $q) use ($keyword) {
+                    $q->whereRaw('MATCH (`title`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
+                    $q->orWhereRaw('MATCH (`description`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
+                    $q->orWhereRaw('MATCH (`keyword`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
+                });
+
+            } else {
+                // $builder->addSelect(DB::raw('NULL AS match_score'));
+                $builder->where(function (Builder $q) use ($keyword) {
+                    $q->where('title', 'like', '%'.$keyword.'%');
+                    $q->orWhere('description', 'like', '%'.$keyword.'%');
+                    $q->orWhere('keyword', 'like', '%'.$keyword.'%');
+                });
+            }
+        }
+
+        if ($type = Arr::get($params, 'type')) {
+            $builder->where('post_type', '=', $type);
         }
 
         return $builder;

@@ -239,11 +239,11 @@ if (!file_exists('get_menu_by_theme_location')) {
 }
 
 if (!function_exists('get_logo')) {
-    function get_logo()
+    function get_logo($default = null)
     {
         return upload_url(
             get_config('logo'),
-            asset('vendor/juzaweb/styles/images/logo.svg')
+            asset($default ?: 'vendor/juzaweb/styles/images/logo.svg')
         );
     }
 }

@@ -16,6 +16,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 trait ResourceController
@@ -29,9 +30,15 @@ trait ResourceController
 
     public function create(...$params)
     {
+        $indexRoute = str_replace(
+            '.create',
+            '.index',
+            Route::currentRouteName()
+        );
+
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], $params),
+            'url' => route($indexRoute, $params),
         ]);
 
         $model = $this->makeModel(...$params);
@@ -42,13 +49,19 @@ trait ResourceController
 
     public function edit(...$params)
     {
+        $indexRoute = str_replace(
+            '.edit',
+            '.index',
+            Route::currentRouteName()
+        );
+
         $indexParams = $params;
         unset($indexParams[$this->getPathIdIndex($indexParams)]);
         $indexParams = collect($indexParams)->values()->toArray();
 
         $this->addBreadcrumb([
             'title' => $this->getTitle(...$params),
-            'url' => action([static::class, 'index'], $indexParams),
+            'url' => route($indexRoute, $indexParams),
         ]);
 
         $model = $this->makeModel(...$indexParams)->findOrFail($this->getPathId($params));
@@ -73,7 +86,7 @@ trait ResourceController
             $model = $this->makeModel(...$params);
             if (method_exists($model, 'generateSlug')) {
                 $slug = $request->get('slug');
-                $model->generateSlug($slug);
+                $data['slug'] = $model->generateSlug($slug);
             }
 
             $model->create($data);
@@ -208,9 +221,15 @@ trait ResourceController
 
     protected function storeSuccessResponse($model, $request, ...$params)
     {
+        $indexRoute = str_replace(
+            '.store',
+            '.index',
+            Route::currentRouteName()
+        );
+
         return $this->success([
             'message' => trans('juzaweb::app.created_successfully'),
-            'redirect' => action([static::class, 'index'], $params)
+            'redirect' => route($indexRoute, $params)
         ]);
     }
 
@@ -239,6 +258,7 @@ trait ResourceController
     /**
      * Get model resource
      *
+     * @param array $params
      * @return string // namespace model
      */
     abstract protected function getModel(...$params);
@@ -246,7 +266,8 @@ trait ResourceController
     /**
      * Get title resource
      *
+     * @param array $params
      * @return string
-     **/
+     */
     abstract protected function getTitle(...$params);
 }

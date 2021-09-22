@@ -14,6 +14,7 @@
 
 namespace Juzaweb\Providers;
 
+use Juzaweb\Actions\EnqueueStyleAction;
 use Juzaweb\Actions\MenuAction;
 use Juzaweb\Support\ServiceProvider;
 use Juzaweb\Http\Middleware\Admin;
@@ -27,7 +28,8 @@ class BackendServiceProvider extends ServiceProvider
         $this->bootMiddlewares();
         $this->bootPublishes();
         $this->registerAction([
-            MenuAction::class
+            MenuAction::class,
+            EnqueueStyleAction::class
         ]);
     }
 

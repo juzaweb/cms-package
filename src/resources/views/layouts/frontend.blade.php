@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    @php
-        $title = apply_filters('theme.title', $title);
-        $description = apply_filters('theme.description', $description ?? '');
-    @endphp
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $description ?? '' }}">
     <meta name="turbolinks-cache-control" content="no-cache">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -22,9 +18,13 @@
     <title>{{ $title }}</title>
 
     @do_action('theme.header')
+
     @yield('header')
+
 </head>
 <body class="{{ body_class() }}">
+    @do_action('theme.after_body')
+
 
     @include('theme::header')
 

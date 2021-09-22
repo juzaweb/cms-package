@@ -24,5 +24,6 @@ Route::group([
 
 Route::get('/', 'Frontend\HomeController@index')->name('home');
 Route::get('/search', 'Frontend\SearchController@index')->name('search');
-Route::get('/search-ajax', 'Frontend\SearchController@index')->name('search.ajax');
+Route::get('/ajax/search', 'Frontend\SearchController@ajaxSearch')->name('ajax.search');
+Route::get('/ajax/{slug}', 'Frontend\SearchController@ajaxSearch')->name('ajax');
 Route::get('/{slug?}', 'Frontend\RouteController@index')->where('slug', '.*');

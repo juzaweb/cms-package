@@ -13,19 +13,6 @@
 
     @include('juzaweb::components.juzaweb_langs')
 
-    @php
-        $scripts = get_enqueue_scripts(false);
-        $styles = get_enqueue_styles(false);
-    @endphp
-
-    @foreach($styles as $style)
-        <link rel="stylesheet" type="text/css" href="{{ $style->get('src') }}?v={{ $style->get('ver') }}">
-    @endforeach
-
-    @foreach($scripts as $script)
-        <script src="{{ $script->get('src') }}?v={{ $script->get('ver') }}"></script>
-    @endforeach
-
     @do_action('juzaweb_header')
 
     @yield('header')
@@ -115,15 +102,6 @@
 
     $(".form-ajax").validate();
 </script>
-
-@php
-    $scripts = get_enqueue_scripts(true);
-    $styles = get_enqueue_styles(false);
-@endphp
-
-@foreach($scripts as $script)
-    <script src="{{ $script->get('src') }}?v={{ $script->get('ver') }}"></script>
-@endforeach
 
 @do_action('juzaweb_footer')
 
