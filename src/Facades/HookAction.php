@@ -23,6 +23,7 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static void registerWidget($key, $args = [])
  * @method static void registerEmailHook(string $key, $args = [])
  * @method static void registerSidebar(string $key, $args = [])
+ * @method static void registerFrontendAjax(string $key, $args = [])
  * @method static array getMenuBoxs(array $keys = [])
  * @method static \Illuminate\Support\Collection getMenuBox(string $key)
  * @method static \Illuminate\Support\Collection getPermalinks(string $key = null)
@@ -31,6 +32,7 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static \Illuminate\Support\Collection getEmailHooks($key = null)
  * @method static \Illuminate\Support\Collection getWidgets($key = null)
  * @method static \Illuminate\Support\Collection getSidebars($key = null)
+ * @method static \Illuminate\Support\Collection getFrontendAjaxs($key = null, $auth = null)
  *
  * @see \Juzaweb\Support\HookAction
  */

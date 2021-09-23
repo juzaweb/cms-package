@@ -604,4 +604,36 @@ class HookAction
 
         GlobalData::set('page_blocks.' . $key, new Collection($args));
     }
+
+    public function registerFrontendAjax($key, $args = [])
+    {
+        $defaults = [
+            'callback' => '',
+            'auth' => false,
+            'key' => $key,
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('frontend_ajaxs.' . $key, new Collection($args));
+    }
+
+    public function getFrontendAjaxs($key = null, $auth = null)
+    {
+        if ($key) {
+            $data = Arr::get(GlobalData::get('frontend_ajaxs'), $key);
+            if (!is_null($auth) && $data->get('auth') == $auth) {
+                return $data;
+            }
+
+            return false;
+        }
+
+        $data = new Collection(GlobalData::get('frontend_ajaxs'));
+        if (!is_null($auth)) {
+            return $data->where('auth', $auth);
+        }
+
+        return $data;
+    }
 }

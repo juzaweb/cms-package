@@ -6,7 +6,7 @@ use Intervention\Image\Facades\Image;
 use Juzaweb\Support\FileManager\Events\ImageIsCropping;
 use Juzaweb\Support\FileManager\Events\ImageWasCropped;
 
-class CropController extends FilemanagerController
+class CropController extends FileManagerController
 {
     /**
      * Show crop page.

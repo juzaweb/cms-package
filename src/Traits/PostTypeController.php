@@ -66,7 +66,7 @@ trait PostTypeController
 
     /**
      * @return string
-     * */
+     */
     abstract protected function getModel();
 
     protected function afterSave(Request $request, $model)

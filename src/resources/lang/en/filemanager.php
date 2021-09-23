@@ -57,6 +57,7 @@ return [
     'error-invalid'     => 'Invalid upload request',
     'error-other'       => 'An error has occured: ',
     'error-too-large'   => 'Request entity too large!',
+    'error-not-supported'  => 'File type not supported',
 
     'btn-upload'        => 'Upload File(s)',
     'btn-uploading'     => 'Uploading...',

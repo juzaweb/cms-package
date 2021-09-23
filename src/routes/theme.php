@@ -22,8 +22,14 @@ Route::group([
     Route::post('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
 });
 
+Route::group([
+    'middleware' => 'auth'
+], function () {
+    Route::get('/ajax/{slug}', 'Frontend\AjaxController@ajaxAuth');
+});
+
 Route::get('/', 'Frontend\HomeController@index')->name('home');
 Route::get('/search', 'Frontend\SearchController@index')->name('search');
 Route::get('/ajax/search', 'Frontend\SearchController@ajaxSearch')->name('ajax.search');
-Route::get('/ajax/{slug}', 'Frontend\SearchController@ajaxSearch')->name('ajax');
+Route::get('/ajax/{slug}', 'Frontend\AjaxController@ajax')->name('ajax');
 Route::get('/{slug?}', 'Frontend\RouteController@index')->where('slug', '.*');

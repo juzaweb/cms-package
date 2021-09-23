@@ -13,9 +13,9 @@
  */
 
 Route::group(['prefix' => 'file-manager'], function () {
-    Route::get('/', 'FileManager\FilemanagerController@index');
+    Route::get('/', 'FileManager\FileManagerController@index');
 
-    Route::get('/errors', 'FileManager\FilemanagerController@getErrors');
+    Route::get('/errors', 'FileManager\FileManagerController@getErrors');
 
     Route::any('/upload', 'FileManager\UploadController@upload')->name('filemanager.upload');
 

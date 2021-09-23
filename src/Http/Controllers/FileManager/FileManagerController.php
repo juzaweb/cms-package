@@ -5,7 +5,7 @@ namespace Juzaweb\Http\Controllers\FileManager;
 use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 
-class FilemanagerController extends Controller
+class FileManagerController extends Controller
 {
     protected static $success_response = 'OK';
     
