@@ -37,6 +37,32 @@ trait PostTypeModel
         UseDescription;
 
     /**
+     * Create Builder for frontend
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function createFrontendBuilder()
+    {
+        return self::with([
+            'taxonomies',
+            'createdBy'
+        ])
+            ->wherePublish();
+    }
+
+    public function taxonomies()
+    {
+        return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id')
+            ->withPivot(['term_type'])
+            ->wherePivot('term_type', '=', $this->getPostType('key'));
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
+    }
+
+    /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param array $params
      *
@@ -87,18 +113,6 @@ trait PostTypeModel
         );
     }
 
-    public function taxonomies()
-    {
-        return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id')
-            ->withPivot(['term_type'])
-            ->wherePivot('term_type', '=', $this->getPostType('key'));
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
-    }
-
     /**
      * Get taxonomies by taxonomy
      *
@@ -109,8 +123,9 @@ trait PostTypeModel
      */
     public function getTaxonomies($taxonomy = null, $limit = null, $tree = false)
     {
-        $taxonomies = $this->taxonomies();
-        if (!empty($taxonomy)) {
+        $taxonomies = $this->taxonomies;
+
+        if ($taxonomy) {
             $taxonomies = $taxonomies->where('taxonomy', $taxonomy);
         }
 
@@ -119,10 +134,10 @@ trait PostTypeModel
         }
 
         if ($limit) {
-            $taxonomies->limit($limit);
+            $taxonomies = $taxonomies->take($limit);
         }
 
-        return $taxonomies->get();
+        return $taxonomies;
     }
 
     /**
@@ -280,5 +295,24 @@ trait PostTypeModel
         }
 
         return url()->to($permalink . '/' . $this->slug) . '/';
+    }
+
+    public function getUpdatedDate($format = JW_DATE_TIME)
+    {
+        return jw_date_format($this->updated_at, $format);
+    }
+
+    public function getCreatedDate($format = JW_DATE_TIME)
+    {
+        return jw_date_format($this->updated_at, $format);
+    }
+
+    public function getByName()
+    {
+        if ($this->createdBy) {
+            return $this->createdBy->name;
+        }
+
+        return '';
     }
 }

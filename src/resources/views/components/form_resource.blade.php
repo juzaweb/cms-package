@@ -35,7 +35,7 @@
 
         <div class="col-md-6">
             <div class="btn-group float-right">
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
+                <button type="submit" class="btn btn-success px-5"><i class="fa fa-save"></i> {{ trans('juzaweb::app.save') }}</button>
 
                 <button type="button" class="btn btn-warning cancel-button px-3"><i class="fa fa-refresh"></i> {{ trans('juzaweb::app.reset') }}</button>
             </div>

@@ -23,7 +23,7 @@ class PostController extends FrontendController
         }
 
         $title = get_config('title');
-        $posts = Post::wherePublish()->paginate(10);
+        $posts = Post::createFrontendBuilder()->paginate(10);
 
         return view('theme::index', compact(
             'posts',
