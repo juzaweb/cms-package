@@ -37,9 +37,17 @@ class InstallCommand extends Command
     {
         $this->info('JUZAWEB CMS Installer');
         $this->info('-- Database Install');
-        $databaseManager->run();
+        $result = $databaseManager->run();
+        if ($result['status'] == 'error') {
+            throw new \Exception($result['message']);
+        }
+
         $this->info('-- Publish assets');
-        $finalInstall->runFinal();
+        $result = $finalInstall->runFinal();
+        if (isset($result['status']) && $result['status'] == 'error') {
+            throw new \Exception($result['message']);
+        }
+
         $this->info('-- Create user admin');
         $this->createAdminUser();
         $this->info('-- Update installed');
