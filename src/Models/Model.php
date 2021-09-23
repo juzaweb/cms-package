@@ -23,13 +23,5 @@ use Juzaweb\Facades\XssCleaner;
  */
 class Model extends EloquentModel
 {
-    public function getAttribute($key)
-    {
-        $value = parent::getAttribute($key);
-        if (is_string($value)) {
-            return XssCleaner::clean($value);
-        }
-
-        return $value;
-    }
+    //
 }

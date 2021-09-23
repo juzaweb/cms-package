@@ -16,6 +16,6 @@ class Version
 {
     public static function getVersion()
     {
-        return 'v'.InstalledVersions::getVersion('juzaweb/cms');
+        return InstalledVersions::getVersion('juzaweb/cms');
     }
 }
