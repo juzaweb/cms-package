@@ -58,7 +58,7 @@ class Handler extends ExceptionHandler
                 return response()->view('theme::404');
             }
 
-            return view('juzaweb::404');
+            return response()->view('juzaweb::404');
         }
 
         return parent::render($request, $exception);

@@ -95,46 +95,60 @@ if (!function_exists('home_page')) {
     }
 }
 
-/**
- * Loads a template part into a template.
- *
- * @param \Juzaweb\Traits\PostTypeModel $post
- * @param string $slug
- * @param string $name
- * @param array $args
- * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
- */
-function get_template_part($post, $slug, $name = null, $args = [])
-{
-    do_action("get_template_part_{$slug}", $post, $slug, $name, $args);
+if (!function_exists('get_name_template_part')) {
+    /**
+     * Get template part name.
+     *
+     * @param string $type // Singular of post
+     * @param string $slug
+     * @param string $name
+     * @return string
+     */
+    function get_name_template_part($type, $slug, $name = null)
+    {
+        $name = (string) $name;
 
-    $name = (string) $name;
-
-    if ($name !== '') {
-        $template = "{$slug}-{$name}";
-
-        if (view()->exists('theme::template-parts.' . $template)) {
-            return view('theme::template-parts.' . $template, [
-                'post' => $post
-            ]);
+        if ($name !== '') {
+            $template = "{$slug}-{$name}";
+            if (view()->exists('theme::template-parts.' . $template)) {
+                return $template;
+            }
         }
-    }
 
-    $type = $post->getPostType('singular');
-
-    if (!in_array($type, ['post', 'page'])) {
-        $template = "{$slug}-{$type}";
-
-        if (view()->exists('theme::template-parts.' . $template)) {
-            return view('theme::template-parts.' . $template, [
-                'post' => $post
-            ]);
+        if (!in_array($type, ['post', 'page'])) {
+            $template = "{$slug}-{$type}";
+            if (view()->exists('theme::template-parts.' . $template)) {
+                return $template;
+            }
         }
-    }
 
-    return view('theme::template-parts.' . $slug, [
-        'post' => $post
-    ]);
+        return $slug;
+    }
+}
+
+if (!function_exists('get_template_part')) {
+
+    /**
+     * Loads a template part into a template.
+     *
+     * @param \Juzaweb\Traits\PostTypeModel $post
+     * @param string $slug
+     * @param string $name
+     * @param array $args
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    function get_template_part($post, $slug, $name = null, $args = [])
+    {
+        do_action("get_template_part_{$slug}", $post, $slug, $name, $args);
+
+        $name = (string)$name;
+        $type = $post ? $post->getPostType('singular') : 'none';
+        $template = get_name_template_part($type, $slug, $name);
+
+        return view('theme::template-parts.'.$template, [
+            'post' => $post
+        ]);
+    }
 }
 
 if (!function_exists('jw_menu_items')) {
@@ -228,11 +242,11 @@ if (!file_exists('get_menu_by_theme_location')) {
 }
 
 if (!function_exists('get_logo')) {
-    function get_logo()
+    function get_logo($default = null)
     {
         return upload_url(
             get_config('logo'),
-            asset('vendor/juzaweb/styles/images/logo.svg')
+            asset($default ?: 'vendor/juzaweb/styles/images/logo.svg')
         );
     }
 }
@@ -278,10 +292,11 @@ if (!function_exists('dynamic_sidebar')) {
         foreach ($widgets as $widget) {
             $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
             $html .= $sidebar->get('before_widget') .
-                $widgetData['widget']->show($widget)->render() .
+                e($widgetData['widget']->show($widget)) .
                 $sidebar->get('after_widget');
         }
 
-        return e_html($html);
+        return $html;
     }
 }
+

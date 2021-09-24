@@ -10,10 +10,10 @@ class CreateThemeConfigsTable extends Migration
     {
         Schema::create('theme_configs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code', 150)->index();
+            $table->string('code', 50)->index();
             $table->string('theme', 150)->index();
             $table->text('value')->nullable();
-            $table->unique(['code', 'theme']);
+            $table->unique(['code', 'theme'], 'theme_configs_code_unique');
             $table->timestamps();
         });
     }

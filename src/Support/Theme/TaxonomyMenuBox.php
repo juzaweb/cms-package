@@ -76,7 +76,7 @@ class TaxonomyMenuBox extends MenuBox
 
     public function getLinks($menuItems)
     {
-        $permalink = HookAction::getPermalinks($this->key);
+        $permalink = HookAction::getPermalinks($this->taxonomy->get('taxonomy'));
         $base = $permalink->get('base');
         $query = app($this->taxonomy->get('model'))->query();
         $items = $query->whereIn('id', $menuItems->pluck('model_id')->toArray())

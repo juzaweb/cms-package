@@ -241,7 +241,7 @@ class HookAction
             }
 
             if ($args->get('rewrite')) {
-                $this->registerPermalink($args->get('key'), [
+                $this->registerPermalink($args->get('taxonomy'), [
                     'label' => $args->get('label'),
                     'base' => $args->get('singular'),
                     'priority' => $args->get('priority'),
@@ -486,6 +486,34 @@ class HookAction
         ]));
     }
 
+    public function enqueueFrontendScript($key, $src = '', $ver = '1.0', $inFooter = false)
+    {
+        if (!is_url($src)) {
+            $src = theme_assets($src);
+        }
+
+        GlobalData::push('frontend.scripts', new Collection([
+            'key' => $key,
+            'src' => $src,
+            'ver' => $ver,
+            'inFooter' => $inFooter,
+        ]));
+    }
+
+    public function enqueueFrontendStyle($key, $src = '', $ver = '1.0', $inFooter = false)
+    {
+        if (!is_url($src)) {
+            $src = theme_assets($src);
+        }
+
+        GlobalData::push('frontend.styles', new Collection([
+            'key' => $key,
+            'src' => $src,
+            'ver' => $ver,
+            'inFooter' => $inFooter,
+        ]));
+    }
+
     public function getEnqueueScripts($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('scripts'));
@@ -495,6 +523,18 @@ class HookAction
     public function getEnqueueStyles($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('styles'));
+        return $scripts->where('inFooter', $inFooter);
+    }
+
+    public function getEnqueueFrontendScripts($inFooter = false)
+    {
+        $scripts = new Collection(GlobalData::get('frontend.scripts'));
+        return $scripts->where('inFooter', $inFooter);
+    }
+
+    public function getEnqueueFrontendStyles($inFooter = false)
+    {
+        $scripts = new Collection(GlobalData::get('frontend.styles'));
         return $scripts->where('inFooter', $inFooter);
     }
 
@@ -533,33 +573,6 @@ class HookAction
         $args = array_merge($defaults, $args);
 
         GlobalData::set('email_hooks.' . $key, new Collection($args));
-    }
-
-    public function getEmailHooks($key = null)
-    {
-        if ($key) {
-            return GlobalData::get('email_hooks.' . $key);
-        }
-
-        return new Collection(GlobalData::get('email_hooks'));
-    }
-
-    public function getWidgets($key = null)
-    {
-        if ($key) {
-            return Arr::get(GlobalData::get('widgets'), $key);
-        }
-
-        return new Collection(GlobalData::get('widgets'));
-    }
-
-    public function getSidebars($key = null)
-    {
-        if ($key) {
-            return Arr::get(GlobalData::get('sidebars'), $key);
-        }
-
-        return new Collection(GlobalData::get('sidebars'));
     }
 
     public function registerSidebar($key, $args = [])
@@ -603,5 +616,84 @@ class HookAction
         $args = array_merge($defaults, $args);
 
         GlobalData::set('page_blocks.' . $key, new Collection($args));
+    }
+
+    public function registerFrontendAjax($key, $args = [])
+    {
+        $defaults = [
+            'callback' => '',
+            'auth' => false,
+            'key' => $key,
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('frontend_ajaxs.' . $key, new Collection($args));
+    }
+
+    public function registerThemeTemplate($key, $args = [])
+    {
+        $defaults = [
+            'key' => $key,
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('templates.' . $key, new Collection($args));
+    }
+
+    public function getEmailHooks($key = null)
+    {
+        if ($key) {
+            return GlobalData::get('email_hooks.' . $key);
+        }
+
+        return new Collection(GlobalData::get('email_hooks'));
+    }
+
+    public function getWidgets($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('widgets'), $key);
+        }
+
+        return new Collection(GlobalData::get('widgets'));
+    }
+
+    public function getSidebars($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('sidebars'), $key);
+        }
+
+        return new Collection(GlobalData::get('sidebars'));
+    }
+
+    public function getFrontendAjaxs($key = null, $auth = null)
+    {
+        if ($key) {
+            $data = Arr::get(GlobalData::get('frontend_ajaxs'), $key);
+            if (!is_null($auth) && $data->get('auth') == $auth) {
+                return $data;
+            }
+
+            return false;
+        }
+
+        $data = new Collection(GlobalData::get('frontend_ajaxs'));
+        if (!is_null($auth)) {
+            return $data->where('auth', $auth);
+        }
+
+        return $data;
+    }
+
+    public function getThemeTemplates($key = null)
+    {
+        if ($key) {
+            return Arr::get(GlobalData::get('templates'), $key);
+        }
+
+        return new Collection(GlobalData::get('templates'));
     }
 }

@@ -107,7 +107,7 @@ class EnvironmentManager
         'DB_PORT='. $request->input('database_port') ."\n".
         'DB_DATABASE='. $request->input('database_name') ."\n".
         'DB_USERNAME='. $request->input('database_username') ."\n".
-        'DB_PASSWORD='. $request->input('database_password') ."\n".
+        'DB_PASSWORD="'. $request->input('database_password') .'"'."\n".
         'DB_PREFIX='. $request->input('database_prefix', 'jw_') ."\n\n".
         "BROADCAST_DRIVER=log\n".
         "CACHE_DRIVER=file\n".

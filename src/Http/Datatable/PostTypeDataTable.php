@@ -148,7 +148,7 @@ class PostTypeDataTable extends DataTable
         /**
          * @var Builder $query
          */
-        $query = $this->makeModel()->query();
+        $query = $this->makeModel()->with(['taxonomies']);
         if (empty($data['status'])) {
             $query->where('status', '!=', 'trash');
         }

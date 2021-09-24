@@ -32,10 +32,14 @@ class RouterMacros
             $singular = Str::singular($uri);
             $this->jwResource($uri, $controller, $options);
 
-            $this->jwResource(Str::singular($uri) . '/comments', '\Juzaweb\Http\Controllers\Backend\CommentController', $options);
+            $this->jwResource($singular . '/comments', '\Juzaweb\Http\Controllers\Backend\CommentController', [
+                'name' => $singular . '.comment'
+            ]);
+
             $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Http\Controllers\Backend\TaxonomyController@getTagComponent');
+
             $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Http\Controllers\Backend\TaxonomyController', [
-                'name' => Str::singular($uri) . '.taxonomy'
+                'name' => $singular . '.taxonomy'
             ]);
         };
     }

@@ -37,18 +37,29 @@ use Juzaweb\Traits\PostTypeModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereViews($value)
  * @mixin \Eloquent
+ * @property string|null $description
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property-read \Juzaweb\Models\User|null $createdBy
+ * @property-read \Juzaweb\Models\User|null $updatedBy
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedBy($value)
  */
 class Post extends Model
 {
     use PostTypeModel;
     
     protected $table = 'posts';
+    protected $postType = 'posts';
+
     protected $fillable = [
         'title',
         'content',
         'status',
         'views',
-        'thumbnail'
+        'thumbnail',
+        'slug'
     ];
 
     protected $searchFields = [

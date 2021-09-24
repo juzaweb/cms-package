@@ -3,11 +3,7 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
-use Juzaweb\Facades\HookAction;
-use Juzaweb\Traits\ResourceModel;
-use Juzaweb\Traits\UseSlug;
-use Juzaweb\Traits\UseThumbnail;
+use Juzaweb\Traits\TaxonomyModel;
 
 /**
  * Juzaweb\Models\Taxonomy
@@ -26,25 +22,28 @@ use Juzaweb\Traits\UseThumbnail;
  * @property-read \Illuminate\Database\Eloquent\Collection|Taxonomy[] $children
  * @property-read int|null $children_count
  * @property-read Taxonomy|null $parent
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy query()
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereParentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy wherePostType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereTaxonomy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereThumbnail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereTotalPost($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Taxonomy whereUpdatedAt($value)
+ * @method static Builder|Taxonomy newModelQuery()
+ * @method static Builder|Taxonomy newQuery()
+ * @method static Builder|Taxonomy query()
+ * @method static Builder|Taxonomy whereCreatedAt($value)
+ * @method static Builder|Taxonomy whereDescription($value)
+ * @method static Builder|Taxonomy whereId($value)
+ * @method static Builder|Taxonomy whereName($value)
+ * @method static Builder|Taxonomy whereParentId($value)
+ * @method static Builder|Taxonomy wherePostType($value)
+ * @method static Builder|Taxonomy whereSlug($value)
+ * @method static Builder|Taxonomy whereTaxonomy($value)
+ * @method static Builder|Taxonomy whereThumbnail($value)
+ * @method static Builder|Taxonomy whereTotalPost($value)
+ * @method static Builder|Taxonomy whereUpdatedAt($value)
+ * @method static Builder|Taxonomy whereFilter($params = [])
  * @mixin \Eloquent
+ * @property int $level
+ * @method static Builder|Taxonomy whereLevel($value)
  */
 class Taxonomy extends Model
 {
-    use UseSlug, UseThumbnail, ResourceModel;
+    use TaxonomyModel;
 
     protected $table = 'taxonomies';
     protected $slugSource = 'name';
@@ -59,58 +58,5 @@ class Taxonomy extends Model
         'total_post'
     ];
 
-    public function parent()
-    {
-        return $this->belongsTo(Taxonomy::class, 'parent_id', 'id');
-    }
 
-    public function children()
-    {
-        return $this->hasMany(Taxonomy::class, 'parent_id', 'id');
-    }
-
-    public function posts()
-    {
-        $postModel = $this->getPostType('model');
-        $postType = $this->getPostType('key');
-        return $this->belongsToMany($postModel, 'term_taxonomies', 'taxonomy_id', 'term_id')
-            ->withPivot(['term_type'])
-            ->wherePivot('term_type', '=', $postType);
-    }
-
-    public function getPostType($key = null)
-    {
-        $postType = HookAction::getPostTypes($this->post_type);
-        if ($key) {
-            return $postType->get($key);
-        }
-
-        return $postType;
-    }
-
-    /**
-     * @param Builder $builder
-     * @param array $params
-     *
-     * @return Builder
-     */
-    public function scopeWhereFilter($builder, $params = [])
-    {
-        if ($taxonomy = Arr::get($params, 'taxonomy')) {
-            $builder->where('taxonomy', '=', $taxonomy);
-        }
-
-        if ($postType = Arr::get($params, 'post_type')) {
-            $builder->where('post_type', '=', $postType);
-        }
-
-        if ($keyword = Arr::get($params, 'keyword')) {
-            $builder->where(function (Builder $q) use ($keyword) {
-                $q->where('name', 'like', '%'. $keyword .'%');
-                $q->orWhere('description', 'like', '%'. $keyword .'%');
-            });
-        }
-
-        return $builder;
-    }
 }

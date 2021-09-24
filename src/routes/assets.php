@@ -12,7 +12,7 @@ Route::get('/themes/{theme}/{path}', 'Frontend\AssetController@assetsTheme')
     ->where('theme', '[0-9a-z]+')
     ->where('path', '[0-9a-zA-Z\.\/\-]+');
 
-Route::get('/themes/{theme}/{path}', 'Frontend\AssetController@assetsTheme')
+Route::get('/plugins/{plugin}/{path}', 'Frontend\AssetController@assetsPlugin')
     ->where('theme', '[0-9a-z]+')
     ->where('path', '[0-9a-zA-Z\.\/\-]+');
 

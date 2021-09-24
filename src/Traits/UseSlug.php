@@ -5,11 +5,19 @@ namespace Juzaweb\Traits;
 use Illuminate\Support\Str;
 
 trait UseSlug {
-    public static function bootUseSlug()
+
+    public static function findBySlug($slug)
     {
-        static::saving(function ($model) {
-            $model->slug = $model->generateSlug();
-        });
+        return self::query()
+            ->where('slug', '=', $slug)
+            ->first();
+    }
+
+    public static function findBySlugOrFail($slug)
+    {
+        return self::query()
+            ->where('slug', '=', $slug)
+            ->firstOrFail();
     }
 
     public function getDisplayName()
@@ -21,9 +29,8 @@ trait UseSlug {
         return $this->{$this->fieldName};
     }
 
-    protected function generateSlug()
+    public function generateSlug($string = null)
     {
-        $string = request()->post('slug');
         if (empty($string)) {
             $string = $this->getDisplayName();
         }
@@ -41,6 +48,8 @@ trait UseSlug {
             $last = (int) $split[count($split) - 1];
             $slug = $slug . '-'. ($last + 1);
         }
+
+        $this->slug = $slug;
         
         return $slug;
     }

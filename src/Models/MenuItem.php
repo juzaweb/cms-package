@@ -46,6 +46,12 @@ use Juzaweb\Models\Model;
  * @property string $group
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereGroup($value)
  * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereMenuKey($value)
+ * @property string $box_key
+ * @property string $label
+ * @property int $num_order
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereBoxKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereLabel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|MenuItem whereNumOrder($value)
  */
 class MenuItem extends Model
 {

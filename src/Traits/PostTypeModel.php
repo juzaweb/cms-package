@@ -16,6 +16,7 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 use Juzaweb\Models\Taxonomy;
@@ -28,7 +29,38 @@ use Illuminate\Support\Str;
  */
 trait PostTypeModel
 {
-    use ResourceModel, UseSlug, UseThumbnail, UseChangeBy;
+    use ResourceModel,
+        PostTypeSearch,
+        UseSlug,
+        UseThumbnail,
+        UseChangeBy,
+        UseDescription;
+
+    /**
+     * Create Builder for frontend
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function createFrontendBuilder()
+    {
+        return self::with([
+            'taxonomies',
+            'createdBy'
+        ])
+            ->wherePublish();
+    }
+
+    public function taxonomies()
+    {
+        return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id')
+            ->withPivot(['term_type'])
+            ->wherePivot('term_type', '=', $this->getPostType('key'));
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
+    }
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
@@ -81,16 +113,50 @@ trait PostTypeModel
         );
     }
 
-    public function taxonomies()
+    /**
+     * Get taxonomies by taxonomy
+     *
+     * @param string $taxonomy
+     * @param int $limit
+     * @param bool $tree
+     * @return Collection
+     */
+    public function getTaxonomies($taxonomy = null, $limit = null, $tree = false)
     {
-        return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id')
-            ->withPivot(['term_type'])
-            ->wherePivot('term_type', '=', $this->getPostType('key'));
+        $taxonomies = $this->taxonomies;
+
+        if ($taxonomy) {
+            $taxonomies = $taxonomies->where('taxonomy', $taxonomy);
+        }
+
+        if ($tree) {
+            $taxonomies = $taxonomies->orderBy('level', 'ASC');
+        }
+
+        if ($limit) {
+            $taxonomies = $taxonomies->take($limit);
+        }
+
+        return $taxonomies;
     }
 
-    public function comments()
+    /**
+     * Get Related Posts
+     *
+     * @param int $limit
+     * @param string $taxonomy
+     * @return Collection
+     */
+    public function getRelatedPosts($limit = 5, $taxonomy = null)
     {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', $this->getPostType('key'));
+        $ids = $this->getTaxonomies($taxonomy)->pluck('id')->toArray();
+
+        return self::whereHas('taxonomies', function (Builder $q) use($ids) {
+                $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
+            })
+            ->where('id', '!=', $this->id)
+            ->take($limit)
+            ->get();
     }
 
     public function syncTaxonomies(array $attributes)
@@ -131,6 +197,10 @@ trait PostTypeModel
 
     public function getPostType($key = null)
     {
+        if (isset($this->postType) && $key == 'key') {
+            return $this->postType;
+        }
+
         $modelClass = str_replace('\\', '_', static::class);
         $postType = HookAction::getPostTypes()
             ->where('model_key', '=', $modelClass)
@@ -182,6 +252,28 @@ trait PostTypeModel
         return $builder;
     }
 
+    /**
+     * Show comments frontend
+     *
+     * @param string $view
+     * @return \Illuminate\View\View
+     */
+    public function commentTemplate($view = null)
+    {
+        if (empty($view) || !view()->exists($view)) {
+            $view = 'juzaweb::items.frontend_comment';
+        }
+
+        $comments = $this->comments()
+            ->with(['user'])
+            ->whereApproved()
+            ->paginate(10);
+
+        return view($view, compact(
+            'comments'
+        ));
+    }
+
     public function getPermalink($key = null)
     {
         $permalink = HookAction::getPermalinks($this->getPostType('key'));
@@ -206,11 +298,6 @@ trait PostTypeModel
         return apply_filters($this->getPostType('key') . '.get_title', $this->{$this->getFieldName()}, $words);
     }
 
-    public function getDescription($words = 24)
-    {
-        return apply_filters($this->getPostType('key') . '.get_description', Str::words($this->description, $words), $words);
-    }
-
     public function getContent()
     {
         $type = $this->getPostType('key');
@@ -230,5 +317,29 @@ trait PostTypeModel
         }
 
         return url()->to($permalink . '/' . $this->slug) . '/';
+    }
+
+    public function getUpdatedDate($format = JW_DATE_TIME)
+    {
+        return jw_date_format($this->updated_at, $format);
+    }
+
+    public function getCreatedDate($format = JW_DATE_TIME)
+    {
+        return jw_date_format($this->updated_at, $format);
+    }
+
+    public function getCreatedByName()
+    {
+        if ($this->createdBy) {
+            return $this->createdBy->name;
+        }
+
+        return '';
+    }
+
+    public function getViews()
+    {
+        return $this->views;
     }
 }

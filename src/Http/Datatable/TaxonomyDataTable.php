@@ -76,7 +76,7 @@ class TaxonomyDataTable extends DataTable
 
         $data['view'] = [
             'label' => trans('juzaweb::app.view'),
-            'url' => '',
+            'url' => $row->getLink(),
             'target' => '_blank',
         ];
 

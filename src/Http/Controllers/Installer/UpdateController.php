@@ -3,12 +3,13 @@
 namespace Juzaweb\Http\Controllers\Installer;
 
 use Illuminate\Routing\Controller;
-use Juzaweb\Support\DatabaseManager;
-use Juzaweb\Support\InstalledFileManager;
+use Juzaweb\Support\Manager\DatabaseManager;
+use Juzaweb\Support\Manager\InstalledFileManager;
+use Juzaweb\Traits\MigrationsHelper;
 
 class UpdateController extends Controller
 {
-    use \Juzaweb\Support\MigrationsHelper;
+    use MigrationsHelper;
 
     /**
      * Display the updater welcome page.

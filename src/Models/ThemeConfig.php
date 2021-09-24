@@ -21,6 +21,10 @@ use Juzaweb\Models\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\ThemeConfig whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Juzaweb\Models\ThemeConfig whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $theme
+ * @property string|null $value
+ * @method static \Illuminate\Database\Eloquent\Builder|ThemeConfig whereTheme($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThemeConfig whereValue($value)
  */
 class ThemeConfig extends Model
 {

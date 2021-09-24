@@ -7,7 +7,7 @@
                 <select name="bulk_actions" class="form-control select2-default" data-width="120px">
                     <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
                     @foreach($actions as $key => $action)
-                        <option value="{{ $key }}">{{ $action }}</option>
+                        <option value="{{ $key }}">{{ is_array($action) ? $action['label'] : $action }}</option>
                     @endforeach
                 </select>
 

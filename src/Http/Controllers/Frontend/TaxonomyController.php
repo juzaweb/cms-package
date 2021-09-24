@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Illuminate\Support\Str;
 use Juzaweb\Models\Taxonomy;
 
 class TaxonomyController
@@ -10,17 +11,23 @@ class TaxonomyController
     {
         $taxSlug = $slug[1];
         $taxonomy = Taxonomy::where('slug', $taxSlug)
-            ->first();
+            ->firstOrFail();
 
-        $title = $taxonomy->name;
+        $title = $taxonomy->getName();
         $posts = $taxonomy->posts()
             ->wherePublish()
             ->paginate();
 
-        return view('theme::taxonomy.index', compact(
+        $template = get_name_template_part(
+            Str::singular($taxonomy->post_type),
+            'taxonomy'
+        );
+
+        return view('theme::template-parts.' . $template, compact(
             'title',
             'taxonomy',
-            'posts'
+            'posts',
+            'template'
         ));
     }
 }

@@ -25,9 +25,13 @@ class DatabaseManager
         $outputLog = new BufferedOutput();
         $this->sqlite($outputLog);
 
+        $migrate = $this->migrate($outputLog);
+        if ($migrate['status'] == 'error') {
+            return $this->response($migrate['message'], 'error', $outputLog);
+        }
+
         DB::beginTransaction();
         try {
-            $migrate = $this->migrate($outputLog);
             $this->makeConfig();
             $this->makeEmailTemplate();
             DB::commit();
@@ -55,23 +59,6 @@ class DatabaseManager
         }
 
         return $this->response(trans('juzaweb::installer.final.database_finished'), 'success', $outputLog);
-    }
-
-    /**
-     * Seed the database.
-     *
-     * @param \Symfony\Component\Console\Output\BufferedOutput $outputLog
-     * @return array
-     */
-    private function seed(BufferedOutput $outputLog)
-    {
-        try {
-            Artisan::call('db:seed', ['--force' => true], $outputLog);
-        } catch (Exception $e) {
-            return $this->response($e->getMessage(), 'error', $outputLog);
-        }
-
-        return $this->response(trans('juzaweb::installer.message.final.finished'), 'success', $outputLog);
     }
 
     /**

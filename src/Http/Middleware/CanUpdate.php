@@ -3,10 +3,11 @@
 namespace Juzaweb\Http\Middleware;
 
 use Closure;
+use Juzaweb\Traits\MigrationsHelper;
 
 class CanUpdate
 {
-    use \Juzaweb\Support\MigrationsHelper;
+    use MigrationsHelper;
 
     /**
      * Handle an incoming request.

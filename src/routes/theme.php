@@ -13,16 +13,24 @@ require __DIR__ . '/installer.php';
 Route::group([
     'middleware' => 'guest'
 ], function () {
-    Route::get('/login', 'Frontend\LoginController@index')->name('login');
-    Route::get('/register', 'Frontend\RegisterController@index')->name('register');
-    Route::get('/forgot-password', 'Frontend\ForgotPasswordController@index')->name('forgot_password');
+    Route::get('login', 'Frontend\LoginController@index')->name('login');
+    Route::get('register', 'Frontend\RegisterController@index')->name('register');
+    Route::get('forgot-password', 'Frontend\ForgotPasswordController@index')->name('forgot_password');
+    Route::get('ajax/{slug}', 'Frontend\AjaxController@ajax')->name('ajax');
 
-    Route::post('/login', 'Auth\LoginController@login');
-    Route::post('/register', 'Auth\RegisterController@register');
-    Route::post('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('register', 'Auth\RegisterController@register');
+    Route::post('forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
+});
+
+Route::group([
+    'middleware' => 'auth'
+], function () {
+    Route::get('ajax/{slug}', 'Frontend\AjaxController@ajaxAuth');
 });
 
 Route::get('/', 'Frontend\HomeController@index')->name('home');
-Route::get('/search', 'Frontend\SearchController@index')->name('search');
-Route::get('/search-ajax', 'Frontend\SearchController@index')->name('search.ajax');
-Route::get('/{slug?}', 'Frontend\RouteController@index')->where('slug', '.*');
+Route::match(['get', 'post'], 'search', 'Frontend\SearchController@index')->name('search');
+Route::match(['get', 'post'], 'ajax/search', 'Frontend\SearchController@ajaxSearch')->name('ajax.search');
+Route::post('{base}/{slug}', 'Frontend\PostController@comment')->name('comment');
+Route::get('{slug?}', 'Frontend\RouteController@index')->where('slug', '.*');

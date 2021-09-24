@@ -28,6 +28,8 @@ use Juzaweb\Traits\ResourceModel;
  * @property string|null $layout
  * @method static \Illuminate\Database\Eloquent\Builder|EmailTemplate whereFilter($params = [])
  * @method static \Illuminate\Database\Eloquent\Builder|EmailTemplate whereLayout($value)
+ * @property string|null $email_hook
+ * @method static \Illuminate\Database\Eloquent\Builder|EmailTemplate whereEmailHook($value)
  */
 class EmailTemplate extends Model
 {

@@ -195,6 +195,9 @@ class LoadDataController extends BackendController
 
         $postType = HookAction::getPostTypes($postType);
 
+        /**
+         * @var Builder $query
+         */
         $query = app($postType->get('model'))->query();
         $query->select([
             'id',

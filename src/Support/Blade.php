@@ -137,12 +137,12 @@ class Blade extends MinifyHtml
         );
 
         // remove ws outside of block/undisplayed elements with placeholders
-        $this->_html = preg_replace(
+/*        $this->_html = preg_replace(
             '/(<\\/?(?:' . self::BLOCK_TAGS_REGEX . ')\\b[^>]*>)(?:\\s(?:\\s*))?'
             . '(%' . $this->_replacementHash . '[0-9]+%)(?:\\s(?:\\s*))?/iu',
             '$1$2',
             $this->_html
-        );
+        );*/
 
         // remove ws between block and inline tags
         $this->_html = preg_replace(

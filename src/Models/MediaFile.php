@@ -42,11 +42,17 @@ class MediaFile extends Model
         'path',
         'extension',
         'mime_type',
+        'user_id',
+        'folder_id',
+        'type',
+        'size',
     ];
-    
+
+
+
     public function delete()
     {
-        Storage::disk('public')->delete($this->path);
+        Storage::disk(config('juzaweb.filemanager.disk'))->delete($this->path);
         return parent::delete();
     }
 
