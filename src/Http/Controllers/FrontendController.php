@@ -6,16 +6,19 @@ use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Facades\HookAction;
+use Juzaweb\Traits\ResponseMessage;
 
 class FrontendController extends Controller
 {
+    use ResponseMessage;
+
     public function callAction($method, $parameters)
     {
         /**
          * Action after call action frontend
-         * Add action to this hook add_action('theme.call_action', $callback)
+         * Add action to this hook add_action('frontend.call_action', $callback)
          */
-        do_action('theme.call_action', $method, $parameters);
+        do_action('frontend.call_action', $method, $parameters);
 
         do_action(Action::WIDGETS_INIT);
 

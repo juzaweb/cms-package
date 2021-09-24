@@ -10,9 +10,10 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Facades\HookAction;
-use Juzaweb\Models\Post;
 
 class PostController extends FrontendController
 {
@@ -23,7 +24,11 @@ class PostController extends FrontendController
         }
 
         $title = get_config('title');
-        $posts = Post::createFrontendBuilder()->paginate(10);
+        $base = $slug[0];
+        $permalink = $this->getPermalinks($base);
+        $postType = HookAction::getPostTypes($permalink->get('post_type'));
+        $posts = $postType->get('model')::createFrontendBuilder()
+            ->paginate(10);
 
         return view('theme::index', compact(
             'posts',
@@ -39,7 +44,7 @@ class PostController extends FrontendController
         $permalink = $this->getPermalinks($base);
         $postType = HookAction::getPostTypes($permalink->get('post_type'));
 
-        $post = app($postType->get('model'))
+        $post = $postType->get('model')::createFrontendBuilder()
             ->where('slug', $postSlug)
             ->firstOrFail();
 
@@ -51,5 +56,29 @@ class PostController extends FrontendController
             'title',
             'post'
         ));
+    }
+
+    public function comment(Request $request, $base, $slug)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $permalink = $this->getPermalinks($base);
+        $postType = HookAction::getPostTypes($permalink->get('post_type'));
+
+        $post = $postType->get('model')::createFrontendBuilder()
+            ->where('slug', '=', $slug)
+            ->firstOrFail();
+
+        $post->comments()->create(array_merge($request->all(), [
+            'object_type' => $permalink->get('post_type'),
+            'user_id' => Auth::id()
+        ]));
+
+        return $this->success([
+            'message' => true
+        ]);
     }
 }

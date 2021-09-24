@@ -15,6 +15,38 @@ use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\HookAction;
 use Illuminate\Support\Arr;
 
+/**
+ * Juzaweb\Models\Search
+ *
+ * @property int $id
+ * @property string $title
+ * @property string|null $description
+ * @property string|null $keyword
+ * @property string $slug
+ * @property string|null $thumbnail
+ * @property int $post_id
+ * @property string $post_type
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static Builder|Search newModelQuery()
+ * @method static Builder|Search newQuery()
+ * @method static Builder|Search query()
+ * @method static Builder|Search whereCreatedAt($value)
+ * @method static Builder|Search whereDescription($value)
+ * @method static Builder|Search whereId($value)
+ * @method static Builder|Search whereKeyword($value)
+ * @method static Builder|Search wherePostId($value)
+ * @method static Builder|Search wherePostType($value)
+ * @method static Builder|Search wherePublish()
+ * @method static Builder|Search whereSearch($params)
+ * @method static Builder|Search whereSlug($value)
+ * @method static Builder|Search whereStatus($value)
+ * @method static Builder|Search whereThumbnail($value)
+ * @method static Builder|Search whereTitle($value)
+ * @method static Builder|Search whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Search extends Model
 {
     protected $table = 'search';

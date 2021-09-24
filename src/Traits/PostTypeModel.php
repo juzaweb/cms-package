@@ -252,6 +252,28 @@ trait PostTypeModel
         return $builder;
     }
 
+    /**
+     * Show comments frontend
+     *
+     * @param string $view
+     * @return \Illuminate\View\View
+     */
+    public function commentTemplate($view = null)
+    {
+        if (empty($view) || !view()->exists($view)) {
+            $view = 'juzaweb::items.frontend_comment';
+        }
+
+        $comments = $this->comments()
+            ->with(['user'])
+            ->whereApproved()
+            ->paginate(10);
+
+        return view($view, compact(
+            'comments'
+        ));
+    }
+
     public function getPermalink($key = null)
     {
         $permalink = HookAction::getPermalinks($this->getPostType('key'));
@@ -307,12 +329,17 @@ trait PostTypeModel
         return jw_date_format($this->updated_at, $format);
     }
 
-    public function getByName()
+    public function getCreatedByName()
     {
         if ($this->createdBy) {
             return $this->createdBy->name;
         }
 
         return '';
+    }
+
+    public function getViews()
+    {
+        return $this->views;
     }
 }

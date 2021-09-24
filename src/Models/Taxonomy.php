@@ -38,6 +38,8 @@ use Juzaweb\Traits\TaxonomyModel;
  * @method static Builder|Taxonomy whereUpdatedAt($value)
  * @method static Builder|Taxonomy whereFilter($params = [])
  * @mixin \Eloquent
+ * @property int $level
+ * @method static Builder|Taxonomy whereLevel($value)
  */
 class Taxonomy extends Model
 {

@@ -10,7 +10,7 @@
 
 namespace Juzaweb\Http\Datatable;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
 use Juzaweb\Models\Comment;
@@ -34,6 +34,9 @@ class CommentDatatable extends DataTable
         return [
             'author' => [
                 'label' => trans('juzaweb::app.name'),
+                'formatter' => function ($value, $row, $index) {
+                    return $row->getUserName();
+                }
             ],
             'email' => [
                 'label' => trans('juzaweb::app.email'),
@@ -44,17 +47,17 @@ class CommentDatatable extends DataTable
                 'label' => trans('juzaweb::app.content'),
             ],
             'post' => [
-                'label' => trans('juzaweb::app.email'),
+                'label' => trans('juzaweb::app.post'),
                 'width' => '20%',
                 'formatter' => function ($value, $row, $index) {
-                    return $row->postType->getDisplayName();
+                    return $row->postType()->getTitle();
                 }
             ],
             'status' => [
                 'label' => trans('juzaweb::app.status'),
                 'width' => '10%',
                 'formatter' => function ($value, $row, $index) {
-                    return '';
+                    return Comment::allStatuses()[$value];
                 }
             ],
             'created_at' => [
@@ -76,7 +79,7 @@ class CommentDatatable extends DataTable
      */
     public function query($data)
     {
-        $query = Comment::query()->with(['user', 'postType']);
+        $query = Comment::query()->with(['user']);
         $query->where('object_type', '=', $this->postType);
 
         if ($keyword = Arr::get($data, 'keyword')) {
@@ -90,8 +93,20 @@ class CommentDatatable extends DataTable
             $query->where('status', '=', $status);
         }
 
-
         return $query;
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $statuses = Comment::allStatuses();
+        foreach ($statuses as $key => $status) {
+            $actions[$key] = [
+                'label' => $status
+            ];
+        }
+
+        return $actions;
     }
 
     public function bulkActions($action, $ids)

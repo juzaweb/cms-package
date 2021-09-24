@@ -126,26 +126,29 @@ if (!function_exists('get_name_template_part')) {
     }
 }
 
-/**
- * Loads a template part into a template.
- *
- * @param \Juzaweb\Traits\PostTypeModel $post
- * @param string $slug
- * @param string $name
- * @param array $args
- * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
- */
-function get_template_part($post, $slug, $name = null, $args = [])
-{
-    do_action("get_template_part_{$slug}", $post, $slug, $name, $args);
+if (!function_exists('get_template_part')) {
 
-    $name = (string) $name;
-    $type = $post ? $post->getPostType('singular') : 'none';
-    $template = get_name_template_part($type, $slug, $name);
+    /**
+     * Loads a template part into a template.
+     *
+     * @param \Juzaweb\Traits\PostTypeModel $post
+     * @param string $slug
+     * @param string $name
+     * @param array $args
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    function get_template_part($post, $slug, $name = null, $args = [])
+    {
+        do_action("get_template_part_{$slug}", $post, $slug, $name, $args);
 
-    return view('theme::template-parts.' . $template, [
-        'post' => $post
-    ]);
+        $name = (string)$name;
+        $type = $post ? $post->getPostType('singular') : 'none';
+        $template = get_name_template_part($type, $slug, $name);
+
+        return view('theme::template-parts.'.$template, [
+            'post' => $post
+        ]);
+    }
 }
 
 if (!function_exists('jw_menu_items')) {
@@ -296,3 +299,4 @@ if (!function_exists('dynamic_sidebar')) {
         return $html;
     }
 }
+

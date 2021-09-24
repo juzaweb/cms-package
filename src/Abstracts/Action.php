@@ -16,7 +16,7 @@ abstract class Action
 {
     const JUZAWEB_INIT_ACTION = 'juzaweb.init';
     const BACKEND_CALL_ACTION = 'backend.call_action';
-    const FRONTEND_CALL_ACTION = 'theme.call_action';
+    const FRONTEND_CALL_ACTION = 'frontend.call_action';
     const FRONTEND_HEADER_ACTION = 'theme.header';
     const FRONTEND_FOOTER_ACTION = 'theme.footer';
     const BACKEND_MENU_INDEX_ACTION = 'backend.menu.index';

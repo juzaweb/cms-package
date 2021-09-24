@@ -24,7 +24,7 @@ class HomeController extends FrontendController
         $config = get_configs(['title', 'description']);
         $theme = jw_theme_info();
         $view = $this->getViewPage();
-        $posts = Post::wherePublish()->paginate(10);
+        $posts = Post::createFrontendBuilder()->paginate(10);
 
         $params = [
             'title' => $config['title'],
