@@ -14,7 +14,7 @@ class ThemeController extends BackendController
     public function index(Request $request)
     {
         $page = $request->get('page', 1);
-        $activated = get_config('activated_theme', 'default');
+        $activated = jw_current_theme();
 
         $themes = Theme::all();
         $currentTheme = $themes[$activated] ?? null;
@@ -43,7 +43,6 @@ class ThemeController extends BackendController
             ]);
         }
 
-        set_config('activated_theme', $theme);
         $this->putCache($theme);
 
         return $this->success([
@@ -61,8 +60,9 @@ class ThemeController extends BackendController
         Cache::forever('current_theme_info', jw_theme_info($theme));
 
         $themeStatus = [
+            'name' => $theme,
             'namespace' => 'Theme\\',
-            'path' => config('juzaweb.theme.path') .'/'.$theme.'/src',
+            'path' => config('juzaweb.theme.path') .'/'.$theme,
         ];
 
         $str = '<?php

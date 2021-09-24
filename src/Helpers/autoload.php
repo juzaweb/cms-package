@@ -35,12 +35,13 @@ if (file_exists($themeFile)) {
     $theme = require $themeFile;
 } else {
     $theme = [
+        'name' => 'default',
         'namespace' => 'Theme\\',
-        'path' => $themePath . '/default/src',
+        'path' => $themePath . '/default',
     ];
 }
 
-$path = is_dir($theme['path']) ? $theme['path'] : $themePath . '/' . $theme['path'];
+$path = $theme['path'] . '/src';
 
 if (is_dir($path)) {
     $loader->setPsr4('Theme\\', [$path]);
