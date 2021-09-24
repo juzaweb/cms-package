@@ -22,8 +22,7 @@ class HookActionServiceProvider extends ServiceProvider
                 app($action)->handle();
             }
 
-            if (Installer::alreadyInstalled()) {
-                $currentTheme = jw_current_theme();
+            if (Installer::alreadyInstalled() && $currentTheme = jw_current_theme()) {
                 Theme::set($currentTheme);
 
                 $actionPath = Theme::getThemePath($currentTheme . '/src/Actions');

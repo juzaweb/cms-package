@@ -143,7 +143,7 @@ class UpdateManager
                 $plugin->enable();
                 break;
             case 'theme':
-                if ($this->val == get_config('activated_theme', 'default')) {
+                if ($this->val == jw_current_theme()) {
                     Artisan::call('theme:publish', [
                         'theme' => $this->val,
                         'type' => 'assets',

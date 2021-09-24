@@ -65,9 +65,29 @@ if (!file_exists('jw_theme_info')) {
 }
 
 if (!function_exists('jw_current_theme')) {
+    /**
+     * Get current active theme
+     *
+     * @return string
+     */
     function jw_current_theme()
     {
-        return get_config('activated_theme', 'default');
+        $themeFile = JW_BASEPATH . '/bootstrap/cache/theme_statuses.php';
+        if (file_exists($themeFile)) {
+            $theme = require $themeFile;
+        } else {
+            $theme = [
+                'namespace' => 'Theme\\',
+                'path' => JW_BASEPATH . '/themes/default',
+                'name' => 'default',
+            ];
+        }
+
+        if (!is_dir($theme['path'])) {
+            return false;
+        }
+
+        return $theme['name'];
     }
 }
 

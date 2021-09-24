@@ -46,9 +46,7 @@ class UpdateController extends BackendController
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
-            return $this->error([
-                'message' => $e->getMessage(),
-            ]);
+            throw $e;
         }
 
         return $this->success([

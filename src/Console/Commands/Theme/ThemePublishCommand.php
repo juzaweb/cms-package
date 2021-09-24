@@ -16,7 +16,7 @@ class ThemePublishCommand extends Command
         $type = (string) $this->argument('type');
 
         if (empty($theme)) {
-            $theme = get_config('activated_theme', 'default');
+            $theme = jw_current_theme();
         }
 
         if (empty($type)) {
