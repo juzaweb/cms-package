@@ -11,6 +11,7 @@
 namespace Juzaweb\Actions;
 
 use Juzaweb\Abstracts\Action;
+use Juzaweb\Facades\HookAction;
 
 class EnqueueStyleAction extends Action
 {
@@ -53,10 +54,14 @@ class EnqueueStyleAction extends Action
     {
         $fbAppId = get_config('fb_app_id');
         $googleAnalytics = get_config('google_analytics');
+        $scripts = HookAction::getEnqueueFrontendScripts();
+        $styles = HookAction::getEnqueueFrontendStyles();
 
         echo e(view('juzaweb::items.frontend_header', compact(
             'fbAppId',
-            'googleAnalytics'
+            'googleAnalytics',
+            'scripts',
+            'styles'
         )));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Page;
 use Juzaweb\Traits\PostTypeController;
@@ -25,7 +26,7 @@ class PageController extends BackendController
     protected function getDataForForm($model)
     {
         $data = $this->DataForForm($model);
-        $templates = jw_theme_config()['templates'] ?? [];
+        $templates = HookAction::getThemeTemplates();
         $data['templates'] = [];
 
         foreach ($templates as $key => $template) {

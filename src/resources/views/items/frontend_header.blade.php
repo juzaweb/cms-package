@@ -1,3 +1,11 @@
+@foreach($styles as $style)
+    <link rel="stylesheet" type="text/css" href="{{ $style->get('src') }}?v={{ $style->get('ver') }}">
+@endforeach
+
+@foreach($scripts as $script)
+    <script src="{{ $script->get('src') }}?v={{ $script->get('ver') }}"></script>
+@endforeach
+
 @if($googleAnalytics)
     <!-- Google Analytics -->
 

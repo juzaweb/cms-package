@@ -2,9 +2,7 @@
 
 namespace Juzaweb\Http\Controllers;
 
-use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\Action;
-use Juzaweb\Facades\Theme;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Traits\ResponseMessage;
 
@@ -18,38 +16,11 @@ class FrontendController extends Controller
          * Action after call action frontend
          * Add action to this hook add_action('frontend.call_action', $callback)
          */
-        do_action('frontend.call_action', $method, $parameters);
+        do_action(Action::FRONTEND_CALL_ACTION, $method, $parameters);
 
         do_action(Action::WIDGETS_INIT);
 
-        $this->addThemeStyles();
-
         return parent::callAction($method, $parameters);
-    }
-
-    protected function addThemeStyles()
-    {
-        $currentTheme = jw_current_theme();
-        $theme = Theme::getThemeInfo($currentTheme);
-        $config = Theme::getThemeConfig($currentTheme);
-
-        $version = $theme->get('version');
-        $styles = $config->get('styles');
-
-        $js = Arr::get($styles, 'js', []);
-        $css = Arr::get($styles, 'css', []);
-
-        add_action('theme.header', function () use ($js, $version) {
-            foreach ($js as $item) {
-                echo '<script src="'. Theme::assets($item) .'?v='. $version .'"></script>';
-            }
-        }, 16);
-
-        add_action('theme.header', function () use ($css, $version) {
-            foreach ($css as $item) {
-                echo '<link rel="stylesheet" href="'. Theme::assets($item) .'?v='. $version .'">';
-            }
-        }, 10);
     }
 
     protected function getPermalinks($base = null)
