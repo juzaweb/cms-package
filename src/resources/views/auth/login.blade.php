@@ -27,6 +27,8 @@
 
                         <form action="{{ route('admin.login') }}" method="post" class="mb-4 form-ajax">
 
+                            @do_action('login_form')
+
                             <div class="form-group mb-4">
                                 <input type="email" name="email" class="form-control" placeholder="@lang('juzaweb::app.email_address')" />
                             </div>

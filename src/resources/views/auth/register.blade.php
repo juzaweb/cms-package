@@ -20,18 +20,22 @@
                         </div>
 
                         <form action="{{ route('auth.register') }}" method="post" class="mb-4 form-ajax">
+                            @do_action('register_form')
+
                             <div class="form-group mb-4">
-                                <input type="text" name="name" class="form-control" placeholder="@lang('juzaweb::app.full-name')" autocomplete="off"/>
+                                <input type="text" name="name" class="form-control" placeholder="@lang('juzaweb::app.full_name')" autocomplete="off"/>
                             </div>
                             <div class="form-group mb-4">
-                                <input type="text" name="email" class="form-control" placeholder="@lang('juzaweb::app.email-address')" autocomplete="off"/>
+                                <input type="text" name="email" class="form-control" placeholder="@lang('juzaweb::app.email_address')" autocomplete="off"/>
                             </div>
                             <div class="form-group mb-4">
                                 <input type="password" name="password" class="form-control" placeholder="@lang('juzaweb::app.password')" autocomplete="off"/>
                             </div>
-                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzaweb::app.please-wait')">
+
+                            <button type="submit" class="btn btn-primary text-center w-100" data-loading-text="@lang('juzaweb::app.please_wait')">
                                 <strong>Sign Up</strong>
                             </button>
+
                         </form>
                     </div>
                     <div class="text-center pt-2 mb-auto">
