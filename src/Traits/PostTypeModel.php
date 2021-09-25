@@ -180,6 +180,7 @@ trait PostTypeModel
             ->toArray();
 
         $this->taxonomies()->detach($detachIds);
+
         $this->taxonomies()
             ->syncWithoutDetaching(combine_pivot($data, [
                 'term_type' => $postType

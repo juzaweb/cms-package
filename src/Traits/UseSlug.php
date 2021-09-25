@@ -32,7 +32,7 @@ trait UseSlug {
     public function getDisplayName()
     {
         if (empty($this->fieldName)) {
-            return $this->name ?? $this->title;
+            return $this->name ? $this->name : $this->title;
         }
 
         return $this->{$this->fieldName};
