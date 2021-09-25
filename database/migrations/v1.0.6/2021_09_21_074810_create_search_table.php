@@ -16,7 +16,6 @@ class CreateSearchTable extends Migration
             $table->string('description', 250)->nullable();
             $table->string('keyword', 190)->nullable();
             $table->string('slug', 150)->index();
-            $table->string('thumbnail', 150)->nullable();
             $table->unsignedBigInteger('post_id')->index();
             $table->string('post_type', 50)->index();
             $table->string('status', 50)->index();

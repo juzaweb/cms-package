@@ -675,11 +675,12 @@ class HookAction
         return new Collection(GlobalData::get('sidebars'));
     }
 
-    public function getFrontendAjaxs($key = null, $auth = null)
+    public function getFrontendAjaxs($key = null)
     {
         if ($key) {
             $data = Arr::get(GlobalData::get('frontend_ajaxs'), $key);
-            if (!is_null($auth) && $data->get('auth') == $auth) {
+
+            if ($data) {
                 return $data;
             }
 
@@ -687,9 +688,6 @@ class HookAction
         }
 
         $data = new Collection(GlobalData::get('frontend_ajaxs'));
-        if (!is_null($auth)) {
-            return $data->where('auth', $auth);
-        }
 
         return $data;
     }

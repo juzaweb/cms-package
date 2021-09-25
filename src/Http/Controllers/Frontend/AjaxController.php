@@ -11,24 +11,16 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 
 class AjaxController extends FrontendController
 {
-    public function ajaxNone(Request $request, $key)
+    protected function ajax(Request $request, $key)
     {
-        return $this->ajax($request, $key, false);
-    }
+        $ajax = HookAction::getFrontendAjaxs($key);
 
-    public function ajaxAuth(Request $request, $key)
-    {
-        return $this->ajax($request, $key, true);
-    }
-
-    protected function ajax(Request $request, $key, $auth)
-    {
-        $ajax = HookAction::getFrontendAjaxs($key, $auth);
         if (empty($ajax)) {
             return response([
                 'status' => false,
@@ -36,6 +28,13 @@ class AjaxController extends FrontendController
             ]);
         }
 
-        return app($ajax->get('callback'), [$request])->response();
+        if ($ajax->get('auth') && !Auth::check()) {
+            return response([
+                'status' => false,
+                'message' => 'Ajax no rights.'
+            ]);
+        }
+
+        return call_user_func($ajax->get('callback'));
     }
 }

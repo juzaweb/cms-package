@@ -33,17 +33,28 @@ class SearchController extends FrontendController
     
     public function ajaxSearch(Request $request)
     {
+        $limit = $request->input('limit', 5);
+
+        if ($limit > 100) {
+            $limit = 100;
+        }
+
         $paginate = Search::select(['*'])
             ->wherePublish()
             ->whereSearch($request->all())
-            ->paginate(12);
+            ->paginate($limit);
 
         $paginate->getCollection()->transform(function ($item) {
             return $item->post;
         });
 
         $results = $paginate->items();
-        foreach ($results as $item) {
+        foreach ($results as $key => $item) {
+            if (empty($item)) {
+                unset($results[$key]);
+                continue;
+            }
+
             $item->thumbnail = $item->getThumbnail();
             $item->link = $item->getLink();
             $item->title = $item->getTitle();

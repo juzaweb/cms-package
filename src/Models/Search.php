@@ -104,6 +104,9 @@ class Search extends Model
                     $q->whereRaw('MATCH (`title`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
                     $q->orWhereRaw('MATCH (`description`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
                     $q->orWhereRaw('MATCH (`keyword`) AGAINST (? IN BOOLEAN MODE)', [$keyword]);
+                    $q->orWhere('title', 'like', '%'.$keyword.'%');
+                    $q->orWhere('description', 'like', '%'.$keyword.'%');
+                    $q->orWhere('keyword', 'like', '%'.$keyword.'%');
                 });
 
             } else {

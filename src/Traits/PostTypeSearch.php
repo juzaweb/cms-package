@@ -24,9 +24,15 @@ trait PostTypeSearch
                 'title' => $model->title,
                 'description' => str_words_length($model->description, 100, 250),
                 'slug' => $model->slug,
-                'thumbnail' => $model->thumbnail,
                 'status' => $model->status,
             ]);
+        });
+
+        static::deleted(function ($model) {
+            Search::where([
+                'post_type' => $model->getPostType('key'),
+                'post_id' => $model->id
+            ])->delete();
         });
     }
 }
