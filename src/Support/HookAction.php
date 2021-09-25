@@ -74,10 +74,16 @@ class HookAction
      */
     public function addSettingForm($key, $args = [])
     {
-        Hook::addFilter('admin.general_settings.forms', function ($items) use ($key, $args) {
-            $items[$key] = $args;
-            return $items;
-        }, $args['priority'] ?? 10);
+        $defaults = [
+            'name' => '',
+            'key' => $key,
+            'view' => '',
+            'priority' => 10,
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('setting_forms.' . $key, new Collection($args));
     }
 
     /**

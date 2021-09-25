@@ -6,6 +6,15 @@ use Illuminate\Support\Str;
 
 trait UseSlug {
 
+    public static function bootUseSlug()
+    {
+        static::saving(function ($model) {
+            if (empty($model->slug)) {
+                $model->slug = $model->generateSlug();
+            }
+        });
+    }
+
     public static function findBySlug($slug)
     {
         return self::query()

@@ -170,8 +170,9 @@ trait PostTypeModel
 
     public function syncTaxonomy(string $taxonomy, array $attributes, string $postType = null)
     {
-        $postType = $postType ?? $this->getPostType('key');
+        $postType = $postType ? $postType : $this->getPostType('key');
         $data = Arr::get($attributes, $taxonomy, []);
+
         $detachIds = $this->taxonomies()
             ->where('taxonomy', '=', $taxonomy)
             ->whereNotIn('id', $data)

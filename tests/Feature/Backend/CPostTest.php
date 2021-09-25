@@ -59,9 +59,9 @@ class CPostTest extends TestCase
 
         $response->assertStatus(200);
 
-        if ($post = $this->makeFactory($postType)) {
+        if ($post = $this->makerData($postType)) {
             $old = app($postType->get('model'))->count();
-            $this->post('/admin-cp/posts', $post->getAttributes());
+            $this->post('/admin-cp/posts', $post);
             $new = app($postType->get('model'))->count();
             $this->assertEquals($old, ($new - 1));
         }
@@ -69,19 +69,19 @@ class CPostTest extends TestCase
 
     protected function updateTest($postType)
     {
-        if ($post = $this->makeFactory($postType)) {
+        if ($post = $this->makerData($postType)) {
             $model = app($postType->get('model'))->first(['id']);
-            $response = $this->get('/admin-cp/posts/' . '/' . $model->id . '/edit');
+            $response = $this->get('/admin-cp/posts/' . $model->id . '/edit');
 
             $response->assertStatus(200);
 
-            $this->put('/admin-cp/posts/' . $model->id, $post->getAttributes());
+            $this->put('/admin-cp/posts/' . $model->id, $post);
 
             $model = app($postType->get('model'))
                 ->where('id', '=', $model->id)
                 ->first();
 
-            $this->assertEquals($post->getAttribute('title'), $model->title);
+            $this->assertEquals($post['title'], $model->title);
         }
     }
 
@@ -89,12 +89,24 @@ class CPostTest extends TestCase
      *
      * @param Collection $postType
      *
-     * @return Model|false
+     * @return array|false
      */
-    protected function makeFactory($postType)
+    protected function makerData($postType)
     {
         try {
             $post = factory($postType->get('model'))->make();
+            $post = $post->getAttributes();
+
+            $taxonomies = HookAction::getTaxonomies($postType->get('key'));
+            foreach ($taxonomies as $taxonomy) {
+                $ids = app($taxonomy->get('model'))
+                    ->inRandomOrder()
+                    ->limt(5)
+                    ->pluck('id')
+                    ->toArray();
+
+                $post[$taxonomy->get('taxonomy')] = $ids;
+            }
 
             return $post;
         } catch (\Throwable $e) {
