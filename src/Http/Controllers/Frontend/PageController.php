@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Models\Page;
 use Noodlehaus\Config;
@@ -60,8 +61,8 @@ class PageController extends FrontendController
     protected function getViewPage(Page $page, $themeInfo)
     {
         if (!empty($page->template)) {
-            $templates = $themeInfo->get('templates');
-            $templateView = $templates[$page->template]['view'] ?? null;
+            $templates = HookAction::getThemeTemplates($page->template);
+            $templateView = $templates['view'] ?? null;
             $templateView = 'theme::' . $templateView;
 
             if (view()->exists($templateView)) {
@@ -70,9 +71,11 @@ class PageController extends FrontendController
         }
 
         if (empty($view)) {
-            $view = 'theme::post.content-page';
+            $template = get_name_template_part('page', 'single');
+            $view = 'theme::template-parts.' . $template;
+
             if (!view()->exists($view)) {
-                $view = 'theme::post.content';
+                $view = 'theme::template-parts.single';
             }
         }
 

@@ -97,22 +97,22 @@ class CPostTest extends TestCase
             $post = factory($postType->get('model'))->make();
             $post = $post->getAttributes();
 
-            $taxonomies = HookAction::getTaxonomies($postType->get('key'));
-            foreach ($taxonomies as $taxonomy) {
-                $ids = app($taxonomy->get('model'))
-                    ->inRandomOrder()
-                    ->limt(5)
-                    ->pluck('id')
-                    ->toArray();
-
-                $post[$taxonomy->get('taxonomy')] = $ids;
-            }
-
-            return $post;
         } catch (\Throwable $e) {
             echo "\n--- " . $e->getMessage();
+            return false;
         }
 
-        return false;
+        $taxonomies = HookAction::getTaxonomies($postType->get('key'));
+        foreach ($taxonomies as $taxonomy) {
+            $ids = app($taxonomy->get('model'))
+                ->inRandomOrder()
+                ->limit(5)
+                ->pluck('id')
+                ->toArray();
+
+            $post[$taxonomy->get('taxonomy')] = $ids;
+        }
+
+        return $post;
     }
 }

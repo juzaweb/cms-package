@@ -641,6 +641,8 @@ class HookAction
     {
         $defaults = [
             'key' => $key,
+            'name' => '',
+            'view' => ''
         ];
 
         $args = array_merge($defaults, $args);

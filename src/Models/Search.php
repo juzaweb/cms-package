@@ -60,6 +60,12 @@ class Search extends Model
         'status',
     ];
 
+    public function taxonomies()
+    {
+        return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id', 'post_id')
+            ->withPivot(['term_type']);
+    }
+
     public function post()
     {
         $model = $this->getPostType('model');
@@ -81,7 +87,7 @@ class Search extends Model
      * @param Builder $builder
      *
      * @return Builder
-     **/
+     */
     public function scopeWherePublish($builder)
     {
         $builder->where('status', '=', 'publish');
@@ -121,7 +127,47 @@ class Search extends Model
 
         if ($type = Arr::get($params, 'type')) {
             $builder->where('post_type', '=', $type);
+            $postTypes = collect([$type => HookAction::getPostTypes($type)]);
         }
+
+        if (empty($postTypes)) {
+            $postTypes = HookAction::getPostTypes();
+        }
+
+        $builder->where(function (Builder $q) use ($postTypes, $params) {
+            foreach ($postTypes as $typeKey => $postType) {
+                $taxonomies = HookAction::getTaxonomies($typeKey);
+
+                foreach ($taxonomies as $key => $taxonomy) {
+                    $ids = array_filter(Arr::get($params, $key, []), function ($item) {
+                        return !empty($item);
+                    });
+
+                    if ($ids) {
+                        $q->whereHas('taxonomies', function (Builder $q) use ($key, $params, $ids) {
+
+                            $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
+                        });
+                    }
+                }
+            }
+        });
+
+        if ($sort = Arr::get($params, 'sort')) {
+            switch ($sort) {
+                case 'latest':
+                    $builder->orderBy('id', 'DESC');
+                    break;
+                /*case 'top_views':
+                    $builder->orderBy('views', 'DESC');
+                    break;*/
+                case 'new_update':
+                    $builder->orderBy('updated_at', 'DESC');
+                    break;
+            }
+        }
+
+        $builder = apply_filters('frontend.search_query', $builder, $params);
 
         return $builder;
     }
