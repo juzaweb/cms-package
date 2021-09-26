@@ -2,7 +2,6 @@
     <label class="col-form-label">{{ $label ?? '' }}</label>
     <select
             name="{{ $name }}"
-            id="{{ $name }}"
             class="form-control load-taxonomies"
             data-post-type="{{ $post_type ?? '' }}"
             data-taxonomy="{{ $taxonomy ?? '' }}"

@@ -54,7 +54,7 @@
 
     <script type="text/javascript">
         function reload_data(form) {
-            $('#form-add input, #form-add textarea').val(null);
+            $('#form-add input[type="text"], #form-add textarea').val(null);
             $('#form-add #parent_id').val(null).trigger('change.select2');
             table.refresh();
         }
