@@ -37,11 +37,23 @@ class PageController extends FrontendController
         $theme = jw_theme_info();
         $view = $this->getViewPage($page, $theme);
 
-        $params = [
-            'post' => $page,
-            'title' => $page->name,
-            'theme' => $theme,
-        ];
+        if (is_home()) {
+            $config = get_configs(['title', 'description']);
+
+            $params = [
+                'post' => $page,
+                'title' => $config['title'],
+                'description' => $config['description'],
+                'theme' => $theme,
+            ];
+        } else {
+            $params = [
+                'post' => $page,
+                'title' => $page->title,
+                'description' => $page->description,
+                'theme' => $theme,
+            ];
+        }
 
         return apply_filters(
             'theme.page.handle',

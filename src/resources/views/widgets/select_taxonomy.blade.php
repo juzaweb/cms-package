@@ -10,6 +10,10 @@
     >
         @php
             $options = $value ?? [];
+            if (!is_array($options)) {
+                $options = [$options];
+            }
+
             $selected = \Juzaweb\Models\Taxonomy::whereIn('id', $options)->get();
         @endphp
 

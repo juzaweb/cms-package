@@ -298,21 +298,17 @@ if (!function_exists('jw_get_widgets_sidebar')) {
 if (!function_exists('dynamic_sidebar')) {
     function dynamic_sidebar($key)
     {
-        $html = '';
         $sidebar = HookAction::getSidebars($key);
         if (empty($sidebar)) {
-            return $html;
+            return '';
         }
 
         $widgets = jw_get_widgets_sidebar($key);
-        foreach ($widgets as $widget) {
-            $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
-            $html .= $sidebar->get('before_widget') .
-                e($widgetData['widget']->show($widget)) .
-                $sidebar->get('after_widget');
-        }
 
-        return $html;
+        return view('juzaweb::components.dynamic_sidebar', compact(
+            'widgets',
+            'sidebar'
+        ));
     }
 }
 
