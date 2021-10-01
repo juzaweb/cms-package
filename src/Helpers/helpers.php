@@ -504,3 +504,10 @@ if (!function_exists('recursive_level_model')) {
         }
     }
 }
+
+if (!function_exists('get_version_by_tag')) {
+    function get_version_by_tag($tag)
+    {
+        return str_replace('v', '', $tag);
+    }
+}

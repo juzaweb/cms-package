@@ -334,6 +334,7 @@ class HookAction
                 'label' => trans('juzaweb::app.tags'),
                 'priority' => $args->get('priority') + 6,
                 'menu_position' => 15,
+                'menu_box' => false,
                 'show_in_menu' => $args->get('show_in_menu'),
                 'rewrite' => $args->get('taxonomy_rewrite'),
                 'supports' => []

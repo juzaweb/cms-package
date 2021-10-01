@@ -49,6 +49,8 @@ use Juzaweb\Traits\PostTypeModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereCreatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Page whereUpdatedBy($value)
+ * @property string|null $description
+ * @method static \Illuminate\Database\Eloquent\Builder|Page whereDescription($value)
  */
 class Page extends Model
 {

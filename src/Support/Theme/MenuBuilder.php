@@ -40,6 +40,10 @@ class MenuBuilder
         }, $menuBoxs);
 
         foreach ($groups as $group) {
+            if (empty($menuBoxs[$group])) {
+                continue;
+            }
+
             $newItems = $items->where('box_key', $group);
             $newItems = ($menuBoxs[$group])->getLinks($newItems);
             $items->merge($newItems);

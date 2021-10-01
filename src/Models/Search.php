@@ -46,6 +46,8 @@ use Illuminate\Support\Arr;
  * @method static Builder|Search whereTitle($value)
  * @method static Builder|Search whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Juzaweb\Models\Taxonomy[] $taxonomies
+ * @property-read int|null $taxonomies_count
  */
 class Search extends Model
 {

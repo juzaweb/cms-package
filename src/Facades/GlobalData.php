@@ -15,6 +15,7 @@ use Juzaweb\Contracts\GlobalDataContract;
 
 /**
  * @method static void set($key, $value)
+ * @method static void push($key, $value)
  * @method static mixed get($key)
  */
 class GlobalData extends Facade

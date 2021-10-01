@@ -27,6 +27,7 @@ return [
             'tokenizer',
             'JSON',
             'cURL',
+            'fileinfo',
         ],
         'apache' => [
             'mod_rewrite',
