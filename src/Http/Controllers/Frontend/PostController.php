@@ -27,7 +27,7 @@ class PostController extends FrontendController
         $base = $slug[0];
         $permalink = $this->getPermalinks($base);
         $postType = HookAction::getPostTypes($permalink->get('post_type'));
-        $posts = $postType->get('model')::createFrontendBuilder()
+        $posts = $postType->get('model')::selectFrontendBuilder()
             ->paginate(10);
 
         return view('theme::index', compact(

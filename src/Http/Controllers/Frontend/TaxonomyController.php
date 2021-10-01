@@ -14,8 +14,8 @@ class TaxonomyController
             ->firstOrFail();
 
         $title = $taxonomy->getName();
-        $posts = $taxonomy->posts()
-            ->wherePublish()
+        $postType = $taxonomy->getPostType('model');
+        $posts = $postType::selectFrontendBuilder()
             ->paginate();
 
         $template = get_name_template_part(

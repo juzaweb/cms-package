@@ -10,14 +10,13 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 
 class AjaxController extends FrontendController
 {
-    protected function ajax(Request $request, $key)
+    protected function ajax($key)
     {
         $ajax = HookAction::getFrontendAjaxs($key);
 
@@ -31,10 +30,11 @@ class AjaxController extends FrontendController
         if ($ajax->get('auth') && !Auth::check()) {
             return response([
                 'status' => false,
-                'message' => 'Ajax no rights.'
+                'message' => 'You do not have permission to access this link.'
             ]);
         }
 
-        return call_user_func($ajax->get('callback'));
+        $callback = $ajax->get('callback');
+        return call_user_func($callback);
     }
 }

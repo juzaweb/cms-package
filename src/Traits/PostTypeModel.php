@@ -41,6 +41,27 @@ trait PostTypeModel
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
+    public static function selectFrontendBuilder()
+    {
+        $builder = self::createFrontendBuilder()
+            ->select([
+                'id',
+                'title',
+                'description',
+                'thumbnail',
+                'slug',
+                'views',
+                'status',
+            ]);
+
+        return $builder;
+    }
+
+    /**
+     * Create Builder for frontend
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public static function createFrontendBuilder()
     {
         return self::with([
@@ -342,6 +363,10 @@ trait PostTypeModel
 
     public function getViews()
     {
-        return $this->views;
+        if ($this->views < 1000) {
+            return $this->views;
+        }
+
+        return round($this->views / 1000, 1) . 'K';
     }
 }
