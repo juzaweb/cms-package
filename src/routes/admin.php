@@ -22,5 +22,4 @@ require __DIR__ . '/components/theme.route.php';
 require __DIR__ . '/components/page.route.php';
 require __DIR__ . '/components/plugin.route.php';
 require __DIR__ . '/components/email.route.php';
-require __DIR__ . '/components/translation.route.php';
 

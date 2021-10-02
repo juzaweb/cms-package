@@ -69,7 +69,7 @@ class UpdateManager
 
     public function updateStep1()
     {
-        $uri = $this->tag . '/get-update';
+        $uri = $this->tag . '/version-available';
 
         $response = $this->api->get($uri, [
             'current_version' => $this->getCurrentVersion(),
@@ -174,7 +174,7 @@ class UpdateManager
             $this->curl->getClient()->request('GET', $url, [
                 'curl' => [
                     CURLOPT_TCP_KEEPALIVE => 10,
-                    CURLOPT_TCP_KEEPIDLE => 10
+                    CURLOPT_TCP_KEEPIDLE => 10,
                 ],
                 'sink' => $resource,
             ]);

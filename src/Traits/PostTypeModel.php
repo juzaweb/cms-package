@@ -121,7 +121,7 @@ trait PostTypeModel
         return $builder;
     }
 
-    public function getStatuses()
+    public static function getStatuses()
     {
         return apply_filters(
             app(static::class)->getPostType('key') . '.statuses',

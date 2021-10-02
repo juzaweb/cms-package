@@ -10,6 +10,7 @@
 
 namespace Juzaweb\Traits;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 trait UseDescription
@@ -17,11 +18,13 @@ trait UseDescription
     public static function bootUseDescription()
     {
         static::saving(function ($model) {
-            $model->description = str_words_length(
-                strip_tags($model->content),
-                55,
-                200
-            );
+            if (Schema::hasColumns($model->getTable(), ['description'])) {
+                $model->description = str_words_length(
+                    strip_tags($model->content),
+                    55,
+                    200
+                );
+            }
         });
     }
 

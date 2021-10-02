@@ -179,15 +179,6 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.translations'),
-            'translations',
-            [
-                'icon' => 'fa fa-language',
-                'position' => 90,
-            ]
-        );
-
-        HookAction::addAdminMenu(
             trans('juzaweb::app.email_templates'),
             'email-template',
             [

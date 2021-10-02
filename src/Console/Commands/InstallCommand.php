@@ -22,6 +22,7 @@ use Juzaweb\Support\Manager\InstalledFileManager;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Juzaweb\Models\User;
+use Illuminate\Support\Arr;
 
 class InstallCommand extends Command
 {
@@ -38,13 +39,13 @@ class InstallCommand extends Command
         $this->info('JUZAWEB CMS Installer');
         $this->info('-- Database Install');
         $result = $databaseManager->run();
-        if ($result['status'] == 'error') {
+        if (Arr::get($result, 'status')) {
             throw new \Exception($result['message']);
         }
 
         $this->info('-- Publish assets');
         $result = $finalInstall->runFinal();
-        if (isset($result['status']) && $result['status'] == 'error') {
+        if (Arr::get($result, 'status') == 'error') {
             throw new \Exception($result['message']);
         }
 
