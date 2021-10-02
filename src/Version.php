@@ -10,12 +10,10 @@
 
 namespace Juzaweb;
 
-use Composer\InstalledVersions;
-
 class Version
 {
     public static function getVersion()
     {
-        return InstalledVersions::getVersion('juzaweb/cms');
+        return '1.0.9';
     }
 }

@@ -64,7 +64,7 @@ class UpdateManager
             'current_version' => $this->getCurrentVersion(),
         ]);
 
-        return $response->version;
+        return str_replace('v', '', $response->version);
     }
 
     public function updateStep1()
@@ -122,8 +122,13 @@ class UpdateManager
     public function updateStep4()
     {
         $localFolder = $this->getLocalFolder();
+        $zipFolders = File::directories($this->storage->path($this->tmpFolder . '/unzip'));
         File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup'));
-        File::moveDirectory($this->storage->path($this->tmpFolder . '/unzip'), $localFolder);
+        foreach ($zipFolders as $folder) {
+            File::moveDirectory($folder, $localFolder);
+            break;
+        }
+
         File::deleteDirectory($this->storage->path($this->tmpFolder), true);
         File::deleteDirectory($this->storage->path($this->tmpFolder), true);
     }

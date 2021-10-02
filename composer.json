@@ -14,7 +14,6 @@
         "php": "^7.2.5|^8.0",
         "guzzlehttp/guzzle": "^6.5",
         "intervention/image": "^2.5",
-        "juzaweb/async": "^1.5",
         "juzaweb/config": "^2.2",
         "juzaweb/image-optimizer": "^1.4",
         "juzaweb/laravel-chunk-upload": "^1.4",

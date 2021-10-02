@@ -5,14 +5,10 @@
         <div class="col-md-12">
             <div class="alert alert-success">
                 <p>You are using Juzaweb CMS Version: {{ \Juzaweb\Version::getVersion() }}</p>
-                <p>View CMS change logs: <a href="https://github.com/juzaweb/laravel-cms/releases" target="_blank">click here</a></p>
+                <p>View CMS change logs: <a href="https://github.com/juzaweb/cms/releases" target="_blank">click here</a></p>
             </div>
 
-            @if($updater->checkUpdate())
-                @php
-                    $versionAvailable = $updater->getVersionAvailable();
-                @endphp
-
+            @if($checkUpdate)
                 <div class="alert alert-success">Version {{ $versionAvailable }} ready to update.</div>
                 <form method="post" action="" class="form-ajax" data-success="update_success">
                     @csrf
