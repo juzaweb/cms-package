@@ -5,9 +5,9 @@
         <div class="col-md-6"></div>
 
         <div class="col-md-6">
-            {{--<div class="btn-group float-right">
-                <a href="{{ route('admin.plugins.install') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add-new-plugin')</a>
-            </div>--}}
+            <div class="btn-group float-right">
+                <a href="{{ route('admin.plugin.install') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
+            </div>
         </div>
     </div>
 

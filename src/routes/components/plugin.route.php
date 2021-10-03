@@ -19,3 +19,11 @@ Route::group(['prefix' => 'plugins'], function () {
 
     Route::post('/bulk-actions', 'Backend\PluginController@bulkActions')->name('admin.plugin.bulk-actions');
 });
+
+Route::group(['prefix' => 'plugins/install'], function () {
+    Route::get('/', 'Backend\PluginController@install')->name('admin.plugin.install');
+
+    Route::get('/all', 'Backend\PluginController@getDataPlugin')->name('admin.plugin.install.all');
+
+    Route::post('/update', 'Backend\PluginController@update')->name('admin.plugin.install.update');
+});

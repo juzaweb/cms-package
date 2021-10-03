@@ -14,8 +14,10 @@
     @include('juzaweb::components.juzaweb_langs')
 
     @do_action('juzaweb_header')
+    <script src="{{ asset('js/plugin-install.js') }}"></script>
 
     @yield('header')
+
 </head>
 
 <body class="juzaweb__menuLeft--dark juzaweb__topbar--fixed juzaweb__menuLeft--unfixed">

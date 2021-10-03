@@ -34,7 +34,7 @@
         "src/Helpers/helpers.php"
       ],
       "classmap": [
-        "database/seeds"
+        "database/seeders"
       ]
     },
     "extra": {

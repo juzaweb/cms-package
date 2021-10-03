@@ -70,6 +70,21 @@ class JuzawebApi
         return $this->callApi('PUT', $uri, $params);
     }
 
+    public function getResponse($uri, $params = [])
+    {
+        $response = $this->callApiGetData(
+            'GET',
+            $this->apiUrl . '/' . $uri,
+            $params
+        );
+
+        if (empty($response)) {
+            return false;
+        }
+
+        return $response;
+    }
+
     protected function callApi($method, $uri, $params = [])
     {
         $headers = [];
@@ -88,7 +103,7 @@ class JuzawebApi
             return false;
         }
 
-        return $response;
+        return $response->data ?? false;
     }
 
     protected function callApiGetData($method, $url, $params = [], $headers = [])
@@ -108,7 +123,7 @@ class JuzawebApi
         $content = $response->getBody()->getContents();
 
         if (is_json($content)) {
-            return json_decode($content)->data ?? false;
+            return json_decode($content);
         }
 
         return false;

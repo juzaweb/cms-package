@@ -7,16 +7,71 @@ use Illuminate\Support\Facades\DB;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\ArrayPagination;
 use Juzaweb\Facades\Plugin;
+use Juzaweb\Support\JuzawebApi;
+use Juzaweb\Support\Manager\UpdateManager;
 
 class PluginController extends BackendController
 {
+    protected $api;
+
+    public function __construct(JuzawebApi $api)
+    {
+        $this->api = $api;
+    }
+
     public function index()
     {
         return view('juzaweb::backend.plugin.index', [
             'title' => trans('juzaweb::app.plugins'),
         ]);
     }
-    
+
+    public function install()
+    {
+        return view('juzaweb::backend.plugin.install', [
+            'title' => trans('juzaweb::app.plugins'),
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'plugin' => 'required'
+        ]);
+
+        $updater = new UpdateManager('plugin', $request->post('plugin'));
+        if ($updater->checkUpdate()) {
+            $updater->update();
+        }
+
+        return $this->success([
+            'message' => trans('juzaweb::app.updated_successfully')
+        ]);
+    }
+
+    public function getDataPlugin(Request $request)
+    {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 20);
+
+        $page = $offset <= 0 ? 1 : (round($offset / $limit));
+        $data = $this->api->getResponse('plugin/all', [
+            'page' => $page
+        ]);
+
+        $rows = $data->data;
+        foreach ($rows as $row) {
+            $row->content = view('juzaweb::components.plugin_item', [
+                'item' => $row
+            ])->render();
+        }
+
+        return response()->json([
+            'total' => $data->meta->total,
+            'rows' => $data->data,
+        ]);
+    }
+
     public function getDataTable(Request $request)
     {
         $offset = $request->get('offset', 0);

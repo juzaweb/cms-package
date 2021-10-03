@@ -1,7 +1,7 @@
 <?php
 // @formatter:off
 
-namespace  { 
+namespace  {
 
     class App extends \Illuminate\Support\Facades\App {}
 
@@ -2799,6 +2799,8 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class Image extends \Intervention\Image\Facades\Image {}
+
+
 }
 
 

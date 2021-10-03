@@ -453,6 +453,11 @@ abstract class Plugin
         return $namespace;
     }
 
+    public function getVersion()
+    {
+        return $this->getExtraJuzaweb('version', 0);
+    }
+
     private function runMigrate()
     {
         Artisan::call('plugin:migrate', [
