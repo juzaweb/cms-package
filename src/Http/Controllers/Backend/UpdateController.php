@@ -51,11 +51,7 @@ class UpdateController extends BackendController
 
         try {
             $update = new UpdateManager();
-            $update->updateStep1();
-            $update->updateStep2();
-            $update->updateStep3();
-            $update->updateStep4();
-            $update->updateStep5();
+            $update->update();
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();

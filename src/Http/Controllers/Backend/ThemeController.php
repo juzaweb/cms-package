@@ -3,6 +3,7 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Juzaweb\Http\Controllers\BackendController;
@@ -44,6 +45,10 @@ class ThemeController extends BackendController
         }
 
         $this->putCache($theme);
+        Artisan::call('theme:publish', [
+            'theme' => $theme,
+            'type' => 'assets',
+        ]);
 
         return $this->success([
             'redirect' => route('admin.themes'),

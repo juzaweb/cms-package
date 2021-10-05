@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Juzaweb\Facades\GlobalData;
 use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Http\Datatable\TaxonomyDataTable;
+use Juzaweb\Http\Datatables\TaxonomyDataTable;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Traits\ResourceController;
 

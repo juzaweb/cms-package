@@ -39,7 +39,7 @@ class InstallCommand extends Command
         $this->info('JUZAWEB CMS Installer');
         $this->info('-- Database Install');
         $result = $databaseManager->run();
-        if (Arr::get($result, 'status')) {
+        if (Arr::get($result, 'status') == 'error') {
             throw new \Exception($result['message']);
         }
 

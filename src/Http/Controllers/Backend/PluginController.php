@@ -54,7 +54,8 @@ class PluginController extends BackendController
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
 
-        $page = $offset <= 0 ? 1 : (round($offset / $limit));
+        $page = (int) round(($offset + $limit) / $limit);
+
         $data = $this->api->getResponse('plugin/all', [
             'page' => $page
         ]);
@@ -91,7 +92,7 @@ class PluginController extends BackendController
         }
         
         $total = count($results);
-        $page = $offset <= 0 ? 1 : (round($offset / $limit));
+        $page = (int) round(($offset + $limit) / $limit);
         $data = ArrayPagination::make($results);
         $data = $data->paginate($limit, $page);
         

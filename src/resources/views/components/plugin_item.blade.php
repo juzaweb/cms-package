@@ -21,8 +21,8 @@
             Install
         </button>
 
-        <span class="text-primary">
+        <a target="_blank" href="{{ $item->url }}" class="text-primary">
             View&nbsp;<i class="fa fa-angle-right"></i>
-        </span>
+        </a>
     </div>
 </div>

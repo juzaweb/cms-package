@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Http\Datatable;
+namespace Juzaweb\Http\Datatables;
 
 use Illuminate\Database\Eloquent\Builder;
 use Juzaweb\Abstracts\DataTable;

@@ -132,7 +132,7 @@ class DatatableMakeCommand extends GeneratorCommand
 
     public function getDefaultNamespace() : string
     {
-        return 'Http/Datatable';
+        return 'Http/Datatables';
     }
 
     protected function getDataModelStub()
