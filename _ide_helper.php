@@ -2800,9 +2800,15 @@ namespace  {
 
     class Image extends \Intervention\Image\Facades\Image {}
 
-
+    class Field extends \Juzaweb\Support\Html\Field {}
 }
 
+namespace Illuminate\Contracts\Filesystem
+{
+    class Filesystem {
+        public static function path($path) : string {}
 
-
+        public static function url($path) : string {}
+    }
+}
 

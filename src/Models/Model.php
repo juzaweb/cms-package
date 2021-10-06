@@ -11,7 +11,7 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Juzaweb\Facades\XssCleaner;
+use Illuminate\Support\Arr;
 
 /**
  * Juzaweb\Models\Model
@@ -23,5 +23,13 @@ use Juzaweb\Facades\XssCleaner;
  */
 class Model extends EloquentModel
 {
-    //
+    public function attributeLabel($key)
+    {
+        return Arr::get($this->attributeLabels(), $key);
+    }
+
+    public function attributeLabels()
+    {
+        return [];
+    }
 }

@@ -72,6 +72,4 @@ class Page extends Model
     protected $casts = [
         'template_data' => 'array',
     ];
-
-
 }

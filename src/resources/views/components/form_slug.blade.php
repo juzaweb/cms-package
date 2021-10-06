@@ -7,7 +7,7 @@
         <input
                 type="text"
                 name="{{ $name }}"
-                class="form-control {{ $options['class'] ?? '' }}"
+                class="form-control {{ $class ?? '' }}"
                 id="{{ $name }}"
                 value="{{ $value ?? '' }}"
                 autocomplete="off"

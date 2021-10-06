@@ -65,6 +65,4 @@ class Post extends Model
     protected $searchFields = [
         'title',
     ];
-
-
 }

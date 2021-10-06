@@ -71,6 +71,18 @@ trait PostTypeModel
             ->wherePublish();
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'title' => trans('juzaweb::app.title'),
+            'content' => trans('juzaweb::app.content'),
+            'status' => trans('juzaweb::app.status'),
+            'slug' => trans('juzaweb::app.slug'),
+            'thumbnail' => trans('juzaweb::app.thumbnail'),
+            'views' => trans('juzaweb::app.views'),
+        ];
+    }
+
     public function taxonomies()
     {
         return $this->belongsToMany(Taxonomy::class, 'term_taxonomies', 'term_id', 'taxonomy_id')

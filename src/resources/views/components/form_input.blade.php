@@ -6,13 +6,13 @@
     <input
         type="text"
         name="{{ $name }}"
-        class="form-control {{ $options['class'] ?? '' }}"
+        class="form-control {{ $class ?? '' }}"
         id="{{ $name }}"
         value="{{ $value ?? '' }}"
         autocomplete="off"
         @if($required ?? false) required @endif
-        @if ($options['readonly'] ?? false) readonly @endif
-        @foreach ($options['data'] ?? [] as $key => $val)
+        @if ($readonly ?? false) readonly @endif
+        @foreach ($data ?? [] as $key => $val)
             {{ 'data-' . $key. '="'. $val .'"' }}
         @endforeach
     >
