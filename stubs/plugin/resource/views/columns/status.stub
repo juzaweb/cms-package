@@ -1,7 +1,3 @@
-@component('juzaweb::components.form_select', [
-                'label' => trans('$MODULE_DOMAIN$::content.$COLUMN$'),
-                'name' => '$COLUMN$',
-                'value' => $model->$COLUMN$,
-                'options' => [],
-            ])
-            @endcomponent
+{{ Field::select($model, 'status', [
+    'options' => []
+]) }}

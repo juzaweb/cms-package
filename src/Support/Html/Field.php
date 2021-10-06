@@ -21,6 +21,13 @@ class Field
         return view('juzaweb::components.form_input', $options);
     }
 
+    public static function textarea($label, $name, $options = [])
+    {
+        $options = static::mapOptions($label, $name, $options);
+
+        return view('juzaweb::components.form_textarea', $options);
+    }
+
     public static function select($label, $name, $options = [])
     {
         $options = static::mapOptions($label, $name, $options);

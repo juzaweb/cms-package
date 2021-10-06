@@ -1,5 +1,1 @@
-@component('juzaweb::components.form_image', [
-                'label' => trans('juzaweb::app.thumbnail'),
-                'name' => 'thumbnail',
-                'value' => $model->thumbnail,
-            ])@endcomponent
+{{ Field::image($model, 'thumbnail') }}
