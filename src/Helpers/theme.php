@@ -267,6 +267,16 @@ if (!function_exists('get_logo')) {
     }
 }
 
+if (!function_exists('get_icon')) {
+    function get_icon($default = null)
+    {
+        return upload_url(
+            get_config('icon'),
+            asset($default ?: 'vendor/juzaweb/styles/images/favicon.ico')
+        );
+    }
+}
+
 if (!function_exists('is_home')) {
     function is_home()
     {
@@ -309,6 +319,15 @@ if (!function_exists('dynamic_sidebar')) {
             'widgets',
             'sidebar'
         ));
+    }
+}
+
+if (!function_exists('installed_themes')) {
+    function installed_themes()
+    {
+        $themes = Theme::all();
+
+        return array_keys($themes);
     }
 }
 

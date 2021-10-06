@@ -11,6 +11,10 @@
 
 Route::group(['prefix' => 'themes'], function () {
     Route::get('/', 'Backend\ThemeController@index')->name('admin.themes');
+    Route::get('/install', 'Backend\ThemeController@install')->name('admin.themes.install');
+    Route::get('/install/all', 'Backend\ThemeController@getDataTheme')->name('admin.themes.install.all');
+
+    Route::post('/update', 'Backend\ThemeController@update')->name('admin.themes.update');
     
     Route::post('/activate', 'Backend\ThemeController@activate')->name('admin.themes.activate');
 });

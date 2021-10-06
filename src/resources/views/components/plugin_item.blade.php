@@ -17,12 +17,20 @@
     <h6>{{ $item->description }}</h6>
     <div class="d-flex justify-content-between install mt-3">
         {{--<span>Installed 172 times</span>--}}
-        <button class="btn btn-primary plugin-install" data-plugin="{{ $item->code }}">
-            Install
-        </button>
+        @if(!in_array($item->code, $installed))
+            <button
+                    class="btn btn-primary install-plugin"
+                    data-plugin="{{ $item->code }}">
+                {{ trans('juzaweb::app.install') }}
+            </button>
+        @else
+            <button class="btn btn-primary" disabled>
+                {{ trans('juzaweb::app.installed') }}
+            </button>
+        @endif
 
         <a target="_blank" href="{{ $item->url }}" class="text-primary">
-            View&nbsp;<i class="fa fa-angle-right"></i>
+            {{ trans('juzaweb::app.view') }}&nbsp;<i class="fa fa-angle-right"></i>
         </a>
     </div>
 </div>

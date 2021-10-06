@@ -28,9 +28,16 @@ class PluginController extends BackendController
 
     public function install()
     {
-        return view('juzaweb::backend.plugin.install', [
+        $this->addBreadcrumb([
             'title' => trans('juzaweb::app.plugins'),
+            'url' => action([static::class, 'index'])
         ]);
+
+        $title = trans('juzaweb::app.install');
+
+        return view('juzaweb::backend.plugin.install', compact(
+            'title'
+        ));
     }
 
     public function update(Request $request)
@@ -53,6 +60,7 @@ class PluginController extends BackendController
     {
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
+        $installed = installed_plugins();
 
         $page = (int) round(($offset + $limit) / $limit);
 
@@ -63,7 +71,8 @@ class PluginController extends BackendController
         $rows = $data->data;
         foreach ($rows as $row) {
             $row->content = view('juzaweb::components.plugin_item', [
-                'item' => $row
+                'item' => $row,
+                'installed' => $installed
             ])->render();
         }
 
@@ -106,8 +115,10 @@ class PluginController extends BackendController
     {
         $request->validate([
             'ids' => 'required',
+            'action' => 'required',
         ], [], [
-            'ids' => trans('tadcms::app.plugins')
+            'ids' => trans('tadcms::app.plugins'),
+            'action' => trans('tadcms::app.action'),
         ]);
         
         $action = $request->post('action');
@@ -124,6 +135,11 @@ class PluginController extends BackendController
                         break;
                     case 'deactivate':
                         Plugin::disable($plugin);
+                    case 'update':
+                        $updater = new UpdateManager('plugin', $request->post('plugin'));
+                        if ($updater->checkUpdate()) {
+                            $updater->update();
+                        }
                         break;
                 }
                 DB::commit();

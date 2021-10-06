@@ -1,6 +1,16 @@
 @extends('juzaweb::layouts.backend')
 
 @section('content')
+    <div class="row">
+        <div class="col-md-6"></div>
+
+        <div class="col-md-6">
+            <div class="btn-group float-right">
+                <a href="{{ route('admin.themes.install') }}" class="btn btn-success" data-turbolinks="false"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
+            </div>
+        </div>
+    </div>
+
     <div class="row" id="theme-list">
         @if($currentTheme)
         <div class="col-md-4">

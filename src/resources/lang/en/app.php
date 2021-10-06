@@ -363,5 +363,6 @@ return [
     'upload_media' => 'Upload media',
     'result_for_keyword' => 'Result for keyword :name',
     'search_results' => 'Search results',
+    'install' => 'Install',
 ];
 

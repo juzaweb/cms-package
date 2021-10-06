@@ -23,3 +23,11 @@ if (!function_exists('namespace_snakename')) {
         return Str::snake(preg_replace('/[^0-9a-z]/', ' ', strtolower($namespace)));
     }
 }
+
+if (!function_exists('installed_plugins')) {
+    function installed_plugins()
+    {
+        $plugins = app('modules')->all();
+        return array_keys($plugins);
+    }
+}

@@ -15,6 +15,10 @@
     <meta property="twitter:title" content="{{ $title }}">
     <meta property="twitter:description" content="{{ $description ?? '' }}">
 
+    @if($icon = get_icon())
+        <link rel="icon" href="{{ $icon }}" />
+    @endif
+
     <title>{{ $title }}</title>
 
     @do_action('theme.header')

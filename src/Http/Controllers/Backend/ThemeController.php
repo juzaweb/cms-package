@@ -9,9 +9,18 @@ use Illuminate\Support\Facades\File;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\ArrayPagination;
 use Juzaweb\Facades\Theme;
+use Juzaweb\Support\JuzawebApi;
+use Juzaweb\Support\Manager\UpdateManager;
 
 class ThemeController extends BackendController
 {
+    protected $api;
+
+    public function __construct(JuzawebApi $api)
+    {
+        $this->api = $api;
+    }
+
     public function index(Request $request)
     {
         $page = $request->get('page', 1);
@@ -28,6 +37,64 @@ class ThemeController extends BackendController
             'themes' => $themes,
             'currentTheme' => $currentTheme,
             'activated' => $activated
+        ]);
+    }
+
+    public function install()
+    {
+        $this->addBreadcrumb([
+            'title' => trans('juzaweb::app.themes'),
+            'url' => action([static::class, 'index'])
+        ]);
+
+        $title = trans('juzaweb::app.install');
+
+        return view('juzaweb::backend.theme.install', compact(
+            'title'
+        ));
+    }
+
+    public function getDataTheme(Request $request)
+    {
+        $offset = $request->get('offset', 0);
+        $limit = $request->get('limit', 20);
+        $installed = installed_themes();
+        $activated = jw_current_theme();
+
+        $page = (int) round(($offset + $limit) / $limit);
+        $data = $this->api->getResponse('theme/all', [
+            'page' => $page,
+            'limit' => $limit
+        ]);
+
+        $rows = $data->data;
+        foreach ($rows as $row) {
+            $row->content = view('juzaweb::components.theme_item', [
+                'item' => $row,
+                'installed' => $installed,
+                'activated' => $activated
+            ])->render();
+        }
+
+        return response()->json([
+            'total' => $data->meta->total,
+            'rows' => $data->data,
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'theme' => 'required'
+        ]);
+
+        $updater = new UpdateManager('theme', $request->post('theme'));
+        if ($updater->checkUpdate()) {
+            $updater->update();
+        }
+
+        return $this->success([
+            'message' => trans('juzaweb::app.updated_successfully')
         ]);
     }
     
