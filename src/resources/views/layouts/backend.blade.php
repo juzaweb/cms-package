@@ -14,7 +14,6 @@
     @include('juzaweb::components.juzaweb_langs')
 
     @do_action('juzaweb_header')
-    <script src="{{ asset('js/plugin-install.js') }}"></script>
 
     @yield('header')
 
@@ -89,7 +88,7 @@
                     </a>
                     <br />
                     <p class="mb-0">
-                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by Juzaweb CMS
+                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by Juzaweb
                     </p>
                 </div>
             </div>
