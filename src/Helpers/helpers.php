@@ -27,6 +27,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Facades\Hook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 if (!function_exists('e_html')) {
     function e_html($str)
@@ -509,5 +510,28 @@ if (!function_exists('get_version_by_tag')) {
     function get_version_by_tag($tag)
     {
         return str_replace('v', '', $tag);
+    }
+}
+
+if (!function_exists('get_backend_message')) {
+    function get_backend_message()
+    {
+        return Cache::get('backend_messages', []);
+    }
+}
+
+if (!function_exists('add_backend_message')) {
+    function add_backend_message($messages = [], $status = 'success')
+    {
+        if (!is_array($messages)) {
+            $messages = [$messages];
+        }
+
+        $data = get_backend_message();
+        foreach ($messages as $message) {
+            $data[] = ['status' => $status, 'message' => $message];
+        }
+
+        Cache::forever('backend_messages', $data);
     }
 }

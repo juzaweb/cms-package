@@ -1,7 +1,7 @@
 @extends('juzaweb::layouts.backend')
 
 @section('content')
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-md-6"></div>
 
         <div class="col-md-6">

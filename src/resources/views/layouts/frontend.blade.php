@@ -26,7 +26,7 @@
     @yield('header')
 
 </head>
-<body class="{{ body_class() }}">
+<body class="{{ isset($post) ? 'single-post': '' }} {{ body_class() }}">
     @do_action('theme.after_body')
 
 

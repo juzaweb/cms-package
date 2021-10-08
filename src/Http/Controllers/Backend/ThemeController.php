@@ -111,6 +111,18 @@ class ThemeController extends BackendController
             ]);
         }
 
+        $info = Theme::getThemeInfo($theme);
+        if ($require = $info->get('require')) {
+            $str = [];
+            foreach ($require as $plugin => $ver) {
+                $str[] = "<strong>{$plugin}</strong>";
+            }
+
+            add_backend_message([
+                trans('juzaweb::app.theme_require_plugins') .' ' . implode(', ', $str) .'. <a href="'. route('admin.themes.require-plugins') .'"><strong>'. trans('juzaweb::app.activate_plugins') .'</strong></a>'
+            ], 'warning');
+        }
+
         $this->putCache($theme);
         Artisan::call('theme:publish', [
             'theme' => $theme,

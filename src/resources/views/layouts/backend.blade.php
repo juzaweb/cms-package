@@ -71,8 +71,22 @@
 
             <div class="juzaweb__utils__content">
 
+                @do_action('backend_message')
+
+                @php
+                $messages = get_backend_message();
+                @endphp
+                @foreach($messages as $message)
+                    <div class="alert alert-{{ $message['status'] == 'error' ? 'danger' : $message['status'] }} jw-message">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {!! e_html($message['message']) !!}
+                    </div>
+                @endforeach
+
                 @if(session()->has('message'))
-                    <div class="alert alert-{{ session()->get('status') == 'success' ? 'success' : 'danger' }}">{{ session()->get('message') }}</div>
+                    <div class="alert alert-{{ session()->get('status') == 'success' ? 'success' : 'danger' }} jw-message">{{ session()->get('message') }}</div>
                 @endif
 
                 @yield('content')

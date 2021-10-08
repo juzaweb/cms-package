@@ -144,24 +144,6 @@ class Theme implements ThemeContract
     }
 
     /**
-     * Get theme config.
-     *
-     * @param string $theme
-     *
-     * @return null|\Illuminate\Support\Collection
-     */
-    public function getThemeConfig($theme)
-    {
-        $themePath = $this->getThemePath($theme);
-
-        if (file_exists($themePath . '/config/config.php')) {
-            return collect(include $themePath . '/config/config.php');
-        }
-
-        return null;
-    }
-
-    /**
      * Returns current theme or particular theme information.
      *
      * @param string $theme

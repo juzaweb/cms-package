@@ -36,5 +36,8 @@ abstract class Widget
      * @param array $data
      * @return array
      */
-    abstract public function update($data);
+    public function update($data)
+    {
+        return $data;
+    }
 }
