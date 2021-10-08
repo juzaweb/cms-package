@@ -8,6 +8,8 @@ class RegisterController extends FrontendController
 {
     public function index()
     {
-        return view('theme::auth.register');
+        return view('theme::auth.register', [
+            'title' => trans('juzaweb::app.register')
+        ]);
     }
 }

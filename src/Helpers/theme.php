@@ -331,3 +331,28 @@ if (!function_exists('installed_themes')) {
     }
 }
 
+if (!function_exists('comment_template')) {
+    /**
+     * Show comments frontend
+     *
+     * @param \Juzaweb\Traits\PostTypeModel $post
+     * @param string $view
+     * @return \Illuminate\View\View
+     */
+    function comment_template($post, $view = null)
+    {
+        if (empty($view) || !view()->exists($view)) {
+            $view = 'juzaweb::items.frontend_comment';
+        }
+
+        $comments = $post->comments()
+            ->with(['user'])
+            ->whereApproved()
+            ->paginate(10);
+
+        return view($view, compact(
+            'comments'
+        ));
+    }
+}
+

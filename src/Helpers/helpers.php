@@ -535,3 +535,16 @@ if (!function_exists('add_backend_message')) {
         Cache::forever('backend_messages', $data);
     }
 }
+
+if (!function_exists('is_admin')) {
+    function is_admin()
+    {
+        if ($user = Auth::user()) {
+            if ($user->is_admin) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

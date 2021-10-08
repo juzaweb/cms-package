@@ -46,7 +46,8 @@ class Comment extends Model
         'website',
         'content',
         'status',
-        'object_type'
+        'object_type',
+        'user_id',
     ];
 
     public function user()
@@ -68,6 +69,15 @@ class Comment extends Model
     public function getUserName()
     {
         return $this->user ? $this->user->name : $this->name;
+    }
+
+    public function getAvatar()
+    {
+        if ($this->user) {
+            return $this->user->getAvatar();
+        }
+
+        return asset('vendor/juzaweb/styles/images/avatar.png');
     }
 
     public function getUpdatedDate($format = JW_DATE_TIME)

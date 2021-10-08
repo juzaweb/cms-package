@@ -112,11 +112,12 @@ class User extends Authenticatable implements JWTSubject
         return $builder->where('status', '=', 'active');
     }
 
-    public function getAvatar() {
+    public function getAvatar()
+    {
         if ($this->avatar) {
             return upload_url($this->avatar);
         }
 
-        return asset('vendor/juzaweb/styles/images/thumb-default.png');
+        return asset('vendor/juzaweb/styles/images/avatar.png');
     }
 }

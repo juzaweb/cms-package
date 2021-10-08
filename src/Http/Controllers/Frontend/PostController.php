@@ -60,10 +60,17 @@ class PostController extends FrontendController
 
     public function comment(Request $request, $base, $slug)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
+        if (Auth::check()) {
+            $this->validate($request, [
+                'content' => 'required'
+            ]);
+        } else {
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email',
+                'content' => 'required'
+            ]);
+        }
 
         $permalink = $this->getPermalinks($base);
         $postType = HookAction::getPostTypes($permalink->get('post_type'));

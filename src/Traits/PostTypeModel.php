@@ -381,4 +381,9 @@ trait PostTypeModel
 
         return round($this->views / 1000, 1) . 'K';
     }
+
+    public function getTotalComments()
+    {
+        return $this->comments()->whereApproved()->count();
+    }
 }

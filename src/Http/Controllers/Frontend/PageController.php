@@ -29,7 +29,7 @@ class PageController extends FrontendController
         return apply_filters('theme.page_slug', $slug[0], $slug);
     }
 
-    protected function handlePage(Page $page, array $slugs = [])
+    protected function handlePage(Page $page, array $slug = [])
     {
         /**
          * @var Config $theme
@@ -45,6 +45,7 @@ class PageController extends FrontendController
                 'title' => $config['title'],
                 'description' => $config['description'],
                 'theme' => $theme,
+                'slug' => $slug,
             ];
         } else {
             $params = [
@@ -52,6 +53,7 @@ class PageController extends FrontendController
                 'title' => $page->title,
                 'description' => $page->description,
                 'theme' => $theme,
+                'slug' => $slug,
             ];
         }
 
@@ -59,7 +61,7 @@ class PageController extends FrontendController
             'theme.page.handle',
             view($view, $params),
             $page,
-            $slugs,
+            $slug,
             $params
         );
     }

@@ -11,6 +11,7 @@
 namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 
@@ -21,17 +22,24 @@ class AjaxController extends FrontendController
         $ajax = HookAction::getFrontendAjaxs($key);
 
         if (empty($ajax)) {
-            return response([
-                'status' => false,
+            return $this->error([
                 'message' => 'Ajax function not found.'
             ]);
         }
 
         if ($ajax->get('auth') && !Auth::check()) {
-            return response([
-                'status' => false,
+            return $this->error([
                 'message' => 'You do not have permission to access this link.'
             ]);
+        }
+
+        if ($method = $ajax->get('method')) {
+            $method = Str::upper($method);
+            if (request()->method() != $method) {
+                return $this->error([
+                    'message' => 'Method is not supported.'
+                ]);
+            }
         }
 
         $callback = $ajax->get('callback');
