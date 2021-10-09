@@ -23,12 +23,12 @@ class CreateSearchTable extends Migration
             $table->timestamps();
         });
 
-        if (DB::getDefaultConnection() == 'mysql') {
+        /*if (DB::getDefaultConnection() == 'mysql') {
             $prefix = DB::getTablePrefix();
             DB::statement('ALTER TABLE `'. $prefix .'search` ADD FULLTEXT index_search_title(title);');
             DB::statement('ALTER TABLE `'. $prefix .'search` ADD FULLTEXT index_search_description(description);');
             DB::statement('ALTER TABLE `'. $prefix .'search` ADD FULLTEXT index_search_keyword(keyword);');
-        }
+        }*/
 
         $types = HookAction::getPostTypes();
         foreach ($types as $type) {
