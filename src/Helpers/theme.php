@@ -8,7 +8,6 @@
  * @license    MIT
  */
 
-use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Models\Menu;
@@ -73,6 +72,7 @@ if (!function_exists('jw_current_theme')) {
     function jw_current_theme()
     {
         $themeFile = JW_BASEPATH . '/bootstrap/cache/theme_statuses.php';
+
         if (file_exists($themeFile)) {
             $theme = require $themeFile;
         } else {
@@ -81,10 +81,6 @@ if (!function_exists('jw_current_theme')) {
                 'path' => JW_BASEPATH . '/themes/default',
                 'name' => 'default',
             ];
-        }
-
-        if (!is_dir($theme['path'])) {
-            return false;
         }
 
         return $theme['name'];
@@ -271,6 +267,16 @@ if (!function_exists('get_logo')) {
     }
 }
 
+if (!function_exists('get_icon')) {
+    function get_icon($default = null)
+    {
+        return upload_url(
+            get_config('icon'),
+            asset($default ?: 'vendor/juzaweb/styles/images/favicon.ico')
+        );
+    }
+}
+
 if (!function_exists('is_home')) {
     function is_home()
     {
@@ -302,21 +308,51 @@ if (!function_exists('jw_get_widgets_sidebar')) {
 if (!function_exists('dynamic_sidebar')) {
     function dynamic_sidebar($key)
     {
-        $html = '';
         $sidebar = HookAction::getSidebars($key);
         if (empty($sidebar)) {
-            return $html;
+            return '';
         }
 
         $widgets = jw_get_widgets_sidebar($key);
-        foreach ($widgets as $widget) {
-            $widgetData = HookAction::getWidgets($widget['widget'] ?? 'null');
-            $html .= $sidebar->get('before_widget') .
-                e($widgetData['widget']->show($widget)) .
-                $sidebar->get('after_widget');
+
+        return view('juzaweb::components.dynamic_sidebar', compact(
+            'widgets',
+            'sidebar'
+        ));
+    }
+}
+
+if (!function_exists('installed_themes')) {
+    function installed_themes()
+    {
+        $themes = Theme::all();
+
+        return array_keys($themes);
+    }
+}
+
+if (!function_exists('comment_template')) {
+    /**
+     * Show comments frontend
+     *
+     * @param \Juzaweb\Traits\PostTypeModel $post
+     * @param string $view
+     * @return \Illuminate\View\View
+     */
+    function comment_template($post, $view = null)
+    {
+        if (empty($view) || !view()->exists($view)) {
+            $view = 'juzaweb::items.frontend_comment';
         }
 
-        return $html;
+        $comments = $post->comments()
+            ->with(['user'])
+            ->whereApproved()
+            ->paginate(10);
+
+        return view($view, compact(
+            'comments'
+        ));
     }
 }
 

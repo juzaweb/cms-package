@@ -8,7 +8,7 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Http\Datatable;
+namespace Juzaweb\Http\Datatables;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -35,16 +35,26 @@ class CommentDatatable extends DataTable
             'author' => [
                 'label' => trans('juzaweb::app.name'),
                 'formatter' => function ($value, $row, $index) {
-                    return $row->getUserName();
+                    return e($row->getUserName());
                 }
             ],
             'email' => [
                 'label' => trans('juzaweb::app.email'),
                 'width' => '15%',
                 'align' => 'center',
+                'formatter' => function ($value, $row, $index) {
+                    if ($value) {
+                        return e($value);
+                    }
+
+                    return $row->user->email ?? '';
+                }
             ],
             'content' => [
                 'label' => trans('juzaweb::app.content'),
+                'formatter' => function ($value, $row, $index) {
+                    return e($value);
+                }
             ],
             'post' => [
                 'label' => trans('juzaweb::app.post'),

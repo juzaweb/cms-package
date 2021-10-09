@@ -8,14 +8,14 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Tests\Feature\Backend;
+namespace Juzaweb\Support\Html;
 
-use Juzaweb\Tests\TestCase;
-
-class ASeederTest extends TestCase
+class ActiveForm
 {
-    public function testSeeder()
+    public static function begin($options = [])
     {
-        $this->artisan('db:seed')->assertExitCode(0);
+
     }
+
+
 }

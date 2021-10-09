@@ -23,6 +23,9 @@ use Juzaweb\Version;
 class UpdateManager
 {
     protected $curl;
+    /**
+     * @var JuzawebApi $api
+     */
     protected $api;
 
     protected $tag;
@@ -53,7 +56,21 @@ class UpdateManager
 
     public function getCurrentVersion()
     {
-        return Version::getVersion();
+        switch ($this->tag) {
+            case 'core':
+                return Version::getVersion();
+            case 'plugin':
+                $module = app('modules')->find($this->val);
+                if (empty($module)) {
+                    return "0";
+                }
+
+                return $module->getVersion();
+            case 'theme':
+
+        }
+
+        return false;
     }
 
     public function getVersionAvailable()
@@ -61,27 +78,55 @@ class UpdateManager
         $uri = $this->tag . '/version-available';
 
         $response = $this->api->get($uri, [
+            'plugin' => $this->val,
+            'cms_version' => Version::getVersion(),
             'current_version' => $this->getCurrentVersion(),
         ]);
 
-        return $response->version;
+        return str_replace('v', '', $response->version);
+    }
+
+    public function update()
+    {
+        $check = $this->updateStep1();
+        if ($check) {
+            $this->updateStep2();
+            $this->updateStep3();
+            $this->updateStep4();
+            $this->updateStep5();
+        }
     }
 
     public function updateStep1()
     {
-        $uri = $this->tag . '/get-update';
+        $uri = $this->tag . '/version-available';
 
-        $response = $this->api->get($uri, [
-            'current_version' => $this->getCurrentVersion(),
-        ]);
+        switch ($this->tag) {
+            case 'core':
+                $response = $this->api->get($uri, [
+                    'current_version' => $this->getCurrentVersion(),
+                ]);
+                break;
+            case 'plugin':
+                $response = $this->api->get($uri, [
+                    'current_version' => $this->getCurrentVersion(),
+                    'plugin' => $this->val,
+                    'cms_version' => Version::getVersion(),
+                ]);
+                break;
+            case 'theme':
+                break;
+        }
 
         if (empty($response->update)) {
+            dd($response);
             return false;
         }
 
         $this->response = $response;
 
         return true;
+
     }
 
     public function updateStep2()
@@ -122,8 +167,13 @@ class UpdateManager
     public function updateStep4()
     {
         $localFolder = $this->getLocalFolder();
+        $zipFolders = File::directories($this->storage->path($this->tmpFolder . '/unzip'));
         File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup'));
-        File::moveDirectory($this->storage->path($this->tmpFolder . '/unzip'), $localFolder);
+        foreach ($zipFolders as $folder) {
+            File::moveDirectory($folder, $localFolder);
+            break;
+        }
+
         File::deleteDirectory($this->storage->path($this->tmpFolder), true);
         File::deleteDirectory($this->storage->path($this->tmpFolder), true);
     }
@@ -137,10 +187,30 @@ class UpdateManager
                     '--tag' => 'juzaweb_assets',
                     '--force' => true
                 ]);
+
+                /**
+                 * @var \Juzaweb\Abstracts\Plugin[] $plugins
+                 */
+                $plugins = app('modules')->all();
+                foreach ($plugins as $plugin) {
+                    if (!$plugin->isEnabled()) {
+                        continue;
+                    }
+
+                    $plugin->disable();
+                    $plugin->enable();
+                }
+
                 break;
             case 'plugin':
+                /**
+                 * @var \Juzaweb\Abstracts\Plugin $plugin
+                 */
                 $plugin = app('modules')->find($this->val);
-                $plugin->enable();
+                if ($plugin->isEnabled()) {
+                    $plugin->disable();
+                    $plugin->enable();
+                }
                 break;
             case 'theme':
                 if ($this->val == jw_current_theme()) {
@@ -158,9 +228,9 @@ class UpdateManager
             case 'core':
                 return base_path('vendor/juzaweb/cms');
             case 'plugin':
-                return plugin_path($this->val);
+                return config('juzaweb.plugin.path') . '/' . $this->val;
             case 'theme':
-                return theme_path($this->val);
+                return config('juzaweb.theme.path') . '/' . $this->val;
         }
 
         return false;
@@ -174,7 +244,7 @@ class UpdateManager
             $this->curl->getClient()->request('GET', $url, [
                 'curl' => [
                     CURLOPT_TCP_KEEPALIVE => 10,
-                    CURLOPT_TCP_KEEPIDLE => 10
+                    CURLOPT_TCP_KEEPIDLE => 10,
                 ],
                 'sink' => $resource,
             ]);

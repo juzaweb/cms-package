@@ -1,7 +1,7 @@
 <?php
 // @formatter:off
 
-namespace  { 
+namespace  {
 
     class App extends \Illuminate\Support\Facades\App {}
 
@@ -2799,8 +2799,16 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
 
     class Image extends \Intervention\Image\Facades\Image {}
+
+    class Field extends \Juzaweb\Support\Html\Field {}
 }
 
+namespace Illuminate\Contracts\Filesystem
+{
+    class Filesystem {
+        public static function path($path) : string {}
 
-
+        public static function url($path) : string {}
+    }
+}
 

@@ -16,10 +16,12 @@ namespace Juzaweb\Providers;
 
 use Juzaweb\Actions\EnqueueStyleAction;
 use Juzaweb\Actions\MenuAction;
+use Juzaweb\Support\Html\Field;
 use Juzaweb\Support\ServiceProvider;
 use Juzaweb\Http\Middleware\Admin;
 use Illuminate\Routing\Router;
 use Juzaweb\Support\Macros\RouterMacros;
+use Illuminate\Foundation\AliasLoader;
 
 class BackendServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,10 @@ class BackendServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerRouteMacros();
+        $this->app->booting(function() {
+            $loader = AliasLoader::getInstance();
+            $loader->alias('Field', Field::class);
+        });
     }
 
     protected function bootMiddlewares()

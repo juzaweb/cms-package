@@ -13,7 +13,7 @@ namespace Juzaweb\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Juzaweb\Facades\HookAction;
-use Juzaweb\Http\Datatable\PostTypeDataTable;
+use Juzaweb\Http\Datatables\PostTypeDataTable;
 
 trait PostTypeController
 {

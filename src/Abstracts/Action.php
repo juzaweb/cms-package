@@ -29,6 +29,7 @@ abstract class Action
     const WIDGETS_INIT = 'juzaweb.widget_init';
 
     const DATATABLE_SEARCH_FIELD_TYPES_FILTER = 'datatable.search_field_types';
+    const FRONTEND_SEARCH_QUERY = 'frontend.search_query';
 
     abstract public function handle();
 

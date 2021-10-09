@@ -38,7 +38,7 @@ use Juzaweb\Contracts\HookActionContract;
  * @method static \Illuminate\Support\Collection getThemeTemplates($key = null)
  * @method static \Illuminate\Support\Collection getEnqueueFrontendScripts($key = null)
  * @method static \Illuminate\Support\Collection getEnqueueFrontendStyles($key = null)
- * @method static \Illuminate\Support\Collection getFrontendAjaxs($key = null, $auth = null)
+ * @method static \Illuminate\Support\Collection getFrontendAjaxs($key = null)
  *
  * @see \Juzaweb\Support\HookAction
  */

@@ -20,10 +20,16 @@ trait ResponseMessage
                 'data' => $data
             ]);
         }
-        
-        return back()->withInput()->with(array_merge($data, [
+
+        $back = back()->withInput()->with(array_merge($data, [
             'status' => $status ? 'success' : 'error',
         ]));
+
+        if (empty($status)) {
+            $back->withErrors([$data['message']]);
+        }
+
+        return $back;
     }
 
     /**

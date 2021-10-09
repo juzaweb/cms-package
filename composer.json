@@ -1,19 +1,25 @@
 {
     "name": "juzaweb/cms",
     "description": "Juzaweb CMS",
-    "keywords": [],
+    "keywords": [
+      "juzaweb cms",
+      "juzaweb.com cms",
+      "juzaweb.com",
+      "laravel cms",
+      "cms like wordpress"
+    ],
     "license": "MIT",
-    "homepage": "https://juzaweb.com/cms",
+    "homepage": "https://juzaweb.com",
     "require": {
-        "php": "^7.2.5|^8.0",
+        "php": "^7.2|^8.0",
         "guzzlehttp/guzzle": "^6.5",
         "intervention/image": "^2.5",
         "juzaweb/config": "^2.2",
+        "juzaweb/image-optimizer": "^1.4",
         "juzaweb/laravel-chunk-upload": "^1.4",
         "juzaweb/log-viewer": "^5.2",
-        "spatie/image-optimizer": "^1.4",
-        "tymon/jwt-auth": "^1.0",
-        "darkaonline/l5-swagger": "^6.0"
+        "juzaweb/jwt-auth": "^1.0",
+        "juzaweb/l5-swagger": "^6.0"
     },
     "require-dev": {
       "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
@@ -28,7 +34,7 @@
         "src/Helpers/helpers.php"
       ],
       "classmap": [
-        "database/seeds"
+        "database/seeders"
       ]
     },
     "extra": {

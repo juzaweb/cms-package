@@ -5,6 +5,7 @@ namespace Juzaweb\Console\Commands\Plugin;
 use ErrorException;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Abstracts\Plugin;
@@ -23,7 +24,7 @@ class SeedCommand extends Command
      *
      * @var string
      */
-    protected $name = 'plugin:seed';
+    protected $name = 'plugin:db-seed';
 
     /**
      * The console command description.
@@ -39,13 +40,13 @@ class SeedCommand extends Command
     {
         try {
             if ($name = $this->argument('module')) {
-                $name = Str::studly($name);
                 $this->moduleSeed($this->getModuleByName($name));
             } else {
                 $modules = $this->getModuleRepository()->getOrdered();
                 array_walk($modules, [$this, 'moduleSeed']);
                 $this->info('All plugins seeded.');
             }
+
         } catch (\Error $e) {
             $e = new ErrorException($e->getMessage(), $e->getCode(), 1, $e->getFile(), $e->getLine(), $e);
             $this->reportException($e);
@@ -101,6 +102,7 @@ class SeedCommand extends Command
         $seeders = [];
         $name = $module->getName();
         $config = $module->get('migration');
+
         if (is_array($config) && array_key_exists('seeds', $config)) {
             foreach ((array)$config['seeds'] as $class) {
                 if (class_exists($class)) {
@@ -108,17 +110,18 @@ class SeedCommand extends Command
                 }
             }
         } else {
-            $class = $this->getSeederName($name); //legacy support
+            $seeds = File::files(plugin_path($name, 'database/seeders'));
+
+            foreach ($seeds as $seed) {
+                if ($seed->isFile() && $seed->getExtension() == 'php') {
+                    include $seed->getRealPath();
+                }
+            }
+
+            $class = $this->getSeederName($name);
+
             if (class_exists($class)) {
                 $seeders[] = $class;
-            } else {
-                //look at other namespaces
-                $classes = $this->getSeederNames($name);
-                foreach ($classes as $class) {
-                    if (class_exists($class)) {
-                        $seeders[] = $class;
-                    }
-                }
             }
         }
 
@@ -161,13 +164,22 @@ class SeedCommand extends Command
      */
     public function getSeederName($name)
     {
-        $name = Str::studly($name);
-
+        $className = Str::ucfirst(explode('/', $name)[1]);
         $namespace = $this->laravel['modules']->config('namespace');
         $config = GenerateConfigReader::read('seeder');
-        $seederPath = str_replace('/', '\\', $config->getPath());
+        $path = $namespace . '/' . $name . '/' . $config->getPath() . '/' . $className . 'DatabaseSeeder';
 
-        return $namespace . '\\' . $name . '\\' . $seederPath . '\\' . $name . 'DatabaseSeeder';
+        $names = explode('/', $path);
+        $class = '';
+        foreach ($names as $index => $name) {
+            if ($index != 0) {
+                $class .= '\\';
+            }
+
+            $class .= Str::ucfirst($name);
+        }
+
+        return $class;
     }
 
     /**

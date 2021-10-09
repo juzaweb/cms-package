@@ -33,6 +33,12 @@ class LoginController extends Controller
             'email' => 'required|email|max:150',
             'password' => 'required|min:6|max:32',
         ]);
+
+        if (get_config('google_recaptcha')) {
+            $request->validate([
+                'recaptcha' => 'required|recaptcha',
+            ], $request);
+        }
         
         $email = $request->post('email');
         $password = $request->post('password');

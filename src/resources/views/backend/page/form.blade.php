@@ -18,65 +18,40 @@
             <div class="row">
                 <div class="col-md-8">
 
-                    @component('juzaweb::components.form_input', [
-                        'label' => trans('juzaweb::app.title'),
-                        'name' => 'title',
-                        'value' => $model->title,
+                    {{ Field::text($model, 'title', [
                         'required' => true,
-                        'options' => [
-                            'class' => empty($model->slug) ? 'generate-slug' : '',
-                        ],
-                    ])@endcomponent
+                        'class' => empty($model->slug) ? 'generate-slug' : '',
+                    ]) }}
 
-                    @component('juzaweb::components.form_ckeditor', [
-                        'label' => trans('juzaweb::app.content'),
-                        'name' => 'content',
-                        'value' => $model->content
-                    ])
-                    @endcomponent
+                    {{ Field::editor($model, 'content') }}
+
+                    @do_action('post_type.pages.form.left')
 
                 </div>
 
                 <div class="col-md-4">
 
-                    @component('juzaweb::components.form_select', [
-                        'label' => trans('juzaweb::app.status'),
-                        'name' => 'status',
-                        'value' => $model->status,
-                        'options' => $model->getStatuses(),
-                    ])
-                    @endcomponent
+                    {{ Field::select($model, 'status', [
+                        'options' => $model->getStatuses()
+                    ]) }}
 
-                    @component('juzaweb::components.form_slug', [
-                        'label' => trans('juzaweb::app.slug'),
-                        'name' => 'slug',
-                        'value' => $model->slug,
-                    ])@endcomponent
+                    {{ Field::slug($model, 'slug') }}
 
-                    @component('juzaweb::components.form_select', [
-                        'label' => trans('juzaweb::app.template'),
-                        'name' => 'template',
-                        'value' => $model->template,
+                    {{ Field::select($model, 'template', [
                         'options' => array_merge([
                             '' => trans('juzaweb::app.page_template')
-                        ], $templates),
-                    ])
-                    @endcomponent
+                        ], $templates)
+                    ]) }}
 
-                    @component('juzaweb::components.form_image', [
-                        'label' => trans('juzaweb::app.thumbnail'),
-                        'name' => 'thumbnail',
-                        'value' => $model->thumbnail
-                    ])
-                    @endcomponent
+                    {{ Field::image($model, 'thumbnail') }}
+
+                    @do_action('post_type.pages.form.right', $model)
 
                 </div>
             </div>
         @endslot
 
         @endcomponent
-
-        <input type="hidden" name="id" value="{{ $model->id }}">
 
     @endcomponent
 

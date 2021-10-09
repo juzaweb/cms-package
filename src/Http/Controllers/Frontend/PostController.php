@@ -27,7 +27,7 @@ class PostController extends FrontendController
         $base = $slug[0];
         $permalink = $this->getPermalinks($base);
         $postType = HookAction::getPostTypes($permalink->get('post_type'));
-        $posts = $postType->get('model')::createFrontendBuilder()
+        $posts = $postType->get('model')::selectFrontendBuilder()
             ->paginate(10);
 
         return view('theme::index', compact(
@@ -60,10 +60,17 @@ class PostController extends FrontendController
 
     public function comment(Request $request, $base, $slug)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
+        if (Auth::check()) {
+            $this->validate($request, [
+                'content' => 'required'
+            ]);
+        } else {
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email',
+                'content' => 'required'
+            ]);
+        }
 
         $permalink = $this->getPermalinks($base);
         $postType = HookAction::getPostTypes($permalink->get('post_type'));

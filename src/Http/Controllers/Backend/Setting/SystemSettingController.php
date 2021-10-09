@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Backend\Setting;
 
+use Juzaweb\Facades\GlobalData;
 use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,6 @@ class SystemSettingController extends BackendController
 
     protected function getForms()
     {
-        return apply_filters('admin.general_settings.forms', []);
+        return collect(GlobalData::get('setting_forms'))->sortBy('priority');
     }
 }

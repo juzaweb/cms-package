@@ -8,14 +8,14 @@
  * @license    MIT
  */
 
-namespace Juzaweb\Http\Datatable;
+namespace Juzaweb\Http\Datatables;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\DataTable;
-use Juzaweb\Models\EmailTemplate;
+use Juzaweb\Models\User;
 
-class EmailTemplateDataTable extends DataTable
+class UserDataTable extends DataTable
 {
     /**
      * Columns datatable
@@ -25,13 +25,14 @@ class EmailTemplateDataTable extends DataTable
     public function columns()
     {
         return [
-            'subject' => [
-                'label' => trans('juzaweb::app.subject'),
-                'formatter' => [$this, 'rowActionsFormatter'],
+            'name' => [
+                'label' => trans('juzaweb::app.name'),
+                'formatter' => [$this, 'rowActionsFormatter']
             ],
-            'code' => [
-                'label' => trans('juzaweb::app.code'),
+            'email' => [
+                'label' => trans('juzaweb::app.email'),
                 'width' => '15%',
+                'align' => 'center',
             ],
             'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
@@ -44,6 +45,18 @@ class EmailTemplateDataTable extends DataTable
         ];
     }
 
+    public function rowAction($row)
+    {
+        $data = parent::rowAction($row);
+
+        $data['edit'] = [
+            'label' => trans('juzaweb::app.edit'),
+            'url' => route('admin.users.edit', [$row->id]),
+        ];
+
+        return $data;
+    }
+
     /**
      * Query data datatable
      *
@@ -52,13 +65,17 @@ class EmailTemplateDataTable extends DataTable
      */
     public function query($data)
     {
-        $query = EmailTemplate::query();
+        $query = User::query();
 
         if ($keyword = Arr::get($data, 'keyword')) {
             $query->where(function (Builder $q) use ($keyword) {
-                $q->orWhere('code', 'like', '%'. $keyword .'%');
-                $q->orWhere('subject', 'like', '%'. $keyword .'%');
+                $q->where('name', 'like', '%'. $keyword .'%');
+                $q->orWhere('email', 'like', '%'. $keyword .'%');
             });
+        }
+
+        if ($status = Arr::get($data, 'status')) {
+            $query->where('status', '=', $status);
         }
 
         return $query;
@@ -68,7 +85,7 @@ class EmailTemplateDataTable extends DataTable
     {
         switch ($action) {
             case 'delete':
-                EmailTemplate::destroy($ids);
+                User::destroy($ids);
                 break;
         }
     }

@@ -11,7 +11,7 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->string('email', 150)->index();
+            $table->string('email', 150)->nullable()->index();
             $table->string('name')->nullable();
             $table->string('website')->nullable();
             $table->string('content', 300);
@@ -19,11 +19,6 @@ class CreateCommentsTable extends Migration
             $table->string('object_type', 50)->index()->comment('Post type');
             $table->string('status', 50)->default('pending');
             $table->timestamps();
-            $table->unique([
-                'user_id',
-                'object_id',
-                'object_type'
-            ]);
         });
     }
     

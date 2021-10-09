@@ -16,6 +16,7 @@
     @do_action('juzaweb_header')
 
     @yield('header')
+
 </head>
 
 <body class="juzaweb__menuLeft--dark juzaweb__topbar--fixed juzaweb__menuLeft--unfixed">
@@ -70,8 +71,22 @@
 
             <div class="juzaweb__utils__content">
 
+                @do_action('backend_message')
+
+                @php
+                $messages = get_backend_message();
+                @endphp
+                @foreach($messages as $message)
+                    <div class="alert alert-{{ $message['status'] == 'error' ? 'danger' : $message['status'] }} jw-message">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {!! e_html($message['message']) !!}
+                    </div>
+                @endforeach
+
                 @if(session()->has('message'))
-                    <div class="alert alert-{{ session()->get('status') == 'success' ? 'success' : 'danger' }}">{{ session()->get('message') }}</div>
+                    <div class="alert alert-{{ session()->get('status') == 'success' ? 'success' : 'danger' }} jw-message">{{ session()->get('message') }}</div>
                 @endif
 
                 @yield('content')
@@ -87,7 +102,7 @@
                     </a>
                     <br />
                     <p class="mb-0">
-                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by Juzaweb CMS
+                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by Juzaweb
                     </p>
                 </div>
             </div>

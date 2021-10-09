@@ -74,10 +74,16 @@ class HookAction
      */
     public function addSettingForm($key, $args = [])
     {
-        Hook::addFilter('admin.general_settings.forms', function ($items) use ($key, $args) {
-            $items[$key] = $args;
-            return $items;
-        }, $args['priority'] ?? 10);
+        $defaults = [
+            'name' => '',
+            'key' => $key,
+            'view' => '',
+            'priority' => 10,
+        ];
+
+        $args = array_merge($defaults, $args);
+
+        GlobalData::set('setting_forms.' . $key, new Collection($args));
     }
 
     /**
@@ -328,6 +334,7 @@ class HookAction
                 'label' => trans('juzaweb::app.tags'),
                 'priority' => $args->get('priority') + 6,
                 'menu_position' => 15,
+                'menu_box' => false,
                 'show_in_menu' => $args->get('show_in_menu'),
                 'rewrite' => $args->get('taxonomy_rewrite'),
                 'supports' => []
@@ -635,6 +642,8 @@ class HookAction
     {
         $defaults = [
             'key' => $key,
+            'name' => '',
+            'view' => ''
         ];
 
         $args = array_merge($defaults, $args);
@@ -669,11 +678,12 @@ class HookAction
         return new Collection(GlobalData::get('sidebars'));
     }
 
-    public function getFrontendAjaxs($key = null, $auth = null)
+    public function getFrontendAjaxs($key = null)
     {
         if ($key) {
             $data = Arr::get(GlobalData::get('frontend_ajaxs'), $key);
-            if (!is_null($auth) && $data->get('auth') == $auth) {
+
+            if ($data) {
                 return $data;
             }
 
@@ -681,9 +691,6 @@ class HookAction
         }
 
         $data = new Collection(GlobalData::get('frontend_ajaxs'));
-        if (!is_null($auth)) {
-            return $data->where('auth', $auth);
-        }
 
         return $data;
     }

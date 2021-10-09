@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Models\Page;
 use Noodlehaus\Config;
@@ -28,7 +29,7 @@ class PageController extends FrontendController
         return apply_filters('theme.page_slug', $slug[0], $slug);
     }
 
-    protected function handlePage(Page $page, array $slugs = [])
+    protected function handlePage(Page $page, array $slug = [])
     {
         /**
          * @var Config $theme
@@ -36,17 +37,31 @@ class PageController extends FrontendController
         $theme = jw_theme_info();
         $view = $this->getViewPage($page, $theme);
 
-        $params = [
-            'post' => $page,
-            'title' => $page->name,
-            'theme' => $theme,
-        ];
+        if (is_home()) {
+            $config = get_configs(['title', 'description']);
+
+            $params = [
+                'post' => $page,
+                'title' => $config['title'],
+                'description' => $config['description'],
+                'theme' => $theme,
+                'slug' => $slug,
+            ];
+        } else {
+            $params = [
+                'post' => $page,
+                'title' => $page->title,
+                'description' => $page->description,
+                'theme' => $theme,
+                'slug' => $slug,
+            ];
+        }
 
         return apply_filters(
             'theme.page.handle',
             view($view, $params),
             $page,
-            $slugs,
+            $slug,
             $params
         );
     }
@@ -60,8 +75,8 @@ class PageController extends FrontendController
     protected function getViewPage(Page $page, $themeInfo)
     {
         if (!empty($page->template)) {
-            $templates = $themeInfo->get('templates');
-            $templateView = $templates[$page->template]['view'] ?? null;
+            $templates = HookAction::getThemeTemplates($page->template);
+            $templateView = $templates['view'] ?? null;
             $templateView = 'theme::' . $templateView;
 
             if (view()->exists($templateView)) {
@@ -70,9 +85,11 @@ class PageController extends FrontendController
         }
 
         if (empty($view)) {
-            $view = 'theme::post.content-page';
+            $template = get_name_template_part('page', 'single');
+            $view = 'theme::template-parts.' . $template;
+
             if (!view()->exists($view)) {
-                $view = 'theme::post.content';
+                $view = 'theme::template-parts.single';
             }
         }
 

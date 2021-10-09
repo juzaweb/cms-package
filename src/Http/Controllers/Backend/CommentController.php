@@ -3,7 +3,7 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Http\Datatable\CommentDatatable;
+use Juzaweb\Http\Datatables\CommentDatatable;
 use Juzaweb\Traits\ResourceController;
 use Juzaweb\Models\Comment;
 use Illuminate\Support\Facades\Route;

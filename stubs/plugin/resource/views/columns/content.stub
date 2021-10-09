@@ -1,5 +1,1 @@
-@component('juzaweb::components.form_ckeditor', [
-                'label' => trans('$MODULE_DOMAIN$::content.$COLUMN$'),
-                'name' => '$COLUMN$',
-                'value' => $model->$COLUMN$,
-            ])@endcomponent
+{{ Field::editor($model, 'content') }}

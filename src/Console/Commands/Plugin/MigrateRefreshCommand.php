@@ -74,17 +74,4 @@ class MigrateRefreshCommand extends Command
             ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
         ];
     }
-
-    public function getModuleName()
-    {
-        $module = $this->argument('module');
-
-        $module = app('modules')->find($module);
-
-        if ($module === null) {
-            return $module;
-        }
-
-        return $module->getStudlyName();
-    }
 }

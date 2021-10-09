@@ -41,6 +41,27 @@ trait PostTypeModel
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
+    public static function selectFrontendBuilder()
+    {
+        $builder = self::createFrontendBuilder()
+            ->select([
+                'id',
+                'title',
+                'description',
+                'thumbnail',
+                'slug',
+                'views',
+                'status',
+            ]);
+
+        return $builder;
+    }
+
+    /**
+     * Create Builder for frontend
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public static function createFrontendBuilder()
     {
         return self::with([
@@ -48,6 +69,18 @@ trait PostTypeModel
             'createdBy'
         ])
             ->wherePublish();
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'title' => trans('juzaweb::app.title'),
+            'content' => trans('juzaweb::app.content'),
+            'status' => trans('juzaweb::app.status'),
+            'slug' => trans('juzaweb::app.slug'),
+            'thumbnail' => trans('juzaweb::app.thumbnail'),
+            'views' => trans('juzaweb::app.views'),
+        ];
     }
 
     public function taxonomies()
@@ -100,7 +133,7 @@ trait PostTypeModel
         return $builder;
     }
 
-    public function getStatuses()
+    public static function getStatuses()
     {
         return apply_filters(
             app(static::class)->getPostType('key') . '.statuses',
@@ -170,8 +203,9 @@ trait PostTypeModel
 
     public function syncTaxonomy(string $taxonomy, array $attributes, string $postType = null)
     {
-        $postType = $postType ?? $this->getPostType('key');
+        $postType = $postType ? $postType : $this->getPostType('key');
         $data = Arr::get($attributes, $taxonomy, []);
+
         $detachIds = $this->taxonomies()
             ->where('taxonomy', '=', $taxonomy)
             ->whereNotIn('id', $data)
@@ -179,6 +213,7 @@ trait PostTypeModel
             ->toArray();
 
         $this->taxonomies()->detach($detachIds);
+
         $this->taxonomies()
             ->syncWithoutDetaching(combine_pivot($data, [
                 'term_type' => $postType
@@ -340,6 +375,15 @@ trait PostTypeModel
 
     public function getViews()
     {
-        return $this->views;
+        if ($this->views < 1000) {
+            return $this->views;
+        }
+
+        return round($this->views / 1000, 1) . 'K';
+    }
+
+    public function getTotalComments()
+    {
+        return $this->comments()->whereApproved()->count();
     }
 }

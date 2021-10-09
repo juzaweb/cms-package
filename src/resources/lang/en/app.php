@@ -363,5 +363,14 @@ return [
     'upload_media' => 'Upload media',
     'result_for_keyword' => 'Result for keyword :name',
     'search_results' => 'Search results',
+    'install' => 'Install',
+    'views' => 'Views',
+    'version' => 'Version',
+    'install_now' => 'Install Now',
+    'installed' => 'Installed',
+    'not_installed' => 'Not installed',
+    'activate_plugins' => 'Activate plugins',
+    'require_plugins' => 'Require plugins',
+    'theme_require_plugins' => 'This theme require the following plugins:',
 ];
 

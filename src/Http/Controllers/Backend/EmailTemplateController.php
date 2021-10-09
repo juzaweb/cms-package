@@ -4,7 +4,7 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Http\Datatable\EmailTemplateDataTable;
+use Juzaweb\Http\Datatables\EmailTemplateDataTable;
 use Juzaweb\Traits\ResourceController;
 use Juzaweb\Models\EmailTemplate;
 use Illuminate\Support\Facades\Validator;

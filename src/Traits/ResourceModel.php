@@ -27,7 +27,7 @@ trait ResourceModel
     public function scopeWhereFilter($builder, $params = [])
     {
         if (empty($this->searchFields)) {
-            $this->searchFields = ['title'];
+            $this->searchFields = [$this->getFieldName()];
         }
 
         if ($keyword = Arr::get($params, 'keyword')) {

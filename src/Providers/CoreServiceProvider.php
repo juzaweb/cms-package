@@ -28,7 +28,10 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->bootMigrations();
         $this->bootPublishes();
-        $this->loadFactoriesFrom(__DIR__ . '/../../database/factories');
+
+        if ($this->app->runningInConsole()) {
+            $this->loadFactoriesFrom(__DIR__.'/../../database/factories');
+        }
 
         Validator::extend('recaptcha', 'Juzaweb\Validators\Recaptcha@validate');
         Schema::defaultStringLength(150);

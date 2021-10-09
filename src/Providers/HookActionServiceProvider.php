@@ -22,14 +22,18 @@ class HookActionServiceProvider extends ServiceProvider
                 app($action)->handle();
             }
 
-            if (Installer::alreadyInstalled() && $currentTheme = jw_current_theme()) {
-                Theme::set($currentTheme);
+            if (Installer::alreadyInstalled()) {
+                $currentTheme = jw_current_theme();
+                $themePath = Theme::getThemePath($currentTheme);
+                if (is_dir($themePath)) {
+                    Theme::set($currentTheme);
 
-                $actionPath = Theme::getThemePath($currentTheme . '/src/Actions');
-                if (is_dir($actionPath)) {
-                    $files = File::files($actionPath);
-                    foreach ($files as $file) {
-                        app('Theme\Actions\\' . str_replace('.php', '', $file->getFilename()))->handle();
+                    $actionPath = $themePath . '/src/Actions';
+                    if (is_dir($actionPath)) {
+                        $files = File::files($actionPath);
+                        foreach ($files as $file) {
+                            app('Theme\Actions\\' . str_replace('.php', '', $file->getFilename()))->handle();
+                        }
                     }
                 }
             }

@@ -7,6 +7,7 @@
     <title>{{ $title }}</title>
     <link rel="icon" type="image/png" href="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('vendor/juzaweb/styles/images/favicon.ico') }}" />
     <link href="https://fonts.googleapis.com/css?family=Mukta:400,700,800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/juzaweb/styles/css/vendor.css') }}">

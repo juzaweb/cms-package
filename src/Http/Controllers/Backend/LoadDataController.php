@@ -45,9 +45,15 @@ class LoadDataController extends BackendController
         $query->select([
             'id',
             'name as text'
-        ])
-            ->where('post_type', '=', $postType)
-            ->where('taxonomy', '=', $taxonomy);
+        ]);
+
+        if ($postType) {
+            $query->where('post_type', '=', $postType);
+        }
+
+        if ($taxonomy) {
+            $query->where('taxonomy', '=', $taxonomy);
+        }
 
         if ($search) {
             $query->where('name', 'like', '%'. $search .'%');
@@ -166,11 +172,11 @@ class LoadDataController extends BackendController
         $query = Page::query();
         $query->select([
             'id',
-            'name as text'
+            'title as text'
         ]);
 
         if ($search) {
-            $query->where('name', 'like', '%'. $search .'%');
+            $query->where('title', 'like', '%'. $search .'%');
         }
 
         if ($explodes) {

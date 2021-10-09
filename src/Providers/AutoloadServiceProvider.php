@@ -12,7 +12,6 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Arr;
 
 class AutoloadServiceProvider extends ServiceProvider
@@ -76,7 +75,7 @@ class AutoloadServiceProvider extends ServiceProvider
     protected function registerDatabase($path)
     {
         if ($this->app->runningInConsole()) {
-            app(Factory::class)->load($path . '/database/factories');
+            $this->loadFactoriesFrom($path . '/../database/factories');
         }
     }
 

@@ -1,8 +1,11 @@
 @php
 $data = $item->getAttributes();
+$register = $item->menuBox();
+$menuBox = $register ? $register->get('menu_box') : false;
+$view = $menuBox ? $menuBox->editView($item) : false;
 @endphp
 <li
-    class="dd-item"
+    class="dd-item @if(!$register) disabled @endif"
     @foreach($data as $key => $val)
         @if(!is_array($val))
             data-{{ $key }}="{{ $val }}"
@@ -11,7 +14,7 @@ $data = $item->getAttributes();
 >
     <div class="dd-handle">
         <span>{{ $data['label'] }}</span>
-        <a href="javascript:void(0)" class="dd-nodrag show-menu-edit">
+        <a href="javascript:void(0)" class="dd-nodrag @if($register) show-menu-edit @endif">
             <i class="fa fa-sort-down"></i>
         </a>
         {{--<a href="javascript:void(0)" class="dd-nodrag text-danger delete-menu-item">
@@ -20,12 +23,6 @@ $data = $item->getAttributes();
     </div>
 
     <div class="form-item-edit box-hidden">
-        @php
-            $register = $item->menuBox();
-            $menuBox = $register->get('menu_box');
-            $view = $menuBox->editView($item);
-        @endphp
-
         @if(!empty($view))
             {!! $view !!}
         @endif

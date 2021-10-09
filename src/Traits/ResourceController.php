@@ -84,12 +84,13 @@ trait ResourceController
         try {
             $this->beforeStore($request);
             $model = $this->makeModel(...$params);
-            if (method_exists($model, 'generateSlug')) {
-                $slug = $request->get('slug');
+            $slug = $request->get('slug');
+
+            if ($slug && method_exists($model, 'generateSlug')) {
                 $data['slug'] = $model->generateSlug($slug);
             }
 
-            $model->create($data);
+            $model = $model->create($data);
 
             $this->afterStore($request, $model, ...$params);
             $this->afterSave($request, $model, ...$params);
@@ -120,9 +121,8 @@ trait ResourceController
         DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
-
-            if (method_exists($model, 'generateSlug')) {
-                $slug = $request->get('slug');
+            $slug = $request->get('slug');
+            if ($slug && method_exists($model, 'generateSlug')) {
                 $model->generateSlug($slug);
             }
 

@@ -15,8 +15,7 @@ class SearchController extends FrontendController
             'name' => $keyword
         ]) : trans('juzaweb::app.search_results');
 
-        $posts = Search::select(['*'])
-            ->wherePublish()
+        $posts = Search::wherePublish()
             ->whereSearch($request->all())
             ->paginate(12);
 
@@ -33,17 +32,27 @@ class SearchController extends FrontendController
     
     public function ajaxSearch(Request $request)
     {
-        $paginate = Search::select(['*'])
-            ->wherePublish()
+        $limit = $request->input('limit', 5);
+
+        if ($limit > 100) {
+            $limit = 100;
+        }
+
+        $paginate = Search::wherePublish()
             ->whereSearch($request->all())
-            ->paginate(12);
+            ->paginate($limit);
 
         $paginate->getCollection()->transform(function ($item) {
             return $item->post;
         });
 
         $results = $paginate->items();
-        foreach ($results as $item) {
+        foreach ($results as $key => $item) {
+            if (empty($item)) {
+                unset($results[$key]);
+                continue;
+            }
+
             $item->thumbnail = $item->getThumbnail();
             $item->link = $item->getLink();
             $item->title = $item->getTitle();

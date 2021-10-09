@@ -10,7 +10,9 @@
         },
         "juzaweb": {
             "name": "$LOWER_NAME$",
-            "domain": "$MODULE_DOMAIN$"
+            "domain": "$MODULE_DOMAIN$",
+            "cms_min": "1.0.9",
+            "version": "1.0"
         }
     },
     "autoload": {

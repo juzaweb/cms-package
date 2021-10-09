@@ -30,6 +30,16 @@ class ApiController extends Controller
         }
     }
 
+    protected function getQueryLimit()
+    {
+        $limit = request()->get('limit', 10);
+        if ($limit > 100) {
+            return 10;
+        }
+
+        return $limit;
+    }
+
     protected function restSuccess($data, string $message = '', int $status = 200)
     {
         $response = [

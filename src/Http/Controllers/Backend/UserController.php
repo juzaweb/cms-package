@@ -4,7 +4,7 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Facades\Hash;
 use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Http\Datatable\UserDataTable;
+use Juzaweb\Http\Datatables\UserDataTable;
 use Juzaweb\Models\User;
 use Illuminate\Http\Request;
 use Juzaweb\Traits\ResourceController;
