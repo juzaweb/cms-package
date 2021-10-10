@@ -21,7 +21,6 @@ Route::group([
     Route::post('/register', 'Auth\RegisterController@register');
 
     Route::get('/forgot-password', 'Auth\ForgotPasswordController@index')->name('admin.forgot_password');
-    Route::post('/forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
 });
 
 Route::group(['middleware' => 'auth'], function () {

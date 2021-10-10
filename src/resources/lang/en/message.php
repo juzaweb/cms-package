@@ -9,6 +9,7 @@ return [
         'dont_have_an_account' => 'Don\'t have an account?',
         'login_failed' => 'Email or password is incorrect',
         'user_is_banned' => 'The account does not exist or has been banned',
+        'verification' => 'Please verify your account',
     ],
     'register_form' => [
         'header' => 'Sign in to your account.',

@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'email' => 'required|email|max:150|unique:users,email',
             'password' => 'required|min:6|max:32|confirmed',
         ]);
-        
+
         // Create user
         $name = $request->post('name');
         $email = $request->post('email');
@@ -75,6 +75,7 @@ class RegisterController extends Controller
                     'name' => $name,
                     'email' => $email,
                     'verifyToken' => $verifyToken,
+                    'verifyUrl' => route('verification', [$email, $verifyToken]),
                 ],
             ]));
 

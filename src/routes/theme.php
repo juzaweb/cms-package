@@ -16,6 +16,7 @@ Route::group([
     Route::get('login', 'Frontend\LoginController@index')->name('login');
     Route::get('register', 'Frontend\RegisterController@index')->name('register');
     Route::get('forgot-password', 'Frontend\ForgotPasswordController@index')->name('forgot_password');
+    Route::get('verification/{email}/{token}', 'Auth\VerificationController@verification')->name('verification');
 
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');

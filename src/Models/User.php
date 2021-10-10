@@ -66,13 +66,10 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'avatar',
-        'status'
+        'status',
+        'verification_token',
+        'password'
     ];
-
-    public function posts()
-    {
-
-    }
 
     public static function getAllStatus()
     {
@@ -80,6 +77,7 @@ class User extends Authenticatable implements JWTSubject
             'active' => trans('juzaweb::app.active'),
             'unconfirmed' => trans('juzaweb::app.unconfimred'),
             'banned' => trans('juzaweb::app.banned'),
+            'verification' => trans('juzaweb::app.verification'),
         ];
     }
 

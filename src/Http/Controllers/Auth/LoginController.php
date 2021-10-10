@@ -52,6 +52,12 @@ class LoginController extends Controller
         }
         
         if ($user->status != 'active') {
+            if ($user->status == 'verification') {
+                return $this->error([
+                    'message' => trans('juzaweb::message.login_form.verification')
+                ]);
+            }
+
             return $this->error([
                 'message' => trans('juzaweb::message.login_form.user_is_banned')
             ]);
