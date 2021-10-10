@@ -25,7 +25,9 @@ class UpdateDatabaseV106 extends Migration
 
         DB::table('email_templates')
             ->where('code', '=', 'verification')
-            ->update(['email_hook' => 'register_success']);
+            ->update([
+                'email_hook' => 'register_success'
+            ]);
     }
 
     public function down()

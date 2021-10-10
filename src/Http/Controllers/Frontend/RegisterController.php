@@ -8,6 +8,8 @@ class RegisterController extends FrontendController
 {
     public function index()
     {
+        do_action('recaptcha.init');
+
         return view('theme::auth.register', [
             'title' => trans('juzaweb::app.register')
         ]);

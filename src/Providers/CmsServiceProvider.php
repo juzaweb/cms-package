@@ -36,6 +36,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->app->register(PluginServiceProvider::class);
         $this->app->register(ThemeServiceProvider::class);
         $this->app->register(LogViewerServicesProvider::class);
+        $this->app->register(EventServiceProvider::class);
         //$this->app->register(SwaggerServiceProvider::class);
     }
 }

@@ -111,7 +111,7 @@ class DatabaseManager
             'subject' => 'Verify your account',
             'body' => '<p>Hello {name},</p>
 <p>Thank you for register. Please click the link below to Verify your account</p>
-<p><a href="{url}" target="_blank">Verify account</a></p>',
+<p><a href="{verifyUrl}" target="_blank">Verify account</a></p>',
             'params' => [
                 'name' => 'Your Name',
                 'url' => 'Url verify account',

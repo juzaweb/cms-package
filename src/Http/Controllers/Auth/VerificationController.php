@@ -13,7 +13,7 @@ class VerificationController extends Controller
         $user = User::whereEmail($email)
             ->where('verification_token', '=', $token)
             ->first();
-        
+
         if ($user) {
             DB::beginTransaction();
     
@@ -29,7 +29,7 @@ class VerificationController extends Controller
                 throw $exception;
             }
             
-            return redirect()->route('auth.login');
+            return redirect()->route('login');
         }
         
         return abort(404);

@@ -8,6 +8,8 @@ class LoginController extends FrontendController
 {
     public function index()
     {
+        do_action('recaptcha.init');
+
         return view('theme::auth.login', [
             'title' => trans('juzaweb::app.login')
         ]);

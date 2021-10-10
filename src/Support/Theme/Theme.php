@@ -208,7 +208,7 @@ class Theme implements ThemeContract
 
     public function assetsUrl($theme, $secure = null)
     {
-        return asset('themes/' . $theme, $secure);
+        return asset('themes/' . $theme . '/assets', $secure);
     }
 
     /**

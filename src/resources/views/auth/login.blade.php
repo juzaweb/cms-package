@@ -1,9 +1,5 @@
 @extends('juzaweb::layouts.auth')
 
-@section('header')
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-@endsection
-
 @section('content')
     <div class="juzaweb__layout__content">
         <div class="juzaweb__utils__content">
@@ -12,11 +8,11 @@
                 <div class="juzaweb__auth__containerInner">
                     <div class="text-center mb-5">
                         <h1 class="mb-5 px-3">
-                            <strong>@lang('juzaweb::message.login_form.welcome', ['name' => get_config('sitename', 'JUZAWEB CMS')])</strong>
+                            <strong>{{ trans('juzaweb::message.login_form.welcome', ['name' => get_config('sitename', 'JUZAWEB')]) }}</strong>
                         </h1>
 
                         <p class="mb-4">
-                            @lang('juzaweb::message.login_form.description')
+                            {{ trans('juzaweb::message.login_form.description') }}
                         </p>
                     </div>
 
@@ -42,15 +38,15 @@
                             <input type="checkbox" name="remember" value="1" checked> @lang('juzaweb::app.remember_me')
                         </form>
 
-                        <a href="{{ route('admin.forgot_password') }}" class="jw__utils__link font-size-16">
+                        <a href="{{ route('admin.forgot_password') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             @lang('juzaweb::app.forgot_password')
                         </a>
                     </div>
 
-                    @if(get_config('users_can_register'))
+                    @if(get_config('user_registration'))
                     <div class="text-center pt-2 mb-auto">
                         <span class="mr-2">@lang('juzaweb::message.login_form.dont_have_an_account')</span>
-                        <a href="{{ route('admin.register') }}" class="jw__utils__link font-size-16">
+                        <a href="{{ route('admin.register') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             @lang('juzaweb::app.sign_up')
                         </a>
                     </div>
@@ -59,7 +55,7 @@
 
                 <div class="mt-auto pb-5 pt-5">
                     <div class="text-center">
-                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by JUZAWEB CMS
+                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by JUZAWEB
                     </div>
                 </div>
             </div>

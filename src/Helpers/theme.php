@@ -25,6 +25,7 @@ function body_class($class = '')
 
 function theme_assets(string $path)
 {
+    $path = str_replace('assets/', '', $path);
     return Theme::assets($path);
 }
 

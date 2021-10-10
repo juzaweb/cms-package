@@ -33,7 +33,7 @@ class CoreServiceProvider extends ServiceProvider
             $this->loadFactoriesFrom(__DIR__.'/../../database/factories');
         }
 
-        Validator::extend('recaptcha', 'Juzaweb\Validators\Recaptcha@validate');
+        Validator::extend('recaptcha', '\Juzaweb\Support\Validators\ReCaptcha@validate');
         Schema::defaultStringLength(150);
 
         $this->app->booted(function () {
