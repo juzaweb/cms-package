@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Juzaweb\Models\User;
 use Juzaweb\Traits\ResponseMessage;
-use Juzaweb\Support\Email;
 
 class RegisterController extends Controller
 {
@@ -40,7 +39,7 @@ class RegisterController extends Controller
         // Validate register
         $request->validate([
             'email' => 'required|email|max:150|unique:users,email',
-            'password' => 'required|min:6|max:32',
+            'password' => 'required|min:6|max:32|confirmed',
         ]);
         
         // Create user
@@ -62,7 +61,7 @@ class RegisterController extends Controller
             throw $e;
         }
 
-        if (get_config('user_confirmation')) {
+        if (get_config('user_verification')) {
             $verifyToken = Str::random(32);
 
             $user->update([
@@ -71,6 +70,7 @@ class RegisterController extends Controller
             ]);
 
             event(new EmailHook('register_success', [
+                'to' => [$email],
                 'params' => [
                     'name' => $name,
                     'email' => $email,
@@ -78,18 +78,11 @@ class RegisterController extends Controller
                 ],
             ]));
 
-            Email::make()
-                ->withTemplate('verification')
-                ->setParams([
-                    'name' => $name,
-                    'email' => $email,
-                    'token' => $verifyToken,
-                ])
-                ->send();
-
             return $this->success([
-                'redirect' => route('auth.register')
+                'redirect' => route('register'),
+                'message' => trans('juzaweb::app.registered_success_verify'),
             ]);
+
         } else {
             event(new EmailHook('register_success', [
                 'params' => [
@@ -102,7 +95,8 @@ class RegisterController extends Controller
         do_action('auth.register.success', $user);
 
         return $this->success([
-            'redirect' => route('auth.login')
+            'redirect' => route('login'),
+            'message' => trans('juzaweb::app.registered_success'),
         ]);
     }
 }

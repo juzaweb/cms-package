@@ -341,6 +341,7 @@ return [
     'email_hook' => 'Email hook',
     'logged_success' => 'Logged success',
     'registered_success' => 'Registered success',
+    'registered_success_verify' => 'Registered success! Please click the link in your email to verify your account. Please check spam box if you don\'t see it in your inbox',
     'user_name' => 'User name',
     'user_email' => 'User email',
     'verify_token' => 'Verify token',

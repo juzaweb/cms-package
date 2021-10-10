@@ -30,7 +30,7 @@ class SendEmail
         $this->updateStatus('processing');
     
         try {
-            Mail::send('emailtemplate::layouts.default', [
+            Mail::send('juzaweb::backend.email.layouts.default', [
                 'body' => $this->getBody(),
             ], function ($message) {
                 $message->to([$this->mail->email])
@@ -53,6 +53,10 @@ class SendEmail
                 'code' => $e->getCode(),
                 'line' => $e->getLine(),
             ]);
+
+            if (config('app.debug')) {
+                throw $e;
+            }
     
             return false;
         }
