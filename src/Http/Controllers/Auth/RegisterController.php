@@ -22,6 +22,8 @@ class RegisterController extends Controller
         }
         
         do_action('auth.register.index');
+
+        do_action('recaptcha.init');
         
         return view('juzaweb::auth.register', [
             'title' => trans('juzaweb::app.sign-up')

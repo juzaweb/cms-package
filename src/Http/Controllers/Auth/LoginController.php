@@ -15,7 +15,8 @@ class LoginController extends Controller
     public function index()
     {
         do_action('auth.login.index');
-        
+
+        do_action('recaptcha.init');
         //
         
         return view('juzaweb::auth.login', [
@@ -37,7 +38,7 @@ class LoginController extends Controller
         if (get_config('google_recaptcha')) {
             $request->validate([
                 'recaptcha' => 'required|recaptcha',
-            ], $request);
+            ]);
         }
         
         $email = $request->post('email');

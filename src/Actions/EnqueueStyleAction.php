@@ -20,6 +20,7 @@ class EnqueueStyleAction extends Action
         $this->addAction(self::BACKEND_HEADER_ACTION, [$this, 'enqueueStylesHeader']);
         $this->addAction(self::BACKEND_FOOTER_ACTION, [$this, 'enqueueStylesFooter']);
         $this->addAction(self::FRONTEND_HEADER_ACTION, [$this, 'addFrontendHeader']);
+        $this->addAction('recaptcha.init', [$this, 'addRecaptchaForm']);
     }
 
     public function enqueueStylesHeader()
@@ -63,5 +64,26 @@ class EnqueueStyleAction extends Action
             'scripts',
             'styles'
         )));
+    }
+
+    public function addRecaptchaForm()
+    {
+        $this->addAction('login_form', [$this, 'recaptchaRender']);
+
+        $this->addAction('register_form', [$this, 'recaptchaRender']);
+    }
+
+    public function recaptchaRender()
+    {
+        $recaptcha = get_configs([
+            'google_recaptcha',
+            'google_recaptcha_key',
+        ]);
+
+        if ($recaptcha['google_recaptcha'] == 1) {
+            echo view('juzaweb::components.frontend.recaptcha', compact(
+                'recaptcha'
+            ));
+        }
     }
 }
