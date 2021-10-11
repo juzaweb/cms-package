@@ -17,7 +17,7 @@ class TestMakeCommand extends GeneratorCommand
     protected $name = 'plugin:make-test';
     protected $description = 'Create a new test class for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         $module = $this->laravel['modules'];
 
@@ -67,7 +67,7 @@ class TestMakeCommand extends GeneratorCommand
 
         return (new Stub($stub, [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 

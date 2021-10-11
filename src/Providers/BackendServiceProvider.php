@@ -14,14 +14,14 @@
 
 namespace Juzaweb\Providers;
 
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Routing\Router;
 use Juzaweb\Actions\EnqueueStyleAction;
 use Juzaweb\Actions\MenuAction;
-use Juzaweb\Support\Html\Field;
-use Juzaweb\Support\ServiceProvider;
 use Juzaweb\Http\Middleware\Admin;
-use Illuminate\Routing\Router;
+use Juzaweb\Support\Html\Field;
 use Juzaweb\Support\Macros\RouterMacros;
-use Illuminate\Foundation\AliasLoader;
+use Juzaweb\Support\ServiceProvider;
 
 class BackendServiceProvider extends ServiceProvider
 {
@@ -31,14 +31,14 @@ class BackendServiceProvider extends ServiceProvider
         $this->bootPublishes();
         $this->registerAction([
             MenuAction::class,
-            EnqueueStyleAction::class
+            EnqueueStyleAction::class,
         ]);
     }
 
     public function register()
     {
         $this->registerRouteMacros();
-        $this->app->booting(function() {
+        $this->app->booting(function () {
             $loader = AliasLoader::getInstance();
             $loader->alias('Field', Field::class);
         });

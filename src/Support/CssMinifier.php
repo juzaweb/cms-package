@@ -10,19 +10,18 @@
 
 namespace Juzaweb\Support;
 
-
 class CssMinifier
 {
-    const QUERY_FRACTION = '_CSSMIN_QF_';
-    const COMMENT_TOKEN = '_CSSMIN_CMT_%d_';
-    const COMMENT_TOKEN_START = '_CSSMIN_CMT_';
-    const RULE_BODY_TOKEN = '_CSSMIN_RBT_%d_';
-    const PRESERVED_TOKEN = '_CSSMIN_PTK_%d_';
+    public const QUERY_FRACTION = '_CSSMIN_QF_';
+    public const COMMENT_TOKEN = '_CSSMIN_CMT_%d_';
+    public const COMMENT_TOKEN_START = '_CSSMIN_CMT_';
+    public const RULE_BODY_TOKEN = '_CSSMIN_RBT_%d_';
+    public const PRESERVED_TOKEN = '_CSSMIN_PTK_%d_';
 
     // Token lists
-    private $comments = array();
-    private $ruleBodies = array();
-    private $preservedTokens = array();
+    private $comments = [];
+    private $ruleBodies = [];
+    private $preservedTokens = [];
 
     // Output options
     private $keepImportantComments = true;
@@ -78,7 +77,7 @@ class CssMinifier
      */
     public function run($css = '')
     {
-        if (empty($css) || !is_string($css)) {
+        if (empty($css) || ! is_string($css)) {
             return '';
         }
 
@@ -108,7 +107,7 @@ class CssMinifier
      */
     public function removeImportantComments($removeImportantComments = true)
     {
-        $this->keepImportantComments = !(bool) $removeImportantComments;
+        $this->keepImportantComments = ! (bool) $removeImportantComments;
     }
 
     /**
@@ -164,7 +163,7 @@ class CssMinifier
     {
         $zeroRegex = '0'. $this->unitsGroupRegex;
         $numOrPosRegex = '('. $this->numRegex .'|top|left|bottom|right|center) ';
-        $oneZeroSafeProperties = array(
+        $oneZeroSafeProperties = [
             '(?:line-)?height',
             '(?:(?:min|max)-)?width',
             'top',
@@ -177,8 +176,8 @@ class CssMinifier
             'column-(?:gap|width)',
             'margin(?:-(?:top|left|bottom|right))?',
             'outline-width',
-            'padding(?:-(?:top|left|bottom|right))?'
-        );
+            'padding(?:-(?:top|left|bottom|right))?',
+        ];
 
         // First zero regex
         $regex = '/(^|;)('. implode('|', $oneZeroSafeProperties) .'):%s/Si';
@@ -196,9 +195,9 @@ class CssMinifier
      */
     private function resetRunProperties()
     {
-        $this->comments = array();
-        $this->ruleBodies = array();
-        $this->preservedTokens = array();
+        $this->comments = [];
+        $this->ruleBodies = [];
+        $this->preservedTokens = [];
     }
 
     /**
@@ -207,12 +206,12 @@ class CssMinifier
      */
     private function doRaisePhpLimits()
     {
-        $phpLimits = array(
+        $phpLimits = [
             'memory_limit' => $this->memoryLimit,
             'max_execution_time' => $this->maxExecutionTime,
             'pcre.backtrack_limit' => $this->pcreBacktrackLimit,
-            'pcre.recursion_limit' =>  $this->pcreRecursionLimit
-        );
+            'pcre.recursion_limit' => $this->pcreRecursionLimit,
+        ];
 
         // If current settings are higher respect them.
         foreach ($phpLimits as $name => $suggested) {
@@ -245,6 +244,7 @@ class CssMinifier
     {
         $tokenId = sprintf(self::PRESERVED_TOKEN, count($this->preservedTokens));
         $this->preservedTokens[$tokenId] = $token;
+
         return $tokenId;
     }
 
@@ -257,6 +257,7 @@ class CssMinifier
     {
         $tokenId = sprintf(self::COMMENT_TOKEN, count($this->comments));
         $this->comments[$tokenId] = $comment;
+
         return $tokenId;
     }
 
@@ -273,6 +274,7 @@ class CssMinifier
 
         $tokenId = sprintf(self::RULE_BODY_TOKEN, count($this->ruleBodies));
         $this->ruleBodies[$tokenId] = $body;
+
         return $tokenId;
     }
 
@@ -289,14 +291,14 @@ class CssMinifier
         // Process comments
         $css = preg_replace_callback(
             '/(?<!\\\\)\/\*(.*?)\*(?<!\\\\)\//Ss',
-            array($this, 'processCommentsCallback'),
+            [$this, 'processCommentsCallback'],
             $css
         );
 
         // IE7: Process Microsoft matrix filters (whitespaces between Matrix parameters). Can contain strings inside.
         $css = preg_replace_callback(
             '/filter:\s*progid:DXImageTransform\.Microsoft\.Matrix\(([^)]+)\)/Ss',
-            array($this, 'processOldIeSpecificMatrixDefinitionCallback'),
+            [$this, 'processOldIeSpecificMatrixDefinitionCallback'],
             $css
         );
 
@@ -311,7 +313,7 @@ class CssMinifier
         // Process strings so their content doesn't get accidentally minified
         $css = preg_replace_callback(
             '/(?:"(?:[^\\\\"]|\\\\.|\\\\)*")|'."(?:'(?:[^\\\\']|\\\\.|\\\\)*')/S",
-            array($this, 'processStringsCallback'),
+            [$this, 'processStringsCallback'],
             $css
         );
 
@@ -321,7 +323,7 @@ class CssMinifier
         // Process import At-rules with unquoted URLs so URI reserved characters such as a semicolon may be used safely.
         $css = preg_replace_callback(
             '/@import url\(([^\'"]+?)\)( |;)/Si',
-            array($this, 'processImportUnquotedUrlAtRulesCallback'),
+            [$this, 'processImportUnquotedUrlAtRulesCallback'],
             $css
         );
 
@@ -380,7 +382,7 @@ class CssMinifier
                 }
 
                 $ret .= 'url('. $this->registerPreservedToken(trim($token)) .')';
-                // No end terminator found, re-add the whole match. Should we throw/warn here?
+            // No end terminator found, re-add the whole match. Should we throw/warn here?
             } else {
                 $ret .= substr($css, $matchStartIndex, $searchOffset - $matchStartIndex);
             }
@@ -463,6 +465,7 @@ class CssMinifier
                 $preservedTokenId = $this->registerPreservedToken($comment);
                 // Put new lines before and after /*! important comments
                 $css = str_replace($commentIdString, "\n/*$preservedTokenId*/\n", $css);
+
                 continue;
             }
 
@@ -472,6 +475,7 @@ class CssMinifier
                 $preservedTokenId = $this->registerPreservedToken($comment);
                 // Add new line before the sourcemap comment
                 $css = str_replace($commentIdString, "\n/*$preservedTokenId*/", $css);
+
                 continue;
             }
 
@@ -479,6 +483,7 @@ class CssMinifier
             // e.g. html >/**/ body
             if (strlen($comment) === 0 && strpos($css, '>/*'.$commentId) !== false) {
                 $css = str_replace($commentId, $this->registerPreservedToken(''), $css);
+
                 continue;
             }
 
@@ -545,7 +550,7 @@ class CssMinifier
 
         // Remove semicolon before closing brace except when:
         // - The last property is prefixed with a `*` (lte IE7 hack) to avoid issues on Symbian S60 3.x browsers.
-        if (!preg_match('/\*[a-z0-9-]+:[^;]+;$/Si', $body)) {
+        if (! preg_match('/\*[a-z0-9-]+:[^;]+;$/Si', $body)) {
             $body = rtrim($body, ';');
         }
 
@@ -561,8 +566,8 @@ class CssMinifier
 
         // Shorten font-weight values
         $body = preg_replace(
-            array('/(font-weight:)bold\b/Si', '/(font-weight:)normal\b/Si'),
-            array('${1}700', '${1}400'),
+            ['/(font-weight:)bold\b/Si', '/(font-weight:)normal\b/Si'],
+            ['${1}700', '${1}400'],
             $body
         );
 
@@ -577,7 +582,7 @@ class CssMinifier
         // This makes it more likely that it'll get further compressed in the next step.
         $body = preg_replace_callback(
             '/(rgb|hsl)\(([0-9,.% -]+)\)(.|$)/Si',
-            array($this, 'shortenHslAndRgbToHexCallback'),
+            [$this, 'shortenHslAndRgbToHexCallback'],
             $body
         );
 
@@ -585,15 +590,15 @@ class CssMinifier
         // - Look for hex colors which don't have a "=" in front of them (to avoid MSIE filters)
         $body = preg_replace_callback(
             '/(?<!=)#([0-9a-f]{3,6})( |,|\)|;|$)/Si',
-            array($this, 'shortenHexColorsCallback'),
+            [$this, 'shortenHexColorsCallback'],
             $body
         );
 
         // Shorten long named colors with a shorter HEX counterpart: white -> #fff.
         // Run at least 2 times to cover most cases
         $body = preg_replace_callback(
-            array($this->namedToHexColorsRegex, $this->namedToHexColorsRegex),
-            array($this, 'shortenNamedColorsCallback'),
+            [$this->namedToHexColorsRegex, $this->namedToHexColorsRegex],
+            [$this, 'shortenNamedColorsCallback'],
             $body
         );
 
@@ -622,18 +627,18 @@ class CssMinifier
 
         // Shorten zero values for safe properties only
         $body = preg_replace(
-            array(
+            [
                 $this->shortenOneZeroesRegex,
                 $this->shortenTwoZeroesRegex,
                 $this->shortenThreeZeroesRegex,
-                $this->shortenFourZeroesRegex
-            ),
-            array(
+                $this->shortenFourZeroesRegex,
+            ],
+            [
                 '$1$2:0',
                 '$1$2:$3 0',
                 '$1$2:$3 $4 0',
-                '$1$2:$3 $4 $5 0'
-            ),
+                '$1$2:$3 $4 $5 0',
+            ],
             $body
         );
 
@@ -642,28 +647,28 @@ class CssMinifier
 
         // Shorten suitable shorthand properties with repeated values
         $body = preg_replace(
-            array(
+            [
                 '/(margin|padding|border-(?:width|radius)):('.$this->numRegex.')(?: \2)+( !|;|$)/Si',
-                '/(border-(?:style|color)):([#a-z0-9]+)(?: \2)+( !|;|$)/Si'
-            ),
+                '/(border-(?:style|color)):([#a-z0-9]+)(?: \2)+( !|;|$)/Si',
+            ],
             '$1:$2$3',
             $body
         );
         $body = preg_replace(
-            array(
+            [
                 '/(margin|padding|border-(?:width|radius)):'.
                 '('.$this->numRegex.') ('.$this->numRegex.') \2 \3( !|;|$)/Si',
-                '/(border-(?:style|color)):([#a-z0-9]+) ([#a-z0-9]+) \2 \3( !|;|$)/Si'
-            ),
+                '/(border-(?:style|color)):([#a-z0-9]+) ([#a-z0-9]+) \2 \3( !|;|$)/Si',
+            ],
             '$1:$2 $3$4',
             $body
         );
         $body = preg_replace(
-            array(
+            [
                 '/(margin|padding|border-(?:width|radius)):'.
                 '('.$this->numRegex.') ('.$this->numRegex.') ('.$this->numRegex.') \3( !|;|$)/Si',
-                '/(border-(?:style|color)):([#a-z0-9]+) ([#a-z0-9]+) ([#a-z0-9]+) \3( !|;|$)/Si'
-            ),
+                '/(border-(?:style|color)):([#a-z0-9]+) ([#a-z0-9]+) ([#a-z0-9]+) \3( !|;|$)/Si',
+            ],
             '$1:$2 $3 $4$5',
             $body
         );
@@ -674,12 +679,12 @@ class CssMinifier
             'hsla?|hue-rotate|inset|invert|local|minmax|opacity|perspective|polygon|rgba?|rect|repeat|saturate|sepia|'.
             'steps|to|url|var|-webkit-gradient|'.
             '(?:-(?:atsc|khtml|moz|ms|o|wap|webkit)-)?(?:calc|(?:repeating-)?(?:linear|radial)-gradient))\(/Si',
-            array($this, 'strtolowerCallback'),
+            [$this, 'strtolowerCallback'],
             $body
         );
 
         // Lowercase all uppercase properties
-        $body = preg_replace_callback('/(?:^|;)[A-Z-]+:/S', array($this, 'strtolowerCallback'), $body);
+        $body = preg_replace_callback('/(?:^|;)[A-Z-]+:/S', [$this, 'strtolowerCallback'], $body);
 
         return $body;
     }
@@ -729,14 +734,14 @@ class CssMinifier
         $css = preg_replace_callback(
             '/(?<!\\\\)@(?:charset|document|font-face|import|(?:-(?:atsc|khtml|moz|ms|o|wap|webkit)-)?keyframes|media|'.
             'namespace|page|supports|viewport)/Si',
-            array($this, 'strtolowerCallback'),
+            [$this, 'strtolowerCallback'],
             $css
         );
 
         // Lowercase some popular media types
         $css = preg_replace_callback(
             '/[ ,](?:all|aural|braille|handheld|print|projection|screen|tty|tv|embossed|speech)[ ,;{]/Si',
-            array($this, 'strtolowerCallback'),
+            [$this, 'strtolowerCallback'],
             $css
         );
 
@@ -746,7 +751,7 @@ class CssMinifier
             'focus(?:-within)?|hover|indeterminate|in-range|invalid|lang\(|last-(?:child|of-type)|left|link|not\(|'.
             'nth-(?:child|of-type)\(|nth-last-(?:child|of-type)\(|only-(?:child|of-type)|optional|out-of-range|'.
             'read-(?:only|write)|required|right|root|:selection|target|valid|visited)/Si',
-            array($this, 'strtolowerCallback'),
+            [$this, 'strtolowerCallback'],
             $css
         );
 
@@ -831,7 +836,7 @@ class CssMinifier
 
         // Restore space after rgb() or hsl() function in some cases such as:
         // background-image: linear-gradient(to bottom, rgb(210,180,140) 10%, rgb(255,0,0) 90%);
-        if (!empty($terminator) && !preg_match('/[ ,);]/S', $terminator)) {
+        if (! empty($terminator) && ! preg_match('/[ ,);]/S', $terminator)) {
             $terminator = ' '. $terminator;
         }
 

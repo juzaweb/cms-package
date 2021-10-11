@@ -3,9 +3,9 @@
 namespace Juzaweb\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -64,7 +64,8 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-    protected function is404Exception($exception) {
+    protected function is404Exception($exception)
+    {
         switch ($exception) {
             case $exception instanceof NotFoundHttpException:
                 return true;

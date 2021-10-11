@@ -27,7 +27,7 @@ class UserDataTable extends DataTable
         return [
             'name' => [
                 'label' => trans('juzaweb::app.name'),
-                'formatter' => [$this, 'rowActionsFormatter']
+                'formatter' => [$this, 'rowActionsFormatter'],
             ],
             'email' => [
                 'label' => trans('juzaweb::app.email'),
@@ -40,8 +40,8 @@ class UserDataTable extends DataTable
                 'align' => 'center',
                 'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
-                }
-            ]
+                },
+            ],
         ];
     }
 
@@ -86,6 +86,7 @@ class UserDataTable extends DataTable
         switch ($action) {
             case 'delete':
                 User::destroy($ids);
+
                 break;
         }
     }

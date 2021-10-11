@@ -377,4 +377,3 @@ return [
     'require_plugins' => 'Require plugins',
     'theme_require_plugins' => 'This theme require the following plugins:',
 ];
-

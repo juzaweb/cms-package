@@ -26,7 +26,7 @@ class JuzawebApi
     {
         $response = $this->callApiGetData('POST', $this->apiUrl . '/auth/login', [
             'email' => $email,
-            'password' => $password
+            'password' => $password,
         ]);
 
         if (empty($response->access_token)) {
@@ -35,6 +35,7 @@ class JuzawebApi
 
         $this->accessToken = $response->access_token;
         $this->expiresAt = now()->addSeconds($response->expires_in)->format('Y-m-d H:i:s');
+
         return true;
     }
 
@@ -111,12 +112,15 @@ class JuzawebApi
         switch (strtolower($method)) {
             case 'post':
                 $response = $this->curl->post($url, $params, $headers);
+
                 break;
             case 'put':
                 $response = $this->curl->put($url, $params, $headers);
+
                 break;
             default:
                 $response = $this->curl->get($url, $params, $headers);
+
                 break;
         }
 

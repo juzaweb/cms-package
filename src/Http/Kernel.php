@@ -35,7 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Juzaweb\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Juzaweb\Http\Middleware\FilterXss::class
+            \Juzaweb\Http\Middleware\FilterXss::class,
         ],
 
         'api' => [
@@ -49,12 +49,12 @@ class Kernel extends HttpKernel
 
         'admin' => [
             'web',
-            \Juzaweb\Http\Middleware\Admin::class
+            \Juzaweb\Http\Middleware\Admin::class,
         ],
 
         'theme' => [
             'web',
-            \Juzaweb\Http\Middleware\Theme::class
+            \Juzaweb\Http\Middleware\Theme::class,
         ],
     ];
 
@@ -74,7 +74,7 @@ class Kernel extends HttpKernel
         'guest' => \Juzaweb\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**

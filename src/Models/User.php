@@ -15,8 +15,8 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Juzaweb\Traits\ResourceModel;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -60,7 +60,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, ResourceModel;
+    use Notifiable;
+    use ResourceModel;
 
     protected $fillable = [
         'name',
@@ -68,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
         'avatar',
         'status',
         'verification_token',
-        'password'
+        'password',
     ];
 
     public static function getAllStatus()

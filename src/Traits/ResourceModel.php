@@ -31,7 +31,7 @@ trait ResourceModel
         }
 
         if ($keyword = Arr::get($params, 'keyword')) {
-            $builder->where(function (Builder $q) use ($keyword)  {
+            $builder->where(function (Builder $q) use ($keyword) {
                 foreach ($this->searchFields as $key => $attribute) {
                     $q->orWhere($attribute, 'like', '%'. $keyword .'%');
                 }
@@ -43,7 +43,7 @@ trait ResourceModel
 
     public function getFieldName()
     {
-        if (!empty($this->fieldName)) {
+        if (! empty($this->fieldName)) {
             return $this->fieldName;
         }
 

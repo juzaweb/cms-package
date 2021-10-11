@@ -2,26 +2,27 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
-use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Facades\Theme;
+use Illuminate\Support\Collection;
 use Juzaweb\Facades\ThemeConfig;
+use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\Theme\Customize;
 use Juzaweb\Support\Theme\CustomizeControl;
 
 class ThemeEditorController extends BackendController
 {
-    public function index() {
+    public function index()
+    {
         $currentTheme = jw_current_theme();
         $panels = $this->getDataCustomize($currentTheme);
 
         return view('juzaweb::backend.editor.index', [
-            'panels' => $panels
+            'panels' => $panels,
         ]);
     }
-    
-    public function save(Request $request) {
+
+    public function save(Request $request)
+    {
         $settings = $request->post('setting', []);
         if ($settings) {
             foreach ($settings as $key => $setting) {
@@ -34,7 +35,7 @@ class ThemeEditorController extends BackendController
         foreach ($data as $key => $value) {
             ThemeConfig::setConfig($key, $value);
         }
-        
+
         return $this->success([
             'message' => trans('juzaweb::app.saved_successfully'),
         ]);

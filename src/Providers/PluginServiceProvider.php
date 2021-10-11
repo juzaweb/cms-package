@@ -2,12 +2,12 @@
 
 namespace Juzaweb\Providers;
 
+use Juzaweb\Abstracts\PluginServiceProvider as BaseServiceProvider;
 use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Exceptions\InvalidActivatorClass;
 use Juzaweb\Support\Activators\FileActivator;
 use Juzaweb\Support\LaravelFileRepository;
-use Juzaweb\Abstracts\PluginServiceProvider as BaseServiceProvider;
 use Juzaweb\Support\Stub;
 
 class PluginServiceProvider extends BaseServiceProvider
@@ -46,6 +46,7 @@ class PluginServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton(RepositoryInterface::class, function ($app) {
             $path = base_path('plugins');
+
             return new LaravelFileRepository($app, $path);
         });
 

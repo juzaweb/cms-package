@@ -6,8 +6,8 @@ use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Abstracts\FileRepository;
+use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Support\Config\GenerateConfigReader;
 use Juzaweb\Support\Stub;
 
@@ -143,6 +143,7 @@ class ModuleGenerator extends Generator
     {
         $name = explode('/', $this->name);
         $name = $name[1] ?? $name[0];
+
         return Str::studly($name);
     }
 
@@ -367,7 +368,7 @@ class ModuleGenerator extends Generator
         foreach ($this->getFiles() as $stub => $file) {
             $path = $this->module->getModulePath($this->getName()) . $file;
 
-            if (!$this->filesystem->isDirectory($dir = dirname($path))) {
+            if (! $this->filesystem->isDirectory($dir = dirname($path))) {
                 $this->filesystem->makeDirectory($dir, 0775, true);
             }
 
@@ -444,7 +445,7 @@ class ModuleGenerator extends Generator
     {
         $replacements = $this->getReplacements();
 
-        if (!isset($replacements[$stub])) {
+        if (! isset($replacements[$stub])) {
             return [];
         }
 
@@ -480,7 +481,7 @@ class ModuleGenerator extends Generator
     {
         $path = $this->module->getModulePath($this->getName()) . 'config.json';
 
-        if (!$this->filesystem->isDirectory($dir = dirname($path))) {
+        if (! $this->filesystem->isDirectory($dir = dirname($path))) {
             $this->filesystem->makeDirectory($dir, 0775, true);
         }
 
@@ -547,6 +548,7 @@ class ModuleGenerator extends Generator
     {
         $name = explode('/', $this->getName());
         $name = $name[0];
+
         return $name;
     }
 
@@ -560,6 +562,7 @@ class ModuleGenerator extends Generator
         $name = $this->getName();
         $namespace = ucwords(str_replace('/', ' ', $name));
         $namespace = str_replace(' ', '\\', $namespace);
+
         return str_replace('\\', '\\\\', $namespace);
     }
 
@@ -572,6 +575,7 @@ class ModuleGenerator extends Generator
     {
         $name = explode('\\', $this->getModuleNamespaceReplacement());
         $name = $name[count($name) - 1];
+
         return $name;
     }
 
@@ -584,6 +588,7 @@ class ModuleGenerator extends Generator
     {
         $name = explode('/', $this->getName());
         $name = ucfirst($name[0]);
+
         return $name;
     }
 
@@ -607,6 +612,7 @@ class ModuleGenerator extends Generator
         $name = explode('/', $this->getName());
         $author = $name[0];
         $plugin = $name[1];
+
         return substr($author, 0, 2) . substr($plugin, 0, 2);
     }
 }

@@ -13,7 +13,7 @@
  */
 
 Route::group([
-    'prefix' => 'auth'
+    'prefix' => 'auth',
 ], function () {
     Route::post('login', 'Api\Auth\LoginController@login');
 

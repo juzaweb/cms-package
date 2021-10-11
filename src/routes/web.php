@@ -10,7 +10,7 @@
 
 Route::group([
     'prefix' => 'user',
-    'middleware' => 'guest'
+    'middleware' => 'guest',
 ], function () {
     Route::get('/login', 'Auth\LoginController@index')->name('user.login');
     Route::post('/login', 'Auth\LoginController@login');

@@ -10,9 +10,9 @@
 
 namespace Juzaweb\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Http\Middleware\XFrameHeadersMiddleware;
-use Illuminate\Support\Facades\URL;
 use Juzaweb\Support\BladeMinifyCompiler;
 
 class PerformanceServiceProvider extends ServiceProvider
@@ -41,7 +41,7 @@ class PerformanceServiceProvider extends ServiceProvider
 
     protected function bootSchemeSsl()
     {
-        if(!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        if (! empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             if ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
                 URL::forceScheme('https');
             }

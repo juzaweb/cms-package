@@ -10,8 +10,8 @@
 
 namespace Juzaweb\Support;
 
-use Juzaweb\Models\Config as ConfigModel;
 use Illuminate\Support\Facades\Cache;
+use Juzaweb\Models\Config as ConfigModel;
 
 class Config
 {
@@ -23,7 +23,7 @@ class Config
         $this->configs = Cache::rememberForever($this->cacheKey, function () {
             return ConfigModel::get([
                 'code',
-                'value'
+                'value',
             ])->keyBy('code')
                 ->map(function ($item) {
                     return $item->value;
@@ -50,9 +50,9 @@ class Config
         }
 
         $config = ConfigModel::updateOrCreate([
-            'code' => $key
+            'code' => $key,
         ], [
-            'value' => $value
+            'value' => $value,
         ]);
 
         $this->configs[$key] = $value;

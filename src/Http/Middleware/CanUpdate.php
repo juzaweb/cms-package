@@ -21,7 +21,7 @@ class CanUpdate
         $updateEnabled = filter_var(config('installer.updaterEnabled'), FILTER_VALIDATE_BOOLEAN);
         switch ($updateEnabled) {
             case true:
-                $canInstall = new CanInstall;
+                $canInstall = new CanInstall();
 
                 // if the application has not been installed,
                 // redirect to the installer
@@ -32,11 +32,13 @@ class CanUpdate
                 if ($this->alreadyUpdated()) {
                     abort(404);
                 }
+
                 break;
 
             case false:
             default:
                 abort(404);
+
                 break;
         }
 

@@ -2,12 +2,12 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Http\Datatables\CommentDatatable;
-use Juzaweb\Traits\ResourceController;
-use Juzaweb\Models\Comment;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Juzaweb\Http\Controllers\BackendController;
+use Juzaweb\Http\Datatables\CommentDatatable;
+use Juzaweb\Models\Comment;
+use Juzaweb\Traits\ResourceController;
 
 class CommentController extends BackendController
 {
@@ -44,6 +44,7 @@ class CommentController extends BackendController
     {
         $dataTable = new CommentDatatable();
         $dataTable->mountData($this->getPostType());
+
         return $dataTable;
     }
 
@@ -52,12 +53,14 @@ class CommentController extends BackendController
         $postType = $this->getPostType();
         $data = $this->DataForIndex();
         $data['postType'] = $postType;
+
         return $data;
     }
 
     protected function getPostType()
     {
         $split = explode('.', Route::currentRouteName());
+
         return Str::plural($split[count($split) - 3]);
     }
 }

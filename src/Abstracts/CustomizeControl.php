@@ -16,14 +16,14 @@ use Juzaweb\Support\Theme\Customize;
 abstract class CustomizeControl
 {
     /**
-     * @var Customize $customize
+     * @var Customize
      */
     protected $customize;
 
     protected $key;
 
     /**
-     * @var Collection $args
+     * @var Collection
      */
     protected $args;
 

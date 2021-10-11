@@ -51,7 +51,7 @@ class MediaController extends BackendController
             'title' => $title,
             'mimeTypes' => $mimeTypes,
             'type' => $type,
-            'maxSize' => $maxSize
+            'maxSize' => $maxSize,
         ]);
     }
 
@@ -62,7 +62,7 @@ class MediaController extends BackendController
             'folder_id' => 'nullable|exists:media_folders,id',
         ], [], [
             'name' => trans('juzaweb::filemanager.folder-name'),
-            'folder_id' => trans('juzaweb::filemanager.parent')
+            'folder_id' => trans('juzaweb::filemanager.parent'),
         ]);
 
         $name = $request->post('name');
@@ -70,7 +70,7 @@ class MediaController extends BackendController
 
         if (MediaFolder::folderExists($name, $parentId)) {
             return $this->error([
-                'message' => trans('juzaweb::filemanager.folder-exists')
+                'message' => trans('juzaweb::filemanager.folder-exists'),
             ]);
         }
 
@@ -80,6 +80,7 @@ class MediaController extends BackendController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 
@@ -113,7 +114,7 @@ class MediaController extends BackendController
      * Get files in folder
      *
      * @param \Illuminate\Support\Collection $sQuery
-     * @param integer $folderId
+     * @param int $folderId
      * @return array
      */
     protected function getFiles($sQuery, $folderId)
@@ -144,7 +145,7 @@ class MediaController extends BackendController
                 'type' => $row->type,
                 'icon' => $icon,
                 'thumb' => $thumb,
-                'is_file' => true
+                'is_file' => true,
             ];
         }
 
@@ -155,7 +156,7 @@ class MediaController extends BackendController
      * Get directories in folder
      *
      * @param \Illuminate\Support\Collection $sQuery
-     * @param integer $folderId
+     * @param int $folderId
      * @return array
      */
     protected function getDirectories($sQuery, $folderId)
@@ -176,7 +177,7 @@ class MediaController extends BackendController
                 'type' => $row->type,
                 'icon' => 'fa-folder-o',
                 'thumb' => asset('vendor/juzaweb/styles/images/folder.png'),
-                'is_file' => false
+                'is_file' => false,
             ];
         }
 
@@ -186,23 +187,23 @@ class MediaController extends BackendController
     protected function getFileIcon()
     {
         return [
-            'pdf'  => 'fa-file-pdf-o',
-            'doc'  => 'fa-file-word-o',
+            'pdf' => 'fa-file-pdf-o',
+            'doc' => 'fa-file-word-o',
             'docx' => 'fa-file-word-o',
-            'xls'  => 'fa-file-excel-o',
+            'xls' => 'fa-file-excel-o',
             'xlsx' => 'fa-file-excel-o',
-            'rar'  => 'fa-file-archive-o',
-            'zip'  => 'fa-file-archive-o',
-            'gif'  => 'fa-file-image-o',
-            'jpg'  => 'fa-file-image-o',
+            'rar' => 'fa-file-archive-o',
+            'zip' => 'fa-file-archive-o',
+            'gif' => 'fa-file-image-o',
+            'jpg' => 'fa-file-image-o',
             'jpeg' => 'fa-file-image-o',
-            'png'  => 'fa-file-image-o',
-            'ppt'  => 'fa-file-powerpoint-o',
+            'png' => 'fa-file-image-o',
+            'ppt' => 'fa-file-powerpoint-o',
             'pptx' => 'fa-file-powerpoint-o',
-            'mp4'  => 'fa-file-video-o',
-            'mp3'  => 'fa-file-video-o',
+            'mp4' => 'fa-file-video-o',
+            'mp3' => 'fa-file-video-o',
             'jfif' => 'fa-file-image-o',
-            'txt'  => 'fa-file-text-o',
+            'txt' => 'fa-file-text-o',
         ];
     }
 }

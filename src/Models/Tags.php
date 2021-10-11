@@ -15,7 +15,7 @@ use Juzaweb\Traits\UseSlug;
 class Tags extends Model
 {
     use UseSlug;
-    
+
     protected $table = 'tags';
     protected $primaryKey = 'id';
     protected $fillable = ['name'];

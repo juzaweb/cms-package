@@ -2,12 +2,12 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Illuminate\Support\Facades\Validator;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Http\Datatables\EmailTemplateDataTable;
-use Juzaweb\Traits\ResourceController;
 use Juzaweb\Models\EmailTemplate;
-use Illuminate\Support\Facades\Validator;
+use Juzaweb\Traits\ResourceController;
 
 class EmailTemplateController extends BackendController
 {
@@ -46,6 +46,7 @@ class EmailTemplateController extends BackendController
     {
         $data = $this->DataForForm($model);
         $data['emailHooks'] = HookAction::getEmailHooks();
+
         return $data;
     }
 }

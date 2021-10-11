@@ -44,7 +44,7 @@ class Customize
 
         return $this->panels->get($key);
     }
-    
+
     public function removePanel($key)
     {
         $this->panels->forget($key);

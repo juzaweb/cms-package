@@ -44,7 +44,7 @@ class ApiController extends Controller
     {
         $response = [
             'data' => $data,
-            'message' => $message
+            'message' => $message,
         ];
 
         return response()->json($response, $status);
@@ -59,18 +59,20 @@ class ApiController extends Controller
                     foreach ($items as $error) {
                         $errorsResult[] = [
                             'field' => $field,
-                            'message' => $error
+                            'message' => $error,
                         ];
                     }
                 }
+
                 break;
             default:
                 $errorsResult = $errors;
+
                 break;
         }
         $response = [
             'errors' => $errorsResult,
-            'message' => $message
+            'message' => $message,
         ];
 
         return response()->json($response, $status);
@@ -87,15 +89,15 @@ class ApiController extends Controller
                 'first' => $paginate->url(1),
                 'prev' => $paginate->previousPageUrl(),
                 'next' => $paginate->nextPageUrl(),
-                'last' => $paginate->url($lastPage)
+                'last' => $paginate->url($lastPage),
             ],
             'meta' => [
                 'totalPages' => $lastPage,
                 'limit' => $paginate->perPage(),
                 'total' => $paginate->total(),
-                'page' => $currentPage
+                'page' => $currentPage,
             ],
-            'message' => $message
+            'message' => $message,
         ];
 
         return response()->json($response, $status);

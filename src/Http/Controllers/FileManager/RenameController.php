@@ -11,7 +11,7 @@ class RenameController extends FileManagerController
     {
         $file = request()->input('file');
         $new_name = request()->input('new_name');
-        
+
         $is_directory = $this->isDirectory($file);
 
         if (empty($new_name)) {
@@ -25,17 +25,17 @@ class RenameController extends FileManagerController
         if ($is_directory) {
             MediaFolder::where('id', '=', $file)
                 ->update([
-                    'name' => $new_name
+                    'name' => $new_name,
                 ]);
         } else {
             $file_path = explode('uploads/', $file)[1];
-            
+
             MediaFile::where('path', '=', $file_path)
                 ->update([
-                    'name' => $new_name
+                    'name' => $new_name,
                 ]);
         }
-        
+
         return parent::$success_response;
     }
 }

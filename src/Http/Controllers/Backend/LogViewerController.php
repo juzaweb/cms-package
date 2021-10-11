@@ -13,9 +13,9 @@ namespace Juzaweb\Http\Controllers\Backend;
 use Arcanedev\LogViewer\Contracts\LogViewer;
 use Arcanedev\LogViewer\Exceptions\LogNotFoundException;
 use Illuminate\Http\Request;
-use Juzaweb\Http\Controllers\BackendController;
-use Illuminate\Support\{Arr, Collection, Str};
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+use Juzaweb\Http\Controllers\BackendController;
 
 class LogViewerController extends BackendController
 {
@@ -46,7 +46,7 @@ class LogViewerController extends BackendController
     {
         $this->addBreadcrumb([
             'title' => trans('juzaweb::app.error_logs'),
-            'url' => action([static::class, 'index'])
+            'url' => action([static::class, 'index']),
         ]);
 
         $this->getLogOrFail($date);
@@ -65,26 +65,26 @@ class LogViewerController extends BackendController
 
         foreach ($rows as $index => $row) {
             $row['edit_url'] = route('admin.logs.error.date', [
-                $row['date']
+                $row['date'],
             ]);
             $rows->put($index, $row);
         }
 
         return response()->json([
             'total' => count($stats->rows()),
-            'rows' => $rows->values()
+            'rows' => $rows->values(),
         ]);
     }
 
     public function listLogsDate(Request $request, $date)
     {
-        $level   = 'all';
-        $log     = $this->getLogOrFail($date);
+        $level = 'all';
+        $log = $this->getLogOrFail($date);
         $entries = $log->entries($level)->paginate($this->perPage);
 
         return response()->json([
             'total' => $entries->total(),
-            'rows' => $entries->values()
+            'rows' => $entries->values(),
         ]);
     }
 
@@ -100,7 +100,7 @@ class LogViewerController extends BackendController
         $date = $request->input('date');
 
         return response()->json([
-            'result' => $this->logViewer->delete($date) ? 'success' : 'error'
+            'result' => $this->logViewer->delete($date) ? 'success' : 'error',
         ]);
     }
 
@@ -140,8 +140,7 @@ class LogViewerController extends BackendController
 
         try {
             $log = $this->logViewer->get($date);
-        }
-        catch (LogNotFoundException $e) {
+        } catch (LogNotFoundException $e) {
             abort(404, $e->getMessage());
         }
 

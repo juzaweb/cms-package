@@ -8,18 +8,19 @@ use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
-use Juzaweb\Models\User;
-use Juzaweb\Models\Taxonomy;
-use Juzaweb\Support\ArrayPagination;
 use Juzaweb\Models\Page;
+use Juzaweb\Models\Taxonomy;
+use Juzaweb\Models\User;
+use Juzaweb\Support\ArrayPagination;
 
 class LoadDataController extends BackendController
 {
-    public function loadData($func, Request $request) {
+    public function loadData($func, Request $request)
+    {
         if (method_exists($this, $func)) {
             return $this->{$func}($request);
         }
-        
+
         return response()->json([
             'status' => 'error',
             'message' => 'Function not found',
@@ -30,7 +31,7 @@ class LoadDataController extends BackendController
     {
         return response()->json([
             'status' => true,
-            'slug' => Str::slug(Str::words($request->input('title'), 15))
+            'slug' => Str::slug(Str::words($request->input('title'), 15)),
         ]);
     }
 
@@ -44,7 +45,7 @@ class LoadDataController extends BackendController
         $query = Taxonomy::query();
         $query->select([
             'id',
-            'name as text'
+            'name as text',
         ]);
 
         if ($postType) {
@@ -72,63 +73,65 @@ class LoadDataController extends BackendController
 
         return response()->json($data);
     }
-    
-    protected function loadUsers(Request $request) {
+
+    protected function loadUsers(Request $request)
+    {
         $search = $request->get('search');
         $explodes = $request->get('explodes');
-        
+
         $query = User::query();
         $query->select([
             'id',
-            'name AS text'
+            'name AS text',
         ]);
-        
+
         if ($search) {
             $query->where(function (Builder $q) use ($search) {
                 $q->where('name', 'like', '%'. $search .'%');
                 $q->orWhere('email', 'like', '%'. $search .'%');
             });
         }
-        
+
         if ($explodes) {
             $query->whereNotIn('id', $explodes);
         }
-        
+
         $paginate = $query->paginate(10);
         $data['results'] = $query->get();
         if ($paginate->nextPageUrl()) {
             $data['pagination'] = ['more' => true];
         }
-        
+
         return response()->json($data);
     }
-    
-    protected function loadMenu(Request $request) {
+
+    protected function loadMenu(Request $request)
+    {
         $search = $request->get('search');
         $explodes = $request->get('explodes');
-        
+
         $query = Menu::query();
         $query->select([
             'id',
-            'name AS text'
+            'name AS text',
         ]);
-        
+
         if ($search) {
             $query->where(function (Builder $q) use ($search) {
                 $q->orWhere('name', 'like', '%'. $search .'%');
             });
         }
-        
+
         if ($explodes) {
             $query->whereNotIn('id', $explodes);
         }
-        
+
         $paginate = $query->paginate(10);
         $data['results'] = $query->get();
         if ($paginate->nextPageUrl()) {
             $data['pagination'] = ['more' => true];
         }
-        
+
         return response()->json($data);
     }
 
@@ -148,7 +151,7 @@ class LoadDataController extends BackendController
         $results = $results->map(function ($item) {
             return [
                 'id' => $item['code'],
-                'text' => $item['name']
+                'text' => $item['name'],
             ];
         })->values();
 
@@ -172,7 +175,7 @@ class LoadDataController extends BackendController
         $query = Page::query();
         $query->select([
             'id',
-            'title as text'
+            'title as text',
         ]);
 
         if ($search) {
@@ -207,7 +210,7 @@ class LoadDataController extends BackendController
         $query = app($postType->get('model'))->query();
         $query->select([
             'id',
-            'title as text'
+            'title as text',
         ]);
 
         if ($search) {

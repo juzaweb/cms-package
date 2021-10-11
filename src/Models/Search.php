@@ -11,9 +11,9 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\HookAction;
-use Illuminate\Support\Arr;
 
 /**
  * Juzaweb\Models\Search
@@ -71,6 +71,7 @@ class Search extends Model
     public function post()
     {
         $model = $this->getPostType('model');
+
         return $this->belongsTo($model, 'post_id', 'id');
     }
 
@@ -93,6 +94,7 @@ class Search extends Model
     public function scopeWherePublish($builder)
     {
         $builder->where('status', '=', 'publish');
+
         return $builder;
     }
 
@@ -116,7 +118,6 @@ class Search extends Model
                     $q->orWhere('description', 'like', '%'.$keyword.'%');
                     $q->orWhere('keyword', 'like', '%'.$keyword.'%');
                 });
-
             } else {
                 // $builder->addSelect(DB::raw('NULL AS match_score'));
                 $builder->where(function (Builder $q) use ($keyword) {
@@ -142,12 +143,11 @@ class Search extends Model
 
                 foreach ($taxonomies as $key => $taxonomy) {
                     $ids = array_filter(Arr::get($params, $key, []), function ($item) {
-                        return !empty($item);
+                        return ! empty($item);
                     });
 
                     if ($ids) {
                         $q->whereHas('taxonomies', function (Builder $q) use ($key, $params, $ids) {
-
                             $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
                         });
                     }
@@ -159,12 +159,14 @@ class Search extends Model
             switch ($sort) {
                 case 'latest':
                     $builder->orderBy('id', 'DESC');
+
                     break;
                 /*case 'top_views':
                     $builder->orderBy('views', 'DESC');
                     break;*/
                 case 'new_update':
                     $builder->orderBy('updated_at', 'DESC');
+
                     break;
             }
         }

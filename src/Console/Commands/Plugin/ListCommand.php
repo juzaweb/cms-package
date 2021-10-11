@@ -57,18 +57,22 @@ class ListCommand extends Command
         switch ($this->option('only')) {
             case 'enabled':
                 return $this->laravel['modules']->getByStatus(1);
+
                 break;
 
             case 'disabled':
                 return $this->laravel['modules']->getByStatus(0);
+
                 break;
 
             case 'ordered':
                 return $this->laravel['modules']->getOrdered($this->option('direction'));
+
                 break;
 
             default:
                 return $this->laravel['modules']->all();
+
                 break;
         }
     }

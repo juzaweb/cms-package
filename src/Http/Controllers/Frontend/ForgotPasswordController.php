@@ -15,7 +15,7 @@ class ForgotPasswordController
     public function index()
     {
         return view('theme::auth.forgot_password', [
-            'title' => trans('juzaweb::app.forgot_password')
+            'title' => trans('juzaweb::app.forgot_password'),
         ]);
     }
 }

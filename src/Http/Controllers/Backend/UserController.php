@@ -2,11 +2,11 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Http\Datatables\UserDataTable;
 use Juzaweb\Models\User;
-use Illuminate\Http\Request;
 use Juzaweb\Traits\ResourceController;
 
 class UserController extends BackendController
@@ -67,9 +67,10 @@ class UserController extends BackendController
     protected function getDataForForm($model)
     {
         $allStatus = User::getAllStatus();
+
         return [
             'model' => $model,
-            'allStatus' => $allStatus
+            'allStatus' => $allStatus,
         ];
     }
 
@@ -86,10 +87,10 @@ class UserController extends BackendController
         if ($request->post('password')) {
             $request->validate([
                 'password' => 'required|string|max:32|min:8|confirmed',
-                'password_confirmation' => 'required|string|max:32|min:8'
+                'password_confirmation' => 'required|string|max:32|min:8',
             ], [], [
                 'password' => trans('juzaweb::app.password'),
-                'password_confirmation' => trans('juzaweb::app.confirm_password')
+                'password_confirmation' => trans('juzaweb::app.confirm_password'),
             ]);
 
             $model->setAttribute('password', Hash::make($request->post('password')));

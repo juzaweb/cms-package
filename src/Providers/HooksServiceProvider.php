@@ -14,7 +14,7 @@ class HooksServiceProvider extends ServiceProvider
         $this->app->singleton(EventyContract::class, function () {
             return new Events();
         });
-        
+
         // Register service providers
         $this->app->register(HookBladeServiceProvider::class);
     }

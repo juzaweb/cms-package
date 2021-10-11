@@ -39,8 +39,8 @@ class EmailTemplateDataTable extends DataTable
                 'align' => 'center',
                 'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
-                }
-            ]
+                },
+            ],
         ];
     }
 
@@ -69,6 +69,7 @@ class EmailTemplateDataTable extends DataTable
         switch ($action) {
             case 'delete':
                 EmailTemplate::destroy($ids);
+
                 break;
         }
     }

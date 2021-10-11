@@ -41,7 +41,7 @@ class WidgetController extends BackendController
         $content = collect($request->input('content', []))
             ->keyBy('key');
 
-        foreach($content as $wkey => $widget) {
+        foreach ($content as $wkey => $widget) {
             $widgetData = HookAction::getWidgets($widget['widget']);
             $data = $widgetData['widget']->update($widget);
             $content->put($wkey, $data);
@@ -50,7 +50,7 @@ class WidgetController extends BackendController
         set_theme_config('sidebar_' . $key, $content->toArray());
 
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzaweb::app.save_successfully'),
         ]);
     }
 
@@ -72,13 +72,13 @@ class WidgetController extends BackendController
             $results[$sidebar] = view('juzaweb::backend.widget.components.sidebar_widget_item', [
                 'widget' => $widgetData,
                 'sidebar' => $sidebar,
-                'key' => $key
+                'key' => $key,
             ])->render();
         }
 
         return response()->json([
             'widget' => $widget,
-            'items' => $results
+            'items' => $results,
         ]);
     }
 }

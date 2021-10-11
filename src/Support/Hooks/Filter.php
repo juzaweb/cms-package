@@ -18,7 +18,7 @@ class Filter extends Event
     {
         // get the value, the first argument is always the value
         $this->value = isset($args[0]) ? $args[0] : '';
-        
+
         if ($this->getListeners()) {
             $this->getListeners()->where('hook', $action)->each(function ($listener) use ($action, $args) {
                 $parameters = [];

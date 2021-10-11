@@ -53,7 +53,7 @@ class ModelMakeCommand extends GeneratorCommand
 
         $string = '';
         foreach ($pieces as $i => $piece) {
-            if ($i+1 < count($pieces)) {
+            if ($i + 1 < count($pieces)) {
                 $string .= strtolower($piece) . '_';
             } else {
                 $string .= Str::plural(strtolower($piece));
@@ -108,22 +108,22 @@ class ModelMakeCommand extends GeneratorCommand
     protected function getTemplateContents()
     {
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
-        if (!$table = $this->option('table')) {
+        if (! $table = $this->option('table')) {
             $table = $this->createMigrationName();
         }
 
         $table = $module->getDomainName() .'_' . $table;
 
         return (new Stub($this->getStubPath(), [
-            'NAME'              => $this->getModelName(),
-            'TABLE'             => $table,
-            'FILLABLE'          => $this->getFillable(),
-            'NAMESPACE'         => $this->getClassNamespace($module),
-            'CLASS'             => $this->getClass(),
-            'LOWER_NAME'        => $module->getLowerName(),
-            'MODULE'            => $this->getModuleName(),
-            'STUDLY_NAME'       => $module->getStudlyName(),
-            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),
+            'NAME' => $this->getModelName(),
+            'TABLE' => $table,
+            'FILLABLE' => $this->getFillable(),
+            'NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getClass(),
+            'LOWER_NAME' => $module->getLowerName(),
+            'MODULE' => $this->getModuleName(),
+            'STUDLY_NAME' => $module->getStudlyName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
         ]))->render();
     }
 
@@ -154,7 +154,7 @@ class ModelMakeCommand extends GeneratorCommand
     {
         $fillable = $this->option('fillable');
 
-        if (!is_null($fillable)) {
+        if (! is_null($fillable)) {
             $arrays = explode(',', $fillable);
 
             return json_encode($arrays);
@@ -168,7 +168,7 @@ class ModelMakeCommand extends GeneratorCommand
      *
      * @return string
      */
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Models';
     }

@@ -55,8 +55,6 @@ class Taxonomy extends Model
         'taxonomy',
         'post_type',
         'parent_id',
-        'total_post'
+        'total_post',
     ];
-
-
 }

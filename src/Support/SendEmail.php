@@ -2,8 +2,8 @@
 
 namespace Juzaweb\Support;
 
-use Juzaweb\Models\EmailList;
 use Illuminate\Support\Facades\Mail;
+use Juzaweb\Models\EmailList;
 
 class SendEmail
 {
@@ -24,11 +24,12 @@ class SendEmail
         $validate = $this->validate();
         if ($validate !== true) {
             $this->updateError($validate);
+
             return false;
         }
-        
+
         $this->updateStatus('processing');
-    
+
         try {
             Mail::send('juzaweb::backend.email.layouts.default', [
                 'body' => $this->getBody(),
@@ -36,15 +37,17 @@ class SendEmail
                 $message->to([$this->mail->email])
                     ->subject($this->getSubject());
             });
-        
+
             if (Mail::failures()) {
                 $this->updateError(array_merge([
                     'title' => 'Mail failures',
                 ], Mail::failures()));
+
                 return false;
             }
-        
+
             $this->updateStatus('success');
+
             return true;
         } catch (\Exception $e) {
             $this->updateError([
@@ -57,11 +60,11 @@ class SendEmail
             if (config('app.debug')) {
                 throw $e;
             }
-    
+
             return false;
         }
     }
-    
+
     protected function getSubject()
     {
         if (@$this->mail->data['subject']) {
@@ -69,10 +72,10 @@ class SendEmail
         } else {
             $subject = $this->mail->template->subject;
         }
-        
+
         return $this->mapParams($subject);
     }
-    
+
     protected function getBody()
     {
         if (@$this->mail->data['body']) {
@@ -80,17 +83,17 @@ class SendEmail
         } else {
             $body = $this->mail->template->body;
         }
-    
+
         return $this->mapParams($body);
     }
-    
+
     protected function updateStatus(string $status)
     {
         return $this->mail->update([
             'status' => $status,
         ]);
     }
-    
+
     protected function updateError(array $error = [])
     {
         return $this->mail->update([
@@ -98,13 +101,13 @@ class SendEmail
             'status' => 'error',
         ]);
     }
-    
+
     protected function mapParams($string)
     {
         foreach ($this->mail->params as $key => $param) {
             $string = str_replace('{'. $key .'}', $param, $string);
         }
-        
+
         return $string;
     }
 

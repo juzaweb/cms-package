@@ -25,12 +25,15 @@ class ThemePublishCommand extends Command
             switch ($type) {
                 case 'views':
                     $this->publishViews($theme);
+
                     break;
                 case 'lang':
                     $this->publishLang($theme);
+
                     break;
                 case 'assets':
                     $this->publishAssets($theme);
+
                     break;
             }
         }
@@ -43,7 +46,7 @@ class ThemePublishCommand extends Command
         $sourceFolder = Theme::getThemePath($theme) . '/views';
         $publicFolder = resource_path('views/vendor/theme_' . $theme);
 
-        if (!File::isDirectory($publicFolder)) {
+        if (! File::isDirectory($publicFolder)) {
             File::makeDirectory($publicFolder, 0755, true, true);
         }
 
@@ -55,7 +58,7 @@ class ThemePublishCommand extends Command
         $sourceFolder = Theme::getThemePath($theme) . '/lang';
         $publicFolder = resource_path('lang/vendor/theme_' . $theme);
 
-        if (!File::isDirectory($publicFolder)) {
+        if (! File::isDirectory($publicFolder)) {
             File::makeDirectory($publicFolder, 0755, true, true);
         }
 
@@ -67,7 +70,7 @@ class ThemePublishCommand extends Command
         $sourceFolder = Theme::getThemePath($theme) . '/assets';
         $publicFolder = Theme::publicPath($theme) . '/assets';
 
-        if (!File::isDirectory($publicFolder)) {
+        if (! File::isDirectory($publicFolder)) {
             File::makeDirectory($publicFolder, 0755, true, true);
         }
 

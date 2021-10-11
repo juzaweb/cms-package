@@ -11,9 +11,9 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Support\Facades\Crypt;
 use Juzaweb\Abstracts\DataTable;
+use Juzaweb\Http\Controllers\BackendController;
 
 class DatatableController extends BackendController
 {
@@ -38,7 +38,7 @@ class DatatableController extends BackendController
         foreach ($rows as $index => $row) {
             $columns['id'] = $row->id;
             foreach ($columns as $col => $column) {
-                if (!empty($column['formatter'])) {
+                if (! empty($column['formatter'])) {
                     $results[$index][$col] = $column['formatter']($row->{$col}, $row, $index);
                 } else {
                     $results[$index][$col] = $row->{$col};
@@ -48,7 +48,7 @@ class DatatableController extends BackendController
 
         return response()->json([
             'total' => $count,
-            'rows' => $results
+            'rows' => $results,
         ]);
     }
 
@@ -66,7 +66,7 @@ class DatatableController extends BackendController
         $table->bulkActions($action, $ids);
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzaweb::app.successfully'),
         ]);
     }
 

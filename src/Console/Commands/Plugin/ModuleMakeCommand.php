@@ -40,7 +40,7 @@ class ModuleMakeCommand extends Command
                 ->setConsole($this)
                 ->setForce($this->option('force'))
                 ->setPlain($this->option('plain'))
-                ->setActive(!$this->option('disabled'))
+                ->setActive(! $this->option('disabled'))
                 ->generate();
         }
     }

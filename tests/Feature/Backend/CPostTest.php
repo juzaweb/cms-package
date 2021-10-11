@@ -95,9 +95,9 @@ class CPostTest extends TestCase
         try {
             $post = factory($postType->get('model'))->make();
             $post = $post->getAttributes();
-
         } catch (\Throwable $e) {
             echo "\n--- " . $e->getMessage();
+
             return false;
         }
 

@@ -2,19 +2,21 @@
 
 namespace Juzaweb\Http\Controllers\Backend\Setting;
 
-use Juzaweb\Models\Config;
 use Illuminate\Http\Request;
 use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Models\Config;
 
 class CommentSettingController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('juzaweb::backend.setting.comment.index', [
-            'title' => trans('juzaweb::app.comment_setting')
+            'title' => trans('juzaweb::app.comment_setting'),
         ]);
     }
-    
-    public function save(Request $request) {
+
+    public function save(Request $request)
+    {
         $this->validateRequest([
             'comment_able' => 'required|in:0,1',
             'comment_type' => 'required_if:comment_able,!=,0|string|max:300',
@@ -26,18 +28,18 @@ class CommentSettingController extends Controller
             'comments_per_page' => trans('juzaweb::app.comments_per_page'),
             'comments_approval' => trans('juzaweb::app.comments_approval'),
         ]);
-    
+
         $configs = $request->only([
             'comment_able',
             'comment_type',
             'comments_per_page',
             'comments_approval',
         ]);
-        
+
         foreach ($configs as $key => $config) {
             Config::setConfig($key, $config);
         }
-    
+
         return response()->json([
             'status' => 'success',
             'message' => trans('juzaweb::app.saved_successfully'),

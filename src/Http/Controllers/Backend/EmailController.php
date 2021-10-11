@@ -2,10 +2,9 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Juzaweb\Http\Controllers\BackendController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use JuzawebService;
+use Illuminate\Support\Facades\Auth;
+use Juzaweb\Http\Controllers\BackendController;
 
 class EmailController extends BackendController
 {
@@ -13,18 +12,18 @@ class EmailController extends BackendController
     {
         $email = $request->post('email');
         set_config('email', $email);
-        
+
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzaweb::app.save_successfully'),
         ]);
     }
-    
+
     public function sendTestMail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email'
+            'email' => 'required|email',
         ]);
-        
+
         $email = $request->post('email');
         EmailService::make()
             ->setEmails($email)
@@ -34,7 +33,7 @@ class EmailController extends BackendController
             ->send();
 
         return $this->success([
-            'message' => trans('juzaweb::app.send_mail_successfully')
+            'message' => trans('juzaweb::app.send_mail_successfully'),
         ]);
     }
 }

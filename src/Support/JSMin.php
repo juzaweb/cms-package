@@ -10,22 +10,22 @@
 
 namespace Juzaweb\Support;
 
+class JSMin
+{
+    public const ORD_LF = 10;
+    public const ORD_SPACE = 32;
+    public const ACTION_KEEP_A = 1;
+    public const ACTION_DELETE_A = 2;
+    public const ACTION_DELETE_A_B = 3;
 
-class JSMin {
-    const ORD_LF            = 10;
-    const ORD_SPACE         = 32;
-    const ACTION_KEEP_A     = 1;
-    const ACTION_DELETE_A   = 2;
-    const ACTION_DELETE_A_B = 3;
-
-    protected $a           = "\n";
-    protected $b           = '';
-    protected $input       = '';
-    protected $inputIndex  = 0;
+    protected $a = "\n";
+    protected $b = '';
+    protected $input = '';
+    protected $inputIndex = 0;
     protected $inputLength = 0;
-    protected $lookAhead   = null;
-    protected $output      = '';
-    protected $lastByteOut  = '';
+    protected $lookAhead = null;
+    protected $output = '';
+    protected $lastByteOut = '';
     protected $keptComment = '';
 
     /**
@@ -38,6 +38,7 @@ class JSMin {
     public static function minify($js)
     {
         $jsmin = new JSMin($js);
+
         return $jsmin->min();
     }
 
@@ -90,7 +91,7 @@ class JSMin {
                 if ($this->b === ' ') {
                     $command = self::ACTION_DELETE_A_B;
 
-                    // in case of mbstring.func_overload & 2, must check for null b,
+                // in case of mbstring.func_overload & 2, must check for null b,
                     // otherwise mb_strpos will give WARNING
                 } elseif ($this->b === null
                     || (false === strpos('{[(+-!~', $this->b)
@@ -111,6 +112,7 @@ class JSMin {
         if ($mbIntEnc !== null) {
             mb_internal_encoding($mbIntEnc);
         }
+
         return $this->output;
     }
 
@@ -149,12 +151,13 @@ class JSMin {
                 $this->lastByteOut = $this->a;
 
             // fallthrough intentional
+            // no break
             case self::ACTION_DELETE_A: // 2
                 $this->a = $this->b;
                 if ($this->a === "'" || $this->a === '"' || $this->a === '`') { // string/template literal
                     $delimiter = $this->a;
                     $str = $this->a; // in case needed for exception
-                    for(;;) {
+                    for (;;) {
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
 
@@ -166,8 +169,10 @@ class JSMin {
                             // leave the newline
                         } elseif ($this->isEOF($this->a)) {
                             $byte = $this->inputIndex - 1;
+
                             throw new UnterminatedStringException(
-                                "JSMin: Unterminated String at byte {$byte}: {$str}");
+                                "JSMin: Unterminated String at byte {$byte}: {$str}"
+                            );
                         }
                         $str .= $this->a;
                         if ($this->a === '\\') {
@@ -181,16 +186,17 @@ class JSMin {
                 }
 
             // fallthrough intentional
+            // no break
             case self::ACTION_DELETE_A_B: // 3
                 $this->b = $this->next();
                 if ($this->b === '/' && $this->isRegexpLiteral()) {
                     $this->output .= $this->a . $this->b;
                     $pattern = '/'; // keep entire pattern in case we need to report it in the exception
-                    for(;;) {
+                    for (;;) {
                         $this->a = $this->get();
                         $pattern .= $this->a;
                         if ($this->a === '[') {
-                            for(;;) {
+                            for (;;) {
                                 $this->output .= $this->a;
                                 $this->a = $this->get();
                                 $pattern .= $this->a;
@@ -205,7 +211,8 @@ class JSMin {
                                 if ($this->isEOF($this->a)) {
                                     throw new UnterminatedRegExpException(
                                         "JSMin: Unterminated set in RegExp at byte "
-                                        . $this->inputIndex .": {$pattern}");
+                                        . $this->inputIndex .": {$pattern}"
+                                    );
                                 }
                             }
                         }
@@ -218,8 +225,10 @@ class JSMin {
                             $pattern .= $this->a;
                         } elseif ($this->isEOF($this->a)) {
                             $byte = $this->inputIndex - 1;
+
                             throw new UnterminatedRegExpException(
-                                "JSMin: Unterminated RegExp at byte {$byte}: {$pattern}");
+                                "JSMin: Unterminated RegExp at byte {$byte}: {$pattern}"
+                            );
                         }
                         $this->output .= $this->a;
                         $this->lastByteOut = $this->a;
@@ -251,7 +260,7 @@ class JSMin {
         // if the "/" follows a keyword, it must be a regexp, otherwise it's best to assume division
 
         $subject = $this->output . trim($this->a);
-        if (!preg_match('/(?:case|else|in|return|typeof)$/', $subject, $m)) {
+        if (! preg_match('/(?:case|else|in|return|typeof)$/', $subject, $m)) {
             // not a keyword
             return false;
         }
@@ -296,6 +305,7 @@ class JSMin {
         if ($c === "\r") {
             return "\n";
         }
+
         return ' ';
     }
 
@@ -318,6 +328,7 @@ class JSMin {
     protected function peek()
     {
         $this->lookAhead = $this->get();
+
         return $this->lookAhead;
     }
 
@@ -347,6 +358,7 @@ class JSMin {
                 if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
                     $this->keptComment .= "/{$comment}";
                 }
+
                 return;
             }
         }
@@ -361,27 +373,29 @@ class JSMin {
     {
         $this->get();
         $comment = '';
-        for(;;) {
+        for (;;) {
             $get = $this->get();
             if ($get === '*') {
                 if ($this->peek() === '/') { // end of comment reached
                     $this->get();
                     if (0 === strpos($comment, '!')) {
                         // preserved by YUI Compressor
-                        if (!$this->keptComment) {
+                        if (! $this->keptComment) {
                             // don't prepend a newline if two comments right after one another
                             $this->keptComment = "\n";
                         }
                         $this->keptComment .= "/*!" . substr($comment, 1) . "*/\n";
-                    } else if (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
+                    } elseif (preg_match('/^@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
                         // IE conditional
                         $this->keptComment .= "/*{$comment}*/";
                     }
+
                     return;
                 }
             } elseif ($get === null) {
                 throw new UnterminatedCommentException(
-                    "JSMin: Unterminated comment at byte {$this->inputIndex}: /*{$comment}");
+                    "JSMin: Unterminated comment at byte {$this->inputIndex}: /*{$comment}"
+                );
             }
             $comment .= $get;
         }
@@ -400,13 +414,16 @@ class JSMin {
                 case '/':
                     $this->consumeSingleLineComment();
                     $get = "\n";
+
                     break;
                 case '*':
                     $this->consumeMultipleLineComment();
                     $get = ' ';
+
                     break;
             }
         }
+
         return $get;
     }
 }

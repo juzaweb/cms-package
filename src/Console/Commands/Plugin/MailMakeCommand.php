@@ -28,7 +28,7 @@ class MailMakeCommand extends GeneratorCommand
 
     protected $argumentName = 'name';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         $module = $this->laravel['modules'];
 
@@ -59,7 +59,7 @@ class MailMakeCommand extends GeneratorCommand
 
         return (new Stub('/mail.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 

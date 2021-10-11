@@ -6,10 +6,10 @@ trait ResponseMessage
 {
     protected function response($data, $status)
     {
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             $data = [$data];
         }
-    
+
         if (request()->has('redirect')) {
             $data['redirect'] = request()->input('redirect');
         }
@@ -17,7 +17,7 @@ trait ResponseMessage
         if (request()->ajax()) {
             return response()->json([
                 'status' => $status,
-                'data' => $data
+                'data' => $data,
             ]);
         }
 

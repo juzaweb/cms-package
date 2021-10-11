@@ -15,17 +15,14 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Facades\HookAction;
 
 class PostTypeServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-
     }
 
     public function register()
     {
-
     }
 }

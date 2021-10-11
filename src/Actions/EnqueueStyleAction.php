@@ -28,11 +28,11 @@ class EnqueueStyleAction extends Action
         $scripts = get_enqueue_scripts(false);
         $styles = get_enqueue_styles(false);
 
-        foreach($styles as $style) {
+        foreach ($styles as $style) {
             echo '<link rel="stylesheet" type="text/css" href="'. e($style->get('src')) .'?v='. e($style->get('ver')) .'">';
         }
 
-        foreach($scripts as $script) {
+        foreach ($scripts as $script) {
             echo '<script src="'. e($script->get('src')) .'?v='. e($script->get('ver')) .'"></script>';
         }
     }
@@ -42,11 +42,11 @@ class EnqueueStyleAction extends Action
         $scripts = get_enqueue_scripts(true);
         $styles = get_enqueue_styles(true);
 
-        foreach($styles as $style) {
+        foreach ($styles as $style) {
             echo '<link rel="stylesheet" type="text/css" href="'. e($style->get('src')) .'?v='. e($style->get('ver')) .'">';
         }
 
-        foreach($scripts as $script) {
+        foreach ($scripts as $script) {
             echo '<script src="'. e($script->get('src')) .'?v='. e($script->get('ver')) .'"></script>';
         }
     }

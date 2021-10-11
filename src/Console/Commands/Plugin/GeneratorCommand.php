@@ -36,7 +36,7 @@ abstract class GeneratorCommand extends Command
     {
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
 
-        if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
+        if (! $this->laravel['files']->isDirectory($dir = dirname($path))) {
             $this->laravel['files']->makeDirectory($dir, 0777, true);
         }
 
@@ -69,7 +69,7 @@ abstract class GeneratorCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return '';
     }
@@ -90,6 +90,7 @@ abstract class GeneratorCommand extends Command
         $namespace .= '\\' . $this->getDefaultNamespace();
         $namespace .= '\\' . $extra;
         $namespace = str_replace('/', '\\', $namespace);
+
         return trim($namespace, '\\');
     }
 
@@ -101,6 +102,7 @@ abstract class GeneratorCommand extends Command
     public function getDomainName()
     {
         $module = $this->laravel['modules']->find($this->getModuleName());
+
         return $module->getExtraJuzaweb('domain');
     }
 }

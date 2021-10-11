@@ -2,17 +2,19 @@
 
 namespace Juzaweb\Http\Controllers\Backend\Setting;
 
-use Juzaweb\Models\Config;
 use Illuminate\Http\Request;
 use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Models\Config;
 
 class SeoSettingController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('juzaweb::backend.setting.seo.index');
     }
-    
-    public function save(Request $request) {
+
+    public function save(Request $request)
+    {
         $this->validateRequest([
             'author_name' => 'required|string|max:300',
             'movies_title' => 'required|string|max:300',
@@ -50,7 +52,7 @@ class SeoSettingController extends Controller
             'description' => trans('juzaweb::app.home_description'),
             'keywords' => trans('juzaweb::app.keywords'),
         ]);
-    
+
         $configs = $request->only([
             'title',
             'description',
@@ -78,11 +80,11 @@ class SeoSettingController extends Controller
             'pinterest',
             'youtube',
         ]);
-    
+
         foreach ($configs as $key => $config) {
             Config::setConfig($key, $config);
         }
-    
+
         return response()->json([
             'status' => 'success',
             'message' => trans('juzaweb::app.saved_successfully'),

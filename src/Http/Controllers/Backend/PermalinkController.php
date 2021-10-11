@@ -10,11 +10,11 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Juzaweb\Http\Controllers\BackendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
+use Juzaweb\Http\Controllers\BackendController;
 
 class PermalinkController extends BackendController
 {
@@ -41,8 +41,8 @@ class PermalinkController extends BackendController
             if (empty(Arr::get($permalink, 'base'))) {
                 return $this->error([
                     'message' => trans('validation.required', [
-                        'attribute' => trans('juzaweb::app.permalink_base')
-                    ])
+                        'attribute' => trans('juzaweb::app.permalink_base'),
+                    ]),
                 ]);
             }
         }
@@ -53,7 +53,7 @@ class PermalinkController extends BackendController
 
         return $this->success([
             'message' => trans('juzaweb::app.save_successfully'),
-            'redirect' => route('admin.permalink')
+            'redirect' => route('admin.permalink'),
         ]);
     }
 }

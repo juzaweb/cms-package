@@ -26,7 +26,7 @@ class ThemeConfig
             return ConfigModel::where('theme', '=', $this->theme)
                 ->get([
                     'code',
-                    'value'
+                    'value',
                 ])->keyBy('code')
                 ->map(function ($item) {
                     return $item->value;
@@ -54,9 +54,9 @@ class ThemeConfig
 
         $config = ConfigModel::updateOrCreate([
             'code' => $key,
-            'theme' => $this->theme
+            'theme' => $this->theme,
         ], [
-            'value' => $value
+            'value' => $value,
         ]);
 
         $this->configs[$key] = $value;

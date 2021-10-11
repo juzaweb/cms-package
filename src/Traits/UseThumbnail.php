@@ -2,25 +2,24 @@
 
 namespace Juzaweb\Traits;
 
-use Juzaweb\Models\MediaFile;
-use Illuminate\Support\Str;
-
 trait UseThumbnail
 {
-    public function getThumbnail($thumb = true) {
+    public function getThumbnail($thumb = true)
+    {
         if ($this->resize) {
             if ($thumb) {
                 return upload_url($this->thumbnail);
             }
-            
+
             return upload_url(str_replace('thumbs/', '', $this->thumbnail));
         }
-        
+
         return upload_url($this->thumbnail);
     }
 
-    protected function resizeThumbnail($thumbnail) {
-        if (!isset($this->resize) || empty($this->resize)) {
+    protected function resizeThumbnail($thumbnail)
+    {
+        if (! isset($this->resize) || empty($this->resize)) {
             return $thumbnail;
         }
 
@@ -33,13 +32,12 @@ trait UseThumbnail
         }
 
         if (file_exists($thumb_path)) {
-
             $width = \Image::make($thumb_path)->width();
 
             if ($width > $w) {
                 $new_file_path = $this->getDirPathThumbnail($thumbnail) . '/thumbs/';
 
-                if (!is_dir($new_file_path)) {
+                if (! is_dir($new_file_path)) {
                     mkdir($new_file_path);
                 }
 
@@ -47,6 +45,7 @@ trait UseThumbnail
                 $img = \Image::make($thumb_path);
                 $img->fit($w, $h);
                 $img->save($new_file_path, 90);
+
                 return $new_file_path;
             }
 
@@ -56,23 +55,29 @@ trait UseThumbnail
         return null;
     }
 
-    protected function getFileNameThumbnail($thumbnail) {
+    protected function getFileNameThumbnail($thumbnail)
+    {
         return explode('/', $thumbnail)[count(explode('/', $thumbnail)) - 1];
     }
 
-    protected function getDirPathThumbnail($thumbnail) {
+    protected function getDirPathThumbnail($thumbnail)
+    {
         $path = $this->getPathThumbnail($thumbnail);
         $file_name = $this->getFileNameThumbnail($thumbnail);
+
         return str_replace('/' . $file_name, '', $path);
     }
 
-    protected function getPathThumbnail($thumbnail) {
+    protected function getPathThumbnail($thumbnail)
+    {
         return \Storage::disk('public')->path($thumbnail);
     }
 
-    protected function cutPathThumbnail($thumbnail) {
+    protected function cutPathThumbnail($thumbnail)
+    {
         if ($thumbnail) {
             $upload_path = \Storage::disk('public')->path('');
+
             return str_replace($upload_path, '', $thumbnail);
         }
 

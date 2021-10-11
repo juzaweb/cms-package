@@ -48,11 +48,10 @@ class MediaFile extends Model
         'size',
     ];
 
-
-
     public function delete()
     {
         Storage::disk(config('juzaweb.filemanager.disk'))->delete($this->path);
+
         return parent::delete();
     }
 

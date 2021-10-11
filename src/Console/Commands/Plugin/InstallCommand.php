@@ -44,7 +44,7 @@ class InstallCommand extends Command
         }
 
         $pluginName = $this->argument('name');
-        if (!file_exists($path = plugin_path($pluginName, 'composer.json'))) {
+        if (! file_exists($path = plugin_path($pluginName, 'composer.json'))) {
             $this->error("File 'composer.json' does not exist in your project root.");
 
             return;
@@ -69,7 +69,7 @@ class InstallCommand extends Command
      */
     protected function installFromFile()
     {
-        if (!file_exists($path = base_path('plugin.json'))) {
+        if (! file_exists($path = base_path('plugin.json'))) {
             $this->error("File 'plugin.json' does not exist in your project root.");
 
             return;
@@ -121,7 +121,7 @@ class InstallCommand extends Command
 
         $installer->run();
 
-        if (!$this->option('no-update')) {
+        if (! $this->option('no-update')) {
             $this->call('plugin:update', [
                 'module' => $installer->getModuleName(),
             ]);

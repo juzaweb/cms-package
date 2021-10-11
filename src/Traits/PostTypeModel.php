@@ -17,10 +17,10 @@ namespace Juzaweb\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Comment;
 use Juzaweb\Models\Taxonomy;
-use Illuminate\Support\Str;
 
 /**
  * @method Builder wherePublish()
@@ -29,12 +29,12 @@ use Illuminate\Support\Str;
  */
 trait PostTypeModel
 {
-    use ResourceModel,
-        PostTypeSearch,
-        UseSlug,
-        UseThumbnail,
-        UseChangeBy,
-        UseDescription;
+    use ResourceModel;
+    use PostTypeSearch;
+    use UseSlug;
+    use UseThumbnail;
+    use UseChangeBy;
+    use UseDescription;
 
     /**
      * Create Builder for frontend
@@ -66,7 +66,7 @@ trait PostTypeModel
     {
         return self::with([
             'taxonomies',
-            'createdBy'
+            'createdBy',
         ])
             ->wherePublish();
     }
@@ -108,7 +108,7 @@ trait PostTypeModel
         }
 
         if ($keyword = Arr::get($params, 'keyword')) {
-            $builder->where(function (Builder $q) use ($keyword)  {
+            $builder->where(function (Builder $q) use ($keyword) {
                 foreach ($this->searchFields as $key => $attribute) {
                     $q->orWhere($attribute, 'like', '%'. $keyword .'%');
                 }
@@ -122,7 +122,7 @@ trait PostTypeModel
         $taxonomies = HookAction::getTaxonomies($this->getPostType('key'));
         foreach ($taxonomies as $key => $taxonomy) {
             if ($ids = Arr::get($params, $key)) {
-                if (!is_array($ids)) {
+                if (! is_array($ids)) {
                     $ids = [$ids];
                 }
 
@@ -184,9 +184,9 @@ trait PostTypeModel
     {
         $ids = $this->getTaxonomies($taxonomy)->pluck('id')->toArray();
 
-        return self::whereHas('taxonomies', function (Builder $q) use($ids) {
-                $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
-            })
+        return self::whereHas('taxonomies', function (Builder $q) use ($ids) {
+            $q->whereIn("{$q->getModel()->getTable()}.id", $ids);
+        })
             ->where('id', '!=', $this->id)
             ->take($limit)
             ->get();
@@ -216,7 +216,7 @@ trait PostTypeModel
 
         $this->taxonomies()
             ->syncWithoutDetaching(combine_pivot($data, [
-                'term_type' => $postType
+                'term_type' => $postType,
             ]), ['term_type' => $postType]);
 
         $taxonomies = Taxonomy::where('taxonomy', '=', $taxonomy)
@@ -225,7 +225,7 @@ trait PostTypeModel
 
         foreach ($taxonomies as $taxonomy) {
             $taxonomy->update([
-                'total_post' => $taxonomy->posts()->count()
+                'total_post' => $taxonomy->posts()->count(),
             ]);
         }
     }
@@ -256,6 +256,7 @@ trait PostTypeModel
     public function scopeWherePublish($builder)
     {
         $builder->where('status', '=', 'publish');
+
         return $builder;
     }
 
@@ -270,6 +271,7 @@ trait PostTypeModel
         $builder->whereHas('taxonomies', function (Builder $q) use ($taxonomy) {
             $q->where($q->getModel()->getTable() . '.id', $taxonomy);
         });
+
         return $builder;
     }
 
@@ -284,6 +286,7 @@ trait PostTypeModel
         $builder->whereHas('taxonomies', function (Builder $q) use ($taxonomies) {
             $q->whereIn($q->getModel()->getTable() . '.id', $taxonomies);
         });
+
         return $builder;
     }
 
@@ -295,7 +298,7 @@ trait PostTypeModel
      */
     public function commentTemplate($view = null)
     {
-        if (empty($view) || !view()->exists($view)) {
+        if (empty($view) || ! view()->exists($view)) {
             $view = 'juzaweb::items.frontend_comment';
         }
 

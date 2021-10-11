@@ -33,7 +33,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected $description = 'Create a new form request class for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Http/Requests';
     }
@@ -60,7 +60,7 @@ class RequestMakeCommand extends GeneratorCommand
 
         return (new Stub('/request.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 

@@ -40,7 +40,7 @@ class EventMakeCommand extends GeneratorCommand
 
     public function getDestinationFilePath()
     {
-        $path       = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
         $eventPath = GenerateConfigReader::read('event');
 
@@ -55,7 +55,7 @@ class EventMakeCommand extends GeneratorCommand
         return Str::studly($this->argument('name'));
     }
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         $module = $this->laravel['modules'];
 

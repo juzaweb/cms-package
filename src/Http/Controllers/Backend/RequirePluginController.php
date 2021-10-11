@@ -21,7 +21,7 @@ class RequirePluginController extends BackendController
     {
         $this->addBreadcrumb([
             'title' => trans('juzaweb::app.themes'),
-            'url' => route('admin.themes')
+            'url' => route('admin.themes'),
         ]);
 
         $title = trans('juzaweb::app.require_plugins');
@@ -54,7 +54,7 @@ class RequirePluginController extends BackendController
 
         return response()->json([
             'total' => count($result),
-            'rows' => $result
+            'rows' => $result,
         ]);
     }
 
@@ -62,7 +62,7 @@ class RequirePluginController extends BackendController
     {
         $this->validate($request, [
             'ids' => 'array|required',
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
         $ids = $request->post('ids');
@@ -80,7 +80,7 @@ class RequirePluginController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.successfully')
+            'message' => trans('juzaweb::app.successfully'),
         ]);
     }
 }

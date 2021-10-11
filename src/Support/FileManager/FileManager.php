@@ -8,8 +8,8 @@ use Illuminate\Support\Str;
 
 class FileManager
 {
-    const PACKAGE_NAME = 'filemanager';
-    const DS = '/';
+    public const PACKAGE_NAME = 'filemanager';
+    public const DS = '/';
 
     protected $config;
     protected $request;

@@ -6,10 +6,10 @@ use Illuminate\Cache\CacheManager;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Juzaweb\Contracts\ActivatorInterface;
-use Illuminate\Support\Facades\Artisan;
 use Juzaweb\Support\Json;
 
 abstract class Plugin
@@ -56,7 +56,7 @@ abstract class Plugin
     private $activator;
 
     /**
-     * @var \Illuminate\Routing\Router $router
+     * @var \Illuminate\Routing\Router
      */
     private $router;
 
@@ -107,6 +107,7 @@ abstract class Plugin
         $name = explode('/', $this->name);
         $author = Str::studly($name[0]);
         $module = Str::studly($name[1]);
+
         return $author .'/'. $module;
     }
 
@@ -203,7 +204,7 @@ abstract class Plugin
      *
      * @return Json
      */
-    public function json($file = null) : Json
+    public function json($file = null): Json
     {
         if ($file === null) {
             $file = 'composer.json';
@@ -265,6 +266,7 @@ abstract class Plugin
     {
         $this->app['events']->dispatch(sprintf('plugin.%s.' . $event, $this->getLowerName()), [$this]);
     }
+
     /**
      * Register the aliases from this plugin.
      */
@@ -310,7 +312,7 @@ abstract class Plugin
      *
      * @return bool
      */
-    public function isStatus(bool $status) : bool
+    public function isStatus(bool $status): bool
     {
         return $this->activator->hasStatus($this, $status);
     }
@@ -320,7 +322,7 @@ abstract class Plugin
      *
      * @return bool
      */
-    public function isEnabled() : bool
+    public function isEnabled(): bool
     {
         return $this->activator->hasStatus($this, true);
     }
@@ -330,9 +332,9 @@ abstract class Plugin
      *
      * @return bool
      */
-    public function isDisabled() : bool
+    public function isDisabled(): bool
     {
-        return !$this->isEnabled();
+        return ! $this->isEnabled();
     }
 
     /**
@@ -394,7 +396,7 @@ abstract class Plugin
      *
      * @return string
      */
-    public function getExtraPath(string $path) : string
+    public function getExtraPath(string $path): string
     {
         return $this->getPath() . '/' . $path;
     }
@@ -450,6 +452,7 @@ abstract class Plugin
     {
         $namespace = Arr::get($this->get('autoload', []), 'psr-4');
         $namespace = array_keys($namespace)[0];
+
         return $namespace;
     }
 
@@ -462,7 +465,7 @@ abstract class Plugin
     {
         Artisan::call('plugin:migrate', [
             'module' => $this->name,
-            '--force' => true
+            '--force' => true,
         ]);
     }
 

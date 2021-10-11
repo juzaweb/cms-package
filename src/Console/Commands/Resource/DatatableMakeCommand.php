@@ -37,6 +37,7 @@ class DatatableMakeCommand extends GeneratorCommand
      * @var string
      */
     protected $description = 'Generate new restful datatable for the specified plugin.';
+
     /**
      * Get template contents.
      *
@@ -103,17 +104,17 @@ class DatatableMakeCommand extends GeneratorCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         return array_merge([
-            'MODULENAME'        => $module->getStudlyName(),
-            'NAMESPACE'         => $module->getStudlyName(),
-            'DOMAIN_NAME'       => $module->getDomainName(),
-            'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
-            'CLASS'             => $this->getDatatableNameWithoutNamespace(),
-            'LOWER_NAME'        => $module->getLowerName(),
-            'SNAKE_NAME'        => $module->getSnakeName(),
-            'MODULE'            => $this->getModuleName(),
-            'NAME'              => $this->getModuleName(),
-            'STUDLY_NAME'       => $module->getStudlyName(),
-            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace')
+            'MODULENAME' => $module->getStudlyName(),
+            'NAMESPACE' => $module->getStudlyName(),
+            'DOMAIN_NAME' => $module->getDomainName(),
+            'CLASS_NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getDatatableNameWithoutNamespace(),
+            'LOWER_NAME' => $module->getLowerName(),
+            'SNAKE_NAME' => $module->getSnakeName(),
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getModuleName(),
+            'STUDLY_NAME' => $module->getStudlyName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
         ], $this->getDataModelStub());
     }
 
@@ -130,7 +131,7 @@ class DatatableMakeCommand extends GeneratorCommand
         ];
     }
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Http/Datatables';
     }
@@ -152,7 +153,7 @@ class DatatableMakeCommand extends GeneratorCommand
             $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
             $data['QUERY_TABLE'] = $this->stubRender('resource/datatable/query-model.stub', [
-                'MODEL_NAME' => $model
+                'MODEL_NAME' => $model,
             ]);
 
             $data['USE_NAMESPACE'] = $this->stubRender('resource/datatable/use-namespaces.stub', [
@@ -160,7 +161,7 @@ class DatatableMakeCommand extends GeneratorCommand
             ]);
 
             $data['BULK_ACTIONS'] = $this->stubRender('resource/datatable/bulk-actions.stub', [
-                'MODEL_NAME' => $model
+                'MODEL_NAME' => $model,
             ]);
 
             $data['COLUMNS'] = $this->getDataColumns($module);
@@ -175,7 +176,7 @@ class DatatableMakeCommand extends GeneratorCommand
         $columns = explode(',', $this->option('columns'));
         $columns = collect($columns)
             ->filter(function ($item) {
-                return !in_array($item, [
+                return ! in_array($item, [
                     'description',
                     'content',
                 ]);
@@ -184,7 +185,7 @@ class DatatableMakeCommand extends GeneratorCommand
         foreach ($columns as $key => $column) {
             if (in_array($column, ['name', 'title', 'subject'])) {
                 $result = $this->stubRender(
-                'resource/datatable/action-column.stub',
+                    'resource/datatable/action-column.stub',
                     [
                     'MODULE_DOMAIN' => $module->getDomainName(),
                     'COLUMN' => $column,

@@ -49,7 +49,7 @@ use Juzaweb\Traits\PostTypeModel;
 class Post extends Model
 {
     use PostTypeModel;
-    
+
     protected $table = 'posts';
     protected $postType = 'posts';
 
@@ -59,7 +59,7 @@ class Post extends Model
         'status',
         'views',
         'thumbnail',
-        'slug'
+        'slug',
     ];
 
     protected $searchFields = [

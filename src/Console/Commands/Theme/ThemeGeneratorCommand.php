@@ -4,8 +4,8 @@ namespace Juzaweb\Console\Commands\Theme;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ThemeGeneratorCommand extends Command
 {
@@ -144,7 +144,7 @@ class ThemeGeneratorCommand extends Command
      */
     protected function makeDir($directory)
     {
-        if (!File::isDirectory($directory)) {
+        if (! File::isDirectory($directory)) {
             File::makeDirectory($directory, 0755, true);
         }
     }
@@ -194,6 +194,7 @@ class ThemeGeneratorCommand extends Command
         ];
 
         $replaceContents = str_replace($mainString, $replaceString, $contents);
+
         return $replaceContents;
     }
 

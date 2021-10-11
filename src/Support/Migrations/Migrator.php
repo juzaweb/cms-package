@@ -83,7 +83,7 @@ class Migrator
     /**
      * Get migration files.
      *
-     * @param boolean $reverse
+     * @param bool $reverse
      * @return array
      */
     public function getMigrations($reverse = false)

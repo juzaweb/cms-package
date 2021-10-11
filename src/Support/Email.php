@@ -14,7 +14,7 @@ class Email
     protected $priority = 1;
     protected $subject;
     protected $body;
-    
+
     /**
      * Make email service
      * */
@@ -22,7 +22,7 @@ class Email
     {
         return new Email();
     }
-    
+
     /**
      * Set template for email by template code
      *
@@ -32,10 +32,10 @@ class Email
     public function withTemplate(string $templateCode)
     {
         $this->template = $templateCode;
-        
+
         return $this;
     }
-    
+
     /**
      * Set emails will send
      *
@@ -49,10 +49,10 @@ class Email
         } else {
             $this->emails = [$emails];
         }
-    
+
         return $this;
     }
-    
+
     /**
      * Set params for email
      *
@@ -62,44 +62,44 @@ class Email
     public function setParams(array $params)
     {
         $this->params = $params;
-    
+
         return $this;
     }
-    
+
     public function setPriority(int $priority)
     {
         $this->priority = $priority;
-    
+
         return $this;
     }
-    
+
     public function setSubject($subject)
     {
         $this->subject = $subject;
-    
+
         return $this;
     }
-    
+
     public function setBody($body)
     {
         $this->body = $body;
-    
+
         return $this;
     }
-    
+
     public function send()
     {
         $templateId = $this->validate();
         $data = [];
-        
+
         if ($this->subject) {
             $data['subject'] = $this->subject;
         }
-        
+
         if ($this->body) {
             $data['body'] = $this->body;
         }
-        
+
         foreach ($this->emails as $email) {
             $emailList = EmailList::create([
                 'email' => $email,
@@ -113,16 +113,18 @@ class Email
             switch ($method) {
                 case 'sync':
                     (new SendEmail($emailList))->send();
+
                     break;
                 case 'queue':
                     SendEmailJob::dispatch($emailList);
+
                     break;
             }
         }
 
         return true;
     }
-    
+
     protected function validate()
     {
         if (empty($this->template)) {
@@ -133,7 +135,7 @@ class Email
         if (empty($template)) {
             throw new \Exception("Email template [{$this->template}] does not exist.");
         }
-        
+
         return $template->id;
     }
 }

@@ -3,6 +3,7 @@
 namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Juzaweb\Console\Commands\InstallCommand;
 use Juzaweb\Console\Commands\Plugin\ActionMakeCommand;
 use Juzaweb\Console\Commands\Plugin\CommandMakeCommand;
 use Juzaweb\Console\Commands\Plugin\ControllerMakeCommand;
@@ -11,10 +12,7 @@ use Juzaweb\Console\Commands\Plugin\DumpCommand;
 use Juzaweb\Console\Commands\Plugin\EnableCommand;
 use Juzaweb\Console\Commands\Plugin\EventMakeCommand;
 use Juzaweb\Console\Commands\Plugin\FactoryMakeCommand;
-use Juzaweb\Console\Commands\InstallCommand;
 use Juzaweb\Console\Commands\Plugin\JobMakeCommand;
-use Juzaweb\Console\Commands\Resource\DatatableMakeCommand;
-use Juzaweb\Console\Commands\Resource\JuzawebResouceMakeCommand;
 use Juzaweb\Console\Commands\Plugin\LaravelModulesV6Migrator;
 use Juzaweb\Console\Commands\Plugin\ListCommand;
 use Juzaweb\Console\Commands\Plugin\ListenerMakeCommand;
@@ -38,15 +36,17 @@ use Juzaweb\Console\Commands\Plugin\RouteProviderMakeCommand;
 use Juzaweb\Console\Commands\Plugin\RuleMakeCommand;
 use Juzaweb\Console\Commands\Plugin\SeedCommand;
 use Juzaweb\Console\Commands\Plugin\SeedMakeCommand;
-use Juzaweb\Console\Commands\SendMailCommand;
 use Juzaweb\Console\Commands\Plugin\SetupCommand;
 use Juzaweb\Console\Commands\Plugin\TestMakeCommand;
 use Juzaweb\Console\Commands\Plugin\UnUseCommand;
-use Juzaweb\Console\Commands\UpdateCommand;
 use Juzaweb\Console\Commands\Plugin\UseCommand;
+use Juzaweb\Console\Commands\Resource\DatatableMakeCommand;
+use Juzaweb\Console\Commands\Resource\JuzawebResouceMakeCommand;
+use Juzaweb\Console\Commands\SendMailCommand;
 use Juzaweb\Console\Commands\Theme\ThemeGeneratorCommand;
 use Juzaweb\Console\Commands\Theme\ThemeListCommand;
 use Juzaweb\Console\Commands\Theme\ThemePublishCommand;
+use Juzaweb\Console\Commands\UpdateCommand;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
@@ -99,7 +99,7 @@ class ConsoleServiceProvider extends ServiceProvider
         ThemePublishCommand::class,
         ActionMakeCommand::class,
         DatatableMakeCommand::class,
-        JuzawebResouceMakeCommand::class
+        JuzawebResouceMakeCommand::class,
     ];
 
     /**

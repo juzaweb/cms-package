@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Juzaweb\Events\EnvironmentSaved;
 use Juzaweb\Support\Manager\EnvironmentManager;
-use Illuminate\Support\Facades\Validator;
 
 class EnvironmentController extends Controller
 {
@@ -30,12 +30,12 @@ class EnvironmentController extends Controller
     public function save(Request $request, Redirector $redirect)
     {
         $rules = [
-            'database_hostname'     => 'required|string|max:150',
-            'database_port'         => 'required|numeric',
-            'database_name'         => 'required|string|max:150',
-            'database_username'     => 'required|string|max:150',
-            'database_password'     => 'nullable|string|max:150',
-            'database_prefix'     => 'nullable|string|max:10',
+            'database_hostname' => 'required|string|max:150',
+            'database_port' => 'required|numeric',
+            'database_name' => 'required|string|max:150',
+            'database_username' => 'required|string|max:150',
+            'database_password' => 'nullable|string|max:150',
+            'database_prefix' => 'nullable|string|max:10',
         ];
 
         $validator = Validator::make($request->all(), $rules);

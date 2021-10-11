@@ -16,6 +16,7 @@ class BladeMinifyCompiler extends BaseCompiler
     {
         $contents = parent::compileString($value);
         $contents = $this->minifyString($contents);
+
         return $contents;
     }
 

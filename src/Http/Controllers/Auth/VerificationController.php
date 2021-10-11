@@ -2,8 +2,8 @@
 
 namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Models\User;
 
 class VerificationController extends Controller
@@ -16,22 +16,23 @@ class VerificationController extends Controller
 
         if ($user) {
             DB::beginTransaction();
-    
+
             try {
                 $user->update([
                     'status' => 'active',
                     'verification_token' => null,
                 ]);
-                
+
                 DB::commit();
             } catch (\Exception $exception) {
                 DB::rollBack();
+
                 throw $exception;
             }
-            
+
             return redirect()->route('login');
         }
-        
+
         return abort(404);
     }
 }

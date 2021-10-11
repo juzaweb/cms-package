@@ -12,8 +12,8 @@ namespace Juzaweb\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Juzaweb\Http\Controllers\FrontendController;
 use Juzaweb\Facades\HookAction;
+use Juzaweb\Http\Controllers\FrontendController;
 
 class PostController extends FrontendController
 {
@@ -62,13 +62,13 @@ class PostController extends FrontendController
     {
         if (Auth::check()) {
             $this->validate($request, [
-                'content' => 'required'
+                'content' => 'required',
             ]);
         } else {
             $this->validate($request, [
                 'name' => 'required',
                 'email' => 'required|email',
-                'content' => 'required'
+                'content' => 'required',
             ]);
         }
 
@@ -81,11 +81,11 @@ class PostController extends FrontendController
 
         $post->comments()->create(array_merge($request->all(), [
             'object_type' => $permalink->get('post_type'),
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ]));
 
         return $this->success([
-            'message' => true
+            'message' => true,
         ]);
     }
 }

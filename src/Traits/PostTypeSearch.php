@@ -19,7 +19,7 @@ trait PostTypeSearch
         static::saved(function ($model) {
             Search::updateOrCreate([
                 'post_type' => $model->getPostType('key'),
-                'post_id' => $model->id
+                'post_id' => $model->id,
             ], [
                 'title' => $model->title,
                 'description' => str_words_length($model->description, 100, 250),
@@ -31,7 +31,7 @@ trait PostTypeSearch
         static::deleted(function ($model) {
             Search::where([
                 'post_type' => $model->getPostType('key'),
-                'post_id' => $model->id
+                'post_id' => $model->id,
             ])->delete();
         });
     }

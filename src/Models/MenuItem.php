@@ -10,10 +10,8 @@
 
 namespace Juzaweb\Models;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Juzaweb\Facades\HookAction;
-use Juzaweb\Models\Model;
 
 /**
  * Juzaweb\Models\MenuItem
@@ -70,7 +68,7 @@ class MenuItem extends Model
         'model_class',
         'model_id',
         'box_key',
-        'num_order'
+        'num_order',
     ];
 
     public function menu()

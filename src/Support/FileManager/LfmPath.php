@@ -4,9 +4,9 @@ namespace Juzaweb\Support\FileManager;
 
 use Illuminate\Container\Container;
 use Intervention\Image\Facades\Image;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Juzaweb\Support\FileManager\Events\ImageIsUploading;
 use Juzaweb\Support\FileManager\Events\ImageWasUploaded;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LfmPath
 {
@@ -115,7 +115,7 @@ class LfmPath
         return Container::getInstance()->makeWith(LfmItem::class, [
             'lfm' => (clone $this)->setName($this->helper->getNameFromPath($item_path)),
             'helper' => $this->helper,
-            'isDirectory' => $isDirectory
+            'isDirectory' => $isDirectory,
         ]);
     }
 
@@ -220,10 +220,12 @@ class LfmPath
         $new_file_path = $this->setName($new_file_name)->path('absolute');
 
         event(new ImageIsUploading($new_file_path));
+
         try {
             $new_file_name = $this->saveFile($file, $new_file_name);
         } catch (\Exception $e) {
             \Log::info($e);
+
             return $this->error('invalid');
         }
         // TODO should be "FileWasUploaded"
@@ -246,7 +248,7 @@ class LfmPath
 
         $new_file_name = $this->getNewName($file);
 
-        if ($this->setName($new_file_name)->exists() && !config('lfm.over_write_on_duplicate')) {
+        if ($this->setName($new_file_name)->exists() && ! config('lfm.over_write_on_duplicate')) {
             return $this->error('file-exist');
         }
 
@@ -326,7 +328,7 @@ class LfmPath
     {
         $original_image = $this->pretty($file_name);
 
-        if (!$original_image->shouldCreateThumb()) {
+        if (! $original_image->shouldCreateThumb()) {
             return;
         }
 

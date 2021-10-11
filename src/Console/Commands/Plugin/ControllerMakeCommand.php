@@ -102,7 +102,7 @@ class ControllerMakeCommand extends GeneratorCommand
         return class_basename($this->getControllerName());
     }
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Http/Controllers';
     }
@@ -132,18 +132,18 @@ class ControllerMakeCommand extends GeneratorCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         return [
-            'MODULENAME'        => $module->getStudlyName(),
-            'CONTROLLERNAME'    => $this->getControllerName(),
-            'NAMESPACE'         => $module->getStudlyName(),
-            'DOMAIN_NAME'       => $module->getDomainName(),
-            'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
-            'CLASS'             => $this->getControllerNameWithoutNamespace(),
-            'LOWER_NAME'        => $module->getLowerName(),
-            'SNAKE_NAME'        => $module->getSnakeName(),
-            'MODULE'            => $this->getModuleName(),
-            'NAME'              => $this->getModuleName(),
-            'STUDLY_NAME'       => $module->getStudlyName(),
-            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),
+            'MODULENAME' => $module->getStudlyName(),
+            'CONTROLLERNAME' => $this->getControllerName(),
+            'NAMESPACE' => $module->getStudlyName(),
+            'DOMAIN_NAME' => $module->getDomainName(),
+            'CLASS_NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getControllerNameWithoutNamespace(),
+            'LOWER_NAME' => $module->getLowerName(),
+            'SNAKE_NAME' => $module->getSnakeName(),
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getModuleName(),
+            'STUDLY_NAME' => $module->getStudlyName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
         ];
     }
 }

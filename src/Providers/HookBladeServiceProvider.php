@@ -27,6 +27,5 @@ class HookBladeServiceProvider extends ServiceProvider
         Blade::directive('apply_filters', function ($expression) {
             return "<?php echo app(\Juzaweb\Contracts\EventyContract::class)->filter({$expression}); ?>";
         });
-        
     }
 }

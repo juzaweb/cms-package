@@ -39,7 +39,7 @@ class AdminController extends Controller
             'name' => trans('juzaweb::app.name'),
             'email' => trans('juzaweb::app.email'),
             'password' => trans('juzaweb::app.password'),
-            'password_confirmation' => trans('juzaweb::app.confirm_password')
+            'password_confirmation' => trans('juzaweb::app.confirm_password'),
         ]);
 
         if ($validator->fails()) {
@@ -50,6 +50,7 @@ class AdminController extends Controller
         }
 
         DB::beginTransaction();
+
         try {
             $model = new User();
             $model->fill($request->all());
@@ -59,6 +60,7 @@ class AdminController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 

@@ -10,8 +10,6 @@
 
 namespace Juzaweb\Contracts;
 
-
 interface GlobalDataContract
 {
-
 }

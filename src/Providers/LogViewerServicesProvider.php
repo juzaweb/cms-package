@@ -11,9 +11,9 @@
 namespace Juzaweb\Providers;
 
 use Arcanedev\LogViewer\Utilities\LogLevels;
-use Juzaweb\Support\ServiceProvider;
 use Juzaweb\Contracts\LogViewer;
 use Juzaweb\Contracts\Utilities;
+use Juzaweb\Support\ServiceProvider;
 
 class LogViewerServicesProvider extends ServiceProvider
 {
@@ -97,8 +97,8 @@ class LogViewerServicesProvider extends ServiceProvider
     private function registerFilesystem(): void
     {
         $this->app->singleton(Utilities\Filesystem::class, function ($app) {
-            /** @var  \Illuminate\Config\Repository  $config */
-            $config     = $app['config'];
+            /** @var \Illuminate\Config\Repository $config */
+            $config = $app['config'];
             $filesystem = new Filesystem($app['files'], $config->get('log-viewer.storage-path'));
 
             return $filesystem->setPattern(

@@ -3,8 +3,8 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Juzaweb\Http\Controllers\BackendController;
-use Juzaweb\Traits\PostTypeController;
 use Juzaweb\Models\Post;
+use Juzaweb\Traits\PostTypeController;
 
 class PostController extends BackendController
 {

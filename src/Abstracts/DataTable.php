@@ -15,8 +15,8 @@
 namespace Juzaweb\Abstracts;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 abstract class DataTable
 {
@@ -112,7 +112,7 @@ abstract class DataTable
         return view('juzaweb::backend.items.datatable_item', [
             'value' => $value,
             'row' => $row,
-            'actions' => $this->rowAction($row)
+            'actions' => $this->rowAction($row),
         ])
             ->render();
     }
@@ -120,7 +120,7 @@ abstract class DataTable
     private function paramsToArray($params)
     {
         foreach ($params as $key => $var) {
-            if (!in_array(gettype($var), ['string', 'array', 'integer'])) {
+            if (! in_array(gettype($var), ['string', 'array', 'integer'])) {
                 throw new \Exception('Mount data can\'t support. Only supported string, array, integer');
             }
         }

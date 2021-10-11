@@ -11,8 +11,8 @@
 namespace Juzaweb\Tests\Feature\Backend;
 
 use Illuminate\Support\Collection;
-use Juzaweb\Facades\HookAction;
 use Illuminate\Support\Facades\Auth;
+use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Model;
 use Juzaweb\Models\User;
 use Juzaweb\Tests\TestCase;

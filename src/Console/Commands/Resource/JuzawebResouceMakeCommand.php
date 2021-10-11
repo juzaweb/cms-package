@@ -38,14 +38,14 @@ class JuzawebResouceMakeCommand extends ResourceCommand
         $table = $this->argument('name');
         $realTable = $this->module->getDomainName().'_'.$table;
 
-        if (!Schema::hasTable($realTable)) {
+        if (! Schema::hasTable($realTable)) {
             $this->error("Table [{$realTable}] does not exist. Please create table.");
             exit(1);
         }
 
         $this->columns = collect(Schema::getColumnListing($realTable))
             ->filter(function ($item) {
-                return !in_array($item, [
+                return ! in_array($item, [
                     'id',
                     'created_at',
                     'updated_at',

@@ -28,10 +28,11 @@ class Config extends Model
     protected $table = 'configs';
     protected $fillable = [
         'code',
-        'value'
+        'value',
     ];
 
-    public static function getConfigs() {
+    public static function getConfigs()
+    {
         return [
             'title',
             'description',
@@ -57,8 +58,9 @@ class Config extends Model
             'google_analytics',
         ];
     }
-    
-    public static function getConfig($key, $default = null) {
+
+    public static function getConfig($key, $default = null)
+    {
         $value = Cache::rememberForever('jw_config.' . $key, function () use ($key, $default) {
             $config = Config::where('code', '=', $key)->first(['value']);
 
@@ -75,8 +77,9 @@ class Config extends Model
 
         return $value;
     }
-    
-    public static function setConfig($key, $value = null) {
+
+    public static function setConfig($key, $value = null)
+    {
         if (is_array($value)) {
             $value = array_merge(get_config($key, []), $value);
             $value = json_encode($value);

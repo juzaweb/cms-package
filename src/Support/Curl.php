@@ -16,13 +16,13 @@ class Curl
 
     public function get($url, $params = [], $headers = [])
     {
-        if (!empty(explode('?', $url)[1])) {
+        if (! empty(explode('?', $url)[1])) {
             $query = explode('?', $url)[1];
             $query = explode('&', $query);
 
             foreach ($query as $val) {
                 $split = explode('=', $val);
-                if (!empty($split[1])) {
+                if (! empty($split[1])) {
                     $params[$split[0]] = $split[1];
                 }
             }
@@ -50,7 +50,7 @@ class Curl
 
         $data = [
             'connect_timeout' => 20,
-            'headers' => $headers
+            'headers' => $headers,
         ];
 
         if ($params) {
@@ -78,6 +78,7 @@ class Curl
     {
         try {
             $this->client->head($url);
+
             return true;
         } catch (ClientException $e) {
             return false;

@@ -2,12 +2,12 @@
 
 namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Events\EmailHook;
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Juzaweb\Events\EmailHook;
+use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Models\User;
 use Juzaweb\Traits\ResponseMessage;
 
@@ -17,27 +17,27 @@ class RegisterController extends Controller
 
     public function index()
     {
-        if (!get_config('users_can_register', 1)) {
+        if (! get_config('users_can_register', 1)) {
             return abort(403, trans('juzaweb::message.register-form.register-closed'));
         }
-        
+
         do_action('auth.register.index');
 
         do_action('recaptcha.init');
-        
+
         return view('juzaweb::auth.register', [
-            'title' => trans('juzaweb::app.sign-up')
+            'title' => trans('juzaweb::app.sign-up'),
         ]);
     }
-    
+
     public function register(Request $request)
     {
         do_action('auth.register.handle', $request);
-    
-        if (!get_config('users_can_register', 1)) {
+
+        if (! get_config('users_can_register', 1)) {
             return $this->error(trans('juzaweb::message.register-form.register-closed'));
         }
-        
+
         // Validate register
         $request->validate([
             'email' => 'required|email|max:150|unique:users,email',
@@ -48,8 +48,9 @@ class RegisterController extends Controller
         $name = $request->post('name');
         $email = $request->post('email');
         $password = $request->post('password');
-        
+
         DB::beginTransaction();
+
         try {
             $user = User::create([
                 'name' => $name,
@@ -60,6 +61,7 @@ class RegisterController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 
@@ -85,7 +87,6 @@ class RegisterController extends Controller
                 'redirect' => route('register'),
                 'message' => trans('juzaweb::app.registered_success_verify'),
             ]);
-
         } else {
             event(new EmailHook('register_success', [
                 'params' => [

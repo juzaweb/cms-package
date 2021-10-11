@@ -13,5 +13,3 @@
  */
 
 Route::postTypeResource('posts', 'Backend\PostController');
-
-

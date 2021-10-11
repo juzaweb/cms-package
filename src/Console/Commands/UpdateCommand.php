@@ -11,7 +11,6 @@
 namespace Juzaweb\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Juzaweb\Support\Manager\UpdateManager;
 
 class UpdateCommand extends Command

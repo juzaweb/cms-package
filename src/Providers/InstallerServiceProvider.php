@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Console\Commands\InstallCommand;
-use Illuminate\Routing\Router;
 use Juzaweb\Http\Middleware\CanInstall;
 use Juzaweb\Http\Middleware\Installed;
 

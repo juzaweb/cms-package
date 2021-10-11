@@ -27,6 +27,7 @@ class TaxonomyController extends BackendController
         $setting = $this->getSetting($taxonomy);
         $dataTable = new TaxonomyDataTable();
         $dataTable->mountData($setting->toArray());
+
         return $dataTable;
     }
 
@@ -37,19 +38,20 @@ class TaxonomyController extends BackendController
             'html' => view('juzaweb::components.tag-item', [
                 'item' => $model,
                 'name' => $taxonomy,
-            ])->render()
+            ])->render(),
         ]);
     }
 
     public function getTagComponent(Request $request, $taxonomy)
     {
         $item = Taxonomy::findOrFail($request->input('id'));
+
         return $this->response([
             'html' => view('juzaweb::components.tag-item', [
                 'item' => $item,
-                'name' => $taxonomy
+                'name' => $taxonomy,
             ])
-                ->render()
+                ->render(),
         ], true);
     }
 
@@ -61,6 +63,7 @@ class TaxonomyController extends BackendController
     protected function getPostType()
     {
         $split = explode('.', Route::currentRouteName());
+
         return Str::plural($split[count($split) - 3]);
     }
 
@@ -73,6 +76,7 @@ class TaxonomyController extends BackendController
     protected function getSetting($taxonomy)
     {
         $taxonomies = GlobalData::get('taxonomies');
+
         return $taxonomies[$this->getPostType()][$taxonomy] ?? collect([]);
     }
 
@@ -85,7 +89,7 @@ class TaxonomyController extends BackendController
     protected function validator(array $attributes)
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 
@@ -107,6 +111,7 @@ class TaxonomyController extends BackendController
     protected function getTitle($taxonomy)
     {
         $setting = $this->getSetting($taxonomy);
+
         return $setting->get('label');
     }
 
@@ -115,6 +120,7 @@ class TaxonomyController extends BackendController
         $data = $this->DataForIndex($taxonomy);
         $data['taxonomy'] = $taxonomy;
         $data['setting'] = $this->getSetting($taxonomy);
+
         return $data;
     }
 
@@ -123,6 +129,7 @@ class TaxonomyController extends BackendController
         $data = $this->DataForForm($model, $taxonomy);
         $data['taxonomy'] = $taxonomy;
         $data['setting'] = $this->getSetting($taxonomy);
+
         return $data;
     }
 }

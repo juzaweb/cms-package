@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Support\Manager;
 
-use Throwable;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Throwable;
 
 class FinalInstallManager
 {
@@ -16,7 +16,7 @@ class FinalInstallManager
      */
     public function runFinal()
     {
-        $outputLog = new BufferedOutput;
+        $outputLog = new BufferedOutput();
 
         $this->generateKey($outputLog);
         $this->publishStorage($outputLog);
@@ -35,9 +35,8 @@ class FinalInstallManager
     {
         try {
             if (config('installer.final.key')) {
-                Artisan::call('key:generate', ['--force'=> true], $outputLog);
+                Artisan::call('key:generate', ['--force' => true], $outputLog);
             }
-
         } catch (Throwable $e) {
             return static::response($e->getMessage(), $outputLog);
         }
@@ -49,7 +48,6 @@ class FinalInstallManager
     {
         try {
             Artisan::call('storage:link', [], $outputLog);
-
         } catch (Throwable $e) {
             return static::response($e->getMessage(), $outputLog);
         }
@@ -69,11 +67,10 @@ class FinalInstallManager
         try {
             Artisan::call('vendor:publish', [
                 '--tag' => 'juzaweb_assets',
-                '--force' => true
+                '--force' => true,
             ], $outputLog);
 
             Artisan::call('storage:link', [], $outputLog);
-
         } catch (Throwable $e) {
             throw $e;
         }

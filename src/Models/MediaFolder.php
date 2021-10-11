@@ -33,9 +33,9 @@ class MediaFolder extends Model
     protected $fillable = [
         'name',
         'folder_id',
-        'type'
+        'type',
     ];
-    
+
     public function files()
     {
         return $this->hasMany('Juzaweb\Models\MediaFile', 'folder_id', 'id');
@@ -50,20 +50,20 @@ class MediaFolder extends Model
     {
         return $this->hasMany(MediaFolder::class, 'folder_id', 'id');
     }
-    
+
     public function deleteFolder()
     {
         foreach ($this->folder_childs as $folder_child) {
             $folder_child->deleteFolder();
         }
-        
+
         foreach ($this->childs as $child) {
             $child->deleteFile();
         }
-        
+
         return $this->delete();
     }
-    
+
     public static function folderExists($name, $parentId)
     {
         return self::where('name', '=', $name)

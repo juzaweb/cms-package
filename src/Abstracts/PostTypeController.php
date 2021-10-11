@@ -15,6 +15,4 @@ use Juzaweb\Traits\PostTypeController as PostTypeControllerTrait;
 abstract class PostTypeController
 {
     use PostTypeControllerTrait;
-
-
 }

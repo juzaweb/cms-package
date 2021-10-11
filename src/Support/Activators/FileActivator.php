@@ -7,9 +7,9 @@ use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
+use Juzaweb\Abstracts\Plugin;
 use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Exceptions\ModuleNotFoundException;
-use Juzaweb\Abstracts\Plugin;
 
 class FileActivator implements ActivatorInterface
 {
@@ -114,7 +114,7 @@ class FileActivator implements ActivatorInterface
      */
     public function hasStatus(Plugin $module, $status): bool
     {
-        if (!isset($this->modulesStatuses[$module->getName()])) {
+        if (! isset($this->modulesStatuses[$module->getName()])) {
             return $status === false;
         }
 
@@ -153,7 +153,7 @@ class FileActivator implements ActivatorInterface
                     $classMap[] = [
                         'namespace' => $key,
                         'path' => $pluginPath .'/'. $name . '/' . $path,
-                        'domain' => $domain
+                        'domain' => $domain,
                     ];
                 }
 
@@ -161,7 +161,6 @@ class FileActivator implements ActivatorInterface
             } else {
                 throw new ModuleNotFoundException("Plugin [". $name . "] does not exists.");
             }
-
         } else {
             unset($this->modulesStatuses[$name]);
         }
@@ -175,7 +174,7 @@ class FileActivator implements ActivatorInterface
      */
     public function delete(Plugin $module): void
     {
-        if (!isset($this->modulesStatuses[$module->getName()])) {
+        if (! isset($this->modulesStatuses[$module->getName()])) {
             return;
         }
         unset($this->modulesStatuses[$module->getName()]);
@@ -203,7 +202,7 @@ return ' . var_export($this->modulesStatuses, true) .';
      */
     private function readJson(): array
     {
-        if (!$this->files->exists($this->statusesFile)) {
+        if (! $this->files->exists($this->statusesFile)) {
             return [];
         }
 
@@ -218,7 +217,7 @@ return ' . var_export($this->modulesStatuses, true) .';
      */
     private function getModulesStatuses(): array
     {
-        if (!$this->config->get('plugin.cache.enabled')) {
+        if (! $this->config->get('plugin.cache.enabled')) {
             return $this->readJson();
         }
 

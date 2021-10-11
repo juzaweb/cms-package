@@ -31,6 +31,6 @@ class Languages extends Model
     protected $fillable = [
         'key',
         'name',
-        'status'
+        'status',
     ];
 }

@@ -14,8 +14,8 @@
 
 namespace Juzaweb\Http\Controllers;
 
-use Juzaweb\Traits\ResponseMessage;
 use Juzaweb\Abstracts\Action;
+use Juzaweb\Traits\ResponseMessage;
 
 class BackendController extends Controller
 {
@@ -32,6 +32,7 @@ class BackendController extends Controller
     {
         add_filters($name . '_breadcrumb', function ($items) use ($item) {
             $items[] = $item;
+
             return $items;
         });
     }

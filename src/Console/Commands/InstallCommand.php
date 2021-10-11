@@ -15,14 +15,14 @@
 namespace Juzaweb\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Juzaweb\Models\User;
 use Juzaweb\Support\Manager\DatabaseManager;
 use Juzaweb\Support\Manager\FinalInstallManager;
 use Juzaweb\Support\Manager\InstalledFileManager;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Juzaweb\Models\User;
-use Illuminate\Support\Arr;
 
 class InstallCommand extends Command
 {
@@ -34,8 +34,7 @@ class InstallCommand extends Command
         DatabaseManager $databaseManager,
         InstalledFileManager $fileManager,
         FinalInstallManager $finalInstall
-    )
-    {
+    ) {
         $this->info('JUZAWEB CMS Installer');
         $this->info('-- Database Install');
         $result = $databaseManager->run();
@@ -65,11 +64,11 @@ class InstallCommand extends Command
         $validator = Validator::make($this->user, [
             'name' => 'required|max:150',
             'email' => 'required|email|max:150',
-            'password' => 'required|max:32|min:6'
+            'password' => 'required|max:32|min:6',
         ], [], [
             'name' => trans('juzaweb::app.name'),
             'email' => trans('juzaweb::app.email'),
-            'password' => trans('juzaweb::app.password')
+            'password' => trans('juzaweb::app.password'),
         ]);
 
         if ($validator->fails()) {
@@ -78,6 +77,7 @@ class InstallCommand extends Command
         }
 
         DB::beginTransaction();
+
         try {
             $model = new User();
             $model->fill($this->user);
@@ -87,6 +87,7 @@ class InstallCommand extends Command
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
     }

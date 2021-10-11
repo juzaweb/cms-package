@@ -8,13 +8,13 @@
  * @license    MIT
  */
 
-use Juzaweb\Facades\HookAction;
-use Juzaweb\Facades\Theme;
-use Juzaweb\Models\Menu;
-use Juzaweb\Support\Theme\MenuBuilder;
-use Juzaweb\Facades\ThemeConfig;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
+use Juzaweb\Facades\HookAction;
+use Juzaweb\Facades\Theme;
+use Juzaweb\Facades\ThemeConfig;
+use Juzaweb\Models\Menu;
+use Juzaweb\Support\Theme\MenuBuilder;
 
 function body_class($class = '')
 {
@@ -26,10 +26,11 @@ function body_class($class = '')
 function theme_assets(string $path)
 {
     $path = str_replace('assets/', '', $path);
+
     return Theme::assets($path);
 }
 
-if (!function_exists('page_url')) {
+if (! function_exists('page_url')) {
     function page_url($slug)
     {
         return url()->to($slug);
@@ -47,7 +48,7 @@ function theme_path(string $theme)
     return Theme::getThemePath($theme);
 }
 
-if (!file_exists('jw_theme_info')) {
+if (! file_exists('jw_theme_info')) {
     /**
      * Get particular theme all information.
      *
@@ -64,7 +65,7 @@ if (!file_exists('jw_theme_info')) {
     }
 }
 
-if (!function_exists('jw_current_theme')) {
+if (! function_exists('jw_current_theme')) {
     /**
      * Get current active theme
      *
@@ -88,7 +89,7 @@ if (!function_exists('jw_current_theme')) {
     }
 }
 
-if (!function_exists('jw_theme_config')) {
+if (! function_exists('jw_theme_config')) {
     /**
      * Get particular theme all information.
      *
@@ -105,14 +106,14 @@ if (!function_exists('jw_theme_config')) {
     }
 }
 
-if (!function_exists('home_page')) {
+if (! function_exists('home_page')) {
     function jw_home_page()
     {
         return apply_filters('get_home_page', get_config('home_page'));
     }
 }
 
-if (!function_exists('get_name_template_part')) {
+if (! function_exists('get_name_template_part')) {
     /**
      * Get template part name.
      *
@@ -132,7 +133,7 @@ if (!function_exists('get_name_template_part')) {
             }
         }
 
-        if (!in_array($type, ['post', 'page'])) {
+        if (! in_array($type, ['post', 'page'])) {
             $template = "{$slug}-{$type}";
             if (view()->exists('theme::template-parts.' . $template)) {
                 return $template;
@@ -143,7 +144,7 @@ if (!function_exists('get_name_template_part')) {
     }
 }
 
-if (!function_exists('get_template_part')) {
+if (! function_exists('get_template_part')) {
 
     /**
      * Loads a template part into a template.
@@ -163,12 +164,12 @@ if (!function_exists('get_template_part')) {
         $template = get_name_template_part($type, $slug, $name);
 
         return view('theme::template-parts.'.$template, [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 }
 
-if (!function_exists('jw_menu_items')) {
+if (! function_exists('jw_menu_items')) {
     /**
      * Get menu item in menu
      *
@@ -183,14 +184,14 @@ if (!function_exists('jw_menu_items')) {
     }
 }
 
-if (!function_exists('jw_page_menu')) {
+if (! function_exists('jw_page_menu')) {
     function jw_page_menu($args)
     {
         return trans('juzaweb::app.menu_not_found');
     }
 }
 
-if (!function_exists('jw_nav_menu')) {
+if (! function_exists('jw_nav_menu')) {
     function jw_nav_menu($args = [])
     {
         $defaults = [
@@ -224,28 +225,28 @@ if (!function_exists('jw_nav_menu')) {
     }
 }
 
-if (!function_exists('set_theme_config')) {
+if (! function_exists('set_theme_config')) {
     function set_theme_config($key, $value)
     {
         return ThemeConfig::setConfig($key, $value);
     }
 }
 
-if (!function_exists('get_theme_config')) {
+if (! function_exists('get_theme_config')) {
     function get_theme_config($key, $default = null)
     {
         return ThemeConfig::getConfig($key, $default);
     }
 }
 
-if (!function_exists('get_theme_mod')) {
+if (! function_exists('get_theme_mod')) {
     function get_theme_mod($key, $default = null)
     {
         return ThemeConfig::getConfig($key, $default);
     }
 }
 
-if (!file_exists('get_menu_by_theme_location')) {
+if (! file_exists('get_menu_by_theme_location')) {
     function get_menu_by_theme_location($location)
     {
         $locations = get_theme_config('nav_location');
@@ -258,7 +259,7 @@ if (!file_exists('get_menu_by_theme_location')) {
     }
 }
 
-if (!function_exists('get_logo')) {
+if (! function_exists('get_logo')) {
     function get_logo($default = null)
     {
         return upload_url(
@@ -268,7 +269,7 @@ if (!function_exists('get_logo')) {
     }
 }
 
-if (!function_exists('get_icon')) {
+if (! function_exists('get_icon')) {
     function get_icon($default = null)
     {
         return upload_url(
@@ -278,35 +279,36 @@ if (!function_exists('get_icon')) {
     }
 }
 
-if (!function_exists('is_home')) {
+if (! function_exists('is_home')) {
     function is_home()
     {
         return Route::currentRouteName() == 'home';
     }
 }
 
-if (!function_exists('page_block')) {
+if (! function_exists('page_block')) {
     function page_block($key)
     {
-
     }
 }
 
-if (!function_exists('jw_get_sidebar')) {
-    function jw_get_sidebar($key) {
+if (! function_exists('jw_get_sidebar')) {
+    function jw_get_sidebar($key)
+    {
         return HookAction::getSidebars($key);
     }
 }
 
-if (!function_exists('jw_get_widgets_sidebar')) {
+if (! function_exists('jw_get_widgets_sidebar')) {
     function jw_get_widgets_sidebar($key)
     {
         $content = get_theme_config('sidebar_' . $key);
+
         return collect($content);
     }
 }
 
-if (!function_exists('dynamic_sidebar')) {
+if (! function_exists('dynamic_sidebar')) {
     function dynamic_sidebar($key)
     {
         $sidebar = HookAction::getSidebars($key);
@@ -323,7 +325,7 @@ if (!function_exists('dynamic_sidebar')) {
     }
 }
 
-if (!function_exists('installed_themes')) {
+if (! function_exists('installed_themes')) {
     function installed_themes()
     {
         $themes = Theme::all();
@@ -332,7 +334,7 @@ if (!function_exists('installed_themes')) {
     }
 }
 
-if (!function_exists('comment_template')) {
+if (! function_exists('comment_template')) {
     /**
      * Show comments frontend
      *
@@ -342,7 +344,7 @@ if (!function_exists('comment_template')) {
      */
     function comment_template($post, $view = null)
     {
-        if (empty($view) || !view()->exists($view)) {
+        if (empty($view) || ! view()->exists($view)) {
             $view = 'juzaweb::items.frontend_comment';
         }
 
@@ -356,4 +358,3 @@ if (!function_exists('comment_template')) {
         ));
     }
 }
-

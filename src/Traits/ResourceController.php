@@ -23,7 +23,8 @@ trait ResourceController
 {
     public function index(...$params)
     {
-        return view($this->viewPrefix . '.index',
+        return view(
+            $this->viewPrefix . '.index',
             $this->getDataForIndex(...$params)
         );
     }
@@ -42,8 +43,9 @@ trait ResourceController
         ]);
 
         $model = $this->makeModel(...$params);
+
         return view($this->viewPrefix . '.form', array_merge([
-            'title' => trans('juzaweb::app.add_new')
+            'title' => trans('juzaweb::app.add_new'),
         ], $this->getDataForForm($model, ...$params)));
     }
 
@@ -65,8 +67,9 @@ trait ResourceController
         ]);
 
         $model = $this->makeModel(...$indexParams)->findOrFail($this->getPathId($params));
+
         return view($this->viewPrefix . '.form', array_merge([
-            'title' => $model->{$model->getFieldName()}
+            'title' => $model->{$model->getFieldName()},
         ], $this->getDataForForm($model, ...$params)));
     }
 
@@ -81,6 +84,7 @@ trait ResourceController
         $data = $this->parseDataForSave($request->all());
 
         DB::beginTransaction();
+
         try {
             $this->beforeStore($request);
             $model = $this->makeModel(...$params);
@@ -97,6 +101,7 @@ trait ResourceController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 
@@ -119,6 +124,7 @@ trait ResourceController
 
         $model = $this->makeModel(...$params)->findOrFail($this->getPathId($params));
         DB::beginTransaction();
+
         try {
             $this->beforeUpdate($request, $model, ...$params);
             $slug = $request->get('slug');
@@ -133,6 +139,7 @@ trait ResourceController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 
@@ -194,7 +201,7 @@ trait ResourceController
     protected function getDataForForm($model, ...$params)
     {
         return [
-            'model' => $model
+            'model' => $model,
         ];
     }
 
@@ -205,7 +212,7 @@ trait ResourceController
         return [
             'title' => $this->getTitle(...$params),
             'dataTable' => $dataTable,
-            'linkCreate' => action([static::class, 'create'], $params)
+            'linkCreate' => action([static::class, 'create'], $params),
         ];
     }
 
@@ -229,14 +236,14 @@ trait ResourceController
 
         return $this->success([
             'message' => trans('juzaweb::app.created_successfully'),
-            'redirect' => route($indexRoute, $params)
+            'redirect' => route($indexRoute, $params),
         ]);
     }
 
     protected function updateSuccessResponse($model, $request, ...$params)
     {
         return $this->success([
-            'message' => trans('juzaweb::app.updated_successfully')
+            'message' => trans('juzaweb::app.updated_successfully'),
         ]);
     }
 

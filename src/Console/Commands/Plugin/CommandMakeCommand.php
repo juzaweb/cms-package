@@ -34,7 +34,7 @@ class CommandMakeCommand extends GeneratorCommand
      */
     protected $description = 'Generate new Artisan command for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Commands';
     }
@@ -73,8 +73,8 @@ class CommandMakeCommand extends GeneratorCommand
 
         return (new Stub('/command.stub', [
             'COMMAND_NAME' => $this->getCommandName(),
-            'NAMESPACE'    => $this->getClassNamespace($module),
-            'CLASS'        => $this->getClass(),
+            'NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 

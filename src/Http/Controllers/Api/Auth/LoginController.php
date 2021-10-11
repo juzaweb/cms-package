@@ -11,9 +11,9 @@
 namespace Juzaweb\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Juzaweb\Http\Controllers\ApiController;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends ApiController
 {
@@ -72,18 +72,18 @@ class LoginController extends ApiController
     {
         $validator = Validator::make($request->all(), [
             'email' => 'bail|required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
             return $this->restFail($validator->errors(), 'Validation Error.');
         }
 
-        if (!$token = Auth::guard('api')->attempt([
+        if (! $token = Auth::guard('api')->attempt([
             'email' => $request->post('email'),
-            'password' => $request->post('password')
+            'password' => $request->post('password'),
         ])) {
-            return $this->restFail(['error'=>'Unauthorised'], 'Unauthorised.');
+            return $this->restFail(['error' => 'Unauthorised'], 'Unauthorised.');
         }
 
         return $this->respondWithToken($token);
@@ -106,7 +106,7 @@ class LoginController extends ApiController
         return $this->restSuccess([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60,
         ], 'Successfully login');
     }
 }

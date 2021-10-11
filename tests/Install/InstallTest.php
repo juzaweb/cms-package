@@ -22,8 +22,6 @@ class InstallTest extends TestCase
             ->expectsQuestion('Email?', 'demo@gmail.com')
             ->expectsQuestion('Password?', '12345678')
             ->assertExitCode(0);
-
-
     }
 
     /*public function testInstallWeb()

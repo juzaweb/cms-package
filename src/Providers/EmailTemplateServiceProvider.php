@@ -4,7 +4,6 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Facades\HookAction;
 
 class EmailTemplateServiceProvider extends ServiceProvider
 {
@@ -19,7 +18,7 @@ class EmailTemplateServiceProvider extends ServiceProvider
             $schedule->command('email:send')->everyMinute();
         });
     }
-    
+
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/email.php', 'email');

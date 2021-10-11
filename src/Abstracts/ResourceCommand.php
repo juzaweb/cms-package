@@ -17,17 +17,16 @@ use Juzaweb\Traits\ModuleCommandTrait;
 
 abstract class ResourceCommand extends Command
 {
+    use ModuleCommandTrait;
     /**
-     * @var \Juzaweb\Abstracts\Plugin $module
+     * @var \Juzaweb\Abstracts\Plugin
      */
     protected $module;
 
     /**
-     * @var array $columns
+     * @var array
      */
     protected $columns;
-
-    use ModuleCommandTrait;
 
     protected function makeModel($table, $model)
     {
@@ -46,7 +45,7 @@ abstract class ResourceCommand extends Command
             'name' => $model,
             'module' => $this->getModuleName(),
             '--model' => $model,
-            '--columns' => implode(',', $this->columns)
+            '--columns' => implode(',', $this->columns),
         ]);
     }
 
@@ -59,10 +58,10 @@ abstract class ResourceCommand extends Command
             'CLASS_NAMESPACE' => $this->module->getNamespace() . 'Http\Controllers\Backend',
             'DATATABLE' => $model . 'Datatable',
             'MODEL_NAME' => $model,
-            'MODULE_NAMESPACE'  => $this->module->getNamespace(),
-            'CLASS'  => $model . 'Controller',
-            'TABLE_NAME'  => $table,
-            'MODULE_DOMAIN'  => $this->module->getDomainName(),
+            'MODULE_NAMESPACE' => $this->module->getNamespace(),
+            'CLASS' => $model . 'Controller',
+            'TABLE_NAME' => $table,
+            'MODULE_DOMAIN' => $this->module->getDomainName(),
         ]);
 
         $this->makeFile($path, $contents);
@@ -72,7 +71,7 @@ abstract class ResourceCommand extends Command
     {
         $path = str_replace('\\', '/', $this->getDestinationViewsFilePath($table, 'index.blade.php'));
         $contents = $this->stubRender('resource/views/index.stub', [
-            'ROUTE_NAME' => $table
+            'ROUTE_NAME' => $table,
         ]);
 
         $this->makeFile($path, $contents);
@@ -95,7 +94,7 @@ abstract class ResourceCommand extends Command
     {
         $controllerPath = $this->module->getPath() .'/'. GenerateConfigReader::read('controller')->getPath() . '/Backend/';
 
-        if (!is_dir($controllerPath)) {
+        if (! is_dir($controllerPath)) {
             File::makeDirectory($controllerPath, 0775, true);
         }
 
@@ -106,7 +105,7 @@ abstract class ResourceCommand extends Command
     {
         $viewPath = $this->module->getPath() .'/'. GenerateConfigReader::read('views')->getPath() . '/backend/' . $table;
 
-        if (!is_dir($viewPath)) {
+        if (! is_dir($viewPath)) {
             File::makeDirectory($viewPath, 0775, true);
         }
 
@@ -118,12 +117,12 @@ abstract class ResourceCommand extends Command
         $str = '';
         $columns = collect($this->columns)
             ->filter(function ($item) {
-                return !in_array($item, $this->getColumnsViewsFormCol2());
+                return ! in_array($item, $this->getColumnsViewsFormCol2());
             })->toArray();
 
         $index = 0;
         foreach ($columns as $column) {
-            $prefix = $index != 0 ? "\n\n\t\t\t": "";
+            $prefix = $index != 0 ? "\n\n\t\t\t" : "";
             $str .= $prefix . $this->stubRender(
                 $this->getColumnViewsStubPath($column),
                 [
@@ -132,7 +131,7 @@ abstract class ResourceCommand extends Command
                 ]
             );
 
-            $index ++;
+            $index++;
         }
 
         return $str;
@@ -148,7 +147,7 @@ abstract class ResourceCommand extends Command
 
         $index = 0;
         foreach ($columns as $column) {
-            $prefix = $index != 0 ? "\n\n\t\t\t": "";
+            $prefix = $index != 0 ? "\n\n\t\t\t" : "";
             $str .= $prefix . $this->stubRender(
                 $this->getColumnViewsStubPath($column),
                 [
@@ -157,7 +156,7 @@ abstract class ResourceCommand extends Command
                 ]
             );
 
-            $index ++;
+            $index++;
         }
 
         return $str;
