@@ -16,7 +16,7 @@ class CommandTest extends TestCase
 {
     public function testMigration()
     {
-        $this->artisan('migratie')
+        $this->artisan('migrate')
             ->assertExitCode(0);
     }
 
