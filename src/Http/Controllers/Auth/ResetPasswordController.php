@@ -64,6 +64,6 @@ class ResetPasswordController extends Controller
             throw $exception;
         }
     
-        return redirect()->route('auth.login');
+        return redirect()->route('user.login');
     }
 }

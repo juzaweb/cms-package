@@ -59,7 +59,7 @@ return [
             'model' => ['path' => 'src/Models', 'generate' => true],
             'routes' => ['path' => 'src/routes', 'generate' => true],
             'controller' => ['path' => 'src/Http/Controllers', 'generate' => true],
-            'filter' => ['path' => 'src/Http/Middleware', 'generate' => true],
+            'filter' => ['path' => 'src/Http/Middleware', 'generate' => false],
             'request' => ['path' => 'src/Http/Requests', 'generate' => true],
             'datatable' => ['path' => 'src/Http/Datatables', 'generate' => true],
             'provider' => ['path' => 'src/Providers', 'generate' => true],

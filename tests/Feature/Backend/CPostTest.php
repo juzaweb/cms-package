@@ -105,6 +105,8 @@ class CPostTest extends TestCase
         $taxonomies = HookAction::getTaxonomies($postType->get('key'));
         foreach ($taxonomies as $taxonomy) {
             $ids = app($taxonomy->get('model'))
+                ->where('taxonomy', '=', $taxonomy->get('taxonomy'))
+                ->where('post_type', '=', $postType->get('key'))
                 ->inRandomOrder()
                 ->limit(5)
                 ->pluck('id')

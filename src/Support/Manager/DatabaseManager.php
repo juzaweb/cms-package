@@ -114,7 +114,7 @@ class DatabaseManager
 <p><a href="{verifyUrl}" target="_blank">Verify account</a></p>',
             'params' => [
                 'name' => 'Your Name',
-                'url' => 'Url verify account',
+                'verifyUrl' => 'Url verify account',
             ],
         ]);
 

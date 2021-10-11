@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Juzaweb\Models\User;
+use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Juzaweb\Traits\ResponseMessage;
 
@@ -14,10 +14,9 @@ class LoginController extends Controller
 
     public function index()
     {
-        do_action('auth.login.index');
+        do_action('user.login.index');
 
         do_action('recaptcha.init');
-        //
         
         return view('juzaweb::auth.login', [
             'title' => trans('juzaweb::app.login')
@@ -27,7 +26,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // Login handle action
-        do_action('auth.login.handle', $request);
+        do_action('user.login.handle', $request);
     
         // Validate login
         $request->validate([
@@ -73,7 +72,7 @@ class LoginController extends Controller
              */
             $user = Auth::user();
 
-            do_action('auth.login.success', $user);
+            do_action('user.login.success', $user);
 
             return $this->success([
                 'message' => trans('juzaweb::app.login_successfully'),
@@ -81,7 +80,7 @@ class LoginController extends Controller
             ]);
         }
     
-        do_action('auth.login.failed');
+        do_action('user.login.failed');
         
         return $this->error([
             'message' => trans('juzaweb::message.login_form.login_failed')
