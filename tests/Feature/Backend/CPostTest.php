@@ -42,7 +42,7 @@ class CPostTest extends TestCase
 
             $this->createTest($key, $postType);
 
-            $this->updateTest($postType);
+            $this->updateTest($key, $postType);
         }
     }
 
@@ -61,13 +61,13 @@ class CPostTest extends TestCase
 
         if ($post = $this->makerData($postType)) {
             $old = app($postType->get('model'))->count();
-            $this->post('/admin-cp/posts', $post);
+            $this->post('/admin-cp/' . $key, $post);
             $new = app($postType->get('model'))->count();
             $this->assertEquals($old, ($new - 1));
         }
     }
 
-    protected function updateTest($postType)
+    protected function updateTest($key, $postType)
     {
         if ($post = $this->makerData($postType)) {
             $model = app($postType->get('model'))->first(['id']);
@@ -75,7 +75,7 @@ class CPostTest extends TestCase
 
             $response->assertStatus(200);
 
-            $this->put('/admin-cp/posts/' . $model->id, $post);
+            $this->put('/admin-cp/'.$key.'/' . $model->id, $post);
 
             $model = app($postType->get('model'))
                 ->where('id', '=', $model->id)
