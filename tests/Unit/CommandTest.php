@@ -26,9 +26,15 @@ class CommandTest extends TestCase
             ->assertExitCode(0);
     }
 
-    public function testUpdate()
+    public function testOptimize()
+    {
+        $this->artisan('optimize')
+            ->assertExitCode(0);
+    }
+
+    /*public function testUpdate()
     {
         $this->artisan('juzaweb:update')
             ->assertExitCode(0);
-    }
+    }*/
 }
