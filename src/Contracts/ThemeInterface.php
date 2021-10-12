@@ -8,8 +8,6 @@
 
 namespace Juzaweb\Contracts;
 
-
 interface ThemeInterface
 {
-
 }

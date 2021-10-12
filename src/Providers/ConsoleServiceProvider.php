@@ -4,7 +4,6 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Console\Commands\InstallCommand;
-use Juzaweb\Console\Commands\Plugin\InstallCommand as PluginInstallCommand;
 use Juzaweb\Console\Commands\Plugin\ActionMakeCommand;
 use Juzaweb\Console\Commands\Plugin\CommandMakeCommand;
 use Juzaweb\Console\Commands\Plugin\ControllerMakeCommand;
@@ -13,6 +12,7 @@ use Juzaweb\Console\Commands\Plugin\DumpCommand;
 use Juzaweb\Console\Commands\Plugin\EnableCommand;
 use Juzaweb\Console\Commands\Plugin\EventMakeCommand;
 use Juzaweb\Console\Commands\Plugin\FactoryMakeCommand;
+use Juzaweb\Console\Commands\Plugin\InstallCommand as PluginInstallCommand;
 use Juzaweb\Console\Commands\Plugin\JobMakeCommand;
 use Juzaweb\Console\Commands\Plugin\LaravelModulesV6Migrator;
 use Juzaweb\Console\Commands\Plugin\ListCommand;

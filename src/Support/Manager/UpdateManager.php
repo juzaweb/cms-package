@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
 use Juzaweb\Support\Curl;
 use Juzaweb\Support\JuzawebApi;
 use Juzaweb\Version;
-use Juzaweb\Support\Json;
 
 class UpdateManager
 {
@@ -134,6 +133,7 @@ class UpdateManager
                     'cms_version' => Version::getVersion(),
                     'theme' => $this->val,
                 ]);
+
                 break;
         }
 

@@ -3,8 +3,8 @@
 namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Juzaweb\Support\Manager\UpdateManager;
+use Symfony\Component\Console\Input\InputArgument;
 
 class InstallCommand extends Command
 {
@@ -30,6 +30,7 @@ class InstallCommand extends Command
         $pluginName = $this->argument('name');
         if (is_dir(config('juzaweb.plugin.path') . '/' . $pluginName)) {
             $this->error("Plugin [{$pluginName}] already exist.");
+
             return;
         }
 

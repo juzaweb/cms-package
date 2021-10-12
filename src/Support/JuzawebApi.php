@@ -115,12 +115,15 @@ class JuzawebApi
             switch (strtolower($method)) {
                 case 'post':
                     $response = $this->curl->post($url, $params, $headers);
+
                     break;
                 case 'put':
                     $response = $this->curl->put($url, $params, $headers);
+
                     break;
                 default:
                     $response = $this->curl->get($url, $params, $headers);
+
                     break;
             }
         } catch (ClientException $e) {
