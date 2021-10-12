@@ -9,7 +9,7 @@ jobs:
         os: [ubuntu-latest]
         php: [7.4, 7.3, 7.2]
         cms: [1.*]
-        dependency-version: [
+        version: [
           1.*,
           dev-develop,
           dev-master
@@ -30,7 +30,7 @@ jobs:
       - name: Install composer dependencies
         run: |
           composer require "juzaweb/laravel-cms:${{ matrix.cms }}" --no-interaction --no-update
-          composer update "juzaweb/cms:${{ matrix.dependency-version }}" --prefer-dist --no-interaction
+          composer update "juzaweb/cms:${{ matrix.version }}" --prefer-dist --no-interaction
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: Create Database
