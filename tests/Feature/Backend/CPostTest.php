@@ -10,13 +10,13 @@
 
 namespace Juzaweb\Tests\Feature\Backend;
 
+use Faker\Generator as Faker;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\User;
 use Juzaweb\Tests\TestCase;
-use Faker\Generator as Faker;
 
 class CPostTest extends TestCase
 {
