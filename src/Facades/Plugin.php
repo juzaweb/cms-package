@@ -25,6 +25,6 @@ class Plugin extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'modules';
+        return 'plugins';
     }
 }

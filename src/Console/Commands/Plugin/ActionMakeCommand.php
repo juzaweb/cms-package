@@ -69,7 +69,7 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/action.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
@@ -90,7 +90,7 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $commandPath = GenerateConfigReader::read('action');
 

@@ -55,7 +55,7 @@ class DatatableMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
         $datatablePath = GenerateConfigReader::read('datatable');
 
         return $path . $datatablePath->getPath() . '/' . $this->getDatatableName() . '.php';
@@ -101,7 +101,7 @@ class DatatableMakeCommand extends GeneratorCommand
         /**
          * @var \Juzaweb\Abstracts\Plugin $module
          */
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return array_merge([
             'MODULENAME' => $module->getStudlyName(),
@@ -114,7 +114,7 @@ class DatatableMakeCommand extends GeneratorCommand
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getModuleName(),
             'STUDLY_NAME' => $module->getStudlyName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            'MODULE_NAMESPACE' => $this->laravel['plugins']->config('namespace'),
         ], $this->getDataModelStub());
     }
 
@@ -150,7 +150,7 @@ class DatatableMakeCommand extends GeneratorCommand
         ];
 
         if ($model = $this->option('model')) {
-            $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+            $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
             $data['QUERY_TABLE'] = $this->stubRender('resource/datatable/query-model.stub', [
                 'MODEL_NAME' => $model,

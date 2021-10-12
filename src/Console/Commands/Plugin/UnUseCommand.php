@@ -25,7 +25,7 @@ class UnUseCommand extends Command
      */
     public function handle()
     {
-        $this->laravel['modules']->forgetUsed();
+        $this->laravel['plugins']->forgetUsed();
 
         $this->info('Previous plugin used successfully forgotten.');
     }

@@ -17,7 +17,7 @@ class LaravelModulesV6Migrator extends Command
     {
         $moduleStatuses = [];
         /** @var RepositoryInterface $modules */
-        $modules = $this->laravel['modules'];
+        $modules = $this->laravel['plugins'];
 
         $modules = $modules->all();
         /** @var Plugin $module */

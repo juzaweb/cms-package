@@ -64,7 +64,7 @@ class UpdateManager
             case 'core':
                 return Version::getVersion();
             case 'plugin':
-                $module = app('modules')->find($this->val);
+                $module = app('plugins')->find($this->val);
                 if (empty($module)) {
                     return "0";
                 }
@@ -210,7 +210,7 @@ class UpdateManager
                 /**
                  * @var \Juzaweb\Abstracts\Plugin[] $plugins
                  */
-                $plugins = app('modules')->all();
+                $plugins = app('plugins')->all();
                 foreach ($plugins as $plugin) {
                     if (! $plugin->isEnabled()) {
                         continue;
@@ -225,7 +225,7 @@ class UpdateManager
                 /**
                  * @var \Juzaweb\Abstracts\Plugin $plugin
                  */
-                $plugin = app('modules')->find($this->val);
+                $plugin = app('plugins')->find($this->val);
                 if ($plugin->isEnabled()) {
                     $plugin->disable();
                     $plugin->enable();

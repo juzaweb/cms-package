@@ -28,7 +28,7 @@ class EnableCommand extends Command
     public function handle()
     {
         /** @var Plugin $module */
-        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
+        $module = $this->laravel['plugins']->findOrFail($this->argument('module'));
 
         if ($module->isDisabled()) {
             $module->enable();

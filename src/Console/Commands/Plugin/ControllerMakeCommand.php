@@ -41,7 +41,7 @@ class ControllerMakeCommand extends GeneratorCommand
      */
     public function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $controllerPath = GenerateConfigReader::read('controller');
 
@@ -129,7 +129,7 @@ class ControllerMakeCommand extends GeneratorCommand
         /**
          * @var \Juzaweb\Abstracts\Plugin $module
          */
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return [
             'MODULENAME' => $module->getStudlyName(),
@@ -143,7 +143,7 @@ class ControllerMakeCommand extends GeneratorCommand
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getModuleName(),
             'STUDLY_NAME' => $module->getStudlyName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            'MODULE_NAMESPACE' => $this->laravel['plugins']->config('namespace'),
         ];
     }
 }

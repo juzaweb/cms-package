@@ -33,7 +33,7 @@ class JuzawebResouceMakeCommand extends ResourceCommand
 
     public function handle()
     {
-        $this->module = $this->laravel['modules']->find($this->getModuleName());
+        $this->module = $this->laravel['plugins']->find($this->getModuleName());
 
         $table = $this->argument('name');
         $realTable = $this->module->getDomainName().'_'.$table;

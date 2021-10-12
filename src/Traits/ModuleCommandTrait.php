@@ -16,7 +16,7 @@ trait ModuleCommandTrait
     public function getModuleName()
     {
         $module = $this->argument('module');
-        $module = app('modules')->findOrFail($module);
+        $module = app('plugins')->findOrFail($module);
 
         return $module->getName();
     }

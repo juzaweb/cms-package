@@ -36,7 +36,7 @@ class SetupCommand extends Command
     public function generateModulesFolder()
     {
         $this->generateDirectory(
-            $this->laravel['modules']->config('paths.modules'),
+            $this->laravel['plugins']->config('paths.modules'),
             'Modules directory created successfully',
             'Modules directory already exist'
         );

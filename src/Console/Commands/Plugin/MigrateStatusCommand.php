@@ -36,7 +36,7 @@ class MigrateStatusCommand extends Command
      */
     public function handle()
     {
-        $this->module = $this->laravel['modules'];
+        $this->module = $this->laravel['plugins'];
 
         $name = $this->argument('module');
 

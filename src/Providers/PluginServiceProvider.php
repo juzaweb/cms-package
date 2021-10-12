@@ -60,6 +60,6 @@ class PluginServiceProvider extends BaseServiceProvider
             return new $class($app);
         });
 
-        $this->app->alias(RepositoryInterface::class, 'modules');
+        $this->app->alias(RepositoryInterface::class, 'plugins');
     }
 }

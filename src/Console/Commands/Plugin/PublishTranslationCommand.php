@@ -42,7 +42,7 @@ class PublishTranslationCommand extends Command
      */
     public function publishAll()
     {
-        foreach ($this->laravel['modules']->allEnabled() as $module) {
+        foreach ($this->laravel['plugins']->allEnabled() as $module) {
             $this->publish($module);
         }
     }
@@ -57,11 +57,11 @@ class PublishTranslationCommand extends Command
         if ($name instanceof Module) {
             $module = $name;
         } else {
-            $module = $this->laravel['modules']->findOrFail($name);
+            $module = $this->laravel['plugins']->findOrFail($name);
         }
 
         with(new LangPublisher($module))
-            ->setRepository($this->laravel['modules'])
+            ->setRepository($this->laravel['plugins'])
             ->setConsole($this)
             ->publish();
 

@@ -11,7 +11,7 @@
 if (! function_exists('plugin_path')) {
     function plugin_path($name, $path = '')
     {
-        $module = app('modules')->find($name);
+        $module = app('plugins')->find($name);
 
         return $module->getPath() . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
@@ -27,7 +27,7 @@ if (! function_exists('namespace_snakename')) {
 if (! function_exists('installed_plugins')) {
     function installed_plugins()
     {
-        $plugins = app('modules')->all();
+        $plugins = app('plugins')->all();
 
         return array_keys($plugins);
     }

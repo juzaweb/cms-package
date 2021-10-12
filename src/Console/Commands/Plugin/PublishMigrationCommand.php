@@ -29,14 +29,14 @@ class PublishMigrationCommand extends Command
     public function handle()
     {
         if ($name = $this->argument('module')) {
-            $module = $this->laravel['modules']->findOrFail($name);
+            $module = $this->laravel['plugins']->findOrFail($name);
 
             $this->publish($module);
 
             return;
         }
 
-        foreach ($this->laravel['modules']->allEnabled() as $module) {
+        foreach ($this->laravel['plugins']->allEnabled() as $module) {
             $this->publish($module);
         }
     }
@@ -49,7 +49,7 @@ class PublishMigrationCommand extends Command
     public function publish($module)
     {
         with(new MigrationPublisher(new Migrator($module, $this->getLaravel())))
-            ->setRepository($this->laravel['modules'])
+            ->setRepository($this->laravel['plugins'])
             ->setConsole($this)
             ->publish();
     }

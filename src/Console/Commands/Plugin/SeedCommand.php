@@ -66,7 +66,7 @@ class SeedCommand extends Command
      */
     public function getModuleRepository(): RepositoryInterface
     {
-        $modules = $this->laravel['modules'];
+        $modules = $this->laravel['plugins'];
         if (! $modules instanceof RepositoryInterface) {
             throw new RuntimeException('Plugin repository not found!');
         }
@@ -164,7 +164,7 @@ class SeedCommand extends Command
     public function getSeederName($name)
     {
         $className = Str::ucfirst(explode('/', $name)[1]);
-        $namespace = $this->laravel['modules']->config('namespace');
+        $namespace = $this->laravel['plugins']->config('namespace');
         $config = GenerateConfigReader::read('seeder');
         $path = $namespace . '/' . $name . '/' . $config->getPath() . '/' . $className . 'DatabaseSeeder';
 
@@ -196,7 +196,7 @@ class SeedCommand extends Command
         $seederPath = str_replace('/', '\\', $seederPath->getPath());
 
         $foundModules = [];
-        foreach ($this->laravel['modules']->config('scan.paths') as $path) {
+        foreach ($this->laravel['plugins']->config('scan.paths') as $path) {
             $namespace = array_slice(explode('/', $path), -1)[0];
             $foundModules[] = $namespace . '\\' . $name . '\\' . $seederPath . '\\' . $name . 'DatabaseSeeder';
         }

@@ -38,7 +38,7 @@ class RequirePluginController extends BackendController
         $result = [];
 
         foreach ($require as $plugin => $ver) {
-            $info = app('modules')->find($plugin);
+            $info = app('plugins')->find($plugin);
             if ($info) {
                 if ($info->isEnabled()) {
                     continue;
@@ -71,7 +71,7 @@ class RequirePluginController extends BackendController
         switch ($status) {
             case 'active':
                 foreach ($ids as $id) {
-                    $info = app('modules')->find($id);
+                    $info = app('plugins')->find($id);
                     if (empty($info)) {
                         $installer = new UpdateManager('plugin', $id);
                         $installer->update();

@@ -107,7 +107,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
         if (! $table = $this->option('table')) {
             $table = $this->createMigrationName();
         }
@@ -123,7 +123,7 @@ class ModelMakeCommand extends GeneratorCommand
             'LOWER_NAME' => $module->getLowerName(),
             'MODULE' => $this->getModuleName(),
             'STUDLY_NAME' => $module->getStudlyName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            'MODULE_NAMESPACE' => $this->laravel['plugins']->config('namespace'),
         ]))->render();
     }
 
@@ -132,7 +132,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $modelPath = GenerateConfigReader::read('model');
 

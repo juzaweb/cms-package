@@ -101,7 +101,7 @@ abstract class GeneratorCommand extends Command
 
     public function getDomainName()
     {
-        $module = $this->laravel['modules']->find($this->getModuleName());
+        $module = $this->laravel['plugins']->find($this->getModuleName());
 
         return $module->getExtraJuzaweb('domain');
     }

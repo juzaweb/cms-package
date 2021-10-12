@@ -40,7 +40,7 @@ abstract class PluginServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [RepositoryInterface::class, 'modules'];
+        return [RepositoryInterface::class, 'plugins'];
     }
 
     /**
