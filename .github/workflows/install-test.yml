@@ -7,7 +7,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [7.4, 7.3, 7.2]
+        php: [7.4]
         cms: [1.*]
         version: [
           1.*,
@@ -29,7 +29,7 @@ jobs:
 
       - name: Install composer
         run: |
-          composer create-project "juzaweb/laravel-cms:${{ matrix.cms }}" cms
+          composer create-project "juzaweb/laravel-cms" cms
           cd cms
           composer update "juzaweb/cms:${{ matrix.version }}"
       - name: Directory Permissions
@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-          working-directory: cms
+        working-directory: cms
       - name: Config database and Execute tests
         env:
           DB_CONNECTION: sqlite
