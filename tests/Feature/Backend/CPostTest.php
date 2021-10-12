@@ -12,9 +12,11 @@ namespace Juzaweb\Tests\Feature\Backend;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\User;
 use Juzaweb\Tests\TestCase;
+use Faker\Generator as Faker;
 
 class CPostTest extends TestCase
 {
@@ -92,14 +94,17 @@ class CPostTest extends TestCase
      */
     protected function makerData($postType)
     {
-        try {
-            $post = factory($postType->get('model'))->make();
-            $post = $post->getAttributes();
-        } catch (\Throwable $e) {
-            echo "\n--- " . $e->getMessage();
+        $faker = app(Faker::class);
+        $title = $faker->sentence(10);
 
-            return false;
-        }
+        $post = [
+            'title' => $title,
+            'content' => $faker->sentence(50),
+            'status' => 'publish',
+            'slug' => Str::slug($title),
+            'created_at' => $faker->dateTime(),
+            'updated_at' => $faker->dateTime(),
+        ];
 
         $taxonomies = HookAction::getTaxonomies($postType->get('key'));
         foreach ($taxonomies as $taxonomy) {

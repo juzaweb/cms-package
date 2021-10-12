@@ -122,8 +122,6 @@ class UpdateManager
         }
 
         if (empty($response->update)) {
-            dd($response);
-
             return false;
         }
 

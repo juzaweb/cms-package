@@ -7,14 +7,14 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [7.4]
+        php: [7.4, 7.3, 7.2]
         cms: [1.*]
         version: [
           1.*,
           dev-develop,
           dev-master
         ]
-    name: P${{ matrix.php }} - L${{ matrix.cms }} - ${{ matrix.version }} - ${{ matrix.os }}
+    name: PHP${{ matrix.php }} - CMS${{ matrix.cms }} - L${{ matrix.version }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout Code
