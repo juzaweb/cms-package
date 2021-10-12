@@ -71,7 +71,12 @@ class UpdateManager
 
                 return $module->getVersion();
             case 'theme':
+                $theme = app('themes')->find($this->val);
+                if (empty($module)) {
+                    return "0";
+                }
 
+                return $theme->getVersion();
         }
 
         return false;
@@ -109,18 +114,26 @@ class UpdateManager
             case 'core':
                 $response = $this->api->get($uri, [
                     'current_version' => $this->getCurrentVersion(),
+                    'update_version' => $this->version,
                 ]);
 
                 break;
             case 'plugin':
                 $response = $this->api->get($uri, [
                     'current_version' => $this->getCurrentVersion(),
-                    'plugin' => $this->val,
+                    'update_version' => $this->version,
                     'cms_version' => Version::getVersion(),
+                    'plugin' => $this->val,
                 ]);
 
                 break;
             case 'theme':
+                $response = $this->api->get($uri, [
+                    'current_version' => $this->getCurrentVersion(),
+                    'update_version' => $this->version,
+                    'cms_version' => Version::getVersion(),
+                    'theme' => $this->val,
+                ]);
                 break;
         }
 

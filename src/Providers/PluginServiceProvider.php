@@ -45,7 +45,7 @@ class PluginServiceProvider extends BaseServiceProvider
     protected function registerServices()
     {
         $this->app->singleton(RepositoryInterface::class, function ($app) {
-            $path = base_path('plugins');
+            $path = config('juzaweb.plugin.path');
 
             return new LaravelFileRepository($app, $path);
         });
