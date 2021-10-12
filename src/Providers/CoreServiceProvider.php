@@ -14,7 +14,6 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Juzaweb\Console\Commands\UpdateCommand;
 use Juzaweb\Contracts\GlobalDataContract;
 use Juzaweb\Contracts\HookActionContract;
 use Juzaweb\Contracts\XssCleanerContract;
@@ -55,10 +54,6 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerSingleton();
         $this->mergeConfigFrom(__DIR__ . '/../../config/juzaweb.php', 'juzaweb');
         $this->mergeConfigFrom(__DIR__ . '/../../config/locales.php', 'locales');
-
-        $this->commands([
-            UpdateCommand::class,
-        ]);
     }
 
     protected function bootMigrations()

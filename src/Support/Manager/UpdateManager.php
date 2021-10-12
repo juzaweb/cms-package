@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Support\Curl;
 use Juzaweb\Support\JuzawebApi;
 use Juzaweb\Version;
+use Juzaweb\Support\Json;
 
 class UpdateManager
 {
@@ -30,19 +31,21 @@ class UpdateManager
 
     protected $tag;
     protected $val;
+    protected $version;
 
     protected $storage;
     protected $response;
     protected $tmpFolder;
     protected $tmpFile;
 
-    public function __construct($tag = 'core', $val = '')
+    public function __construct($tag = 'core', $val = '', $version = null)
     {
         $this->curl = app(Curl::class);
         $this->api = app(JuzawebApi::class);
 
         $this->tag = $tag;
         $this->val = $val;
+        $this->version = $version;
         $this->storage = Storage::disk('tmp');
     }
 

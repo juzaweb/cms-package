@@ -4,6 +4,7 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Console\Commands\InstallCommand;
+use Juzaweb\Console\Commands\Plugin\InstallCommand as PluginInstallCommand;
 use Juzaweb\Console\Commands\Plugin\ActionMakeCommand;
 use Juzaweb\Console\Commands\Plugin\CommandMakeCommand;
 use Juzaweb\Console\Commands\Plugin\ControllerMakeCommand;
@@ -56,6 +57,9 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        InstallCommand::class,
+        UpdateCommand::class,
+        PluginInstallCommand::class,
         CommandMakeCommand::class,
         ControllerMakeCommand::class,
         DisableCommand::class,
@@ -69,7 +73,6 @@ class ConsoleServiceProvider extends ServiceProvider
         //NotificationMakeCommand::class,
         ProviderMakeCommand::class,
         RouteProviderMakeCommand::class,
-        InstallCommand::class,
         ListCommand::class,
         ModuleDeleteCommand::class,
         ModuleMakeCommand::class,
@@ -88,7 +91,6 @@ class ConsoleServiceProvider extends ServiceProvider
         SeedMakeCommand::class,
         //SetupCommand::class,
         //UnUseCommand::class,
-        //UpdateCommand::class,
         //UseCommand::class,
         ResourceMakeCommand::class,
         TestMakeCommand::class,
