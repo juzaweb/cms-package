@@ -31,11 +31,13 @@ class ThemeServiceProvider extends ServiceProvider
 
         $this->app->singleton(ThemeContract::class, function ($app) {
             $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config'], $this->app['translator']);
+
             return $theme;
         });
 
         $this->app->singleton(ThemeInterface::class, function ($app) {
             $path = config('juzaweb.theme.path');
+
             return new ThemeFileRepository($app, $path);
         });
 

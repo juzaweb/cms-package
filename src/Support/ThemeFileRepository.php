@@ -56,7 +56,7 @@ class ThemeFileRepository
     public function find($theme)
     {
         $themePath = $this->path . '/' . $theme;
-        if (!is_dir($themePath)) {
+        if (! is_dir($themePath)) {
             return false;
         }
 

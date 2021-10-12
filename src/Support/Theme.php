@@ -8,7 +8,6 @@
 
 namespace Juzaweb\Support;
 
-use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -90,6 +89,7 @@ class Theme
             $themeConfig = Config::load($themeConfigPath);
             $themeConfig['changelog'] = Config::load($themeChangelogPath)->all();
             $themeConfig['path'] = $this->path;
+
             return $themeConfig;
         }
 
