@@ -14,8 +14,5 @@ class ActiveForm
 {
     public static function begin($options = [])
     {
-
     }
-
-
 }

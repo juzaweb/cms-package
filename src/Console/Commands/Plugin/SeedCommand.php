@@ -7,8 +7,8 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Abstracts\Plugin;
+use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Support\Config\GenerateConfigReader;
 use Juzaweb\Traits\ModuleCommandTrait;
 use RuntimeException;
@@ -46,7 +46,6 @@ class SeedCommand extends Command
                 array_walk($modules, [$this, 'moduleSeed']);
                 $this->info('All plugins seeded.');
             }
-
         } catch (\Error $e) {
             $e = new ErrorException($e->getMessage(), $e->getCode(), 1, $e->getFile(), $e->getLine(), $e);
             $this->reportException($e);
@@ -67,8 +66,8 @@ class SeedCommand extends Command
      */
     public function getModuleRepository(): RepositoryInterface
     {
-        $modules = $this->laravel['modules'];
-        if (!$modules instanceof RepositoryInterface) {
+        $modules = $this->laravel['plugins'];
+        if (! $modules instanceof RepositoryInterface) {
             throw new RuntimeException('Plugin repository not found!');
         }
 
@@ -165,7 +164,7 @@ class SeedCommand extends Command
     public function getSeederName($name)
     {
         $className = Str::ucfirst(explode('/', $name)[1]);
-        $namespace = $this->laravel['modules']->config('namespace');
+        $namespace = $this->laravel['plugins']->config('namespace');
         $config = GenerateConfigReader::read('seeder');
         $path = $namespace . '/' . $name . '/' . $config->getPath() . '/' . $className . 'DatabaseSeeder';
 
@@ -197,7 +196,7 @@ class SeedCommand extends Command
         $seederPath = str_replace('/', '\\', $seederPath->getPath());
 
         $foundModules = [];
-        foreach ($this->laravel['modules']->config('scan.paths') as $path) {
+        foreach ($this->laravel['plugins']->config('scan.paths') as $path) {
             $namespace = array_slice(explode('/', $path), -1)[0];
             $foundModules[] = $namespace . '\\' . $name . '\\' . $seederPath . '\\' . $name . 'DatabaseSeeder';
         }

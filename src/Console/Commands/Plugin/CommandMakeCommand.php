@@ -34,7 +34,7 @@ class CommandMakeCommand extends GeneratorCommand
      */
     protected $description = 'Generate new Artisan command for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Commands';
     }
@@ -69,12 +69,12 @@ class CommandMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/command.stub', [
             'COMMAND_NAME' => $this->getCommandName(),
-            'NAMESPACE'    => $this->getClassNamespace($module),
-            'CLASS'        => $this->getClass(),
+            'NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -91,7 +91,7 @@ class CommandMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $commandPath = GenerateConfigReader::read('command');
 

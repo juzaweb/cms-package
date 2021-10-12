@@ -10,8 +10,8 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\Facades\File;
 use Juzaweb\Facades\Theme;
-use Juzaweb\Support\ServiceProvider;
 use Juzaweb\Support\Installer;
+use Juzaweb\Support\ServiceProvider;
 
 class HookActionServiceProvider extends ServiceProvider
 {

@@ -10,7 +10,6 @@
 
 namespace Juzaweb\Events;
 
-
 use Juzaweb\Models\MediaFile;
 
 class MediaWasUploaded

@@ -8,10 +8,10 @@
 
 namespace Juzaweb\Listeners;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Juzaweb\Events\EmailHook;
 use Juzaweb\Models\EmailTemplate;
 use Juzaweb\Support\Email;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendEmailHook implements ShouldQueue
 {
@@ -25,7 +25,7 @@ class SendEmailHook implements ShouldQueue
     {
         $params = $event->args['params'] ?? [];
         $to = $event->args['to'] ?? [];
-        if (!is_array($to)) {
+        if (! is_array($to)) {
             $to = [$to];
         }
 

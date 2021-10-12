@@ -2,13 +2,13 @@
 
 namespace Juzaweb\Http\Controllers\FileManager;
 
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Juzaweb\Http\Controllers\Controller;
 
 class FileManagerController extends Controller
 {
     protected static $success_response = 'OK';
-    
+
     public function index()
     {
         $type = $this->getType();
@@ -24,7 +24,7 @@ class FileManagerController extends Controller
             'maxSize'
         ));
     }
-    
+
     public function getErrors()
     {
         $arr_errors = [];
@@ -40,36 +40,38 @@ class FileManagerController extends Controller
         if (! extension_loaded('fileinfo')) {
             array_push($arr_errors, 'Fileinfo extension not found.');
         }
-        
+
         return $arr_errors;
     }
-    
+
     public function error($error_type, $variables = [])
     {
         throw new \Exception(trans('juzaweb::filemanager.error_' . $error_type, $variables));
     }
-    
+
     protected function getType()
     {
         $type = strtolower(request()->get('type'));
+
         return Str::singular($type);
     }
-    
+
     protected function getPath($url)
     {
         $explode = explode('uploads/', $url);
         if (isset($explode[1])) {
             return $explode[1];
         }
+
         return $url;
     }
-    
+
     protected function isDirectory($file)
     {
         if (is_numeric($file)) {
             return true;
         }
-        
+
         return false;
     }
 }

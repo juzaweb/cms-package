@@ -11,7 +11,7 @@ trait MigrationLoaderTrait
      */
     protected function loadMigrationFiles($module)
     {
-        $path = $this->laravel['modules']->getModulePath($module) . $this->getMigrationGeneratorPath();
+        $path = $this->laravel['plugins']->getModulePath($module) . $this->getMigrationGeneratorPath();
 
         $files = $this->laravel['files']->glob($path . '/*_*.php');
 
@@ -27,6 +27,6 @@ trait MigrationLoaderTrait
      */
     protected function getMigrationGeneratorPath()
     {
-        return $this->laravel['modules']->config('paths.generator.migration');
+        return $this->laravel['plugins']->config('paths.generator.migration');
     }
 }

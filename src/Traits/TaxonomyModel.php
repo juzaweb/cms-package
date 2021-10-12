@@ -16,7 +16,9 @@ use Juzaweb\Facades\HookAction;
 
 trait TaxonomyModel
 {
-    use UseSlug, UseThumbnail, ResourceModel;
+    use UseSlug;
+    use UseThumbnail;
+    use ResourceModel;
 
     public static function bootTaxonomyModel()
     {
@@ -39,6 +41,7 @@ trait TaxonomyModel
     {
         $postType = $postType ? $postType : $this->getPostType('key');
         $postModel = $this->getPostType('model');
+
         return $this->belongsToMany($postModel, 'term_taxonomies', 'taxonomy_id', 'term_id')
             ->withPivot(['term_type'])
             ->wherePivot('term_type', '=', $postType);

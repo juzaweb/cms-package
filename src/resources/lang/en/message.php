@@ -16,5 +16,5 @@ return [
         'dont_have_an_account' => 'Already have an account?',
         'register_closed' => 'Registration has been closed.',
     ],
-    
+
 ];

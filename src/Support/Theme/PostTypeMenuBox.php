@@ -55,7 +55,7 @@ class PostTypeMenuBox extends MenuBox
     {
         return view('juzaweb::backend.menu.boxs.post_type_add', [
             'key' => $this->key,
-            'postType' => $this->postType
+            'postType' => $this->postType,
         ]);
     }
 
@@ -63,7 +63,7 @@ class PostTypeMenuBox extends MenuBox
     {
         return view('juzaweb::backend.menu.boxs.post_type_edit', [
             'item' => $item,
-            'postType' => $this->postType
+            'postType' => $this->postType,
         ]);
     }
 
@@ -82,7 +82,7 @@ class PostTypeMenuBox extends MenuBox
             ->get(['id', 'slug'])->keyBy('id');
 
         return $menuItems->map(function ($item) use ($base, $items) {
-            if (!empty($items[$item->model_id])) {
+            if (! empty($items[$item->model_id])) {
                 $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
             }
 

@@ -16,7 +16,9 @@ use Illuminate\Queue\SerializesModels;
 
 class EmailHook
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $hook;
     public $args = [];

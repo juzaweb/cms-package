@@ -2,21 +2,21 @@
 
 namespace Juzaweb\Support;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Juzaweb\Events\MediaWasUploaded;
 use Juzaweb\Exceptions\FileManagerException;
 use Juzaweb\Models\MediaFile;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FileManager
 {
     /**
-     * @var \Illuminate\Support\Facades\Storage $storage
+     * @var \Illuminate\Support\Facades\Storage
      */
     protected $storage;
 
@@ -62,7 +62,8 @@ class FileManager
      *
      * @throws \Exception
      */
-    public function withResource($resource) {
+    public function withResource($resource)
+    {
         $this->resource = $resource;
 
         if (is_a($this->resource, UploadedFile::class)) {
@@ -90,12 +91,14 @@ class FileManager
      * @param int $folderId
      * @return $this
      * */
-    public function setFolder($folderId) {
+    public function setFolder($folderId)
+    {
         if (empty($folderId) || $folderId <= 0) {
             $folderId = null;
         }
 
         $this->folder_id = $folderId;
+
         return $this;
     }
 
@@ -108,6 +111,7 @@ class FileManager
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -116,11 +120,13 @@ class FileManager
      *
      * @throws FileManagerException
      */
-    public function save() {
+    public function save()
+    {
         $uploadedFile = $this->makeUploadedFile();
 
-        if (!$this->fileIsValid($uploadedFile)) {
+        if (! $this->fileIsValid($uploadedFile)) {
             unlink($uploadedFile->getRealPath());
+
             throw new FileManagerException($this->errors);
         }
 
@@ -139,6 +145,7 @@ class FileManager
         }
 
         DB::beginTransaction();
+
         try {
             $media = MediaFile::create([
                 'name' => $uploadedFile->getClientOriginalName(),
@@ -148,13 +155,13 @@ class FileManager
                 'size' => $uploadedFile->getSize(),
                 'extension' => $uploadedFile->getClientOriginalExtension(),
                 'folder_id' => $this->folder_id,
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
             ]);
 
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
 
@@ -175,7 +182,7 @@ class FileManager
         $folderPath = date('Y/m/d');
 
         // Make Directory if not exists
-        if (!$this->storage->exists($folderPath)) {
+        if (! $this->storage->exists($folderPath)) {
             File::makeDirectory($this->storage->path($folderPath), 0775, true);
         }
 
@@ -213,10 +220,12 @@ class FileManager
         $content = @file_get_contents($this->resource);
         $tempName = basename($this->resource);
         $this->storage->put($tempName, $content);
+
         return (new UploadedFile($this->storage->path($tempName), $tempName));
     }
 
-    protected function makeFilename(UploadedFile $file) {
+    protected function makeFilename(UploadedFile $file)
+    {
         $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
@@ -227,7 +236,8 @@ class FileManager
         return $this->replaceInsecureSuffix($filename);
     }
 
-    protected function replaceInsecureSuffix($name) {
+    protected function replaceInsecureSuffix($name)
+    {
         return preg_replace("/\.php$/i", '', $name);
     }
 
@@ -235,17 +245,20 @@ class FileManager
     {
         if (empty($file)) {
             array_push($this->errors, $this->errorMessage('file-empty'));
+
             return false;
         }
 
         if (! $file instanceof UploadedFile) {
             array_push($this->errors, $this->errorMessage('instance'));
+
             return false;
         }
 
         if ($file->getError() != UPLOAD_ERR_OK) {
             $msg = 'File failed to upload. Error code: ' . $file->getError();
             array_push($this->errors, $msg);
+
             return false;
         }
 
@@ -254,6 +267,7 @@ class FileManager
 
         if (empty($config)) {
             array_push($this->errors, $this->errorMessage('not-supported'));
+
             return false;
         }
 
@@ -264,12 +278,14 @@ class FileManager
         $validMimetypes = $config['valid_mime'] ?? [];
         if (in_array($mimetype, $validMimetypes) === false) {
             array_push($this->errors, $this->errorMessage('mime') . $mimetype);
+
             return false;
         }
 
         if ($max_size > 0) {
             if ($file_size > ($max_size * 1024 * 1024)) {
                 array_push($this->errors, $this->errorMessage('size'));
+
                 return false;
             }
         }

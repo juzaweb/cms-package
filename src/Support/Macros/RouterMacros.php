@@ -9,7 +9,7 @@ class RouterMacros
     public function jwResource()
     {
         return function ($uri, $controller, $options = []) {
-            if (!empty($options['name'])) {
+            if (! empty($options['name'])) {
                 $routeName = $options['name'];
             } else {
                 $routeName = str_replace(['{', '}'], '', $uri);
@@ -33,13 +33,13 @@ class RouterMacros
             $this->jwResource($uri, $controller, $options);
 
             $this->jwResource($singular . '/comments', '\Juzaweb\Http\Controllers\Backend\CommentController', [
-                'name' => $singular . '.comment'
+                'name' => $singular . '.comment',
             ]);
 
             $this->get($singular . '/{taxonomy}/component-item', '\Juzaweb\Http\Controllers\Backend\TaxonomyController@getTagComponent');
 
             $this->jwResource($singular . '/{taxonomy}', '\Juzaweb\Http\Controllers\Backend\TaxonomyController', [
-                'name' => $singular . '.taxonomy'
+                'name' => $singular . '.taxonomy',
             ]);
         };
     }

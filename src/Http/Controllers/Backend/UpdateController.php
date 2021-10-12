@@ -14,10 +14,10 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\Manager\UpdateManager;
-use Illuminate\Support\Facades\Cache;
 
 class UpdateController extends BackendController
 {
@@ -55,6 +55,7 @@ class UpdateController extends BackendController
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
+
             throw $e;
         }
 

@@ -36,7 +36,7 @@ class CommentDatatable extends DataTable
                 'label' => trans('juzaweb::app.name'),
                 'formatter' => function ($value, $row, $index) {
                     return e($row->getUserName());
-                }
+                },
             ],
             'email' => [
                 'label' => trans('juzaweb::app.email'),
@@ -48,27 +48,27 @@ class CommentDatatable extends DataTable
                     }
 
                     return $row->user->email ?? '';
-                }
+                },
             ],
             'content' => [
                 'label' => trans('juzaweb::app.content'),
                 'formatter' => function ($value, $row, $index) {
                     return e($value);
-                }
+                },
             ],
             'post' => [
                 'label' => trans('juzaweb::app.post'),
                 'width' => '20%',
                 'formatter' => function ($value, $row, $index) {
                     return $row->postType()->getTitle();
-                }
+                },
             ],
             'status' => [
                 'label' => trans('juzaweb::app.status'),
                 'width' => '10%',
                 'formatter' => function ($value, $row, $index) {
                     return Comment::allStatuses()[$value];
-                }
+                },
             ],
             'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
@@ -76,8 +76,8 @@ class CommentDatatable extends DataTable
                 'align' => 'center',
                 'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
-                }
-            ]
+                },
+            ],
         ];
     }
 
@@ -112,7 +112,7 @@ class CommentDatatable extends DataTable
         $statuses = Comment::allStatuses();
         foreach ($statuses as $key => $status) {
             $actions[$key] = [
-                'label' => $status
+                'label' => $status,
             ];
         }
 
@@ -125,6 +125,7 @@ class CommentDatatable extends DataTable
             switch ($action) {
                 case 'delete':
                     Comment::find($id)->delete($id);
+
                     break;
             }
         }
@@ -132,7 +133,7 @@ class CommentDatatable extends DataTable
         if (in_array($action, array_keys(Comment::allStatuses()))) {
             if (in_array($action, array_keys(Comment::allStatuses()))) {
                 Comment::whereIn('id', $ids)->update([
-                    'status' => $action
+                    'status' => $action,
                 ]);
             }
         }

@@ -1,12 +1,13 @@
 {
     "name": "juzaweb/cms",
-    "description": "Juzaweb CMS",
+    "description": "Juzaweb CMS is a Content Management System (CMS) developed based on Laravel Framework and web platform whose sole purpose is to make your development workflow simple again. Project develop by Juzaweb",
     "keywords": [
       "juzaweb cms",
       "juzaweb.com cms",
       "juzaweb.com",
       "laravel cms",
-      "cms like wordpress"
+      "cms like wordpress",
+      "laravel"
     ],
     "license": "MIT",
     "homepage": "https://juzaweb.com",
@@ -22,7 +23,7 @@
         "juzaweb/l5-swagger": "^6.0"
     },
     "require-dev": {
-      "laravel/laravel": "^6.0 | ^7.0 | ^8.0",
+      "juzaweb/laravel-cms": "^1.0",
       "phpunit/phpunit": "6.0 | 7.0 | 7.5 | 8.4 | ^8.5"
     },
     "autoload": {

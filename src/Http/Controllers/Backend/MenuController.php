@@ -2,12 +2,12 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\GlobalData;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Models\Menu;
-use Illuminate\Http\Request;
 use Juzaweb\Models\MenuItem;
 
 class MenuController extends BackendController
@@ -41,14 +41,14 @@ class MenuController extends BackendController
         $request->validate([
             'key' => 'required',
         ], [], [
-            'key' => trans('juzaweb::app.key')
+            'key' => trans('juzaweb::app.key'),
         ]);
 
         $menuRegister = HookAction::getMenuBox($request->post('key'));
 
         if (empty($menuRegister)) {
             return $this->error([
-                'message' => 'Cannot find menu box'
+                'message' => 'Cannot find menu box',
             ]);
         }
 
@@ -60,32 +60,32 @@ class MenuController extends BackendController
         foreach ($data as $item) {
             $model = new MenuItem();
             $model->fill(array_merge($item, [
-                'box_key' => $request->post('key')
+                'box_key' => $request->post('key'),
             ]));
 
             $result[] = view('juzaweb::backend.items.menu_item', [
-                'item' => $model
+                'item' => $model,
             ])->render();
         }
 
         return $this->success([
-            'items' => $result
+            'items' => $result,
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:250',
         ], [], [
-            'name' => trans('juzaweb::app.name')
+            'name' => trans('juzaweb::app.name'),
         ]);
-    
+
         $model = Menu::create($request->all());
-    
+
         return $this->success([
             'message' => trans('juzaweb::app.saved_successfully'),
-            'redirect' => route('admin.menu.id', [$model->id])
+            'redirect' => route('admin.menu.id', [$model->id]),
         ]);
     }
 
@@ -102,8 +102,8 @@ class MenuController extends BackendController
         $items = json_decode($request->post('content'), true);
 
         DB::beginTransaction();
-        try {
 
+        try {
             $model = Menu::findOrFail($id);
             $model->update($request->all());
             $model->syncItems($items);
@@ -129,9 +129,10 @@ class MenuController extends BackendController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             throw $e;
         }
-    
+
         return $this->success([
             'message' => trans('juzaweb::app.saved_successfully'),
             'redirect' => route('admin.menu.id', [$model->id]),
@@ -145,7 +146,7 @@ class MenuController extends BackendController
         $menu->delete();
 
         return $this->success([
-            'message' => trans('juzaweb::app.deleted_successfully')
+            'message' => trans('juzaweb::app.deleted_successfully'),
         ]);
     }
 
@@ -157,7 +158,7 @@ class MenuController extends BackendController
             echo e(view('juzaweb::backend.items.menu_box', [
                 'label' => $item['title'],
                 'key' => $key,
-                'slot' => $item['menu_box']->addView()->render()
+                'slot' => $item['menu_box']->addView()->render(),
             ]));
         }
     }

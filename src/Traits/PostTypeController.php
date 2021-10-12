@@ -30,7 +30,7 @@ trait PostTypeController
         return view($viewPrefix . '.index', [
             'title' => $this->getTitle(),
             'postType' => $postType,
-            'dataTable' => $dataTable
+            'dataTable' => $dataTable,
         ]);
     }
 
@@ -45,7 +45,7 @@ trait PostTypeController
         $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
 
         return view($viewPrefix . '.form', array_merge([
-            'title' => trans('juzaweb::app.add_new')
+            'title' => trans('juzaweb::app.add_new'),
         ], $this->getDataForForm($model)));
     }
 
@@ -60,7 +60,7 @@ trait PostTypeController
         $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
 
         return view($viewPrefix . '.form', array_merge([
-            'title' => $model->name ?? $model->title
+            'title' => $model->name ?? $model->title,
         ], $this->getDataForForm($model)));
     }
 
@@ -112,6 +112,7 @@ trait PostTypeController
     {
         $dataTable = new PostTypeDataTable();
         $dataTable->mountData($this->getSetting()->toArray());
+
         return $dataTable;
     }
 
@@ -125,7 +126,7 @@ trait PostTypeController
     {
         return [
             'postType' => $model->getPostType('key'),
-            'model' => $model
+            'model' => $model,
         ];
     }
 }

@@ -11,10 +11,10 @@
 namespace Juzaweb\Support\Manager;
 
 use GuzzleHttp\Psr7\Utils;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Juzaweb\Support\Curl;
 use Juzaweb\Support\JuzawebApi;
@@ -24,24 +24,27 @@ class UpdateManager
 {
     protected $curl;
     /**
-     * @var JuzawebApi $api
+     * @var JuzawebApi
      */
     protected $api;
 
     protected $tag;
     protected $val;
+    protected $version;
 
     protected $storage;
     protected $response;
     protected $tmpFolder;
     protected $tmpFile;
 
-    public function __construct($tag = 'core', $val = '') {
+    public function __construct($tag = 'core', $val = '', $version = null)
+    {
         $this->curl = app(Curl::class);
         $this->api = app(JuzawebApi::class);
 
         $this->tag = $tag;
         $this->val = $val;
+        $this->version = $version;
         $this->storage = Storage::disk('tmp');
     }
 
@@ -60,14 +63,19 @@ class UpdateManager
             case 'core':
                 return Version::getVersion();
             case 'plugin':
-                $module = app('modules')->find($this->val);
+                $module = app('plugins')->find($this->val);
                 if (empty($module)) {
                     return "0";
                 }
 
                 return $module->getVersion();
             case 'theme':
+                $theme = app('themes')->find($this->val);
+                if (empty($module)) {
+                    return "0";
+                }
 
+                return $theme->getVersion();
         }
 
         return false;
@@ -105,28 +113,37 @@ class UpdateManager
             case 'core':
                 $response = $this->api->get($uri, [
                     'current_version' => $this->getCurrentVersion(),
+                    'update_version' => $this->version,
                 ]);
+
                 break;
             case 'plugin':
                 $response = $this->api->get($uri, [
                     'current_version' => $this->getCurrentVersion(),
-                    'plugin' => $this->val,
+                    'update_version' => $this->version,
                     'cms_version' => Version::getVersion(),
+                    'plugin' => $this->val,
                 ]);
+
                 break;
             case 'theme':
+                $response = $this->api->get($uri, [
+                    'current_version' => $this->getCurrentVersion(),
+                    'update_version' => $this->version,
+                    'cms_version' => Version::getVersion(),
+                    'theme' => $this->val,
+                ]);
+
                 break;
         }
 
         if (empty($response->update)) {
-            dd($response);
             return false;
         }
 
         $this->response = $response;
 
         return true;
-
     }
 
     public function updateStep2()
@@ -135,7 +152,7 @@ class UpdateManager
 
         $this->tmpFolder = $this->tag . '/' . Str::random(5);
         foreach (['zip', 'unzip', 'backup'] as $folder) {
-            if (!$this->storage->exists($this->tmpFolder . '/' . $folder)) {
+            if (! $this->storage->exists($this->tmpFolder . '/' . $folder)) {
                 File::makeDirectory($this->storage->path($this->tmpFolder . '/' . $folder), 0775, true);
             }
         }
@@ -143,7 +160,7 @@ class UpdateManager
         $this->tmpFile = $this->tmpFolder . '/zip/' . Str::random(10) . '.zip';
         $this->tmpFile = $this->storage->path($this->tmpFile);
 
-        if (!$this->downloadFile($file, $this->tmpFile)) {
+        if (! $this->downloadFile($file, $this->tmpFile)) {
             return false;
         }
 
@@ -161,6 +178,7 @@ class UpdateManager
 
         $zip->extractTo($this->storage->path($this->tmpFolder . '/unzip'));
         $zip->close();
+
         return true;
     }
 
@@ -171,6 +189,7 @@ class UpdateManager
         File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup'));
         foreach ($zipFolders as $folder) {
             File::moveDirectory($folder, $localFolder);
+
             break;
         }
 
@@ -185,15 +204,15 @@ class UpdateManager
                 Artisan::call('migrate', ['--force' => true]);
                 Artisan::call('vendor:publish', [
                     '--tag' => 'juzaweb_assets',
-                    '--force' => true
+                    '--force' => true,
                 ]);
 
                 /**
                  * @var \Juzaweb\Abstracts\Plugin[] $plugins
                  */
-                $plugins = app('modules')->all();
+                $plugins = app('plugins')->all();
                 foreach ($plugins as $plugin) {
-                    if (!$plugin->isEnabled()) {
+                    if (! $plugin->isEnabled()) {
                         continue;
                     }
 
@@ -206,11 +225,12 @@ class UpdateManager
                 /**
                  * @var \Juzaweb\Abstracts\Plugin $plugin
                  */
-                $plugin = app('modules')->find($this->val);
+                $plugin = app('plugins')->find($this->val);
                 if ($plugin->isEnabled()) {
                     $plugin->disable();
                     $plugin->enable();
                 }
+
                 break;
             case 'theme':
                 if ($this->val == jw_current_theme()) {
@@ -250,7 +270,6 @@ class UpdateManager
             ]);
 
             return $filename;
-
         } catch (\Throwable $e) {
             Log::error($e);
         }

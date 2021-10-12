@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Http\Controllers\Backend\Setting;
 
+use Illuminate\Http\Request;
 use Juzaweb\Facades\GlobalData;
 use Juzaweb\Http\Controllers\BackendController;
-use Illuminate\Http\Request;
 
 class SystemSettingController extends BackendController
 {
@@ -18,7 +18,7 @@ class SystemSettingController extends BackendController
             'forms' => $forms,
         ]);
     }
-    
+
     public function save(Request $request)
     {
         $configs = $request->all();
@@ -27,12 +27,12 @@ class SystemSettingController extends BackendController
                 set_config($key, $config);
             }
         }
-    
+
         $form = $request->post('form');
         if (empty($form)) {
             $form = 'general';
         }
-        
+
         return $this->success([
             'message' => trans('juzaweb::app.saved_successfully'),
             'redirect' => route('admin.setting.form', [$form]),

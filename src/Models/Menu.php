@@ -41,7 +41,7 @@ class Menu extends Model
 {
     protected $table = 'menus';
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function items()
@@ -80,10 +80,10 @@ class Menu extends Model
         $data['target'] = $item['target'] ?? '_self';
 
         $model = $this->items()->updateOrCreate([
-            'id' => $item['id'] ?? null
+            'id' => $item['id'] ?? null,
         ], $data);
 
-        $order ++;
+        $order++;
         $result[$model->id] = $model->id;
 
         if ($children = Arr::get($item, 'children')) {

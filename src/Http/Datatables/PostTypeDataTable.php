@@ -37,14 +37,14 @@ class PostTypeDataTable extends DataTable
         return [
             'title' => [
                 'label' => trans('juzaweb::app.title'),
-                'formatter' => [$this, 'rowActionsFormatter']
+                'formatter' => [$this, 'rowActionsFormatter'],
             ],
             'created_at' => [
                 'label' => trans('juzaweb::app.created_at'),
                 'width' => '15%',
                 'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
-                }
+                },
             ],
             'status' => [
                 'label' => trans('juzaweb::app.status'),
@@ -54,20 +54,24 @@ class PostTypeDataTable extends DataTable
                     switch ($row->status) {
                         case 'publish':
                             return '<span class="text-success">'. trans('juzaweb::app.publish') .'</span>';
+
                             break;
                         case 'private':
                             return '<span class="text-warning">'. trans('juzaweb::app.private') .'</span>';
+
                             break;
                         case 'draft':
                             return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
+
                             break;
                         case 'trash':
                             return '<span class="text-danger">'. trans('juzaweb::app.trash') .'</span>';
+
                             break;
                     }
 
                     return '<span class="text-secondary">'. trans('juzaweb::app.draft') .'</span>';
-                }
+                },
             ],
         ];
     }
@@ -85,13 +89,14 @@ class PostTypeDataTable extends DataTable
             switch ($action) {
                 case 'delete':
                     $this->makeModel()->find($id)->delete($id);
+
                     break;
             }
         }
 
         if (in_array($action, array_keys($this->makeModel()->getStatuses()))) {
             $this->makeModel()->whereIn('id', $ids)->update([
-                'status' => $action
+                'status' => $action,
             ]);
         }
     }
@@ -109,7 +114,7 @@ class PostTypeDataTable extends DataTable
                 'width' => '100px',
                 'label' => trans('juzaweb::app.status'),
                 'options' => $this->makeModel()->getStatuses(),
-            ]
+            ],
         ];
 
         $taxonomies = HookAction::getTaxonomies($this->postType['key']);
@@ -154,6 +159,7 @@ class PostTypeDataTable extends DataTable
         }
 
         $query->whereFilter($data);
+
         return $query;
     }
 
@@ -162,7 +168,7 @@ class PostTypeDataTable extends DataTable
         return view('juzaweb::backend.items.datatable_item', [
             'value' => $row->{$row->getFieldName()},
             'row' => $row,
-            'actions' => $this->rowAction($row)
+            'actions' => $this->rowAction($row),
         ])
             ->render();
     }

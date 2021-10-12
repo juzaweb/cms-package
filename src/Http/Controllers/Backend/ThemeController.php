@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Juzaweb\Facades\Theme;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\ArrayPagination;
-use Juzaweb\Facades\Theme;
 use Juzaweb\Support\JuzawebApi;
 use Juzaweb\Support\Manager\UpdateManager;
 
@@ -36,7 +36,7 @@ class ThemeController extends BackendController
             'title' => trans('juzaweb::app.themes'),
             'themes' => $themes,
             'currentTheme' => $currentTheme,
-            'activated' => $activated
+            'activated' => $activated,
         ]);
     }
 
@@ -44,7 +44,7 @@ class ThemeController extends BackendController
     {
         $this->addBreadcrumb([
             'title' => trans('juzaweb::app.themes'),
-            'url' => action([static::class, 'index'])
+            'url' => action([static::class, 'index']),
         ]);
 
         $title = trans('juzaweb::app.install');
@@ -64,7 +64,7 @@ class ThemeController extends BackendController
         $page = (int) round(($offset + $limit) / $limit);
         $data = $this->api->getResponse('theme/all', [
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
         ]);
 
         $rows = $data->data;
@@ -72,7 +72,7 @@ class ThemeController extends BackendController
             $row->content = view('juzaweb::components.theme_item', [
                 'item' => $row,
                 'installed' => $installed,
-                'activated' => $activated
+                'activated' => $activated,
             ])->render();
         }
 
@@ -85,7 +85,7 @@ class ThemeController extends BackendController
     public function update(Request $request)
     {
         $this->validate($request, [
-            'theme' => 'required'
+            'theme' => 'required',
         ]);
 
         $updater = new UpdateManager('theme', $request->post('theme'));
@@ -94,20 +94,20 @@ class ThemeController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.updated_successfully')
+            'message' => trans('juzaweb::app.updated_successfully'),
         ]);
     }
-    
+
     public function activate(Request $request)
     {
         $request->validate([
-            'theme' => 'required'
+            'theme' => 'required',
         ]);
 
         $theme = $request->post('theme');
-        if (!Theme::has($theme)) {
+        if (! Theme::has($theme)) {
             return $this->error([
-                'message' => trans('juzaweb::message.theme_not_found')
+                'message' => trans('juzaweb::message.theme_not_found'),
             ]);
         }
 
@@ -119,7 +119,7 @@ class ThemeController extends BackendController
             }
 
             add_backend_message([
-                trans('juzaweb::app.theme_require_plugins') .' ' . implode(', ', $str) .'. <a href="'. route('admin.themes.require-plugins') .'"><strong>'. trans('juzaweb::app.activate_plugins') .'</strong></a>'
+                trans('juzaweb::app.theme_require_plugins') .' ' . implode(', ', $str) .'. <a href="'. route('admin.themes.require-plugins') .'"><strong>'. trans('juzaweb::app.activate_plugins') .'</strong></a>',
             ], 'warning');
         }
 
@@ -136,7 +136,6 @@ class ThemeController extends BackendController
 
     public function delete(Request $request)
     {
-
     }
 
     protected function putCache($theme)

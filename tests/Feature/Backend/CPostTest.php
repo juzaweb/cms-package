@@ -10,10 +10,11 @@
 
 namespace Juzaweb\Tests\Feature\Backend;
 
+use Faker\Generator as Faker;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Juzaweb\Facades\HookAction;
-use Juzaweb\Models\Model;
 use Juzaweb\Models\User;
 use Juzaweb\Tests\TestCase;
 
@@ -42,7 +43,7 @@ class CPostTest extends TestCase
 
             $this->createTest($key, $postType);
 
-            $this->updateTest($postType);
+            $this->updateTest($key, $postType);
         }
     }
 
@@ -61,13 +62,13 @@ class CPostTest extends TestCase
 
         if ($post = $this->makerData($postType)) {
             $old = app($postType->get('model'))->count();
-            $this->post('/admin-cp/posts', $post);
+            $this->post('/admin-cp/' . $key, $post);
             $new = app($postType->get('model'))->count();
             $this->assertEquals($old, ($new - 1));
         }
     }
 
-    protected function updateTest($postType)
+    protected function updateTest($key, $postType)
     {
         if ($post = $this->makerData($postType)) {
             $model = app($postType->get('model'))->first(['id']);
@@ -75,7 +76,7 @@ class CPostTest extends TestCase
 
             $response->assertStatus(200);
 
-            $this->put('/admin-cp/posts/' . $model->id, $post);
+            $this->put('/admin-cp/'.$key.'/' . $model->id, $post);
 
             $model = app($postType->get('model'))
                 ->where('id', '=', $model->id)
@@ -93,18 +94,23 @@ class CPostTest extends TestCase
      */
     protected function makerData($postType)
     {
-        try {
-            $post = factory($postType->get('model'))->make();
-            $post = $post->getAttributes();
+        $faker = app(Faker::class);
+        $title = $faker->sentence(10);
 
-        } catch (\Throwable $e) {
-            echo "\n--- " . $e->getMessage();
-            return false;
-        }
+        $post = [
+            'title' => $title,
+            'content' => $faker->sentence(50),
+            'status' => 'publish',
+            'slug' => Str::slug($title),
+            'created_at' => $faker->dateTime(),
+            'updated_at' => $faker->dateTime(),
+        ];
 
         $taxonomies = HookAction::getTaxonomies($postType->get('key'));
         foreach ($taxonomies as $taxonomy) {
             $ids = app($taxonomy->get('model'))
+                ->where('taxonomy', '=', $taxonomy->get('taxonomy'))
+                ->where('post_type', '=', $postType->get('key'))
                 ->inRandomOrder()
                 ->limit(5)
                 ->pluck('id')

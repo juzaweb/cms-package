@@ -17,7 +17,7 @@ class TaxonomyMenuBox extends MenuBox
 {
     protected $key;
     /**
-     * @var \Illuminate\Support\Collection $query
+     * @var \Illuminate\Support\Collection
      */
     protected $taxonomy;
 
@@ -61,7 +61,7 @@ class TaxonomyMenuBox extends MenuBox
     {
         return view('juzaweb::backend.menu.boxs.taxonomy_add', [
             'taxonomy' => $this->taxonomy,
-            'key' => $this->key
+            'key' => $this->key,
         ]);
     }
 
@@ -70,7 +70,7 @@ class TaxonomyMenuBox extends MenuBox
         return view('juzaweb::backend.menu.boxs.taxonomy_edit', [
             'taxonomy' => $this->taxonomy,
             'key' => $this->key,
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -83,9 +83,10 @@ class TaxonomyMenuBox extends MenuBox
             ->get(['id', 'slug'])->keyBy('id');
 
         return $menuItems->map(function ($item) use ($base, $items) {
-            if (!empty($items[$item->model_id])) {
+            if (! empty($items[$item->model_id])) {
                 $item->link = url()->to($base . '/' . $items[$item->model_id]->slug) . '/';
             }
+
             return $item;
         });
     }

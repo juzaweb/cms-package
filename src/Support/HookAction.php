@@ -8,16 +8,16 @@
 
 namespace Juzaweb\Support;
 
-use Illuminate\Support\Collection;
-use Juzaweb\Facades\Hook;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Juzaweb\Facades\GlobalData;
+use Juzaweb\Facades\Hook;
 use Juzaweb\Http\Controllers\Frontend\PostController;
 use Juzaweb\Http\Controllers\Frontend\TaxonomyController;
 use Juzaweb\Models\Taxonomy;
 use Juzaweb\Support\Theme\PostTypeMenuBox;
 use Juzaweb\Support\Theme\TaxonomyMenuBox;
-use Juzaweb\Facades\GlobalData;
 
 class HookAction
 {
@@ -188,6 +188,7 @@ class HookAction
     public function getMenuBox($key)
     {
         $menuBoxs = GlobalData::get('menu_boxs.' . $key);
+
         return $menuBoxs;
     }
 
@@ -220,7 +221,7 @@ class HookAction
                 'menu_box' => true,
                 'rewrite' => true,
                 'supports' => [
-                    'hierarchical'
+                    'hierarchical',
                 ],
             ];
 
@@ -241,7 +242,7 @@ class HookAction
                     [
                         'icon' => $args->get('menu_icon', 'fa fa-list'),
                         'parent' => $args->get('parent'),
-                        'position' => $args->get('menu_position')
+                        'position' => $args->get('menu_position'),
                     ]
                 );
             }
@@ -251,7 +252,7 @@ class HookAction
                     'label' => $args->get('label'),
                     'base' => $args->get('singular'),
                     'priority' => $args->get('priority'),
-                    'callback' => TaxonomyController::class
+                    'callback' => TaxonomyController::class,
                 ]);
             }
 
@@ -314,7 +315,7 @@ class HookAction
                 'title' => $args->get('label'),
                 'group' => 'post_type',
                 'menu_box' => new PostTypeMenuBox($key, $args),
-                'priority' => 10
+                'priority' => 10,
             ]);
         }
 
@@ -337,7 +338,7 @@ class HookAction
                 'menu_box' => false,
                 'show_in_menu' => $args->get('show_in_menu'),
                 'rewrite' => $args->get('taxonomy_rewrite'),
-                'supports' => []
+                'supports' => [],
             ]);
         }
 
@@ -365,7 +366,7 @@ class HookAction
             $key,
             [
                 'icon' => $args->get('menu_icon', 'fa fa-edit'),
-                'position' => $args->get('menu_position', 20)
+                'position' => $args->get('menu_position', 20),
             ]
         );
 
@@ -459,7 +460,7 @@ class HookAction
                 $model->taxonomies()->detach($detachIds);
                 $model->taxonomies()
                     ->syncWithoutDetaching(combine_pivot($data, [
-                        'term_type' => $postType
+                        'term_type' => $postType,
                     ]), ['term_type' => $postType]);
             }
         }
@@ -467,7 +468,7 @@ class HookAction
 
     public function enqueueScript($key, $src = '', $ver = '1.0', $inFooter = false)
     {
-        if (!is_url($src)) {
+        if (! is_url($src)) {
             $src = asset($src);
         }
 
@@ -481,7 +482,7 @@ class HookAction
 
     public function enqueueStyle($key, $src = '', $ver = '1.0', $inFooter = false)
     {
-        if (!is_url($src)) {
+        if (! is_url($src)) {
             $src = asset($src);
         }
 
@@ -495,7 +496,7 @@ class HookAction
 
     public function enqueueFrontendScript($key, $src = '', $ver = '1.0', $inFooter = false)
     {
-        if (!is_url($src)) {
+        if (! is_url($src)) {
             $src = theme_assets($src);
         }
 
@@ -509,7 +510,7 @@ class HookAction
 
     public function enqueueFrontendStyle($key, $src = '', $ver = '1.0', $inFooter = false)
     {
-        if (!is_url($src)) {
+        if (! is_url($src)) {
             $src = theme_assets($src);
         }
 
@@ -524,24 +525,28 @@ class HookAction
     public function getEnqueueScripts($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('scripts'));
+
         return $scripts->where('inFooter', $inFooter);
     }
 
     public function getEnqueueStyles($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('styles'));
+
         return $scripts->where('inFooter', $inFooter);
     }
 
     public function getEnqueueFrontendScripts($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('frontend.scripts'));
+
         return $scripts->where('inFooter', $inFooter);
     }
 
     public function getEnqueueFrontendStyles($inFooter = false)
     {
         $scripts = new Collection(GlobalData::get('frontend.styles'));
+
         return $scripts->where('inFooter', $inFooter);
     }
 
@@ -564,7 +569,7 @@ class HookAction
         foreach ($locations as $key => $location) {
             GlobalData::set('nav_menus.' . $key, new Collection([
                 'key' => $key,
-                'location' => $location
+                'location' => $location,
             ]));
         }
     }
@@ -589,7 +594,7 @@ class HookAction
             'key' => $key,
             'description' => '',
             'before_widget' => '',
-            'after_widget'  => '',
+            'after_widget' => '',
         ];
 
         $args = array_merge($defaults, $args);
@@ -643,7 +648,7 @@ class HookAction
         $defaults = [
             'key' => $key,
             'name' => '',
-            'view' => ''
+            'view' => '',
         ];
 
         $args = array_merge($defaults, $args);

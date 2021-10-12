@@ -4,8 +4,8 @@ namespace Juzaweb\Traits;
 
 use Illuminate\Support\Str;
 
-trait UseSlug {
-
+trait UseSlug
+{
     public static function bootUseSlug()
     {
         static::saving(function ($model) {
@@ -46,12 +46,12 @@ trait UseSlug {
 
         $slug = substr($string, 0, 70);
         $slug = Str::slug($slug);
-        
+
         $row = self::where('id', '!=', $this->id)
             ->where('slug', 'like', $slug . '%')
             ->orderBy('slug', 'DESC')
             ->first(['slug']);
-    
+
         if ($row) {
             $split = explode('-', $row->slug);
             $last = (int) $split[count($split) - 1];
@@ -59,7 +59,7 @@ trait UseSlug {
         }
 
         $this->slug = $slug;
-        
+
         return $slug;
     }
 }

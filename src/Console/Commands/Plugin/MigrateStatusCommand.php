@@ -3,8 +3,8 @@
 namespace Juzaweb\Console\Commands\Plugin;
 
 use Illuminate\Console\Command;
-use Juzaweb\Support\Migrations\Migrator;
 use Juzaweb\Abstracts\Plugin;
+use Juzaweb\Support\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -36,7 +36,7 @@ class MigrateStatusCommand extends Command
      */
     public function handle()
     {
-        $this->module = $this->laravel['modules'];
+        $this->module = $this->laravel['plugins'];
 
         $name = $this->argument('module');
 

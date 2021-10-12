@@ -40,5 +40,3 @@ if (config('juzaweb.logs_viewer')) {
         Route::get('/{date}/get-data', 'Backend\LogViewerController@listLogsDate')->name('admin.logs.error.get-logs-date');
     });
 }
-
-

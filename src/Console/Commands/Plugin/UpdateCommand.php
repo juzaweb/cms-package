@@ -38,7 +38,7 @@ class UpdateCommand extends Command
         }
 
         /** @var \Juzaweb\Abstracts\Plugin $module */
-        foreach ($this->laravel['modules']->getOrdered() as $module) {
+        foreach ($this->laravel['plugins']->getOrdered() as $module) {
             $this->updateModule($module->getName());
         }
     }
@@ -47,7 +47,7 @@ class UpdateCommand extends Command
     {
         $this->line('Running for plugin: <info>' . $name . '</info>');
 
-        $this->laravel['modules']->update($name);
+        $this->laravel['plugins']->update($name);
 
         $this->info("Plugin [{$name}] updated successfully.");
     }

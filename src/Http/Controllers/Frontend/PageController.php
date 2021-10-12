@@ -74,7 +74,7 @@ class PageController extends FrontendController
      */
     protected function getViewPage(Page $page, $themeInfo)
     {
-        if (!empty($page->template)) {
+        if (! empty($page->template)) {
             $templates = HookAction::getThemeTemplates($page->template);
             $templateView = $templates['view'] ?? null;
             $templateView = 'theme::' . $templateView;
@@ -88,7 +88,7 @@ class PageController extends FrontendController
             $template = get_name_template_part('page', 'single');
             $view = 'theme::template-parts.' . $template;
 
-            if (!view()->exists($view)) {
+            if (! view()->exists($view)) {
                 $view = 'theme::template-parts.single';
             }
         }

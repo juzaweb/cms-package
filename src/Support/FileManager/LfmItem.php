@@ -3,7 +3,6 @@
 namespace Juzaweb\Support\FileManager;
 
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LfmItem
 {
@@ -24,7 +23,7 @@ class LfmItem
 
     public function __get($var_name)
     {
-        if (!array_key_exists($var_name, $this->attributes)) {
+        if (! array_key_exists($var_name, $this->attributes)) {
             $function_name = Str::camel($var_name);
             $this->attributes[$var_name] = $this->$function_name();
         }
@@ -150,11 +149,11 @@ class LfmItem
 
     public function hasThumb()
     {
-        if (!$this->isImage()) {
+        if (! $this->isImage()) {
             return false;
         }
 
-        if (!$this->lfm->thumb()->exists()) {
+        if (! $this->lfm->thumb()->exists()) {
             return false;
         }
 
@@ -163,11 +162,11 @@ class LfmItem
 
     public function shouldCreateThumb()
     {
-        if (!$this->helper->config('should_create_thumbnails')) {
+        if (! $this->helper->config('should_create_thumbnails')) {
             return false;
         }
 
-        if (!$this->isImage()) {
+        if (! $this->isImage()) {
             return false;
         }
 

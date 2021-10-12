@@ -2,11 +2,8 @@
 
 @section('content')
     @component('juzaweb::components.form_resource', [
-        'action' => $model->id ? route('admin.$ROUTE_NAME$.update', [$model->id]) : route('admin.$ROUTE_NAME$.store'),
-        'method' => $model->id ? 'put' : 'post'
+        'model' => $model
     ])
-
-        <input type="hidden" name="id" value="{{ $model->id }}">
 
         <div class="row">
             <div class="col-md-12">

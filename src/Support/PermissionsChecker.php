@@ -17,7 +17,7 @@ class PermissionsChecker
     public function __construct()
     {
         $this->results['permissions'] = [];
-        
+
         $this->results['errors'] = null;
     }
 

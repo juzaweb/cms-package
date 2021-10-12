@@ -12,7 +12,7 @@ class DbConfigServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        if (!Installer::alreadyInstalled()) {
+        if (! Installer::alreadyInstalled()) {
             return;
         }
 
@@ -22,16 +22,16 @@ class DbConfigServiceProvider extends ServiceProvider
 
         if ($mail) {
             $config = [
-                'driver'     => 'smtp',
-                'host'       => $mail['host'] ?? '',
-                'port'       => $mail['port'] ?? '',
-                'from'       => [
-                    'address'   => $mail['from_address'] ?? '',
-                    'name'      => $mail['from_name'] ?? '',
+                'driver' => 'smtp',
+                'host' => $mail['host'] ?? '',
+                'port' => $mail['port'] ?? '',
+                'from' => [
+                    'address' => $mail['from_address'] ?? '',
+                    'name' => $mail['from_name'] ?? '',
                 ],
                 'encryption' => $mail['encryption'] ?? '',
-                'username'   => $mail['username'] ?? '',
-                'password'   => $mail['password'] ?? '',
+                'username' => $mail['username'] ?? '',
+                'password' => $mail['password'] ?? '',
             ];
 
             Config::set('mail', $config);
@@ -49,7 +49,7 @@ class DbConfigServiceProvider extends ServiceProvider
 
     public function register()
     {
-        if (!Installer::alreadyInstalled()) {
+        if (! Installer::alreadyInstalled()) {
             return;
         }
 

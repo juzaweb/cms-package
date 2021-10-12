@@ -2,9 +2,9 @@
 
 namespace Juzaweb\Traits;
 
-use Juzaweb\Support\Stub;
 use Juzaweb\Exceptions\FileAlreadyExistException;
 use Juzaweb\Support\Generators\FileGenerator;
+use Juzaweb\Support\Stub;
 
 trait ModuleCommandTrait
 {
@@ -16,7 +16,8 @@ trait ModuleCommandTrait
     public function getModuleName()
     {
         $module = $this->argument('module');
-        $module = app('modules')->findOrFail($module);
+        $module = app('plugins')->findOrFail($module);
+
         return $module->getName();
     }
 

@@ -25,7 +25,7 @@ class CustomMenuBox extends MenuBox
     {
         return [
             'label' => $item['label'],
-            'link' => $item['link']
+            'link' => $item['link'],
         ];
     }
 
@@ -37,7 +37,7 @@ class CustomMenuBox extends MenuBox
     public function editView($item)
     {
         return view('juzaweb::backend.menu.boxs.custom_edit', [
-            'item' => $item
+            'item' => $item,
         ]);
     }
 

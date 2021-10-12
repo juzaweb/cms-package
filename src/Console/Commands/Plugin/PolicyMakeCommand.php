@@ -33,9 +33,9 @@ class PolicyMakeCommand extends GeneratorCommand
      */
     protected $description = 'Create a new policy class for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
-        $module = $this->laravel['modules'];
+        $module = $this->laravel['plugins'];
 
         return $module->config('paths.generator.policies.namespace') ?: $module->config('paths.generator.policies.path', 'Policies');
     }
@@ -58,11 +58,11 @@ class PolicyMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/policy.plain.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -71,7 +71,7 @@ class PolicyMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $policyPath = GenerateConfigReader::read('policies');
 

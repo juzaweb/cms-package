@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Juzaweb\Models\Config as DbConfig;
 use Juzaweb\Models\EmailTemplate;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Juzaweb\Models\Config as DbConfig;
 
 class DatabaseManager
 {
@@ -31,6 +31,7 @@ class DatabaseManager
         }
 
         DB::beginTransaction();
+
         try {
             $this->makeConfig();
             $this->makeEmailTemplate();
@@ -38,6 +39,7 @@ class DatabaseManager
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error($e);
+
             return $this->response($e->getMessage(), 'error', $outputLog);
         }
 
@@ -53,7 +55,7 @@ class DatabaseManager
     private function migrate(BufferedOutput $outputLog)
     {
         try {
-            Artisan::call('migrate', ['--force'=> true], $outputLog);
+            Artisan::call('migrate', ['--force' => true], $outputLog);
         } catch (Exception $e) {
             return $this->response($e->getMessage(), 'error', $outputLog);
         }
@@ -114,7 +116,7 @@ class DatabaseManager
 <p><a href="{verifyUrl}" target="_blank">Verify account</a></p>',
             'params' => [
                 'name' => 'Your Name',
-                'url' => 'Url verify account',
+                'verifyUrl' => 'Url verify account',
             ],
         ]);
 

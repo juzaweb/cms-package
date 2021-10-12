@@ -17,7 +17,7 @@ class ResourceMakeCommand extends GeneratorCommand
     protected $name = 'plugin:make-resource';
     protected $description = 'Create a new resource class for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Transformers';
     }
@@ -47,11 +47,11 @@ class ResourceMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub($this->getStubName(), [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -60,7 +60,7 @@ class ResourceMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $resourcePath = GenerateConfigReader::read('resource');
 
@@ -80,7 +80,7 @@ class ResourceMakeCommand extends GeneratorCommand
      *
      * @return bool
      */
-    protected function collection() : bool
+    protected function collection(): bool
     {
         return $this->option('collection') ||
             Str::endsWith($this->argument('name'), 'Collection');

@@ -11,7 +11,6 @@
 namespace Juzaweb\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Juzaweb\Support\Manager\UpdateManager;
 
 class UpdateCommand extends Command
@@ -23,18 +22,20 @@ class UpdateCommand extends Command
         $update = new UpdateManager();
 
         $this->info('Check file update');
-        $update->updateStep1();
+        $check = $update->updateStep1();
 
-        $this->info('Download File');
-        $update->updateStep2();
+        if ($check) {
+            $this->info('Download File');
+            $update->updateStep2();
 
-        $this->info('Unzip File');
-        $update->updateStep3();
+            $this->info('Unzip File');
+            $update->updateStep3();
 
-        $this->info('Move to folder');
-        $update->updateStep4();
+            $this->info('Move to folder');
+            $update->updateStep4();
 
-        $this->info('Update database');
-        $update->updateStep5();
+            $this->info('Update database');
+            $update->updateStep5();
+        }
     }
 }

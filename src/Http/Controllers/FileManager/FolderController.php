@@ -13,7 +13,7 @@ class FolderController extends FileManagerController
         $folders = MediaFolder::whereNull('folder_id')
             ->where('type', '=', $this->getType())
             ->get(['id', 'name']);
-        
+
         foreach ($folders as $folder) {
             $childrens[] = (object) [
                 'name' => $folder->name,
@@ -22,7 +22,7 @@ class FolderController extends FileManagerController
                 'has_next' => false,
             ];
         }
-        
+
         return view('juzaweb::backend.filemanager.tree')
             ->with([
                 'root_folders' => [
@@ -31,11 +31,11 @@ class FolderController extends FileManagerController
                         'url' => '',
                         'children' => $childrens,
                         'has_next' => $childrens ? true : false,
-                    ]
+                    ],
                 ],
             ]);
     }
-    
+
     public function addfolder()
     {
         $folder_name = request()->input('name');
@@ -54,6 +54,7 @@ class FolderController extends FileManagerController
         }
 
         DB::beginTransaction();
+
         try {
             $model = new Folder();
             $model->name = $folder_name;
@@ -63,6 +64,7 @@ class FolderController extends FileManagerController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
             return $e->getMessage();
         }
 

@@ -12,7 +12,8 @@ use Symfony\Component\Console\Input\InputOption;
 
 class SeedMakeCommand extends GeneratorCommand
 {
-    use ModuleCommandTrait, CanClearModulesCache;
+    use ModuleCommandTrait;
+    use CanClearModulesCache;
 
     protected $argumentName = 'name';
 
@@ -65,7 +66,7 @@ class SeedMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/seeder.stub', [
             'NAME' => $this->getSeederName(),
@@ -82,7 +83,7 @@ class SeedMakeCommand extends GeneratorCommand
     {
         $this->clearCache();
 
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $seederPath = GenerateConfigReader::read('seeder');
 
@@ -106,7 +107,7 @@ class SeedMakeCommand extends GeneratorCommand
      *
      * @return string
      */
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Database/Seeders';
     }

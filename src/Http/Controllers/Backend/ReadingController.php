@@ -49,7 +49,7 @@ class ReadingController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.save_successfully')
+            'message' => trans('juzaweb::app.save_successfully'),
         ]);
     }
 }

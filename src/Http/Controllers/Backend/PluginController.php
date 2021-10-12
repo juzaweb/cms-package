@@ -4,9 +4,9 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Juzaweb\Facades\Plugin;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\ArrayPagination;
-use Juzaweb\Facades\Plugin;
 use Juzaweb\Support\JuzawebApi;
 use Juzaweb\Support\Manager\UpdateManager;
 
@@ -30,7 +30,7 @@ class PluginController extends BackendController
     {
         $this->addBreadcrumb([
             'title' => trans('juzaweb::app.plugins'),
-            'url' => action([static::class, 'index'])
+            'url' => action([static::class, 'index']),
         ]);
 
         $title = trans('juzaweb::app.install');
@@ -43,7 +43,7 @@ class PluginController extends BackendController
     public function update(Request $request)
     {
         $this->validate($request, [
-            'plugin' => 'required'
+            'plugin' => 'required',
         ]);
 
         $updater = new UpdateManager('plugin', $request->post('plugin'));
@@ -52,7 +52,7 @@ class PluginController extends BackendController
         }
 
         return $this->success([
-            'message' => trans('juzaweb::app.updated_successfully')
+            'message' => trans('juzaweb::app.updated_successfully'),
         ]);
     }
 
@@ -65,14 +65,14 @@ class PluginController extends BackendController
         $page = (int) round(($offset + $limit) / $limit);
 
         $data = $this->api->getResponse('plugin/all', [
-            'page' => $page
+            'page' => $page,
         ]);
 
         $rows = $data->data;
         foreach ($rows as $row) {
             $row->content = view('juzaweb::components.plugin_item', [
                 'item' => $row,
-                'installed' => $installed
+                'installed' => $installed,
             ])->render();
         }
 
@@ -86,7 +86,7 @@ class PluginController extends BackendController
     {
         $offset = $request->get('offset', 0);
         $limit = $request->get('limit', 20);
-        
+
         $results = [];
         $plugins = Plugin::all();
         foreach ($plugins as $plugin) {
@@ -99,18 +99,18 @@ class PluginController extends BackendController
             ];
             $results[] = $item;
         }
-        
+
         $total = count($results);
         $page = (int) round(($offset + $limit) / $limit);
         $data = ArrayPagination::make($results);
         $data = $data->paginate($limit, $page);
-        
+
         return response()->json([
             'total' => $total,
             'rows' => $data->items(),
         ]);
     }
-    
+
     public function bulkActions(Request $request)
     {
         $request->validate([
@@ -120,7 +120,7 @@ class PluginController extends BackendController
             'ids' => trans('tadcms::app.plugins'),
             'action' => trans('tadcms::app.action'),
         ]);
-        
+
         $action = $request->post('action');
         $ids = $request->post('ids');
         foreach ($ids as $plugin) {
@@ -129,31 +129,36 @@ class PluginController extends BackendController
                 switch ($action) {
                     case 'delete':
                         Plugin::delete($plugin);
+
                         break;
                     case 'activate':
                         Plugin::enable($plugin);
+
                         break;
                     case 'deactivate':
                         Plugin::disable($plugin);
+                        // no break
                     case 'update':
                         $updater = new UpdateManager('plugin', $request->post('plugin'));
                         if ($updater->checkUpdate()) {
                             $updater->update();
                         }
+
                         break;
                 }
                 DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
+
                 return $this->error([
-                    'message' => trans($e->getMessage())
+                    'message' => trans($e->getMessage()),
                 ]);
             }
         }
-        
+
         return $this->success([
             'message' => trans('juzaweb::app.successfully'),
-            'redirect' => route('admin.plugin')
+            'redirect' => route('admin.plugin'),
         ]);
     }
 }

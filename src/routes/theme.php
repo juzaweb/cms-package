@@ -11,7 +11,7 @@
 require __DIR__ . '/installer.php';
 
 Route::group([
-    'middleware' => 'guest'
+    'middleware' => 'guest',
 ], function () {
     Route::get('login', 'Frontend\LoginController@index')->name('login');
     Route::get('register', 'Frontend\RegisterController@index')->name('register');

@@ -11,15 +11,15 @@ return [
 
     'welcome' => [
         'template_title' => 'Welcome',
-        'title'   => 'Laravel Installer',
+        'title' => 'Laravel Installer',
         'message' => 'Easy Installation and Setup Wizard.',
-        'next'    => 'Check Requirements',
+        'next' => 'Check Requirements',
     ],
 
     'requirements' => [
         'template_title' => 'Step 1 | Server Requirements',
         'title' => 'Server Requirements',
-        'next'    => 'Check Permissions',
+        'next' => 'Check Permissions',
     ],
 
     'permissions' => [
@@ -162,11 +162,11 @@ return [
     'updater' => [
         'title' => 'Laravel Updater',
         'welcome' => [
-            'title'   => 'Welcome To The Updater',
+            'title' => 'Welcome To The Updater',
             'message' => 'Welcome to the update wizard.',
         ],
         'overview' => [
-            'title'   => 'Overview',
+            'title' => 'Overview',
             'message' => 'There is 1 update.|There are :number updates.',
             'install_updates' => 'Install Updates',
         ],

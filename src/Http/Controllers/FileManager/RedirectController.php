@@ -10,7 +10,7 @@ class RedirectController extends FileManagerController
     {
         $storage = Storage::disk(config('juzaweb.filemanager.disk'));
 
-        if (!$storage->exists($file_path)) {
+        if (! $storage->exists($file_path)) {
             abort(404);
         }
 

@@ -38,7 +38,7 @@ class Notification extends Model
         'data',
         'read_at',
         'notifiable_type',
-        'notifiable_id'
+        'notifiable_id',
     ];
 
     public $casts = [

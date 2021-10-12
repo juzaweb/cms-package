@@ -58,7 +58,7 @@ class ListenerMakeCommand extends GeneratorCommand
 
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub($this->getStubName(), [
             'NAMESPACE' => $this->getClassNamespace($module),
@@ -68,7 +68,7 @@ class ListenerMakeCommand extends GeneratorCommand
         ]))->render();
     }
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Listeners';
     }
@@ -82,7 +82,7 @@ class ListenerMakeCommand extends GeneratorCommand
 
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $listenerPath = GenerateConfigReader::read('listener');
 

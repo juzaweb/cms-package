@@ -4,7 +4,9 @@ namespace Juzaweb\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Juzaweb\Contracts\ThemeContract;
+use Juzaweb\Contracts\ThemeInterface;
 use Juzaweb\Support\Theme\Theme;
+use Juzaweb\Support\ThemeFileRepository;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -29,7 +31,16 @@ class ThemeServiceProvider extends ServiceProvider
 
         $this->app->singleton(ThemeContract::class, function ($app) {
             $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config'], $this->app['translator']);
+
             return $theme;
         });
+
+        $this->app->singleton(ThemeInterface::class, function ($app) {
+            $path = config('juzaweb.theme.path');
+
+            return new ThemeFileRepository($app, $path);
+        });
+
+        $this->app->alias(ThemeInterface::class, 'themes');
     }
 }

@@ -12,7 +12,7 @@ class SearchController extends FrontendController
     {
         $keyword = $request->input('q');
         $title = $keyword ? trans('juzaweb::app.result_for_keyword', [
-            'name' => $keyword
+            'name' => $keyword,
         ]) : trans('juzaweb::app.search_results');
 
         $posts = Search::wherePublish()
@@ -29,7 +29,7 @@ class SearchController extends FrontendController
             'keyword'
         ));
     }
-    
+
     public function ajaxSearch(Request $request)
     {
         $limit = $request->input('limit', 5);
@@ -50,6 +50,7 @@ class SearchController extends FrontendController
         foreach ($results as $key => $item) {
             if (empty($item)) {
                 unset($results[$key]);
+
                 continue;
             }
 
@@ -67,5 +68,4 @@ class SearchController extends FrontendController
 
         return response()->json($data);
     }
-
 }

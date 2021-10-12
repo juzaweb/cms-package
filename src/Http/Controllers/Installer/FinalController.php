@@ -17,11 +17,10 @@ class FinalController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Throwable
      */
-    public function finish (
+    public function finish(
         InstalledFileManager $fileManager,
         FinalInstallManager $finalInstall
-    )
-    {
+    ) {
         $finalMessages = $finalInstall->runFinal();
         $finalStatusMessage = $fileManager->update();
 

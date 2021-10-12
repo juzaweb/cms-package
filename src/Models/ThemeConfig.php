@@ -2,8 +2,6 @@
 
 namespace Juzaweb\Models;
 
-use Juzaweb\Models\Model;
-
 /**
  * Juzaweb\Models\ThemeConfig
  *

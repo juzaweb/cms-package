@@ -33,19 +33,19 @@ class JuzawebResouceMakeCommand extends ResourceCommand
 
     public function handle()
     {
-        $this->module = $this->laravel['modules']->find($this->getModuleName());
+        $this->module = $this->laravel['plugins']->find($this->getModuleName());
 
         $table = $this->argument('name');
         $realTable = $this->module->getDomainName().'_'.$table;
 
-        if (!Schema::hasTable($realTable)) {
+        if (! Schema::hasTable($realTable)) {
             $this->error("Table [{$realTable}] does not exist. Please create table.");
             exit(1);
         }
 
         $this->columns = collect(Schema::getColumnListing($realTable))
             ->filter(function ($item) {
-                return !in_array($item, [
+                return ! in_array($item, [
                     'id',
                     'created_at',
                     'updated_at',

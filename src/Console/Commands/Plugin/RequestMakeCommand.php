@@ -33,7 +33,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected $description = 'Create a new form request class for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Http/Requests';
     }
@@ -56,11 +56,11 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/request.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -69,7 +69,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $requestPath = GenerateConfigReader::read('request');
 

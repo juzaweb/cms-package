@@ -2,14 +2,15 @@
 
 namespace Juzaweb\Http\Controllers\Frontend;
 
-use Illuminate\Support\Facades\Storage;
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Juzaweb\Facades\Theme;
+use Juzaweb\Http\Controllers\Controller;
 
 class AssetController extends Controller
 {
-    public function assetsPlugin($plugin, $path) {
+    public function assetsPlugin($plugin, $path)
+    {
         $path = str_replace('assets/', '', $path);
         $assetPath = plugin_path($plugin, 'src/resources/assets/' . $path);
 
@@ -20,29 +21,33 @@ class AssetController extends Controller
     {
         $path = str_replace('assets/', '', $path);
         $assetPath = Theme::getThemePath($theme) . '/assets/' . $path;
+
         return $this->responsePath($assetPath);
     }
 
     public function assetsStorage($path)
     {
         $path = Storage::disk('public')->path($path);
+
         return $this->responsePath($path);
     }
 
-    public function languageScript($lang) {
+    public function languageScript($lang)
+    {
         \Lang::setLocale($lang);
-        
+
         $langs = \Lang::get('tad');
         $content = 'var langs = JSON.parse(\'' . json_encode($langs) . '\');';
         $response = Response::make($content, 200);
         $response->header('Content-Type', 'application/javascript');
+
         return $response;
     }
 
     protected function responsePath($path)
     {
         $path = $this->parsePathSecurity($path);
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             return abort(404);
         }
 
@@ -55,12 +60,14 @@ class AssetController extends Controller
         $response = Response::make($content, 200);
         $response->header('Content-Type', $contentType);
         $response->header('Cache-Control', 'public');
+
         return $response;
     }
 
-    protected function getStaticAssets($path) {
+    protected function getStaticAssets($path)
+    {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
-        
+
         $assets = [
             'js' => 'application/javascript',
             'css' => 'text/css',
@@ -79,11 +86,11 @@ class AssetController extends Controller
             'tif' => 'image/tif',
             'tiff' => 'image/tiff',
         ];
-        
+
         if (isset($assets[$extension])) {
             return $assets[$extension];
         }
-        
+
         return false;
     }
 

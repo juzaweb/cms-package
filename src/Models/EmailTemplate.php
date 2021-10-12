@@ -44,8 +44,8 @@ class EmailTemplate extends Model
         'params',
         'email_hook',
     ];
-    
+
     protected $casts = [
-        'params' => 'array'
+        'params' => 'array',
     ];
 }

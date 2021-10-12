@@ -33,10 +33,10 @@ class ThemeListCommand extends Command
         $output = [];
         foreach ($themes as $theme) {
             $output[] = [
-                'Name'    => $theme->get('name'),
-                'Author'  => $theme->get('author'),
+                'Name' => $theme->get('name'),
+                'Author' => $theme->get('author'),
                 'version' => $theme->get('version'),
-                'parent'  => $theme->get('parent'),
+                'parent' => $theme->get('parent'),
             ];
         }
         $this->table($headers, $output);

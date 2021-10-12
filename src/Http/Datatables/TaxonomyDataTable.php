@@ -32,7 +32,7 @@ class TaxonomyDataTable extends DataTable
         return [
             'name' => [
                 'label' => trans('juzaweb::app.name'),
-                'formatter' => [$this, 'rowActionsFormatter']
+                'formatter' => [$this, 'rowActionsFormatter'],
             ],
             'total_post' => [
                 'label' => trans('juzaweb::app.total_posts'),
@@ -45,8 +45,8 @@ class TaxonomyDataTable extends DataTable
                 'align' => 'center',
                 'formatter' => function ($value, $row, $index) {
                     return jw_date_format($row->created_at);
-                }
-            ]
+                },
+            ],
         ];
     }
 
@@ -89,6 +89,7 @@ class TaxonomyDataTable extends DataTable
             switch ($action) {
                 case 'delete':
                     $this->makeModel()->find($id)->delete($id);
+
                     break;
             }
         }

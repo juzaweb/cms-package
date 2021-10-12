@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Juzaweb\Models\User;
 
-trait UseChangeBy {
-
+trait UseChangeBy
+{
     public static function bootUseChangeBy()
     {
         static::saving(function ($model) {
@@ -32,5 +32,4 @@ trait UseChangeBy {
     {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
-
 }

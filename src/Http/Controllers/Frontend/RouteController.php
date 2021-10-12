@@ -41,6 +41,7 @@ class RouteController extends FrontendController
         do_action('theme.call_controller', $callback, $method, $parameters);
 
         $parameters = array_values($parameters);
+
         return App::call($callback . '@' . $method, $parameters);
     }
 }

@@ -99,7 +99,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function getPaths() : array
+    public function getPaths(): array
     {
         return $this->paths;
     }
@@ -109,7 +109,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function getScanPaths() : array
+    public function getScanPaths(): array
     {
         $paths = $this->paths;
 
@@ -184,9 +184,9 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function all() : array
+    public function all(): array
     {
-        if (!$this->config('cache.enabled')) {
+        if (! $this->config('cache.enabled')) {
             return $this->scan();
         }
 
@@ -228,7 +228,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return Collection
      */
-    public function toCollection() : Collection
+    public function toCollection(): Collection
     {
         return new Collection($this->scan());
     }
@@ -240,7 +240,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function getByStatus($status) : array
+    public function getByStatus($status): array
     {
         $modules = [];
 
@@ -261,7 +261,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return bool
      */
-    public function has($name) : bool
+    public function has($name): bool
     {
         return array_key_exists($name, $this->all());
     }
@@ -271,7 +271,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function allEnabled() : array
+    public function allEnabled(): array
     {
         return $this->getByStatus(true);
     }
@@ -281,7 +281,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function allDisabled() : array
+    public function allDisabled(): array
     {
         return $this->getByStatus(false);
     }
@@ -291,7 +291,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return int
      */
-    public function count() : int
+    public function count(): int
     {
         return count($this->all());
     }
@@ -303,7 +303,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return array
      */
-    public function getOrdered($direction = 'asc') : array
+    public function getOrdered($direction = 'asc'): array
     {
         $modules = $this->allEnabled();
 
@@ -325,7 +325,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * @inheritDoc
      */
-    public function getPath() : string
+    public function getPath(): string
     {
         return $this->path ?: base_path('plugins');
     }
@@ -421,7 +421,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return Collection
      */
-    public function collections($status = 1) : Collection
+    public function collections($status = 1): Collection
     {
         return new Collection($this->getByStatus($status));
     }
@@ -445,7 +445,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * @inheritDoc
      */
-    public function assetPath($module) : string
+    public function assetPath($module): string
     {
         return public_path('plugins') . '/' . $module;
     }
@@ -463,7 +463,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return string
      */
-    public function getUsedStoragePath() : string
+    public function getUsedStoragePath(): string
     {
         $directory = storage_path('app/modules');
         if ($this->getFiles()->exists($directory) === false) {
@@ -471,7 +471,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
         }
 
         $path = storage_path('app/modules/plugin.used');
-        if (!$this->getFiles()->exists($path)) {
+        if (! $this->getFiles()->exists($path)) {
             $this->getFiles()->put($path, '');
         }
 
@@ -507,7 +507,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      * @return string
      * @throws \Juzaweb\Exceptions\ModuleNotFoundException
      */
-    public function getUsedNow() : string
+    public function getUsedNow(): string
     {
         return $this->findOrFail(
             $this->getFiles()
@@ -530,7 +530,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      *
      * @return string
      */
-    public function getAssetsPath() : string
+    public function getAssetsPath(): string
     {
         return public_path('plugins');
     }
@@ -541,7 +541,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      * @return string
      * @throws InvalidAssetPath
      */
-    public function asset($asset) : string
+    public function asset($asset): string
     {
         if (Str::contains($asset, ':') === false) {
             throw InvalidAssetPath::missingModuleName($asset);
@@ -558,7 +558,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * @inheritDoc
      */
-    public function isEnabled($name) : bool
+    public function isEnabled($name): bool
     {
         return $this->findOrFail($name)->isEnabled();
     }
@@ -566,9 +566,9 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * @inheritDoc
      */
-    public function isDisabled($name) : bool
+    public function isDisabled($name): bool
     {
-        return !$this->isEnabled($name);
+        return ! $this->isEnabled($name);
     }
 
     /**
@@ -596,7 +596,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
     /**
      * @inheritDoc
      */
-    public function delete($name) : bool
+    public function delete($name): bool
     {
         return $this->findOrFail($name)->delete();
     }

@@ -10,9 +10,9 @@
 
 namespace Juzaweb\Providers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Arr;
 
 class AutoloadServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class AutoloadServiceProvider extends ServiceProvider
         foreach ($plugins as $pluginInfo) {
             foreach ($pluginInfo as $key => $item) {
                 $path = $item['path'];
-                if (!is_dir($path)) {
+                if (! is_dir($path)) {
                     $path = $pluginsFolder . '/' . $path;
                 }
 
@@ -53,7 +53,7 @@ class AutoloadServiceProvider extends ServiceProvider
         foreach ($plugins as $pluginInfo) {
             foreach ($pluginInfo as $key => $item) {
                 $path = $item['path'];
-                if (!is_dir($path)) {
+                if (! is_dir($path)) {
                     $path = $pluginsFolder . '/' . $path;
                 }
 
@@ -82,11 +82,12 @@ class AutoloadServiceProvider extends ServiceProvider
     protected function getActivePlugins()
     {
         $pluginFile = base_path('bootstrap/cache/plugins_statuses.php');
-        if (!file_exists($pluginFile)) {
+        if (! file_exists($pluginFile)) {
             return false;
         }
 
         $plugins = require $pluginFile;
+
         return $plugins;
     }
 

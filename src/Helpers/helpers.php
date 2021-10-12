@@ -16,27 +16,27 @@ require __DIR__ . '/plugin.php';
 require __DIR__ . '/theme.php';
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Juzaweb\Facades\Config;
+use Juzaweb\Facades\Hook;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Facades\XssCleaner;
-use Juzaweb\Support\Breadcrumb;
-use Juzaweb\Facades\Config;
-use Juzaweb\Models\User;
 use Juzaweb\Models\Page;
-use Illuminate\Support\Str;
-use Juzaweb\Facades\Hook;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
+use Juzaweb\Models\User;
+use Juzaweb\Support\Breadcrumb;
 
-if (!function_exists('e_html')) {
+if (! function_exists('e_html')) {
     function e_html($str)
     {
         return XssCleaner::clean($str);
     }
 }
 
-if (!function_exists('get_client_ip')) {
+if (! function_exists('get_client_ip')) {
     /**
      * Get client ip
      *
@@ -54,7 +54,7 @@ if (!function_exists('get_client_ip')) {
     }
 }
 
-if (!function_exists('get_config')) {
+if (! function_exists('get_config')) {
     /**
      * Get DB config
      *
@@ -68,7 +68,7 @@ if (!function_exists('get_config')) {
     }
 }
 
-if (!function_exists('get_configs')) {
+if (! function_exists('get_configs')) {
     /**
      * Get multi DB configs
      *
@@ -87,7 +87,7 @@ if (!function_exists('get_configs')) {
     }
 }
 
-if (!function_exists('set_config')) {
+if (! function_exists('set_config')) {
     /**
      * Set DB config
      *
@@ -101,22 +101,24 @@ if (!function_exists('set_config')) {
     }
 }
 
-if (!function_exists('generate_token')) {
+if (! function_exists('generate_token')) {
     /**
      * Generate static by token
      *
      * @param string $string
      * @return string
      */
-    function generate_token($string) {
+    function generate_token($string)
+    {
         $month = date('Y-m');
         $ip = get_client_ip();
         $key = 'ADAsd$#&%^23vx' . config('app.key');
+
         return md5($key . $month . $key) . md5($key . $ip . $string);
     }
 }
 
-if (!function_exists('check_token')) {
+if (! function_exists('check_token')) {
     /**
      * Check static token
      *
@@ -124,7 +126,8 @@ if (!function_exists('check_token')) {
      * @param string $string
      * @return bool
      */
-    function check_token($token, $string) {
+    function check_token($token, $string)
+    {
         if (generate_token($string) == $token) {
             return true;
         }
@@ -133,21 +136,23 @@ if (!function_exists('check_token')) {
     }
 }
 
-if (!function_exists('sub_words')) {
-    function sub_words($string, int $words = 20) {
+if (! function_exists('sub_words')) {
+    function sub_words($string, int $words = 20)
+    {
         return Str::words($string, $words);
     }
 }
 
-if (!function_exists('is_url')) {
+if (! function_exists('is_url')) {
     /**
      * Return true if string is a url
      *
      * @param string $url
      * @return bool
      */
-    function is_url($url) {
-        if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
+    function is_url($url)
+    {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             return false;
         }
 
@@ -155,13 +160,14 @@ if (!function_exists('is_url')) {
     }
 }
 
-if (!function_exists('count_unread_notifications')) {
+if (! function_exists('count_unread_notifications')) {
     /**
      * Count number unread notifications
      *
      * @return int
      */
-    function count_unread_notifications() {
+    function count_unread_notifications()
+    {
         $user = Auth::user();
         if (method_exists($user, 'unreadNotifications')) {
             return $user->unreadNotifications()->count(['id']);
@@ -171,9 +177,10 @@ if (!function_exists('count_unread_notifications')) {
     }
 }
 
-function user_avatar($user = null) {
+function user_avatar($user = null)
+{
     if ($user) {
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             $user = User::find($user);
         }
 
@@ -185,13 +192,14 @@ function user_avatar($user = null) {
          * @var User $user
          */
         $user = Auth::user();
+
         return $user->getAvatar();
     }
 
     return asset('vendor/juzaweb/styles/images/thumb-default.png');
 }
 
-if (!function_exists('jw_breadcrumb')) {
+if (! function_exists('jw_breadcrumb')) {
     function jw_breadcrumb($name, $addItems = [])
     {
         $items = apply_filters($name . '_breadcrumb', []);
@@ -206,7 +214,7 @@ if (!function_exists('jw_breadcrumb')) {
     }
 }
 
-if (!function_exists('combine_pivot')) {
+if (! function_exists('combine_pivot')) {
     function combine_pivot($entities, $pivots = [])
     {
         // Set array
@@ -225,10 +233,10 @@ if (!function_exists('combine_pivot')) {
     }
 }
 
-if (!function_exists('path_url')) {
+if (! function_exists('path_url')) {
     function path_url(string $url)
     {
-        if (!is_url($url)) {
+        if (! is_url($url)) {
             return $url;
         }
 
@@ -236,7 +244,7 @@ if (!function_exists('path_url')) {
     }
 }
 
-if (!function_exists('upload_url')) {
+if (! function_exists('upload_url')) {
     /**
      * Get file upload url in public storage
      *
@@ -263,23 +271,25 @@ if (!function_exists('upload_url')) {
     }
 }
 
-if (!function_exists('random_string')) {
+if (! function_exists('random_string')) {
     function random_string(int $length = 16)
     {
         return Str::random($length);
     }
 }
 
-if (!function_exists('is_json')) {
+if (! function_exists('is_json')) {
     /**
      * Rerutn true if string is a json
      *
      * @param string $string
      * @return bool
      */
-    function is_json($string) {
+    function is_json($string)
+    {
         try {
             json_decode($string);
+
             return json_last_error() === JSON_ERROR_NONE;
         } catch (\Throwable $e) {
             return false;
@@ -287,7 +297,7 @@ if (!function_exists('is_json')) {
     }
 }
 
-if (!function_exists('do_action')) {
+if (! function_exists('do_action')) {
     /**
      * JUZAWEB CMS: Do action hook
      *
@@ -295,12 +305,13 @@ if (!function_exists('do_action')) {
      * @param mixed ...$args Additional parameters to pass to the callback functions.
      * @return void
      * */
-    function do_action($tag, ...$args) {
+    function do_action($tag, ...$args)
+    {
         Hook::action($tag, ...$args);
     }
 }
 
-if (!function_exists('add_action')) {
+if (! function_exists('add_action')) {
     /**
      * JUZAWEB CMS: Add action to hook
      *
@@ -314,12 +325,13 @@ if (!function_exists('add_action')) {
      * @param int $arguments Optional. The number of arguments the function accepts. Default 1.
      * @return void
      */
-    function add_action($tag, $callback, $priority = 20, $arguments = 1) {
+    function add_action($tag, $callback, $priority = 20, $arguments = 1)
+    {
         Hook::addAction($tag, $callback, $priority, $arguments);
     }
 }
 
-if (!function_exists('apply_filters')) {
+if (! function_exists('apply_filters')) {
     /**
      * JUZAWEB CMS: Apply filters to value
      *
@@ -328,12 +340,13 @@ if (!function_exists('apply_filters')) {
      * @param mixed  ...$args Additional parameters to pass to the callback functions.
      * @return mixed The filtered value after all hooked functions are applied to it.
      */
-    function apply_filters($tag, $value, ...$args) {
+    function apply_filters($tag, $value, ...$args)
+    {
         return Hook::filter($tag, $value, ...$args);
     }
 }
 
-if (!function_exists('add_filters')) {
+if (! function_exists('add_filters')) {
     /**
      * @param string $tag The name of the filter to hook the $function_to_add callback to.
      * @param callable $callback The callback to be run when the filter is applied.
@@ -345,7 +358,8 @@ if (!function_exists('add_filters')) {
      * @param int $arguments   Optional. The number of arguments the function accepts. Default 1.
      * @return void
      */
-    function add_filters($tag, $callback, $priority = 20, $arguments = 1) {
+    function add_filters($tag, $callback, $priority = 20, $arguments = 1)
+    {
         Hook::addFilter($tag, $callback, $priority, $arguments);
     }
 }
@@ -376,7 +390,7 @@ if (! function_exists('is_active_route')) {
     }
 }
 
-if (!function_exists('jw_date_format')) {
+if (! function_exists('jw_date_format')) {
     /**
      * Format date to global format cms
      *
@@ -402,7 +416,7 @@ if (!function_exists('jw_date_format')) {
     }
 }
 
-if (!function_exists('jw_current_user')) {
+if (! function_exists('jw_current_user')) {
     /**
      * Get current login user
      *
@@ -414,14 +428,14 @@ if (!function_exists('jw_current_user')) {
     }
 }
 
-if (!function_exists('jw_get_page')) {
+if (! function_exists('jw_get_page')) {
     function jw_get_page($id)
     {
         return Page::find($id);
     }
 }
 
-if (!function_exists('array_only')) {
+if (! function_exists('array_only')) {
     /**
      * Get a subset of the items from the given array.
      *
@@ -435,7 +449,7 @@ if (!function_exists('array_only')) {
     }
 }
 
-if (!function_exists('array_except')) {
+if (! function_exists('array_except')) {
     /**
      * Get all of the given array except for a specified array of keys.
      *
@@ -449,21 +463,21 @@ if (!function_exists('array_except')) {
     }
 }
 
-if (!function_exists('get_enqueue_scripts')) {
+if (! function_exists('get_enqueue_scripts')) {
     function get_enqueue_scripts($inFooter = false)
     {
         return HookAction::getEnqueueScripts($inFooter);
     }
 }
 
-if (!function_exists('get_enqueue_styles')) {
+if (! function_exists('get_enqueue_styles')) {
     function get_enqueue_styles($inFooter = false)
     {
         return HookAction::getEnqueueStyles($inFooter);
     }
 }
 
-if (!function_exists('jw_get_select_options')) {
+if (! function_exists('jw_get_select_options')) {
     function jw_get_select_options($data)
     {
         $result = [];
@@ -479,7 +493,7 @@ if (!function_exists('jw_get_select_options')) {
     }
 }
 
-if (!function_exists('str_words_length')) {
+if (! function_exists('str_words_length')) {
     function str_words_length($string, $words, $max_length)
     {
         while (strlen($string) > $max_length) {
@@ -491,39 +505,40 @@ if (!function_exists('str_words_length')) {
     }
 }
 
-if (!function_exists('recursive_level_model')) {
+if (! function_exists('recursive_level_model')) {
     function recursive_level_model(&$level, $model, $limit = 5)
     {
         if ($level > $limit) {
             $level = 0;
+
             return;
         }
 
         if ($model->parent) {
-            $level ++;
+            $level++;
             recursive_level_model($level, $model->parent);
         }
     }
 }
 
-if (!function_exists('get_version_by_tag')) {
+if (! function_exists('get_version_by_tag')) {
     function get_version_by_tag($tag)
     {
         return str_replace('v', '', $tag);
     }
 }
 
-if (!function_exists('get_backend_message')) {
+if (! function_exists('get_backend_message')) {
     function get_backend_message()
     {
         return Cache::get('backend_messages', []);
     }
 }
 
-if (!function_exists('add_backend_message')) {
+if (! function_exists('add_backend_message')) {
     function add_backend_message($messages = [], $status = 'success')
     {
-        if (!is_array($messages)) {
+        if (! is_array($messages)) {
             $messages = [$messages];
         }
 
@@ -536,7 +551,7 @@ if (!function_exists('add_backend_message')) {
     }
 }
 
-if (!function_exists('is_admin')) {
+if (! function_exists('is_admin')) {
     function is_admin()
     {
         if ($user = Auth::user()) {

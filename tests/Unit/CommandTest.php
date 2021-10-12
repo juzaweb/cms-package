@@ -16,13 +16,25 @@ class CommandTest extends TestCase
 {
     public function testMigration()
     {
-        $this->artisan('migratie')
+        $this->artisan('migrate')
             ->assertExitCode(0);
     }
 
     public function testSeed()
     {
         $this->artisan('db:seed')
+            ->assertExitCode(0);
+    }
+
+    public function testOptimize()
+    {
+        $this->artisan('optimize')
+            ->assertExitCode(0);
+    }
+
+    public function testUpdate()
+    {
+        $this->artisan('juzaweb:update')
             ->assertExitCode(0);
     }
 }

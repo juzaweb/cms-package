@@ -15,6 +15,4 @@ use Juzaweb\Traits\ResourceController as ResourceControllerTrait;
 abstract class ResourceController
 {
     use ResourceControllerTrait;
-
-
 }

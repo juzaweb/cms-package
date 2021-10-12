@@ -13,9 +13,9 @@ class ItemsController extends FileManagerController
         $file_type = $this->getType();
         $currentPage = self::getCurrentPageFromRequest();
         $perPage = 15;
-        
+
         $working_dir = request()->get('working_dir');
-        
+
         $folders = MediaFolder::where('folder_id', '=', $working_dir)
             ->where('type', '=', $file_type)
             ->orderBy('name', 'ASC')
@@ -24,7 +24,7 @@ class ItemsController extends FileManagerController
             ->where('type', '=', $file_type)
             ->orderBy('id', 'DESC')
             ->paginate($perPage);
-    
+
         $storage = Storage::disk(config('juzaweb.filemanager.disk'));
         $items = [];
         foreach ($folders as $folder) {
@@ -38,7 +38,7 @@ class ItemsController extends FileManagerController
                 'url' => $folder->id,
             ];
         }
-        
+
         foreach ($files as $file) {
             $items[] = [
                 'icon' => $file->type == 'image' ? 'fa-image' : 'fa-file',
@@ -51,7 +51,7 @@ class ItemsController extends FileManagerController
                 'url' => $storage->url($file->path),
             ];
         }
-        
+
         return [
             'items' => $items,
             'paginator' => [
@@ -70,6 +70,7 @@ class ItemsController extends FileManagerController
         $folder_types = array_filter(['user', 'share'], function ($type) {
             return $this->helper->allowFolderType($type);
         });
+
         return view('filemanager::.move')
             ->with([
                 'root_folders' => array_map(function ($type) use ($folder_types) {
@@ -120,6 +121,7 @@ class ItemsController extends FileManagerController
     {
         $currentPage = (int) request()->get('page', 1);
         $currentPage = $currentPage < 1 ? 1 : $currentPage;
+
         return $currentPage;
     }
 }

@@ -52,6 +52,7 @@ class MenuBuilder
         if ($items->isNotEmpty()) {
             return $items;
         }
+
         return [];
     }
 
@@ -60,11 +61,12 @@ class MenuBuilder
         $str = $this->args['container_before'];
         $items = $this->items();
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $str .= $this->buildItem($item);
         }
 
         $str .= $this->args['container_after'];
+
         return $str;
     }
 
@@ -82,7 +84,7 @@ class MenuBuilder
         return $this->args['item_view']->with([
             'item' => $item,
             'children' => $children,
-            'builder' => $this
+            'builder' => $this,
         ])->render();
     }
 }

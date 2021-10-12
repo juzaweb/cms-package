@@ -10,16 +10,15 @@ namespace Juzaweb\Providers;
 
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Schema;
-use Juzaweb\Console\Commands\UpdateCommand;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
 use Juzaweb\Contracts\GlobalDataContract;
 use Juzaweb\Contracts\HookActionContract;
 use Juzaweb\Contracts\XssCleanerContract;
 use Juzaweb\Support\GlobalData;
 use Juzaweb\Support\HookAction;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Console\Scheduling\Schedule;
 use Juzaweb\Support\XssCleaner;
 
 class CoreServiceProvider extends ServiceProvider
@@ -55,16 +54,12 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerSingleton();
         $this->mergeConfigFrom(__DIR__ . '/../../config/juzaweb.php', 'juzaweb');
         $this->mergeConfigFrom(__DIR__ . '/../../config/locales.php', 'locales');
-
-        $this->commands([
-            UpdateCommand::class,
-        ]);
     }
 
     protected function bootMigrations()
     {
         $mainPath = JW_PACKAGE_PATH . '/database/migrations';
-        $directories = glob($mainPath . '/*' , GLOB_ONLYDIR);
+        $directories = glob($mainPath . '/*', GLOB_ONLYDIR);
         $paths = array_merge([$mainPath], $directories);
 
         $this->loadMigrationsFrom($paths);

@@ -73,7 +73,7 @@ class MigrationMakeCommand extends GeneratorCommand
     protected function getTemplateContents()
     {
         $parser = new NameParser($this->argument('name'));
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         if ($parser->isCreate()) {
             return Stub::create('/migration/create.stub', [
@@ -113,7 +113,7 @@ class MigrationMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $generatorPath = GenerateConfigReader::read('migration');
 

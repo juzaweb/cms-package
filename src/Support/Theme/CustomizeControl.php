@@ -20,17 +20,17 @@ class CustomizeControl extends BaseCustomizeControl
             case 'text':
                 return view('juzaweb::backend.editor.control.text', [
                     'args' => $this->args,
-                    'key' => $this->key
+                    'key' => $this->key,
                 ]);
             case 'textarea':
                 return view('juzaweb::backend.editor.control.textarea', [
                     'args' => $this->args,
-                    'key' => $this->key
+                    'key' => $this->key,
                 ]);
             case 'site_identity':
                 return view('juzaweb::backend.editor.control.site_identity', [
                     'args' => $this->args,
-                    'key' => $this->key
+                    'key' => $this->key,
                 ]);
         }
 

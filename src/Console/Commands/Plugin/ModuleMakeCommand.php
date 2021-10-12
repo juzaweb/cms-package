@@ -34,13 +34,13 @@ class ModuleMakeCommand extends Command
         foreach ($names as $name) {
             with(new ModuleGenerator($name))
                 ->setFilesystem($this->laravel['files'])
-                ->setModule($this->laravel['modules'])
+                ->setModule($this->laravel['plugins'])
                 ->setConfig($this->laravel['config'])
                 ->setActivator($this->laravel[ActivatorInterface::class])
                 ->setConsole($this)
                 ->setForce($this->option('force'))
                 ->setPlain($this->option('plain'))
-                ->setActive(!$this->option('disabled'))
+                ->setActive(! $this->option('disabled'))
                 ->generate();
         }
     }

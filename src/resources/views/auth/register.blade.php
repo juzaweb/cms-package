@@ -5,6 +5,12 @@
         <div class="juzaweb__utils__content">
             <div class="juzaweb__auth__authContainer">
                 <div class="juzaweb__auth__containerInner">
+                    <div class="text-center mb-5">
+                        <h1 class="mb-5 px-3">
+                            <strong>{{ trans('juzaweb::message.login_form.welcome', ['name' => get_config('sitename', 'JUZAWEB')]) }}</strong>
+                        </h1>
+                    </div>
+
                     <div class="card juzaweb__auth__boxContainer">
                         <div class="text-dark font-size-24 mb-4">
                             <strong>Create your account</strong>
@@ -41,7 +47,7 @@
                     </div>
                     <div class="text-center pt-2 mb-auto">
                         <span class="mr-2">Already have an account?</span>
-                        <a href="{{ route('login') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
+                        <a href="{{ route('user.login') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             Sign in
                         </a>
                     </div>

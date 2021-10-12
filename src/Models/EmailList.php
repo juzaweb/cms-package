@@ -43,13 +43,13 @@ class EmailList extends Model
         'error',
         'data',
     ];
-    
+
     protected $casts = [
         'params' => 'array',
         'data' => 'array',
         'error' => 'array',
     ];
-    
+
     public function template()
     {
         return $this->belongsTo(EmailTemplate::class, 'template_id', 'id');

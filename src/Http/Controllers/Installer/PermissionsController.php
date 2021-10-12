@@ -34,10 +34,11 @@ class PermissionsController extends Controller
             'public/' => '775',
             'plugins/' => '775',
             'themes/' => '775',
-            'vendor/' => '775'
+            'vendor/' => '775',
         ]);
 
-        return view('juzaweb::installer.permissions',
+        return view(
+            'juzaweb::installer.permissions',
             compact('permissions')
         );
     }

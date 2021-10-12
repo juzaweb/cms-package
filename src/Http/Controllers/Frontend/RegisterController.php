@@ -11,7 +11,7 @@ class RegisterController extends FrontendController
         do_action('recaptcha.init');
 
         return view('theme::auth.register', [
-            'title' => trans('juzaweb::app.register')
+            'title' => trans('juzaweb::app.register'),
         ]);
     }
 }

@@ -10,7 +10,6 @@
 
 namespace Juzaweb\Exceptions;
 
-
 class FileManagerException extends \Exception
 {
     /**

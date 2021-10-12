@@ -162,8 +162,9 @@ class Events
 
         return $this->filter->fire($hook, $args);
     }
-    
-    public function allAction() {
+
+    public function allAction()
+    {
         return $this->action->getListeners();
     }
 }

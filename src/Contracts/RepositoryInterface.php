@@ -2,8 +2,8 @@
 
 namespace Juzaweb\Contracts;
 
-use Juzaweb\Exceptions\ModuleNotFoundException;
 use Juzaweb\Abstracts\Plugin;
+use Juzaweb\Exceptions\ModuleNotFoundException;
 
 interface RepositoryInterface
 {
@@ -126,7 +126,7 @@ interface RepositoryInterface
      *
      * @return string
      */
-    public function getPath() : string;
+    public function getPath(): string;
 
     /**
      * Find a specific plugin by its alias.
@@ -167,7 +167,7 @@ interface RepositoryInterface
      * @return bool
      * @throws ModuleNotFoundException
      */
-    public function isEnabled(string $name) : bool;
+    public function isEnabled(string $name): bool;
 
     /**
      * Determine whether the given plugin is not activated.
@@ -175,5 +175,5 @@ interface RepositoryInterface
      * @return bool
      * @throws ModuleNotFoundException
      */
-    public function isDisabled(string $name) : bool;
+    public function isDisabled(string $name): bool;
 }

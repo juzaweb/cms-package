@@ -10,11 +10,11 @@
 
 namespace Juzaweb\Actions;
 
-use Juzaweb\Support\Theme\CustomMenuBox;
 use Juzaweb\Abstracts\Action;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Page;
 use Juzaweb\Models\Post;
+use Juzaweb\Support\Theme\CustomMenuBox;
 
 class MenuAction extends Action
 {
@@ -38,7 +38,7 @@ class MenuAction extends Action
             'dashboard',
             [
                 'icon' => 'fa fa-dashboard',
-                'position' => 1
+                'position' => 1,
             ]
         );
 
@@ -67,7 +67,7 @@ class MenuAction extends Action
             'media',
             [
                 'icon' => 'fa fa-image',
-                'position' => 3
+                'position' => 3,
             ]
         );
 
@@ -76,7 +76,7 @@ class MenuAction extends Action
             'appearance',
             [
                 'icon' => 'fa fa-paint-brush',
-                'position' => 40
+                'position' => 40,
             ]
         );
 
@@ -146,7 +146,7 @@ class MenuAction extends Action
             'plugin',
             [
                 'icon' => 'fa fa-plug',
-                'position' => 50
+                'position' => 50,
             ]
         );
 
@@ -175,7 +175,7 @@ class MenuAction extends Action
             'users',
             [
                 'icon' => 'fa fa-users',
-                'position' => 60
+                'position' => 60,
             ]
         );
 
@@ -184,7 +184,7 @@ class MenuAction extends Action
             'setting',
             [
                 'icon' => 'fa fa-cogs',
-                'position' => 70
+                'position' => 70,
             ]
         );
 
@@ -213,7 +213,7 @@ class MenuAction extends Action
             'logs',
             [
                 'icon' => 'fa fa-users',
-                'position' => 99
+                'position' => 99,
             ]
         );
 
@@ -244,19 +244,19 @@ class MenuAction extends Action
     {
         HookAction::addSettingForm('general', [
             'name' => trans('juzaweb::app.general_setting'),
-            'view' => 'juzaweb::backend.setting.system.form.general'
+            'view' => 'juzaweb::backend.setting.system.form.general',
         ]);
 
         HookAction::addSettingForm('recaptcha', [
             'name' => trans('juzaweb::app.google_recaptcha'),
             'view' => 'juzaweb::backend.setting.system.form.recaptcha',
-            'priority' => 15
+            'priority' => 15,
         ]);
 
         HookAction::addSettingForm('email', [
             'name' => trans('juzaweb::app.email_setting'),
             'view' => 'juzaweb::backend.email.setting',
-            'priority' => 15
+            'priority' => 15,
         ]);
     }
 
@@ -277,7 +277,7 @@ class MenuAction extends Action
             'supports' => [
                 'category',
                 'tag',
-                'comment'
+                'comment',
             ],
         ]);
     }
@@ -287,7 +287,7 @@ class MenuAction extends Action
         HookAction::registerMenuBox('custom_url', [
             'title' => trans('juzaweb::app.custom_url'),
             'group' => 'custom',
-            'menu_box' => new CustomMenuBox()
+            'menu_box' => new CustomMenuBox(),
         ]);
     }
 
@@ -298,7 +298,7 @@ class MenuAction extends Action
             add_action('post_type.'.$key.'.form.right', function ($model) use ($key) {
                 echo view('juzaweb::components.taxonomies', [
                     'postType' => $key,
-                    'model' => $model
+                    'model' => $model,
                 ])->render();
             });
         }
@@ -321,15 +321,15 @@ class MenuAction extends Action
     {
         $this->addFilter(Action::DATATABLE_SEARCH_FIELD_TYPES_FILTER, function ($items) {
             $items['text'] = [
-                'view' => view('juzaweb::components.datatable.text_field')
+                'view' => view('juzaweb::components.datatable.text_field'),
             ];
 
             $items['select'] = [
-                'view' => view('juzaweb::components.datatable.select_field')
+                'view' => view('juzaweb::components.datatable.select_field'),
             ];
 
             $items['taxonomy'] = [
-                'view' => view('juzaweb::components.datatable.taxonomy_field')
+                'view' => view('juzaweb::components.datatable.taxonomy_field'),
             ];
 
             return $items;

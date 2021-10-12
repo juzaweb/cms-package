@@ -55,7 +55,7 @@ use Juzaweb\Traits\PostTypeModel;
 class Page extends Model
 {
     use PostTypeModel;
-    
+
     protected $table = 'pages';
     protected $postType = 'pages';
 

@@ -36,11 +36,11 @@ class MigrateRollbackCommand extends Command
      */
     public function handle()
     {
-        $this->module = $this->laravel['modules'];
+        $this->module = $this->laravel['plugins'];
 
         $name = $this->argument('module');
 
-        if (!empty($name)) {
+        if (! empty($name)) {
             $this->rollback($name);
 
             return;
@@ -68,7 +68,7 @@ class MigrateRollbackCommand extends Command
 
         $database = $this->option('database');
 
-        if (!empty($database)) {
+        if (! empty($database)) {
             $migrator->setDatabase($database);
         }
 

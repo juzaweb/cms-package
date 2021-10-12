@@ -8,19 +8,17 @@
  * @license    MIT
  */
 
-$adminPrefix = config('juzaweb.admin_prefix');
-
 Route::group([
-    'prefix' => $adminPrefix,
-    'middleware' => 'guest'
+    'prefix' => 'user',
+    'middleware' => 'guest',
 ], function () {
-    Route::get('/login', 'Auth\LoginController@index')->name('admin.login');
+    Route::get('/login', 'Auth\LoginController@index')->name('user.login');
     Route::post('/login', 'Auth\LoginController@login');
 
-    Route::get('/register', 'Auth\RegisterController@index')->name('admin.register');
+    Route::get('/register', 'Auth\RegisterController@index')->name('user.register');
     Route::post('/register', 'Auth\RegisterController@register');
 
-    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index')->name('admin.forgot_password');
+    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index')->name('user.forgot_password');
 });
 
 Route::group(['middleware' => 'auth'], function () {

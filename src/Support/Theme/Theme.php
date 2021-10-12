@@ -2,14 +2,14 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Facades\File;
-use Noodlehaus\Config;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\ViewFinderInterface;
 use Juzaweb\Contracts\ThemeContract;
 use Juzaweb\Exceptions\ThemeNotFoundException;
+use Noodlehaus\Config;
 
 class Theme implements ThemeContract
 {
@@ -37,7 +37,7 @@ class Theme implements ThemeContract
     /**
      * Translator.
      *
-     * @var \Illuminate\Translation\Translator $lang
+     * @var \Illuminate\Translation\Translator
      */
     protected $lang;
 
@@ -85,7 +85,7 @@ class Theme implements ThemeContract
      */
     public function set($theme)
     {
-        if (!$this->has($theme)) {
+        if (! $this->has($theme)) {
             throw new ThemeNotFoundException($theme);
         }
 
@@ -103,6 +103,7 @@ class Theme implements ThemeContract
     public function has($theme)
     {
         $themeConfigPath = $this->getThemePath($theme) . '/theme.json';
+
         return file_exists($themeConfigPath);
     }
 
@@ -153,7 +154,7 @@ class Theme implements ThemeContract
      */
     public function get($theme = null, $collection = false)
     {
-        if (is_null($theme) || !$this->has($theme)) {
+        if (is_null($theme) || ! $this->has($theme)) {
             if ($collection) {
                 return $this->getThemeInfo($this->activeTheme)->all();
             }
@@ -177,7 +178,7 @@ class Theme implements ThemeContract
      */
     public function current($collection = false)
     {
-        return !$collection ? $this->activeTheme : $this->getThemeInfo($this->activeTheme);
+        return ! $collection ? $this->activeTheme : $this->getThemeInfo($this->activeTheme);
     }
 
     /**
@@ -258,9 +259,10 @@ class Theme implements ThemeContract
         $assetPath = $this->config['theme.folders.assets'] . DIRECTORY_SEPARATOR;
         $fullPath = $themePath . $assetPath . $path;
 
-        if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
+        if (! file_exists($fullPath) && $themeInfo->has('parent') && ! empty($themeInfo->get('parent'))) {
             $themePath = str_replace(base_path().DIRECTORY_SEPARATOR, '', $this->getThemeInfo($themeInfo->get('parent'))->get('path')).DIRECTORY_SEPARATOR;
             $fullPath = $themePath . $assetPath . $path;
+
             return $fullPath;
         }
 

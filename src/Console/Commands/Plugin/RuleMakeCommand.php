@@ -33,9 +33,9 @@ class RuleMakeCommand extends GeneratorCommand
      */
     protected $description = 'Create a new validation rule for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
-        $module = $this->laravel['modules'];
+        $module = $this->laravel['plugins'];
 
         return $module->config('paths.generator.rules.namespace') ?: $module->config('paths.generator.rules.path', 'Rules');
     }
@@ -58,11 +58,11 @@ class RuleMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/rule.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass(),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -71,7 +71,7 @@ class RuleMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $rulePath = GenerateConfigReader::read('rules');
 

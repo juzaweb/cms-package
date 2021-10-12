@@ -59,7 +59,7 @@ class FactoryMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $factoryPath = GenerateConfigReader::read('factory');
 

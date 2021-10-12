@@ -41,7 +41,7 @@ class UpdateController extends Controller
      */
     public function database()
     {
-        $databaseManager = new DatabaseManager;
+        $databaseManager = new DatabaseManager();
         $response = $databaseManager->migrateAndSeed();
 
         return redirect()->route('LaravelUpdater::final')

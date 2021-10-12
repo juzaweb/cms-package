@@ -2,14 +2,14 @@
 
 namespace Juzaweb\Support;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArrayPagination
 {
     /**
-     * @var Collection $items
+     * @var Collection
      */
     protected $items;
 
@@ -34,6 +34,7 @@ class ArrayPagination
     public function paginate($perPage = 5, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
         return new LengthAwarePaginator($this->items->forPage($page, $perPage), $this->items->count(), $perPage, $page, $options);
     }
 }

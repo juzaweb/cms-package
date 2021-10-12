@@ -14,4 +14,3 @@
 
 
 Route::jwResource('pages', 'Backend\PageController');
-

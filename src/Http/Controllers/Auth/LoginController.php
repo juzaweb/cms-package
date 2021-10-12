@@ -2,10 +2,10 @@
 
 namespace Juzaweb\Http\Controllers\Auth;
 
-use Juzaweb\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Juzaweb\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Juzaweb\Http\Controllers\Controller;
+use Juzaweb\Models\User;
 use Juzaweb\Traits\ResponseMessage;
 
 class LoginController extends Controller
@@ -14,21 +14,20 @@ class LoginController extends Controller
 
     public function index()
     {
-        do_action('auth.login.index');
+        do_action('user.login.index');
 
         do_action('recaptcha.init');
-        //
-        
+
         return view('juzaweb::auth.login', [
-            'title' => trans('juzaweb::app.login')
+            'title' => trans('juzaweb::app.login'),
         ]);
     }
-    
+
     public function login(Request $request)
     {
         // Login handle action
-        do_action('auth.login.handle', $request);
-    
+        do_action('user.login.handle', $request);
+
         // Validate login
         $request->validate([
             'email' => 'required|email|max:150',
@@ -40,60 +39,60 @@ class LoginController extends Controller
                 'recaptcha' => 'required|recaptcha',
             ]);
         }
-        
+
         $email = $request->post('email');
         $password = $request->post('password');
         $remember = filter_var($request->post('remember'), FILTER_VALIDATE_BOOLEAN);
         $user = User::whereEmail($email)->first(['status', 'is_admin']);
-        
+
         if (empty($user)) {
             return $this->error([
-                'message' => trans('juzaweb::message.login_form.login_failed')
+                'message' => trans('juzaweb::message.login_form.login_failed'),
             ]);
         }
-        
+
         if ($user->status != 'active') {
             if ($user->status == 'verification') {
                 return $this->error([
-                    'message' => trans('juzaweb::message.login_form.verification')
+                    'message' => trans('juzaweb::message.login_form.verification'),
                 ]);
             }
 
             return $this->error([
-                'message' => trans('juzaweb::message.login_form.user_is_banned')
+                'message' => trans('juzaweb::message.login_form.user_is_banned'),
             ]);
         }
-        
+
         if (Auth::attempt([
             'email' => $email,
-            'password' => $password
+            'password' => $password,
         ], $remember)) {
             /**
              * @var User $user
              */
             $user = Auth::user();
 
-            do_action('auth.login.success', $user);
+            do_action('user.login.success', $user);
 
             return $this->success([
                 'message' => trans('juzaweb::app.login_successfully'),
-                'redirect' => $user->is_admin ? route('admin.dashboard') : '/'
+                'redirect' => $user->is_admin ? route('admin.dashboard') : '/',
             ]);
         }
-    
-        do_action('auth.login.failed');
-        
+
+        do_action('user.login.failed');
+
         return $this->error([
-            'message' => trans('juzaweb::message.login_form.login_failed')
+            'message' => trans('juzaweb::message.login_form.login_failed'),
         ]);
     }
-    
+
     public function logout()
     {
         if (Auth::check()) {
             Auth::logout();
         }
-        
+
         return redirect()->to('/');
     }
 }

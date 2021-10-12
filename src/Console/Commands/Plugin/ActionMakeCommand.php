@@ -34,7 +34,7 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected $description = 'Generate new action for the specified plugin.';
 
-    public function getDefaultNamespace() : string
+    public function getDefaultNamespace(): string
     {
         return 'Actions';
     }
@@ -69,11 +69,11 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        $module = $this->laravel['plugins']->findOrFail($this->getModuleName());
 
         return (new Stub('/action.stub', [
-            'NAMESPACE'    => $this->getClassNamespace($module),
-            'CLASS'        => $this->getClass(),
+            'NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -90,7 +90,7 @@ class ActionMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        $path = $this->laravel['plugins']->getModulePath($this->getModuleName());
 
         $commandPath = GenerateConfigReader::read('action');
 
