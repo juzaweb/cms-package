@@ -25,4 +25,10 @@ class CommandTest extends TestCase
         $this->artisan('db:seed')
             ->assertExitCode(0);
     }
+
+    public function testUpdate()
+    {
+        $this->artisan('juzaweb:update')
+            ->assertExitCode(0);
+    }
 }
