@@ -118,7 +118,7 @@ class ThemeController extends BackendController
                 $str[] = "<strong>{$plugin}</strong>";
             }
 
-            add_backend_message([
+            add_backend_message('require_plugins', [
                 trans('juzaweb::app.theme_require_plugins') .' ' . implode(', ', $str) .'. <a href="'. route('admin.themes.require-plugins') .'"><strong>'. trans('juzaweb::app.activate_plugins') .'</strong></a>',
             ], 'warning');
         }

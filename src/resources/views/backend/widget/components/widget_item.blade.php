@@ -1,4 +1,4 @@
-<div class="widget-block">
+<div class="widget-block mb-2">
     <div class="widget-block-body">
         <a href="javascript:void(0)" class="dropdown-action"><i class="fa fa-sort-down fa-2x"></i></a>
         <div class="widget-title">{{ $widget->get('label') }}</div>

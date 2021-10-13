@@ -62,7 +62,9 @@
 
             <script type="text/javascript">
                 function login_success(form, response) {
-                    window.location = response.data.redirect;
+                    if (response.data.redirect) {
+                        window.location = response.data.redirect;
+                    }
                     return false;
                 }
             </script>

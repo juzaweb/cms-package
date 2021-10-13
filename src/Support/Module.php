@@ -33,8 +33,14 @@ class Module extends BasePlugin
      */
     public function registerProviders(): void
     {
-        (new ProviderRepository($this->app, new Filesystem(), $this->getCachedServicesPath()))
-            ->load($this->getExtraLarevel('providers'));
+        try {
+            (new ProviderRepository($this->app, new Filesystem(), $this->getCachedServicesPath()))
+                ->load($this->getExtraLarevel('providers'));
+        } catch (\Throwable $e) {
+            add_backend_message('plugin_errors', $e->getMessage());
+            $this->disable();
+        }
+
     }
 
     /**

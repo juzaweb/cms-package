@@ -536,7 +536,7 @@ if (! function_exists('get_backend_message')) {
 }
 
 if (! function_exists('add_backend_message')) {
-    function add_backend_message($messages = [], $status = 'success')
+    function add_backend_message($key, $messages = [], $status = 'success')
     {
         if (! is_array($messages)) {
             $messages = [$messages];
@@ -544,9 +544,18 @@ if (! function_exists('add_backend_message')) {
 
         $data = get_backend_message();
         foreach ($messages as $message) {
-            $data[] = ['status' => $status, 'message' => $message];
+            $data[$key][] = ['status' => $status, 'message' => $message];
         }
 
+        Cache::forever('backend_messages', $data);
+    }
+}
+
+if (! function_exists('remove_backend_message')) {
+    function remove_backend_message($key)
+    {
+        $data = get_backend_message();
+        unset($data[$key]);
         Cache::forever('backend_messages', $data);
     }
 }

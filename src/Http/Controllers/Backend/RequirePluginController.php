@@ -11,6 +11,7 @@
 namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\Manager\UpdateManager;
@@ -46,6 +47,7 @@ class RequirePluginController extends BackendController
             }
 
             $result[] = [
+                'id' => $plugin,
                 'key' => $plugin,
                 'version' => $ver,
                 'status' => $info ? 'installed' : 'not_installed',
@@ -62,21 +64,32 @@ class RequirePluginController extends BackendController
     {
         $this->validate($request, [
             'ids' => 'array|required',
-            'status' => 'required',
+            'action' => 'required',
         ]);
 
         $ids = $request->post('ids');
-        $status = $request->post('status');
+        $action = $request->post('action');
+        $errors = [];
 
-        switch ($status) {
-            case 'active':
+        switch ($action) {
+            case 'activate':
                 foreach ($ids as $id) {
                     $info = app('plugins')->find($id);
                     if (empty($info)) {
                         $installer = new UpdateManager('plugin', $id);
-                        $installer->update();
+                        if (!$installer->update()) {
+                            $errors[] = trans('juzaweb::app.plugin_name_not_found', ['name' => $id]);
+                        }
                     }
                 }
+        }
+
+        remove_backend_message('require_plugins');
+
+        if ($errors) {
+            return $this->error([
+                'message' => $errors[0],
+            ]);
         }
 
         return $this->success([
