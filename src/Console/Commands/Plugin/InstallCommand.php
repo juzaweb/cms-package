@@ -30,7 +30,6 @@ class InstallCommand extends Command
         $pluginName = $this->argument('name');
         if (is_dir(config('juzaweb.plugin.path') . '/' . $pluginName)) {
             $this->error("Plugin [{$pluginName}] already exist.");
-
             return;
         }
 

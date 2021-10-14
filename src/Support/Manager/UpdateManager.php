@@ -192,15 +192,13 @@ class UpdateManager
     {
         $localFolder = $this->getLocalFolder();
         $zipFolders = File::directories($this->storage->path($this->tmpFolder . '/unzip'));
-        File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup'));
+        File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup/cms'));
         foreach ($zipFolders as $folder) {
-            File::moveDirectory($folder, $localFolder);
-
+            File::moveDirectory($folder, $localFolder, true);
             break;
         }
 
-        File::deleteDirectory($this->storage->path($this->tmpFolder), true);
-        File::deleteDirectory($this->storage->path($this->tmpFolder), true);
+        File::deleteDirectory($this->storage->path($this->tag), true);
     }
 
     public function updateStep5()
@@ -246,6 +244,8 @@ class UpdateManager
                     ]);
                 }
         }
+
+        Artisan::call('optimize:clear');
     }
 
     protected function getLocalFolder()

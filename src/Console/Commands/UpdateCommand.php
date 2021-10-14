@@ -22,20 +22,18 @@ class UpdateCommand extends Command
         $update = new UpdateManager();
 
         $this->info('Check file update');
-        $check = $update->updateStep1();
+        $update->updateStep1();
 
-        if ($check) {
-            $this->info('Download File');
-            $update->updateStep2();
+        $this->info('Download File');
+        $update->updateStep2();
 
-            $this->info('Unzip File');
-            $update->updateStep3();
+        $this->info('Unzip File');
+        $update->updateStep3();
 
-            $this->info('Move to folder');
-            $update->updateStep4();
+        $this->info('Move to folder');
+        $update->updateStep4();
 
-            $this->info('Update database');
-            $update->updateStep5();
-        }
+        $this->info('Update database');
+        $update->updateStep5();
     }
 }
