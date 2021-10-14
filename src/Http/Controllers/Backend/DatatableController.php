@@ -39,9 +39,9 @@ class DatatableController extends BackendController
             $columns['id'] = $row->id;
             foreach ($columns as $col => $column) {
                 if (! empty($column['formatter'])) {
-                    $results[$index][$col] = e_html($column['formatter']($row->{$col}, $row, $index));
+                    $results[$index][$col] = $column['formatter']($row->{$col}, $row, $index);
                 } else {
-                    $results[$index][$col] = e_html($row->{$col});
+                    $results[$index][$col] = $row->{$col};
                 }
             }
         }
