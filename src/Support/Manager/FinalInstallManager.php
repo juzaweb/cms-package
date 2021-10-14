@@ -19,6 +19,7 @@ class FinalInstallManager
         $outputLog = new BufferedOutput();
 
         $this->generateKey($outputLog);
+        $this->clearOptimize($outputLog);
         $this->publishStorage($outputLog);
         $this->publishVendorAssets($outputLog);
 
@@ -71,6 +72,24 @@ class FinalInstallManager
             ], $outputLog);
 
             Artisan::call('storage:link', [], $outputLog);
+        } catch (Throwable $e) {
+            throw $e;
+        }
+
+        return $outputLog;
+    }
+
+    /**
+     * Publish vendor assets.
+     *
+     * @param \Symfony\Component\Console\Output\BufferedOutput $outputLog
+     * @return \Symfony\Component\Console\Output\BufferedOutput|array
+     * @throws Throwable
+     */
+    private static function clearOptimize(BufferedOutput $outputLog)
+    {
+        try {
+            Artisan::call('optimize:clear', [], $outputLog);
         } catch (Throwable $e) {
             throw $e;
         }

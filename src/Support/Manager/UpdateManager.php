@@ -140,7 +140,11 @@ class UpdateManager
                 ]);
 
                 break;
+            default:
+                return false;
         }
+
+        $this->response = $response;
 
         if (empty($response->update)) {
             return false;

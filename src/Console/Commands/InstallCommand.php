@@ -87,7 +87,6 @@ class InstallCommand extends Command
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-
             throw $e;
         }
     }
