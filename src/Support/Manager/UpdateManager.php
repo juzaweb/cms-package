@@ -116,8 +116,7 @@ class UpdateManager
         switch ($this->tag) {
             case 'core':
                 $response = $this->api->get($uri, [
-                    'current_version' => $this->getCurrentVersion(),
-                    'update_version' => $this->version,
+                    'current_version' => $this->getCurrentVersion()
                 ]);
 
                 break;
@@ -140,7 +139,11 @@ class UpdateManager
                 ]);
 
                 break;
+            default:
+                return false;
         }
+
+        $this->response = $response;
 
         if (empty($response->update)) {
             return false;
