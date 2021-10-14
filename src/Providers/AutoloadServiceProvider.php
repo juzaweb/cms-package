@@ -74,8 +74,11 @@ class AutoloadServiceProvider extends ServiceProvider
 
     protected function registerDatabase($path)
     {
-        if ($this->app->runningInConsole()) {
-            $this->loadFactoriesFrom($path . '/../database/factories');
+        $factoryPath = $path . '/../database/factories';
+        if (is_dir($factoryPath)) {
+            if ($this->app->runningInConsole()) {
+                $this->loadFactoriesFrom($factoryPath);
+            }
         }
     }
 

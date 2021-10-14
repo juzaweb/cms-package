@@ -74,15 +74,17 @@
                 @do_action('backend_message')
 
                 @php
-                $messages = get_backend_message();
+                $data = get_backend_message();
                 @endphp
-                @foreach($messages as $message)
+                @foreach($data as $messages)
+                    @foreach($messages as $message)
                     <div class="alert alert-{{ $message['status'] == 'error' ? 'danger' : $message['status'] }} jw-message">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                         {!! e_html($message['message']) !!}
                     </div>
+                    @endforeach
                 @endforeach
 
                 @if(session()->has('message'))

@@ -129,21 +129,18 @@ class PluginController extends BackendController
                 switch ($action) {
                     case 'delete':
                         Plugin::delete($plugin);
-
                         break;
                     case 'activate':
                         Plugin::enable($plugin);
-
                         break;
                     case 'deactivate':
                         Plugin::disable($plugin);
-                        // no break
+                        break;
                     case 'update':
                         $updater = new UpdateManager('plugin', $request->post('plugin'));
                         if ($updater->checkUpdate()) {
                             $updater->update();
                         }
-
                         break;
                 }
                 DB::commit();

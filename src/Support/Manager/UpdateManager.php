@@ -89,6 +89,7 @@ class UpdateManager
             'plugin' => $this->val,
             'cms_version' => Version::getVersion(),
             'current_version' => $this->getCurrentVersion(),
+            'version' => $this->version,
         ]);
 
         return str_replace('v', '', $response->version);
@@ -102,7 +103,10 @@ class UpdateManager
             $this->updateStep3();
             $this->updateStep4();
             $this->updateStep5();
+            return true;
         }
+
+        return false;
     }
 
     public function updateStep1()
@@ -123,6 +127,7 @@ class UpdateManager
                     'update_version' => $this->version,
                     'cms_version' => Version::getVersion(),
                     'plugin' => $this->val,
+                    'version' => $this->version,
                 ]);
 
                 break;
@@ -140,8 +145,6 @@ class UpdateManager
         if (empty($response->update)) {
             return false;
         }
-
-        $this->response = $response;
 
         return true;
     }

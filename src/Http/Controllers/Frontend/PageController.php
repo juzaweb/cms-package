@@ -20,6 +20,9 @@ class PageController extends FrontendController
     public function detail($id)
     {
         $page = Page::find($id);
+        if (empty($page)) {
+            return abort(404);
+        }
 
         return $this->handlePage($page);
     }
