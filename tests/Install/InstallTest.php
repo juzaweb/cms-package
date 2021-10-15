@@ -29,7 +29,7 @@ class InstallTest extends TestCase
         $this->assertTrue(file_exists(Installer::installedPath()));
     }
 
-    public function testInstallWeb()
+    /*public function testInstallWeb()
     {
         $this->resetTestData();
 
@@ -70,7 +70,7 @@ class InstallTest extends TestCase
             ->exists());
 
         $this->assertTrue(file_exists(Installer::installedPath()));
-    }
+    }*/
 
     protected function resetTestData()
     {
