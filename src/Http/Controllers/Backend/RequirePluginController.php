@@ -62,6 +62,8 @@ class RequirePluginController extends BackendController
 
     public function bulkActions(Request $request)
     {
+
+
         $this->validate($request, [
             'ids' => 'array|required',
             'action' => 'required',
@@ -81,6 +83,9 @@ class RequirePluginController extends BackendController
                             $errors[] = trans('juzaweb::app.plugin_name_not_found', ['name' => $id]);
                         }
                     }
+
+                    $info = app('plugins')->find($id);
+                    $info->enable();
                 }
         }
 

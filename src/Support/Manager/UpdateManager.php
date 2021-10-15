@@ -84,14 +84,23 @@ class UpdateManager
     public function getVersionAvailable()
     {
         $uri = $this->tag . '/version-available';
-
-        $response = $this->api->get($uri, [
-            'plugin' => $this->val,
+        $data = [
             'cms_version' => Version::getVersion(),
             'current_version' => $this->getCurrentVersion()
-        ]);
+        ];
 
-        return str_replace('v', '', $response->version);
+        switch ($this->tag) {
+            case 'plugin':
+                $data['plugin'] = $this->val;
+                break;
+            case 'theme':
+                $data['theme'] = $this->val;
+                break;
+        }
+
+        $response = $this->api->get($uri, $data);
+
+        return get_version_by_tag($response->version);
     }
 
     public function update()
