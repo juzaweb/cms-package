@@ -88,8 +88,7 @@ class UpdateManager
         $response = $this->api->get($uri, [
             'plugin' => $this->val,
             'cms_version' => Version::getVersion(),
-            'current_version' => $this->getCurrentVersion(),
-            'version' => $this->version,
+            'current_version' => $this->getCurrentVersion()
         ]);
 
         return str_replace('v', '', $response->version);
