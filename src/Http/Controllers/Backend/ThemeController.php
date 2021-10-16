@@ -144,7 +144,8 @@ class ThemeController extends BackendController
             'theme' => 'required',
         ]);
 
-        $theme = $request->post('theme');
+        $theme = $request->input('theme');
+
         if ($theme == 'default') {
             return $this->error([
                 'message' => trans('juzaweb::message.cant_delete_default_theme'),

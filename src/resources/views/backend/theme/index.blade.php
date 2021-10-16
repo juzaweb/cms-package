@@ -49,7 +49,7 @@
                             <div class="text-gray-6">
                                 <button class="btn btn-primary active-theme" data-theme="{{ $theme['name'] }}"><i class="fa fa-check"></i> {{ trans('juzaweb::app.activate') }}</button>
 
-                                <a href="javascript:void(0)" class="text-danger delete-theme">{{ trans('juzaweb::app.delete') }}</a>
+                                <a href="javascript:void(0)" class="text-danger delete-theme" data-theme="{{ $theme['name'] }}">{{ trans('juzaweb::app.delete') }}</a>
                             </div>
                         </div>
                     </div>

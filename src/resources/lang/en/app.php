@@ -377,4 +377,5 @@ return [
     'theme_require_plugins' => 'This theme require the following plugins:',
     'plugin_not_found' => 'Plugin not found',
     'plugin_name_not_found' => 'Plugin :name not found',
+    'delete_theme_confirm' => 'Are you sure you want to delete this theme?',
 ];
