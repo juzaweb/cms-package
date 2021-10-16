@@ -344,6 +344,7 @@ return [
     'user_name' => 'User name',
     'user_email' => 'User email',
     'verify_token' => 'Verify token',
+    'current_password_incorrect' => 'Current password incorrect',
     'update_now' => 'Update now',
     'url_slug' => 'URL Slug',
     'text' => 'Text',
