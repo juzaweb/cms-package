@@ -29,7 +29,6 @@ return [
     'created_successfully' => 'Created successfully.',
     'deleted_successfully' => 'Deleted successfully.',
     'approved_successfully' => 'Approved successfully.',
-    'sync_successfully' => 'Sync successfully.',
     'change_password_successfully' => 'Change password successfully.',
     'send_email_successfully' => 'Send email successfully.',
     'updated_successfully' => 'Updated successfully.',

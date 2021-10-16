@@ -140,6 +140,30 @@ class ThemeController extends BackendController
 
     public function delete(Request $request)
     {
+        $request->validate([
+            'theme' => 'required',
+        ]);
+
+        $theme = $request->post('theme');
+        if ($theme == 'default') {
+            return $this->error([
+                'message' => trans('juzaweb::message.cant_delete_default_theme'),
+            ]);
+        }
+
+        if (!Theme::has($theme)) {
+            return $this->error([
+                'message' => trans('juzaweb::message.theme_not_found'),
+            ]);
+        }
+
+        $path = Theme::getThemePath($theme);
+        File::deleteDirectory($path, true);
+
+        return $this->success([
+            'redirect' => route('admin.themes'),
+            'message' => trans('juzaweb::message.deleted_successfully'),
+        ]);
     }
 
     protected function putCache($theme)
