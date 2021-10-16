@@ -27,6 +27,10 @@ class ThemeController extends BackendController
         $activated = jw_current_theme();
 
         $themes = Theme::all();
+        foreach ($themes as $row) {
+            $row['screenshot'] = Theme::getScreenshot($row['name']);
+        }
+
         $currentTheme = $themes[$activated] ?? null;
         unset($themes[$activated]);
         $pagination = ArrayPagination::make($themes);

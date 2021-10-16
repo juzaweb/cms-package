@@ -283,6 +283,16 @@ class Theme implements ThemeContract
         return mix($this->getFullPath($path), $manifestDirectory);
     }
 
+    public function getScreenshot($theme)
+    {
+        $path = $this->getThemePath($theme, 'assets/screenshot.png');
+        if (file_exists($path)) {
+            return theme_assets('screenshot.png', $theme);
+        }
+
+        return asset('vendor/juzaweb/images/screenshot.svg');
+    }
+
     /**
      * Map view map for particular theme.
      *
