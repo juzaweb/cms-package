@@ -142,19 +142,25 @@ class FileActivator implements ActivatorInterface
 
             if (isset($setting['autoload']['psr-4'])) {
                 $psr4 = $setting['autoload']['psr-4'];
-                $domain = $setting['extra']['juzaweb']['domain'];
+                $domain = $setting['extra']['juzaweb']['domain'] ?? null;
                 $classMap = [];
 
-                foreach ($psr4 as $key => $path) {
-                    if ($path[strlen($path) - 1] == '/') {
-                        $path = rtrim($path, '/');
+                foreach ($psr4 as $key => $paths) {
+                    if (!is_array($paths)) {
+                        $paths = [$paths];
                     }
 
-                    $classMap[] = [
-                        'namespace' => $key,
-                        'path' => $pluginPath .'/'. $name . '/' . $path,
-                        'domain' => $domain,
-                    ];
+                    foreach ($paths as $path) {
+                        if ($path[strlen($path) - 1] == '/') {
+                            $path = rtrim($path, '/');
+                        }
+
+                        $classMap[] = [
+                            'namespace' => $key,
+                            'path' => $pluginPath .'/'. $name . '/' . $path,
+                            'domain' => $domain,
+                        ];
+                    }
                 }
 
                 $this->modulesStatuses[$name] = $classMap;

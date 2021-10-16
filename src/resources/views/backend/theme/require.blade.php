@@ -7,6 +7,7 @@
                 @csrf
 
                 <select name="bulk_actions" class="form-control select2-default" data-width="120px"><option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
+                    <option value="install">{{ trans('juzaweb::app.install') }}</option>
                     <option value="activate">{{ trans('juzaweb::app.active') }}</option>
                 </select>
 

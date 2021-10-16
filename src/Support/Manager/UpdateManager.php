@@ -199,6 +199,10 @@ class UpdateManager
     public function updateStep4()
     {
         $localFolder = $this->getLocalFolder();
+        if (!is_dir($localFolder)) {
+            File::makeDirectory($localFolder, 0775, true);
+        }
+
         $zipFolders = File::directories($this->storage->path($this->tmpFolder . '/unzip'));
         File::moveDirectory($localFolder, $this->storage->path($this->tmpFolder . '/backup/cms'));
         foreach ($zipFolders as $folder) {
