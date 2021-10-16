@@ -137,7 +137,7 @@ class PluginController extends BackendController
                         Plugin::disable($plugin);
                         break;
                     case 'update':
-                        $updater = new UpdateManager('plugin', $request->post('plugin'));
+                        $updater = new UpdateManager('plugin', $plugin);
                         if ($updater->checkUpdate()) {
                             $updater->update();
                         }
@@ -146,7 +146,6 @@ class PluginController extends BackendController
                 DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
-
                 return $this->error([
                     'message' => trans($e->getMessage()),
                 ]);

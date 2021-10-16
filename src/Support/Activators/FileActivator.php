@@ -183,6 +183,7 @@ class FileActivator implements ActivatorInterface
         if (! isset($this->modulesStatuses[$module->getName()])) {
             return;
         }
+
         unset($this->modulesStatuses[$module->getName()]);
         $this->writeJson();
         $this->flushCache();

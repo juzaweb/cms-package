@@ -159,7 +159,7 @@ class ThemeController extends BackendController
         }
 
         $path = Theme::getThemePath($theme);
-        File::deleteDirectory($path, true);
+        File::deleteDirectory($path);
 
         return $this->success([
             'redirect' => route('admin.themes'),
