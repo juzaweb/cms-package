@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="alert alert-success">
                 <p>You are using Juzaweb CMS Version: {{ \Juzaweb\Version::getVersion() }}</p>
-                <p>View CMS change logs: <a href="https://github.com/juzaweb/cms/releases" target="_blank">click here</a></p>
+                <p>View CMS <a href="https://github.com/juzaweb/cms/releases" target="_blank">change logs here</a></p>
             </div>
 
             <div id="update-form">
@@ -17,6 +17,20 @@
     <div class="row mt-5">
         <div class="col-md-12">
             <h5>Update plugins</h5>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <form method="post" class="form-inline">
+                        @csrf
+
+                        <select name="bulk_actions" class="form-control select2-default" data-width="120px">
+                            <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
+                            <option value="plugin">{{ trans('juzaweb::app.update') }}</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary px-3" id="apply-action-plugins">{{ trans('juzaweb::app.apply') }}</button>
+                    </form>
+                </div>
+            </div>
 
             <div class="table-responsive mb-5">
                 <table class="table" id="plugins-table">
@@ -35,6 +49,20 @@
     <div class="row mt-2">
         <div class="col-md-12">
             <h5>Update themes</h5>
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <form method="post" class="form-inline">
+                        @csrf
+
+                        <select name="bulk_actions" class="form-control select2-default" data-width="120px">
+                            <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
+                            <option value="theme">{{ trans('juzaweb::app.update') }}</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary px-3" id="apply-action-plugins">{{ trans('juzaweb::app.apply') }}</button>
+                    </form>
+                </div>
+            </div>
 
             <div class="table-responsive mb-5">
                 <table class="table" id="themes-table">
@@ -58,6 +86,7 @@
 
         var table = new JuzawebTable({
             table: "#plugins-table",
+            apply_button: "#apply-action-plugins",
             url: "{{ route('admin.update.plugins') }}",
             action_url: "{{ route('admin.themes.require-plugins.buld-actions') }}",
             chunk_action: true
@@ -65,6 +94,7 @@
 
         var table = new JuzawebTable({
             table: "#themes-table",
+            apply_button: "#apply-action-themes",
             url: "{{ route('admin.update.themes') }}",
             action_url: "{{ route('admin.themes.require-plugins.buld-actions') }}",
             chunk_action: true

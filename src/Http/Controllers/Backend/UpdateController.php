@@ -14,7 +14,7 @@
 
 namespace Juzaweb\Http\Controllers\Backend;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Http\Controllers\BackendController;
@@ -58,22 +58,31 @@ class UpdateController extends BackendController
         ]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
         set_time_limit(0);
-
-        DB::beginTransaction();
-        try {
-            $update = new UpdateManager();
-            $update->update();
-            DB::commit();
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            throw $e;
+        $action = $request->post('action');
+        $ids = $request->post('ids');
+        if (empty($ids)) {
+            $ids = [''];
         }
 
-        Cache::forget('check_update');
-        Cache::forget('check_update_available');
+        $tag = 'core';
+        if ($action) {
+            $tag = $action;
+        }
+
+        foreach ($ids as $id) {
+            DB::beginTransaction();
+            try {
+                $update = new UpdateManager($tag, $id);
+                $update->update();
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                throw $e;
+            }
+        }
 
         return $this->success([
             'message' => trans('juzaweb::app.updated_successfully'),
