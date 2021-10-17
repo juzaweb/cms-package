@@ -48,6 +48,7 @@ class ForgotPasswordController extends Controller
 
             Email::make()
                 ->withTemplate('forgot_password')
+                ->setEmails([$request->post('email')])
                 ->setParams([
                     'name' => $user->name,
                     'email' => $email,
@@ -65,6 +66,9 @@ class ForgotPasswordController extends Controller
             throw $e;
         }
 
-        return $this->success(['redirect' => route('auth.forgot-password')]);
+        return $this->success([
+            'message' => trans('app.send_email_successfully'),
+            'redirect' => route('user.forgot_password')
+        ]);
     }
 }

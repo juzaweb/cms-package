@@ -107,7 +107,7 @@ class UpdateController extends BackendController
 
         $update = collect((array) $updates)
             ->filter(function ($item) {
-                return $item->status == true;
+                return $item->update == true;
             })
             ->toArray();
         $updateKeys = array_keys($update);
@@ -149,7 +149,7 @@ class UpdateController extends BackendController
 
         $update = collect((array) $updates)
             ->filter(function ($item) {
-                return $item->status == true;
+                return $item->update == true;
             })
             ->toArray();
         $updateKeys = array_keys($update);
