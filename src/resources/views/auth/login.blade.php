@@ -21,7 +21,7 @@
                             <strong>@lang('juzaweb::message.login_form.header')</strong>
                         </div>
 
-                        <form action="{{ route('user.login') }}" method="post" class="mb-4 form-ajax" data-success="login_success">
+                        <form action="{{ route('login') }}" method="post" class="mb-4 form-ajax" data-success="login_success">
 
                             @do_action('login_form')
 

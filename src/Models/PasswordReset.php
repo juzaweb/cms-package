@@ -19,7 +19,10 @@ namespace Juzaweb\Models;
 class PasswordReset extends Model
 {
     protected $table = 'password_resets';
-    protected $primaryKey = 'id';
-    protected $fillable = ['email'];
+    protected $fillable = [
+        'email',
+        'token'
+    ];
+
     public const UPDATED_AT = null;
 }

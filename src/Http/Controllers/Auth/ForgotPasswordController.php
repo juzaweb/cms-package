@@ -30,6 +30,8 @@ class ForgotPasswordController extends Controller
 
         $request->validate([
             'email' => 'required|email|exists:users,email',
+        ], [
+            'email.exists' => trans('juzaweb::app.email_does_not_exists')
         ]);
 
         $email = $request->post('email');
@@ -45,19 +47,22 @@ class ForgotPasswordController extends Controller
             ]);
 
             Email::make()
-                ->withTemplate('reset_password')
+                ->withTemplate('forgot_password')
                 ->setParams([
                     'name' => $user->name,
                     'email' => $email,
                     'token' => $resetToken,
+                    'url' => route('user.reset_password', [
+                        'email' => $email,
+                        'token' => $resetToken,
+                    ]),
                 ])
                 ->send();
 
             DB::commit();
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
-
-            throw $exception;
+            throw $e;
         }
 
         return $this->success(['redirect' => route('auth.forgot-password')]);

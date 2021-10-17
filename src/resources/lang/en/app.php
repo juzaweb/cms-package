@@ -381,4 +381,5 @@ return [
     'plugin_not_found' => 'Plugin not found',
     'plugin_name_not_found' => 'Plugin :name not found',
     'delete_theme_confirm' => 'Are you sure you want to delete this theme?',
+    'email_does_not_exists' => 'Email does not exists.',
 ];

@@ -13,14 +13,32 @@ require __DIR__ . '/installer.php';
 Route::group([
     'middleware' => 'guest',
 ], function () {
-    Route::get('login', 'Frontend\LoginController@index')->name('login');
-    Route::get('register', 'Frontend\RegisterController@index')->name('register');
-    Route::get('forgot-password', 'Frontend\ForgotPasswordController@index')->name('forgot_password');
+    Route::get('login', 'Auth\LoginController@index')->name('login');
+    Route::get('register', 'Auth\RegisterController@index')->name('register');
+    Route::get('forgot-password', 'Auth\ForgotPasswordController@index')->name('forgot_password');
+    Route::get('reset-password', 'Auth\ForgotPasswordController@index')->name('reset_password');
+
     Route::get('verification/{email}/{token}', 'Auth\VerificationController@verification')->name('verification');
+    Route::get('reset-password', 'Auth\ResetPasswordController@index');
 
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
+    Route::post('reset-password', 'Auth\ResetPasswordController@resetPassword');
+});
+
+Route::group([
+    'prefix' => 'user',
+    'middleware' => 'guest',
+], function () {
+    Route::get('login', 'Auth\LoginController@index')->name('user.login');
+    Route::get('register', 'Auth\RegisterController@index')->name('user.register');
+    Route::get('forgot-password', 'Auth\ForgotPasswordController@index')->name('user.forgot_password');
+    Route::get('reset-password', 'Auth\ResetPasswordController@index')->name('user.reset_password');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 });
 
 Route::group([
