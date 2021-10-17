@@ -16,31 +16,46 @@ namespace Juzaweb\Http\Controllers\Backend;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Juzaweb\Facades\Theme;
 use Juzaweb\Http\Controllers\BackendController;
 use Juzaweb\Support\Manager\UpdateManager;
+use Juzaweb\Support\JuzawebApi;
+use Juzaweb\Version;
 
 class UpdateController extends BackendController
 {
+    protected $api;
+
+    public function __construct(JuzawebApi $api)
+    {
+        $this->api = $api;
+    }
+
     public function index()
     {
         $title = trans('juzaweb::app.updates');
+
+        return view('juzaweb::backend.update.index', compact(
+            'title'
+        ));
+    }
+
+    public function checkUpdate()
+    {
         $updater = app(UpdateManager::class);
-        $checkUpdate = Cache::remember('check_update', 3600, function () use ($updater) {
-            return $updater->checkUpdate();
-        });
+        $checkUpdate = $updater->checkUpdate();
 
         $versionAvailable = null;
         if ($checkUpdate) {
-            $versionAvailable = Cache::remember('check_update_available', 3600, function () use ($updater) {
-                return $updater->getVersionAvailable();
-            });
+            $versionAvailable = $updater->getVersionAvailable();
         }
 
-        return view('juzaweb::backend.update', compact(
-            'title',
-            'checkUpdate',
-            'versionAvailable'
-        ));
+        return response()->json([
+            'html' => view('juzaweb::backend.update.form', compact(
+                'checkUpdate',
+                'versionAvailable'
+            ))->render(),
+        ]);
     }
 
     public function update()
@@ -48,14 +63,12 @@ class UpdateController extends BackendController
         set_time_limit(0);
 
         DB::beginTransaction();
-
         try {
             $update = new UpdateManager();
             $update->update();
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
-
             throw $e;
         }
 
@@ -64,6 +77,90 @@ class UpdateController extends BackendController
 
         return $this->success([
             'message' => trans('juzaweb::app.updated_successfully'),
+        ]);
+    }
+
+    public function pluginDatatable()
+    {
+        $plugins = app('plugins')->all();
+        $data = [];
+        foreach ($plugins as $plugin) {
+            $data[] = [
+                'code' => $plugin->get('name'),
+                'current_version' => $plugin->getVersion()
+            ];
+        }
+
+        $updates = $this->api->get('plugin/multi-available', [
+            'plugins' => json_encode($data),
+            'cms_version' => Version::getVersion(),
+        ]);
+
+        $update = collect((array) $updates)
+            ->filter(function ($item) {
+                return $item->status == true;
+            })
+            ->toArray();
+        $updateKeys = array_keys($update);
+
+        $result = [];
+        foreach ($plugins as $plugin) {
+            if (!in_array($plugin->get('name'), $updateKeys)) {
+                continue;
+            }
+
+            $result[] = [
+                'id' => $plugin->get('name'),
+                'plugin' => $plugin->getDisplayName(),
+                'version' => $update[$plugin->get('name')]['version'],
+            ];
+        }
+
+        return response()->json([
+            'total' => count($result),
+            'rows' => $result,
+        ]);
+    }
+
+    public function themeDatatable()
+    {
+        $themes = Theme::all();
+        $data = [];
+        foreach ($themes as $theme) {
+            $data[] = [
+                'code' => $theme->get('name'),
+                'current_version' => Theme::getVersion($theme->get('name'))
+            ];
+        }
+
+        $updates = $this->api->get('theme/multi-available', [
+            'themes' => json_encode($data),
+            'cms_version' => Version::getVersion(),
+        ]);
+
+        $update = collect((array) $updates)
+            ->filter(function ($item) {
+                return $item->status == true;
+            })
+            ->toArray();
+        $updateKeys = array_keys($update);
+
+        $result = [];
+        foreach ($themes as $theme) {
+            if (!in_array($theme->get('name'), $updateKeys)) {
+                continue;
+            }
+
+            $result[] = [
+                'id' => $theme->get('name'),
+                'plugin' => $theme->get('title'),
+                'version' => $update[$theme->get('name')]['version'],
+            ];
+        }
+
+        return response()->json([
+            'total' => count($result),
+            'rows' => $result,
         ]);
     }
 }

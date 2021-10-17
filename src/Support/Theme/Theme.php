@@ -293,6 +293,12 @@ class Theme implements ThemeContract
         return asset('vendor/juzaweb/images/screenshot.svg');
     }
 
+    public function getVersion($theme)
+    {
+        $info = $this->getThemeInfo($theme);
+        return $info->get('version', 0);
+    }
+
     /**
      * Map view map for particular theme.
      *

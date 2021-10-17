@@ -105,14 +105,11 @@ class UpdateManager
 
     public function update()
     {
-        $check = $this->updateStep1();
-        if ($check) {
-            $this->updateStep2();
-            $this->updateStep3();
-            $this->updateStep4();
-            $this->updateStep5();
-            return true;
-        }
+        $this->updateStep1();
+        $this->updateStep2();
+        $this->updateStep3();
+        $this->updateStep4();
+        $this->updateStep5();
 
         return false;
     }
