@@ -557,11 +557,23 @@ class HookAction
 
     public function getPermalinks($key = null)
     {
-        if ($key) {
-            return GlobalData::get('permalinks.' . $key);
+        $data = get_config('permalinks', []);
+        $permalinks = GlobalData::get('permalinks');
+        if ($data) {
+            $permalinks = array_map(function ($item) use ($data) {
+                if (isset($data[$item->get('key')])) {
+                    $item->put('base', $data[$item->get('key')]['base']);
+                }
+                return $item;
+            }, $permalinks);
         }
 
-        return GlobalData::get('permalinks');
+        if ($key) {
+            $permalink = Arr::get($permalinks, $key);
+            return $permalink;
+        }
+
+        return $permalinks;
     }
 
     public function registerNavMenus($locations = [])

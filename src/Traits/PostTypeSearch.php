@@ -17,6 +17,8 @@ trait PostTypeSearch
     public static function bootPostTypeSearch()
     {
         static::saved(function ($model) {
+            $model->refresh();
+
             Search::updateOrCreate([
                 'post_type' => $model->getPostType('key'),
                 'post_id' => $model->id,
