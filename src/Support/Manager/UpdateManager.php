@@ -233,6 +233,12 @@ class UpdateManager
                     $plugin->enable();
                 }
 
+                $theme = jw_current_theme();
+                Artisan::call('theme:publish', [
+                    'theme' => $theme,
+                    'type' => 'assets',
+                ]);
+
                 break;
             case 'plugin':
                 /**

@@ -15,7 +15,7 @@
                             </p>
                         </div>
 
-                        <form action="" method="post" class="mb-4 form-ajax">
+                        <form action="{{ route('forgot_password') }}" method="post" class="mb-4 form-ajax">
                             <div class="form-group mb-4">
                                 <input type="text" name="email" class="form-control" placeholder="@lang('juzaweb::app.email_address')" autocomplete="off"/>
                             </div>

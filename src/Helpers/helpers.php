@@ -196,7 +196,7 @@ function user_avatar($user = null)
         return $user->getAvatar();
     }
 
-    return asset('vendor/juzaweb/styles/images/thumb-default.png');
+    return asset('jw-styles/juzaweb/styles/images/thumb-default.png');
 }
 
 if (! function_exists('jw_breadcrumb')) {
@@ -267,7 +267,7 @@ if (! function_exists('upload_url')) {
             return $default;
         }
 
-        return asset('vendor/juzaweb/styles/images/thumb-default.png');
+        return asset('jw-styles/juzaweb/styles/images/thumb-default.png');
     }
 }
 

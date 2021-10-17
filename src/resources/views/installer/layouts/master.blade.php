@@ -7,8 +7,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('template_title')</title>
 
-        <script src="{{ asset('vendor/juzaweb/styles/js/jquery.min.js') }}"></script>
-        <link href="{{ asset('vendor/juzaweb/installer/css/style.css') }}" rel="stylesheet"/>
+        <script src="{{ asset('jw-styles/juzaweb/styles/js/jquery.min.js') }}"></script>
+        <link href="{{ asset('jw-styles/juzaweb/installer/css/style.css') }}" rel="stylesheet"/>
 
         <script>
             window.Laravel = @json([

@@ -204,12 +204,12 @@ class Theme implements ThemeContract
 
     public function publicPath($theme)
     {
-        return public_path('themes/' . $theme);
+        return public_path('jw-styles/themes/' . $theme);
     }
 
     public function assetsUrl($theme, $secure = null)
     {
-        return asset('themes/' . $theme . '/assets', $secure);
+        return asset('jw-styles/themes/' . $theme . '/assets', $secure);
     }
 
     /**
@@ -290,7 +290,7 @@ class Theme implements ThemeContract
             return theme_assets('screenshot.png', $theme);
         }
 
-        return asset('vendor/juzaweb/images/screenshot.svg');
+        return asset('jw-styles/juzaweb/images/screenshot.svg');
     }
 
     public function getVersion($theme)

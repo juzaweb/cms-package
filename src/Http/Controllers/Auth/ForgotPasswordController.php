@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Models\PasswordReset;
 use Juzaweb\Models\User;
+use Juzaweb\Support\Email;
 use Juzaweb\Traits\ResponseMessage;
 
 class ForgotPasswordController extends Controller
@@ -29,6 +30,8 @@ class ForgotPasswordController extends Controller
 
         $request->validate([
             'email' => 'required|email|exists:users,email',
+        ], [
+            'email.exists' => trans('juzaweb::app.email_does_not_exists')
         ]);
 
         $email = $request->post('email');
@@ -43,22 +46,29 @@ class ForgotPasswordController extends Controller
                 'token' => $resetToken,
             ]);
 
-            EmailService::make()
-                ->withTemplate('reset_password')
+            Email::make()
+                ->withTemplate('forgot_password')
+                ->setEmails([$request->post('email')])
                 ->setParams([
                     'name' => $user->name,
                     'email' => $email,
                     'token' => $resetToken,
+                    'url' => route('user.reset_password', [
+                        'email' => $email,
+                        'token' => $resetToken,
+                    ]),
                 ])
                 ->send();
 
             DB::commit();
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             DB::rollBack();
-
-            throw $exception;
+            throw $e;
         }
 
-        return $this->success(['redirect' => route('auth.forgot-password')]);
+        return $this->success([
+            'message' => trans('app.send_email_successfully'),
+            'redirect' => route('user.forgot_password')
+        ]);
     }
 }

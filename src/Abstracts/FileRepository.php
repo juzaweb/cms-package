@@ -437,7 +437,7 @@ abstract class FileRepository implements RepositoryInterface, Countable
      */
     public function assetPath($module): string
     {
-        return public_path('plugins') . '/' . $module;
+        return public_path('jw-styles/plugins') . '/' . $module;
     }
 
     /**

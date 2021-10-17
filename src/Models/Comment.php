@@ -78,7 +78,7 @@ class Comment extends Model
             return $this->user->getAvatar();
         }
 
-        return asset('vendor/juzaweb/styles/images/avatar.png');
+        return asset('jw-styles/juzaweb/styles/images/avatar.png');
     }
 
     public function getUpdatedDate($format = JW_DATE_TIME)

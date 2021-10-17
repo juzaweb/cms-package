@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? '' }}</title>
-    <link rel="icon" href="{{ asset('vendor/juzaweb/styles/images/favicon.ico') }}" />
+    <link rel="icon" href="{{ asset('jw-styles/juzaweb/styles/images/favicon.ico') }}" />
     <link href="https://fonts.googleapis.com/css?family=Mukta:400,700,800&display=swap" rel="stylesheet" />
 
     @include('juzaweb::components.juzaweb_langs')
@@ -29,7 +29,7 @@
             <div class="juzaweb__menuLeft__logo__container">
                 <a href="/{{ config('juzaweb.admin_prefix') }}">
                 <div class="juzaweb__menuLeft__logo">
-                    <img src="{{ asset('vendor/juzaweb/styles/images/logo.svg') }}" class="mr-2" alt="Juzaweb">
+                    <img src="{{ asset('jw-styles/juzaweb/styles/images/logo.svg') }}" class="mr-2" alt="Juzaweb">
                     <div class="juzaweb__menuLeft__logo__name">Juzaweb</div>
                     <div class="juzaweb__menuLeft__logo__descr">Cms</div>
                 </div>
@@ -38,7 +38,7 @@
                 {{--<div class="juzaweb__menuLeft__logo">
                     <div class="juzaweb__menuLeft__logo__name">
                         <a href="/{{ config('juzaweb.admin_prefix') }}">
-                            <img src="{{ asset('vendor/juzaweb/styles/images/logo.png') }}" alt="">
+                            <img src="{{ asset('jw-styles/juzaweb/styles/images/logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>--}}

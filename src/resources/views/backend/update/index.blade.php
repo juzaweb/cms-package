@@ -69,7 +69,7 @@
                     <thead>
                         <tr>
                             <th data-field="state" data-width="3%" data-checkbox="true"></th>
-                            <th data-field="plugin">{{ trans('juzaweb::app.theme') }}</th>
+                            <th data-field="theme">{{ trans('juzaweb::app.theme') }}</th>
                             <th data-field="version" data-width="15%">{{ trans('juzaweb::app.version') }}</th>
                         </tr>
                     </thead>
@@ -88,7 +88,7 @@
             table: "#plugins-table",
             apply_button: "#apply-action-plugins",
             url: "{{ route('admin.update.plugins') }}",
-            action_url: "{{ route('admin.themes.require-plugins.buld-actions') }}",
+            action_url: "",
             chunk_action: true
         });
 
@@ -96,7 +96,7 @@
             table: "#themes-table",
             apply_button: "#apply-action-themes",
             url: "{{ route('admin.update.themes') }}",
-            action_url: "{{ route('admin.themes.require-plugins.buld-actions') }}",
+            action_url: "",
             chunk_action: true
         });
 

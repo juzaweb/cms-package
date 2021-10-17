@@ -108,6 +108,8 @@ class UpdateController extends BackendController
         $update = collect((array) $updates)
             ->filter(function ($item) {
                 return $item->status == true;
+            })->map(function ($item) {
+                return (array) $item;
             })
             ->toArray();
         $updateKeys = array_keys($update);
@@ -151,7 +153,11 @@ class UpdateController extends BackendController
             ->filter(function ($item) {
                 return $item->status == true;
             })
+            ->map(function ($item) {
+                return (array) $item;
+            })
             ->toArray();
+
         $updateKeys = array_keys($update);
 
         $result = [];
@@ -162,7 +168,7 @@ class UpdateController extends BackendController
 
             $result[] = [
                 'id' => $theme->get('name'),
-                'plugin' => $theme->get('title'),
+                'theme' => $theme->get('title'),
                 'version' => $update[$theme->get('name')]['version'],
             ];
         }

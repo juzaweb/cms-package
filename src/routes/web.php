@@ -8,19 +8,4 @@
  * @license    MIT
  */
 
-Route::group([
-    'prefix' => 'user',
-    'middleware' => 'guest',
-], function () {
-    Route::get('/login', 'Auth\LoginController@index')->name('user.login');
-    Route::post('/login', 'Auth\LoginController@login');
 
-    Route::get('/register', 'Auth\RegisterController@index')->name('user.register');
-    Route::post('/register', 'Auth\RegisterController@register');
-
-    Route::get('/forgot-password', 'Auth\ForgotPasswordController@index')->name('user.forgot_password');
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-});

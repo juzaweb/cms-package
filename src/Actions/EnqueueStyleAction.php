@@ -68,9 +68,7 @@ class EnqueueStyleAction extends Action
 
     public function addRecaptchaForm()
     {
-        $this->addAction('login_form', [$this, 'recaptchaRender']);
-
-        $this->addAction('register_form', [$this, 'recaptchaRender']);
+        $this->addAction('auth_form', [$this, 'recaptchaRender']);
     }
 
     public function recaptchaRender()
