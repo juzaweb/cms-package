@@ -162,7 +162,7 @@ class UpdateController extends BackendController
 
             $result[] = [
                 'id' => $theme->get('name'),
-                'plugin' => $theme->get('title'),
+                'theme' => $theme->get('title'),
                 'version' => $update[$theme->get('name')]['version'],
             ];
         }

@@ -25,15 +25,12 @@ class ThemePublishCommand extends Command
             switch ($type) {
                 case 'views':
                     $this->publishViews($theme);
-
                     break;
                 case 'lang':
                     $this->publishLang($theme);
-
                     break;
                 case 'assets':
                     $this->publishAssets($theme);
-
                     break;
             }
         }

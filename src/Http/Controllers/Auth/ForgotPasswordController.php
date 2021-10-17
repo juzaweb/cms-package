@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Juzaweb\Http\Controllers\Controller;
 use Juzaweb\Models\PasswordReset;
 use Juzaweb\Models\User;
+use Juzaweb\Support\Email;
 use Juzaweb\Traits\ResponseMessage;
 
 class ForgotPasswordController extends Controller
@@ -43,7 +44,7 @@ class ForgotPasswordController extends Controller
                 'token' => $resetToken,
             ]);
 
-            EmailService::make()
+            Email::make()
                 ->withTemplate('reset_password')
                 ->setParams([
                     'name' => $user->name,

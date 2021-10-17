@@ -146,7 +146,7 @@ class AutoloadServiceProvider extends ServiceProvider
         }
 
         if (is_dir($assetsPath)) {
-            $assetsPublic = public_path('plugins/' . $namespace . '/assets');
+            $assetsPublic = public_path('jw-styles/plugins/' . $namespace . '/assets');
             $this->publishes([
                 $assetsPath => $assetsPublic,
             ], $domain . '_assets');

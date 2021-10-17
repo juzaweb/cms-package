@@ -308,15 +308,15 @@ class MenuAction extends Action
     public function addAdminScripts()
     {
         $ver = Version::getVersion();
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/vendor.js', $ver);
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/backend.js', $ver);
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/ckeditor/ckeditor.js', $ver);
+        HookAction::enqueueScript('core', 'jw-styles/juzaweb/styles/js/vendor.js', $ver);
+        HookAction::enqueueScript('core', 'jw-styles/juzaweb/styles/js/backend.js', $ver);
+        HookAction::enqueueScript('core', 'jw-styles/juzaweb/styles/ckeditor/ckeditor.js', $ver);
     }
 
     public function addAdminStyles()
     {
-        HookAction::enqueueStyle('core', 'vendor/juzaweb/styles/css/vendor.css');
-        HookAction::enqueueStyle('core', 'vendor/juzaweb/styles/css/backend.css');
+        HookAction::enqueueStyle('core', 'jw-styles/juzaweb/styles/css/vendor.css');
+        HookAction::enqueueStyle('core', 'jw-styles/juzaweb/styles/css/backend.css');
     }
 
     public function addDatatableSearchFieldTypes()

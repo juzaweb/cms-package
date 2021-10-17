@@ -264,7 +264,7 @@ if (! function_exists('get_logo')) {
     {
         return upload_url(
             get_config('logo'),
-            asset($default ?: 'vendor/juzaweb/styles/images/logo.svg')
+            asset($default ?: 'jw-styles/juzaweb/styles/images/logo.svg')
         );
     }
 }
@@ -274,7 +274,7 @@ if (! function_exists('get_icon')) {
     {
         return upload_url(
             get_config('icon'),
-            asset($default ?: 'vendor/juzaweb/styles/images/favicon.ico')
+            asset($default ?: 'jw-styles/juzaweb/styles/images/favicon.ico')
         );
     }
 }

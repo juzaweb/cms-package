@@ -9,10 +9,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#333844">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ trans('juzaweb::filemanager.title-page') }}</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/juzaweb/styles/images/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('jw-styles/juzaweb/styles/images/favicon.ico') }}">
 
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">--}}
-    <link rel="stylesheet" href="{{ asset('vendor/juzaweb/styles/css/filemanager.css') }}">
+    <link rel="stylesheet" href="{{ asset('jw-styles/juzaweb/styles/css/filemanager.css') }}">
 
 </head>
 <body>
@@ -251,7 +251,7 @@
     ];
 </script>
 
-<script src="{{ asset('vendor/juzaweb/styles/js/filemanager.js') }}"></script>
+<script src="{{ asset('jw-styles/juzaweb/styles/js/filemanager.js') }}"></script>
 
 <script>
     Dropzone.options.uploadForm = {

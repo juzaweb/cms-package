@@ -8,13 +8,13 @@
  * @license    MIT
  */
 
-Route::get('/themes/{theme}/{path}', 'Frontend\AssetController@assetsTheme')
+Route::get('jw-styles/themes/{theme}/{path}', 'Frontend\AssetController@assetsTheme')
     ->where('theme', '[0-9a-z]+')
     ->where('path', '[0-9a-zA-Z\.\/\-]+');
 
-Route::get('/plugins/{plugin}/{path}', 'Frontend\AssetController@assetsPlugin')
+Route::get('jw-styles/plugins/{plugin}/{path}', 'Frontend\AssetController@assetsPlugin')
     ->where('theme', '[0-9a-z]+')
     ->where('path', '[0-9a-zA-Z\.\/\-]+');
 
-Route::get('/storage/{path}', 'Frontend\AssetController@assetsStorage')
+Route::get('storage/{path}', 'Frontend\AssetController@assetsStorage')
     ->where('path', '[0-9a-zA-Z\.\/\-]+');
