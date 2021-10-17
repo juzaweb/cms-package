@@ -209,7 +209,7 @@ class Theme implements ThemeContract
 
     public function assetsUrl($theme, $secure = null)
     {
-        return asset('themes/' . $theme . '/assets', $secure);
+        return asset('jw-styles/themes/' . $theme . '/assets', $secure);
     }
 
     /**

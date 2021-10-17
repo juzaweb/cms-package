@@ -8,7 +8,7 @@ use Juzaweb\Console\Commands\Plugin\ActionMakeCommand;
 use Juzaweb\Console\Commands\Plugin\CommandMakeCommand;
 use Juzaweb\Console\Commands\Plugin\ControllerMakeCommand;
 use Juzaweb\Console\Commands\Plugin\DisableCommand;
-use Juzaweb\Console\Commands\Plugin\DumpCommand;
+use Juzaweb\Console\Commands\Plugin\PublishCommand;
 use Juzaweb\Console\Commands\Plugin\EnableCommand;
 use Juzaweb\Console\Commands\Plugin\EventMakeCommand;
 use Juzaweb\Console\Commands\Plugin\FactoryMakeCommand;
@@ -68,6 +68,7 @@ class ConsoleServiceProvider extends ServiceProvider
         EventMakeCommand::class,
         JobMakeCommand::class,
         ListenerMakeCommand::class,
+        PublishCommand::class,
         //MailMakeCommand::class,
         MiddlewareMakeCommand::class,
         //NotificationMakeCommand::class,

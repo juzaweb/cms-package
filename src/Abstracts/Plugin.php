@@ -472,10 +472,10 @@ abstract class Plugin
         ]);
     }
 
-    private function publishAssets()
+    public function publishAssets()
     {
-        Artisan::call('vendor:publish', [
-            '--tag' => $this->getDomainName() . '_assets',
+        Artisan::call('plugin:publish', [
+            'module' => $this->get('name'),
         ]);
     }
 }
