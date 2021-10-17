@@ -440,7 +440,11 @@ abstract class Plugin
 
     public function getDisplayName()
     {
-        return $this->getExtraJuzaweb('name');
+        $name = $this->getExtraJuzaweb('name');
+        if (empty($name)) {
+            $name = $this->get('name');
+        }
+        return $name;
     }
 
     public function getDomainName()
@@ -452,7 +456,6 @@ abstract class Plugin
     {
         $namespace = Arr::get($this->get('autoload', []), 'psr-4');
         $namespace = array_keys($namespace)[0];
-
         return $namespace;
     }
 

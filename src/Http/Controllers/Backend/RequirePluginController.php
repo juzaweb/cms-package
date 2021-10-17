@@ -62,8 +62,6 @@ class RequirePluginController extends BackendController
 
     public function bulkActions(Request $request)
     {
-
-
         $this->validate($request, [
             'ids' => 'array|required',
             'action' => 'required',
@@ -74,19 +72,33 @@ class RequirePluginController extends BackendController
         $errors = [];
 
         switch ($action) {
-            case 'activate':
+            case 'install':
                 foreach ($ids as $id) {
                     $info = app('plugins')->find($id);
                     if (empty($info)) {
                         $installer = new UpdateManager('plugin', $id);
                         if (!$installer->update()) {
-                            $errors[] = trans('juzaweb::app.plugin_name_not_found', ['name' => $id]);
+                            $errors[] = trans(
+                                'juzaweb::app.plugin_name_not_found', [
+                                    'name' => $id
+                                ]);
                         }
                     }
-
+                }
+                break;
+            case 'activate':
+                foreach ($ids as $id) {
                     $info = app('plugins')->find($id);
+                    if (empty($info)) {
+                        $errors[] = trans(
+                            'juzaweb::app.plugin_name_not_found', [
+                            'name' => $id
+                        ]);
+                        continue;
+                    }
                     $info->enable();
                 }
+                break;
         }
 
         remove_backend_message('require_plugins');

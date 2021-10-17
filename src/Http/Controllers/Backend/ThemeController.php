@@ -27,6 +27,10 @@ class ThemeController extends BackendController
         $activated = jw_current_theme();
 
         $themes = Theme::all();
+        foreach ($themes as $row) {
+            $row['screenshot'] = Theme::getScreenshot($row['name']);
+        }
+
         $currentTheme = $themes[$activated] ?? null;
         unset($themes[$activated]);
         $pagination = ArrayPagination::make($themes);
@@ -136,6 +140,31 @@ class ThemeController extends BackendController
 
     public function delete(Request $request)
     {
+        $request->validate([
+            'theme' => 'required',
+        ]);
+
+        $theme = $request->input('theme');
+
+        if ($theme == 'default') {
+            return $this->error([
+                'message' => trans('juzaweb::message.cant_delete_default_theme'),
+            ]);
+        }
+
+        if (!Theme::has($theme)) {
+            return $this->error([
+                'message' => trans('juzaweb::message.theme_not_found'),
+            ]);
+        }
+
+        $path = Theme::getThemePath($theme);
+        File::deleteDirectory($path);
+
+        return $this->success([
+            'redirect' => route('admin.themes'),
+            'message' => trans('juzaweb::message.deleted_successfully'),
+        ]);
     }
 
     protected function putCache($theme)

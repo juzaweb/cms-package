@@ -157,16 +157,6 @@ abstract class FileRepository implements RepositoryInterface, Countable
 
             foreach ($manifests as $manifest) {
                 $info = Json::make($manifest)->getAttributes();
-                $extra = Arr::get($info, 'extra');
-
-                if ($jw = Arr::get($extra, 'juzaweb', [])) {
-                    $pluginName = Arr::get($jw, 'name');
-                }
-
-                if (empty($pluginName)) {
-                    continue;
-                }
-
                 $name = Arr::get($info, 'name');
                 $modules[$name] = $this->createModule(
                     $this->app,

@@ -15,8 +15,8 @@
         @if($currentTheme)
         <div class="col-md-4">
             <div class="card">
-                {{--<div class="height-200 d-flex flex-column jw__g13__head" style="background-image: url('{{ $currentTheme['screenshot'] ?? asset('vendor/juzaweb/styles/images/thumb-default.png') }}')">
-                </div>--}}
+                <div class="height-200 d-flex flex-column jw__g13__head" style="background-image: url('{{ $currentTheme['screenshot'] }}')">
+                </div>
 
                 <div class="card card-borderless mb-0">
                     <div class="card-header border-bottom-0">
@@ -37,8 +37,8 @@
         @foreach($themes as $theme)
         <div class="col-md-4">
             <div class="card">
-                {{--<div class="height-200 d-flex flex-column jw__g13__head" style="background-image: url('{{ $theme['screenshot'] ?? asset('vendor/juzaweb/styles/images/thumb-default.png') }}')">
-                </div>--}}
+                <div class="height-200 d-flex flex-column jw__g13__head" style="background-image: url('{{ $theme['screenshot'] }}')">
+                </div>
 
                 <div class="card card-borderless mb-0">
                     <div class="card-header border-bottom-0">
@@ -49,7 +49,7 @@
                             <div class="text-gray-6">
                                 <button class="btn btn-primary active-theme" data-theme="{{ $theme['name'] }}"><i class="fa fa-check"></i> {{ trans('juzaweb::app.activate') }}</button>
 
-                                {{--<a href="javascript:void(0)" class="text-danger">{{ trans('juzaweb::app.delete') }}</a>--}}
+                                <a href="javascript:void(0)" class="text-danger delete-theme" data-theme="{{ $theme['name'] }}">{{ trans('juzaweb::app.delete') }}</a>
                             </div>
                         </div>
                     </div>

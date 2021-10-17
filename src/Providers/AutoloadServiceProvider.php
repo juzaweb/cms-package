@@ -85,7 +85,7 @@ class AutoloadServiceProvider extends ServiceProvider
     protected function getActivePlugins()
     {
         $pluginFile = base_path('bootstrap/cache/plugins_statuses.php');
-        if (! file_exists($pluginFile)) {
+        if (!file_exists($pluginFile)) {
             return false;
         }
 
@@ -103,15 +103,22 @@ class AutoloadServiceProvider extends ServiceProvider
     {
         $namespace = $namespace . 'Http\Controllers';
 
-        Route::middleware('admin')
-            ->namespace($namespace)
-            ->prefix(config('juzaweb.admin_prefix'))
-            ->group($path . '/routes/admin.php');
+        $adminRoute = $path . '/routes/admin.php';
+        $apiRoute = $path . '/routes/api.php';
 
-        Route::middleware('api')
-            ->namespace($namespace)
-            ->prefix('api')
-            ->group($path . '/routes/api.php');
+        if (file_exists($adminRoute)) {
+            Route::middleware('admin')
+                ->namespace($namespace)
+                ->prefix(config('juzaweb.admin_prefix'))
+                ->group($path . '/routes/admin.php');
+        }
+
+        if (file_exists($apiRoute)) {
+            Route::middleware('api')
+                ->namespace($namespace)
+                ->prefix('api')
+                ->group($path . '/routes/api.php');
+        }
     }
 
     public function bootResources($path, $namespace, $domain)

@@ -6,7 +6,7 @@
 
         <div class="col-md-6">
             <div class="btn-group float-right">
-                <a href="{{ route('admin.plugin.install') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
+                <a href="{{ route('admin.plugin.install') }}" class="btn btn-success" data-turbolinks="false"><i class="fa fa-plus-circle"></i> @lang('juzaweb::app.add_new')</a>
             </div>
         </div>
     </div>
@@ -16,13 +16,13 @@
             <form method="post" class="form-inline">
                 @csrf
                 <select name="bulk_actions" class="form-control w-60 mb-2 mr-1">
-                    <option value="">@lang('juzaweb::app.bulk_actions')</option>
-                    <option value="delete">@lang('juzaweb::app.delete')</option>
-                    <option value="activate">@lang('juzaweb::app.activate')</option>
-                    <option value="deactivate">@lang('juzaweb::app.deactivate')</option>
+                    <option value="">{{ trans('juzaweb::app.bulk_actions') }}</option>
+                    <option value="activate">{{ trans('juzaweb::app.activate') }}</option>
+                    <option value="deactivate">{{ trans('juzaweb::app.deactivate') }}</option>
+                    <option value="delete">{{ trans('juzaweb::app.delete') }}</option>
                 </select>
 
-                <button type="submit" class="btn btn-primary px-2 mb-2" id="apply-action">@lang('juzaweb::app.apply')</button>
+                <button type="submit" class="btn btn-primary px-2 mb-2" id="apply-action">{{ trans('juzaweb::app.apply') }}</button>
             </form>
         </div>
 

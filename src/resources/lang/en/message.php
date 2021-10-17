@@ -2,6 +2,10 @@
 
 return [
     'theme_not_found' => 'Theme :name not found',
+    'cant_delete_default_theme' => 'Can\'t delete default theme',
+    'saved_successfully' => 'Saved successfully.',
+    'created_successfully' => 'Created successfully.',
+    'deleted_successfully' => 'Deleted successfully.',
     'login_form' => [
         'welcome' => 'Welcome to :name',
         'description' => '',

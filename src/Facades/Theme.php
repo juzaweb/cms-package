@@ -8,8 +8,9 @@ use Juzaweb\Contracts\ThemeContract;
 /**
  * @method static set(string $theme)
  * @method static has(string $theme)
- * @method static getThemePath(string $theme = null)
+ * @method static getThemePath(string $theme = null, $path = '')
  * @method static getThemeInfo(string $theme)
+ * @method static getScreenshot(string $theme)
  * @method static get(string $theme)
  * @method static assets(string $path, $theme = null, $secure = null)
  * @method static publicPath(string $theme)

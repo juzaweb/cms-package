@@ -15,6 +15,7 @@ use Juzaweb\Facades\HookAction;
 use Juzaweb\Models\Page;
 use Juzaweb\Models\Post;
 use Juzaweb\Support\Theme\CustomMenuBox;
+use Juzaweb\Version;
 
 class MenuAction extends Action
 {
@@ -306,9 +307,10 @@ class MenuAction extends Action
 
     public function addAdminScripts()
     {
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/vendor.js');
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/backend.js');
-        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/ckeditor/ckeditor.js');
+        $ver = Version::getVersion();
+        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/vendor.js', $ver);
+        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/js/backend.js', $ver);
+        HookAction::enqueueScript('core', 'vendor/juzaweb/styles/ckeditor/ckeditor.js', $ver);
     }
 
     public function addAdminStyles()

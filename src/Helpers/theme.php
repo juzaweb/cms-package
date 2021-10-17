@@ -23,11 +23,11 @@ function body_class($class = '')
     return apply_filters('theme.body_class', $class);
 }
 
-function theme_assets(string $path)
+function theme_assets(string $path, string $theme = null)
 {
     $path = str_replace('assets/', '', $path);
 
-    return Theme::assets($path);
+    return Theme::assets($path, $theme);
 }
 
 if (! function_exists('page_url')) {

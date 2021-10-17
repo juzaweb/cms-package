@@ -23,6 +23,16 @@ Route::group([
     Route::post('forgot-password', 'Auth\ForgotPasswordController@forgotPassword');
 });
 
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'profile'
+], function () {
+    Route::get('notification', 'Frontend\ProfileController@notification')->name('profile.notification');
+    Route::get('change-password', 'Frontend\ProfileController@changePassword')->name('profile.change_password');
+    Route::post('change-password', 'Frontend\ProfileController@doChangePassword');
+    Route::get('/{slug?}', 'Frontend\ProfileController@index')->name('profile');
+});
+
 Route::match(['get', 'post'], 'ajax/{slug}', 'Frontend\AjaxController@ajax')->name('ajax');
 
 Route::get('/', 'Frontend\HomeController@index')->name('home');
