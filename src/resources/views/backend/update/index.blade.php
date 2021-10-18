@@ -59,7 +59,7 @@
                             <option value="theme">{{ trans('juzaweb::app.update') }}</option>
                         </select>
 
-                        <button type="submit" class="btn btn-primary px-3" id="apply-action-plugins">{{ trans('juzaweb::app.apply') }}</button>
+                        <button type="submit" class="btn btn-primary px-3" id="apply-action-themes">{{ trans('juzaweb::app.apply') }}</button>
                     </form>
                 </div>
             </div>
