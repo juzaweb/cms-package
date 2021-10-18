@@ -59,7 +59,7 @@
                             <option value="theme">{{ trans('juzaweb::app.update') }}</option>
                         </select>
 
-                        <button type="submit" class="btn btn-primary px-3" id="apply-action-plugins">{{ trans('juzaweb::app.apply') }}</button>
+                        <button type="submit" class="btn btn-primary px-3" id="apply-action-themes">{{ trans('juzaweb::app.apply') }}</button>
                     </form>
                 </div>
             </div>
@@ -92,7 +92,7 @@
             chunk_action: true
         });
 
-        var table = new JuzawebTable({
+        var table2 = new JuzawebTable({
             table: "#themes-table",
             apply_button: "#apply-action-themes",
             url: "{{ route('admin.update.themes') }}",
