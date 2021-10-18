@@ -92,7 +92,7 @@
             chunk_action: true
         });
 
-        var table = new JuzawebTable({
+        var table2 = new JuzawebTable({
             table: "#themes-table",
             apply_button: "#apply-action-themes",
             url: "{{ route('admin.update.themes') }}",
