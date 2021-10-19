@@ -137,7 +137,7 @@ class FileManager
             $filename
         );
 
-        if (config('file-manager.image-optimizer')) {
+        if (config('juzaweb.filemanager.image-optimizer')) {
             if (in_array($uploadedFile->getMimeType(), $this->getImageMimetype())) {
                 $optimizerChain = OptimizerChainFactory::create();
                 $optimizerChain->optimize($this->storage->path($newPath));

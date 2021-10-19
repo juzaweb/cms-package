@@ -99,6 +99,7 @@ return [
 
     'filemanager' => [
         'disk' => 'public',
+        'image-optimizer' => (bool) env('IMAGE_OPTIMIZER', false),
         'types' => [
             'file'  => [
                 'max_size'     => 1024, // size in MB
@@ -124,5 +125,4 @@ return [
             ],
         ],
     ],
-
 ];
