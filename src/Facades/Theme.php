@@ -14,6 +14,7 @@ use Juzaweb\Contracts\ThemeContract;
  * @method static get(string $theme)
  * @method static assets(string $path, $theme = null, $secure = null)
  * @method static publicPath(string $theme)
+ * @method static getVersion(string $theme)
  * @method static \Noodlehaus\Config[] all()
  *
  * @see \Juzaweb\Support\Theme\Theme

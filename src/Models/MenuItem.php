@@ -85,4 +85,9 @@ class MenuItem extends Model
 
         return $register;
     }
+
+    public function isActive()
+    {
+        return request()->is($this->link);
+    }
 }
