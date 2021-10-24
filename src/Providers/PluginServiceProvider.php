@@ -6,7 +6,7 @@ use Juzaweb\Abstracts\PluginServiceProvider as BaseServiceProvider;
 use Juzaweb\Contracts\ActivatorInterface;
 use Juzaweb\Contracts\RepositoryInterface;
 use Juzaweb\Exceptions\InvalidActivatorClass;
-use Juzaweb\Support\Activators\FileActivator;
+use Juzaweb\Support\Activators\DbActivator;
 use Juzaweb\Support\LaravelFileRepository;
 use Juzaweb\Support\Stub;
 
@@ -51,7 +51,7 @@ class PluginServiceProvider extends BaseServiceProvider
         });
 
         $this->app->singleton(ActivatorInterface::class, function ($app) {
-            $class = FileActivator::class;
+            $class = DbActivator::class;
 
             if ($class === null) {
                 throw InvalidActivatorClass::missingConfig();

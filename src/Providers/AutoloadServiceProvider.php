@@ -10,7 +10,9 @@
 
 namespace Juzaweb\Providers;
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,8 +27,9 @@ class AutoloadServiceProvider extends ServiceProvider
 
         $pluginsFolder = $this->getPluginsPath();
         foreach ($plugins as $pluginInfo) {
+            $pluginInfo = json_decode($pluginInfo->class_map, true);
             foreach ($pluginInfo as $key => $item) {
-                $path = $item['path'];
+                $path = Arr::get($item, 'path');
                 if (! is_dir($path)) {
                     $path = $pluginsFolder . '/' . $path;
                 }
@@ -43,27 +46,39 @@ class AutoloadServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $loader = new ClassLoader(
+            config('juzaweb.plugin.path')
+        );
+
         $plugins = $this->getActivePlugins();
-        if (empty($plugins)) {
-            return;
-        }
+        if ($plugins) {
+            $pluginsFolder = $this->getPluginsPath();
 
-        $pluginsFolder = $this->getPluginsPath();
+            foreach ($plugins as $pluginInfo) {
+                $pluginInfo = json_decode($pluginInfo->class_map, true);
+                foreach ($pluginInfo as $key => $item) {
+                    $path = $item['path'];
+                    if (!is_dir($path)) {
+                        $path = $pluginsFolder . '/' . $path;
+                    }
 
-        foreach ($plugins as $pluginInfo) {
-            foreach ($pluginInfo as $key => $item) {
-                $path = $item['path'];
-                if (! is_dir($path)) {
-                    $path = $pluginsFolder . '/' . $path;
-                }
+                    $namespace = Arr::get($item, 'namespace');
 
-                $namespace = Arr::get($item, 'namespace');
+                    $loader->setPsr4($namespace, [$path]);
 
-                if (is_dir($path) && $namespace) {
-                    $this->registerPlugin($path, $namespace);
+                    if (is_dir($path) && $namespace) {
+                        $this->registerPlugin($path, $namespace);
+                    }
                 }
             }
         }
+
+        $themePath = config('juzaweb.theme.path') . '/' . jw_current_theme() . '/src';
+        if (is_dir($themePath)) {
+            $loader->setPsr4('Theme\\', [$themePath]);
+        }
+
+        $loader->register(true);
     }
 
     protected function registerPlugin($path, $namespace)
@@ -84,14 +99,13 @@ class AutoloadServiceProvider extends ServiceProvider
 
     protected function getActivePlugins()
     {
-        $pluginFile = base_path('bootstrap/cache/plugins_statuses.php');
-        if (!file_exists($pluginFile)) {
-            return false;
+        try {
+            return DB::table('plugin_statuses')->get()
+                ->keyBy('name')
+                ->toArray();
+        } catch (\Exception $e) {
+            return [];
         }
-
-        $plugins = require $pluginFile;
-
-        return $plugins;
     }
 
     protected function getPluginsPath()

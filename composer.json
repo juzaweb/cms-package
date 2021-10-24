@@ -13,14 +13,14 @@
     "homepage": "https://juzaweb.com",
     "require": {
         "php": "^7.2|^8.0",
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.5|^7.0",
         "intervention/image": "^2.5",
         "juzaweb/config": "^2.2",
         "juzaweb/image-optimizer": "^1.4",
         "juzaweb/laravel-chunk-upload": "^1.4",
-        "juzaweb/log-viewer": "^5.2",
+        "juzaweb/log-viewer": "^5.2|^8.1",
         "juzaweb/jwt-auth": "^1.0",
-        "juzaweb/l5-swagger": "^6.0"
+        "juzaweb/l5-swagger": "^6.0|^8.0"
     },
     "require-dev": {
       "juzaweb/laravel-cms": "^1.0",
