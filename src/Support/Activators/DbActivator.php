@@ -13,7 +13,6 @@ namespace Juzaweb\Support\Activators;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
-use Illuminate\Support\Facades\DB;
 use Juzaweb\Abstracts\Plugin;
 use Juzaweb\Contracts\ActivatorInterface;
 use Illuminate\Filesystem\Filesystem;
@@ -43,16 +42,6 @@ class DbActivator implements ActivatorInterface
     private $config;
 
     /**
-     * @var string
-     */
-    private $cacheKey;
-
-    /**
-     * @var string
-     */
-    private $cacheLifetime;
-
-    /**
      * Array of plugins activation statuses
      *
      * @var array
@@ -64,8 +53,6 @@ class DbActivator implements ActivatorInterface
         $this->cache = $app['cache'];
         $this->files = $app['files'];
         $this->config = $app['config'];
-        $this->cacheKey = 'juzaweb.activator.installed';
-        $this->cacheLifetime = 604800;
         $this->modulesStatuses = $this->getModulesStatuses();
     }
     /**
@@ -185,7 +172,8 @@ class DbActivator implements ActivatorInterface
      */
     public function reset(): void
     {
-        // TODO: Implement reset() method.
+        $this->modulesStatuses = [];
+        $this->writeData();
     }
 
     /**

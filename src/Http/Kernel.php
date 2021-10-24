@@ -47,12 +47,10 @@ class Kernel extends HttpKernel
         ],
 
         'admin' => [
-            'web',
             \Juzaweb\Http\Middleware\Admin::class,
         ],
 
         'theme' => [
-            'web',
             \Juzaweb\Http\Middleware\Theme::class,
         ],
     ];
