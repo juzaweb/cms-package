@@ -10,25 +10,36 @@
 
 namespace Juzaweb\Support;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Cache\CacheManager;
 use Juzaweb\Models\Config as ConfigModel;
+use Illuminate\Container\Container;
 
 class Config
 {
     protected $configs;
+
     protected $cacheKey = 'jw_configs';
 
-    public function __construct()
+    /**
+     * @var CacheManager
+     */
+    private $cache;
+
+    public function __construct(Container $app)
     {
-        $this->configs = Cache::rememberForever($this->cacheKey, function () {
-            return ConfigModel::get([
-                'code',
-                'value',
-            ])->keyBy('code')
-                ->map(function ($item) {
-                    return $item->value;
-                })
-                ->toArray();
+        $this->cache = $app['cache'];
+
+        $this->configs = $this->cache->rememberForever(
+            $this->cacheKey,
+            function () {
+                return ConfigModel::get([
+                    'code',
+                    'value',
+                ])->keyBy('code')
+                    ->map(function ($item) {
+                        return $item->value;
+                    })
+                    ->toArray();
         });
     }
 
@@ -56,7 +67,7 @@ class Config
         ]);
 
         $this->configs[$key] = $value;
-        Cache::forever($this->cacheKey, $this->configs);
+        $this->cache->forever($this->cacheKey, $this->configs);
 
         return $config;
     }

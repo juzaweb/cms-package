@@ -21,49 +21,6 @@ trait PostTypeController
         ResourceController::afterSave as traitAfterSave;
     }
 
-    public function index()
-    {
-        $postType = $this->getSetting();
-        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
-        $dataTable = $this->getDataTable();
-
-        return view($viewPrefix . '.index', [
-            'title' => $this->getTitle(),
-            'postType' => $postType,
-            'dataTable' => $dataTable,
-        ]);
-    }
-
-    public function create()
-    {
-        $this->addBreadcrumb([
-            'title' => $this->getTitle(),
-            'url' => action([static::class, 'index']),
-        ]);
-
-        $model = $this->makeModel();
-        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
-
-        return view($viewPrefix . '.form', array_merge([
-            'title' => trans('juzaweb::app.add_new'),
-        ], $this->getDataForForm($model)));
-    }
-
-    public function edit($id)
-    {
-        $this->addBreadcrumb([
-            'title' => $this->getTitle(),
-            'url' => action([static::class, 'index']),
-        ]);
-
-        $model = $this->makeModel()->findOrFail($id);
-        $viewPrefix = $this->viewPrefix ?? 'juzaweb::backend.post';
-
-        return view($viewPrefix . '.form', array_merge([
-            'title' => $model->name ?? $model->title,
-        ], $this->getDataForForm($model)));
-    }
-
     /**
      * @return string
      */
@@ -94,7 +51,10 @@ trait PostTypeController
 
     protected function getSetting()
     {
-        $setting = HookAction::getPostTypes($this->makeModel()->getPostType('key'));
+        $setting = HookAction::getPostTypes(
+            $this->makeModel()->getPostType('key')
+        );
+
         if (empty($setting)) {
             throw new \Exception('Post type ' . $this->makeModel()->getPostType() . ' does not exists.');
         }
@@ -112,7 +72,6 @@ trait PostTypeController
     {
         $dataTable = new PostTypeDataTable();
         $dataTable->mountData($this->getSetting()->toArray());
-
         return $dataTable;
     }
 
@@ -128,5 +87,11 @@ trait PostTypeController
             'postType' => $model->getPostType('key'),
             'model' => $model,
         ];
+    }
+
+    protected function parseDataForSave(array $attributes, ...$params)
+    {
+        $attributes['type'] = $this->makeModel()->getPostType('key');
+        return $attributes;
     }
 }

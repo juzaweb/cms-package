@@ -73,19 +73,9 @@ if (! function_exists('jw_current_theme')) {
      */
     function jw_current_theme()
     {
-        $themeFile = JW_BASEPATH . '/bootstrap/cache/theme_statuses.php';
+        $theme = get_config('theme_statuses', []);
 
-        if (file_exists($themeFile)) {
-            $theme = require $themeFile;
-        } else {
-            $theme = [
-                'namespace' => 'Theme\\',
-                'path' => JW_BASEPATH . '/themes/default',
-                'name' => 'default',
-            ];
-        }
-
-        return $theme['name'];
+        return $theme['name'] ?? 'default';
     }
 }
 

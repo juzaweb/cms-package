@@ -10,8 +10,9 @@
 
 namespace Juzaweb\Support\Theme;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Cache\CacheManager;
 use Juzaweb\Models\ThemeConfig as ConfigModel;
+use Illuminate\Container\Container;
 
 class ThemeConfig
 {
@@ -19,10 +20,17 @@ class ThemeConfig
     protected $theme;
     protected $cacheKey = 'jw_theme_configs';
 
-    public function __construct($theme)
+    /**
+     * @var CacheManager
+     */
+    private $cache;
+
+    public function __construct(Container $app, $theme)
     {
+        $this->cache = $app['cache'];
         $this->theme = $theme;
-        $this->configs = Cache::rememberForever($this->cacheKey, function () {
+
+        $this->configs = $this->cache->rememberForever($this->cacheKey, function () {
             return ConfigModel::where('theme', '=', $this->theme)
                 ->get([
                     'code',
@@ -60,7 +68,7 @@ class ThemeConfig
         ]);
 
         $this->configs[$key] = $value;
-        Cache::forever($this->cacheKey, $this->configs);
+        $this->cache->forever($this->cacheKey, $this->configs);
 
         return $config;
     }

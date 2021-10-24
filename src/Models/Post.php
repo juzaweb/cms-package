@@ -60,6 +60,7 @@ class Post extends Model
         'views',
         'thumbnail',
         'slug',
+        'type',
     ];
 
     protected $searchFields = [

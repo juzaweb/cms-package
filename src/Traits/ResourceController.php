@@ -31,6 +31,8 @@ trait ResourceController
 
     public function create(...$params)
     {
+        $this->authorize('create', $this->getModel(...$params));
+
         $indexRoute = str_replace(
             '.create',
             '.index',
@@ -67,6 +69,7 @@ trait ResourceController
         ]);
 
         $model = $this->makeModel(...$indexParams)->findOrFail($this->getPathId($params));
+        $this->authorize('update', $model);
 
         return view($this->viewPrefix . '.form', array_merge([
             'title' => $model->{$model->getFieldName()},
@@ -75,6 +78,8 @@ trait ResourceController
 
     public function store(Request $request, ...$params)
     {
+        $this->authorize('create', $this->getModel(...$params));
+
         $validator = $this->validator($request->all(), ...$params);
         if (is_array($validator)) {
             $validator = Validator::make($request->all(), $validator);
@@ -101,7 +106,6 @@ trait ResourceController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-
             throw $e;
         }
 
@@ -122,9 +126,11 @@ trait ResourceController
         $validator->validate();
         $data = $this->parseDataForSave($request->all());
 
-        $model = $this->makeModel(...$params)->findOrFail($this->getPathId($params));
-        DB::beginTransaction();
+        $model = $this->makeModel(...$params)
+            ->findOrFail($this->getPathId($params));
+        $this->authorize('update', $model);
 
+        DB::beginTransaction();
         try {
             $this->beforeUpdate($request, $model, ...$params);
             $slug = $request->get('slug');
@@ -139,7 +145,6 @@ trait ResourceController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-
             throw $e;
         }
 

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Juzaweb\Contracts\ConfigContract;
 use Juzaweb\Contracts\ThemeConfigContract;
 use Juzaweb\Support\Installer;
+use Juzaweb\Support\Theme\ThemeConfig;
 
 class DbConfigServiceProvider extends ServiceProvider
 {
@@ -53,12 +54,12 @@ class DbConfigServiceProvider extends ServiceProvider
             return;
         }
 
-        $this->app->singleton(ConfigContract::class, function () {
-            return new \Juzaweb\Support\Config();
+        $this->app->singleton(ConfigContract::class, function ($app) {
+            return new \Juzaweb\Support\Config($app);
         });
 
-        $this->app->singleton(ThemeConfigContract::class, function () {
-            return new \Juzaweb\Support\Theme\ThemeConfig(jw_current_theme());
+        $this->app->singleton(ThemeConfigContract::class, function ($app) {
+            return new ThemeConfig($app, jw_current_theme());
         });
     }
 }

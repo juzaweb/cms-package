@@ -73,10 +73,10 @@ class AutoloadServiceProvider extends ServiceProvider
             }
         }
 
-        $themePath = config('juzaweb.theme.path') . '/' . jw_current_theme() . '/src';
+        /*$themePath = config('juzaweb.theme.path') . '/' . jw_current_theme() . '/src';
         if (is_dir($themePath)) {
             $loader->setPsr4('Theme\\', [$themePath]);
-        }
+        }*/
 
         $loader->register(true);
     }

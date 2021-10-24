@@ -10,6 +10,8 @@ class PostController extends BackendController
 {
     use PostTypeController;
 
+    protected $viewPrefix = 'juzaweb::backend.post';
+
     protected function getModel()
     {
         return Post::class;

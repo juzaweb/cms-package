@@ -169,19 +169,12 @@ class ThemeController extends BackendController
 
     protected function putCache($theme)
     {
-        Cache::forever('current_theme_info', jw_theme_info($theme));
-
         $themeStatus = [
             'name' => $theme,
             'namespace' => 'Theme\\',
             'path' => config('juzaweb.theme.path') .'/'.$theme,
         ];
 
-        $str = '<?php
-
-return ' . var_export($themeStatus, true) .';
-
-';
-        File::put(base_path('bootstrap/cache/theme_statuses.php'), $str);
+        set_config('theme_statuses', $themeStatus);
     }
 }
