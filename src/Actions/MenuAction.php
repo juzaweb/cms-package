@@ -44,35 +44,6 @@ class MenuAction extends Action
         );
 
         HookAction::addAdminMenu(
-            trans('juzaweb::app.dashboard'),
-            'dashboard',
-            [
-                'icon' => 'fa fa-dashboard',
-                'position' => 1,
-                'parent' => 'dashboard',
-            ]
-        );
-
-        HookAction::addAdminMenu(
-            trans('juzaweb::app.updates'),
-            'updates',
-            [
-                'icon' => 'fa fa-refresh',
-                'position' => 2,
-                'parent' => 'dashboard',
-            ]
-        );
-
-        HookAction::addAdminMenu(
-            trans('juzaweb::app.media'),
-            'media',
-            [
-                'icon' => 'fa fa-image',
-                'position' => 3,
-            ]
-        );
-
-        HookAction::addAdminMenu(
             trans('juzaweb::app.appearance'),
             'appearance',
             [

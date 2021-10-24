@@ -29,10 +29,7 @@ class BackendServiceProvider extends ServiceProvider
     {
         $this->bootMiddlewares();
         $this->bootPublishes();
-        $this->registerAction([
-            MenuAction::class,
-            EnqueueStyleAction::class,
-        ]);
+        $this->bootActions();
     }
 
     public function register()
@@ -42,6 +39,14 @@ class BackendServiceProvider extends ServiceProvider
             $loader = AliasLoader::getInstance();
             $loader->alias('Field', Field::class);
         });
+    }
+
+    protected function bootActions()
+    {
+        $this->registerAction([
+            MenuAction::class,
+            EnqueueStyleAction::class,
+        ]);
     }
 
     protected function bootMiddlewares()
