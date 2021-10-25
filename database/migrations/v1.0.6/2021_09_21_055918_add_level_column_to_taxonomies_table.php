@@ -13,10 +13,10 @@ class AddLevelColumnToTaxonomiesTable extends Migration
             $table->integer('level')->default(0);
         });
 
-        $taxs = Taxonomy::get();
-        foreach ($taxs as $tax) {
-            $tax->touch();
-        }
+//        $taxs = Taxonomy::get();
+//        foreach ($taxs as $tax) {
+//            $tax->touch();
+//        }
     }
 
     public function down()

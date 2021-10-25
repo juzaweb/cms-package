@@ -16,6 +16,10 @@ class AddTypeToPostsTable extends Migration
         Schema::table('posts', function (Blueprint $table) {
             $table->string('type', 50)->index()->default('posts');
         });
+
+        Schema::table('pages', function (Blueprint $table) {
+            $table->string('type', 50)->index()->default('pages');
+        });
     }
 
     /**
@@ -26,6 +30,10 @@ class AddTypeToPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
+
+        Schema::table('pages', function (Blueprint $table) {
             $table->dropColumn('type');
         });
     }

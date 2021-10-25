@@ -5,10 +5,13 @@ namespace Juzaweb\Support\Theme;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\ViewFinderInterface;
+use Juzaweb\Abstracts\Action;
 use Juzaweb\Contracts\ThemeContract;
 use Juzaweb\Exceptions\ThemeNotFoundException;
+use Juzaweb\Facades\HookAction;
 use Noodlehaus\Config;
 
 class Theme implements ThemeContract
@@ -329,6 +332,21 @@ class Theme implements ThemeContract
         $viewPublishPath = resource_path('views/vendor/theme_' . $theme);
         $langPublishPath = resource_path('lang/vendor/theme_' . $theme);
 
+        $styles = $themeInfo->get('styles', []);
+        $templates = $themeInfo->get('templates', []);
+
+        if ($styles) {
+            add_action(Action::FRONTEND_CALL_ACTION, function () use ($styles) {
+                foreach ($styles['js'] ?? [] as $index => $js) {
+                    HookAction::enqueueFrontendScript('main-' . $index, $js);
+                }
+
+                foreach ($styles['css'] ?? [] as $index => $css) {
+                    HookAction::enqueueFrontendStyle('main' . $index, $css);
+                }
+            });
+        }
+
         if ($hasParent) {
             $this->finder->prependNamespace('theme', $viewPath);
         } else {
@@ -343,6 +361,17 @@ class Theme implements ThemeContract
 
         if (is_dir($langPublishPath)) {
             $this->lang->addNamespace('theme', $langPublishPath);
+        }
+
+        if ($templates) {
+            add_action(Action::JUZAWEB_INIT_ACTION, function () use ($templates) {
+                foreach ($templates as $key => $template) {
+                    HookAction::registerThemeTemplate($key, [
+                        'name' => Arr::get($template, 'name'),
+                        'view' => Arr::get($template, 'view')
+                    ]);
+                }
+            });
         }
     }
 }

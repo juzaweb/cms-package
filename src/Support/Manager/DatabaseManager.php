@@ -101,7 +101,7 @@ class DatabaseManager
     {
         DbConfig::setConfig('title', 'Juzaweb CMS - The Best Laravel CMS');
         DbConfig::setConfig('description', 'Juzaweb is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again.');
-        DbConfig::setConfig('author_name', 'MyMo Team');
+        DbConfig::setConfig('author_name', 'Juzaweb Team');
         DbConfig::setConfig('user_registration', 1);
         DbConfig::setConfig('user_verification', 0);
     }

@@ -30,13 +30,13 @@ class CreateSearchTable extends Migration
             DB::statement('ALTER TABLE `'. $prefix .'search` ADD FULLTEXT index_search_keyword(keyword);');
         }*/
 
-        $types = HookAction::getPostTypes();
-        foreach ($types as $type) {
-            $posts = app($type->get('model'))->get();
-            foreach ($posts as $post) {
-                $post->touch();
-            }
-        }
+//        $types = HookAction::getPostTypes();
+//        foreach ($types as $type) {
+//            $posts = app($type->get('model'))->get();
+//            foreach ($posts as $post) {
+//                $post->touch();
+//            }
+//        }
     }
 
     public function down()

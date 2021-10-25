@@ -21,6 +21,10 @@ trait ResponseMessage
             ]);
         }
 
+        if (!empty($data['redirect'])) {
+            return redirect()->to($data['redirect']);
+        }
+
         $back = back()->withInput()->with(array_merge($data, [
             'status' => $status ? 'success' : 'error',
         ]));

@@ -38,8 +38,10 @@ class HookActionServiceProvider extends ServiceProvider
                 }
             }*/
 
-            $currentTheme = jw_current_theme();
-            Theme::set($currentTheme);
+            if (Installer::alreadyInstalled()) {
+                $currentTheme = jw_current_theme();
+                Theme::set($currentTheme);
+            }
 
             do_action('juzaweb.init');
         });

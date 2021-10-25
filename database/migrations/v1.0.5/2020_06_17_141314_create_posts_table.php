@@ -12,7 +12,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 250);
             $table->string('thumbnail', 250)->nullable();
-            $table->string('slug', 150)->unique()->index();
+            $table->string('slug', 150)->unique();
             $table->string('description', 200)->nullable();
             $table->longText('content')->nullable();
             $table->string('status', 50)->index()->default('draft');

@@ -63,6 +63,10 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use ResourceModel;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_VERIFICATION = 'verification';
+    const STATUS_BANNED = 'banned';
+
     protected $fillable = [
         'name',
         'email',
@@ -70,6 +74,11 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'verification_token',
         'password',
+        'data',
+    ];
+
+    public $casts = [
+        'data' => 'array'
     ];
 
     public static function getAllStatus()
