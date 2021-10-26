@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 use Juzaweb\Facades\HookAction;
 use Juzaweb\Facades\Theme;
 use Juzaweb\Facades\ThemeConfig;
+use Juzaweb\Http\Resources\CommentResource;
+use Juzaweb\Models\Comment;
 use Juzaweb\Models\Menu;
 use Juzaweb\Support\Theme\MenuBuilder;
+use TwigBridge\Facade\Twig;
 
 function body_class($class = '')
 {
@@ -338,13 +341,17 @@ if (! function_exists('comment_template')) {
             $view = 'juzaweb::items.frontend_comment';
         }
 
-        $comments = $post->comments()
-            ->with(['user'])
+        $rows = Comment::with(['user'])
+            ->where('object_id', '=', $post['id'])
             ->whereApproved()
             ->paginate(10);
 
-        return view($view, compact(
-            'comments'
+        $comments = CommentResource::collection($rows)->toArray(request());
+        $total = $rows->total();
+
+        return Twig::display($view, compact(
+            'comments',
+            'total'
         ));
     }
 }

@@ -22,7 +22,14 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+        $taxonomies = [];
+        if ($this->taxonomies) {
+            $taxonomies = TaxonomyResource::collection($this->taxonomies)
+                ->toArray($request);
+        }
+
         return [
+            'id' => $this->id,
             'title' => $this->getTitle(),
             'description' => $this->description,
             'content' => $this->getContent(),
@@ -34,6 +41,7 @@ class PostResource extends JsonResource
             'created_by' => $this->getCreatedByName(),
             'created_at' => jw_date_format($this->created_at),
             'updated_at' => jw_date_format($this->updated_at),
+            'taxonomies' => $taxonomies
         ];
     }
 }
