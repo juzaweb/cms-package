@@ -55,7 +55,7 @@ class Config
 
     public function setConfig($key, $value = null)
     {
-        if (is_array($value)) {
+        if (is_array($value) && !empty($value)) {
             $value = array_merge(get_config($key, []), $value);
             $value = json_encode($value);
         }

@@ -91,11 +91,15 @@ class AutoloadServiceProvider extends ServiceProvider
 
     protected function getActivePlugins()
     {
-        $status = DB::table('configs')
-            ->where('code', '=', 'plugin_statuses')
-            ->first(['value']);
+        try {
+            $status = DB::table('configs')
+                ->where('code', '=', 'plugin_statuses')
+                ->first(['value']);
 
-        return json_decode($status->value, true);
+            return json_decode($status->value, true);
+        } catch (\Throwable $e) {
+            return [];
+        }
     }
 
     protected function getPluginsPath()
