@@ -21,7 +21,7 @@
                             <strong>@lang('juzaweb::message.login_form.header')</strong>
                         </div>
 
-                        <form action="{{ route('login') }}" method="post" class="mb-4 form-ajax" data-success="login_success">
+                        <form action="" method="post" class="mb-4 form-ajax" data-success="login_success">
 
                             @do_action('login_form')
 
@@ -38,7 +38,7 @@
                             <input type="checkbox" name="remember" value="1" checked> @lang('juzaweb::app.remember_me')
                         </form>
 
-                        <a href="{{ route('forgot_password') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
+                        <a href="{{ route('admin.forgot_password') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             @lang('juzaweb::app.forgot_password')
                         </a>
                     </div>
@@ -46,7 +46,7 @@
                     @if(get_config('user_registration'))
                     <div class="text-center pt-2 mb-auto">
                         <span class="mr-2">@lang('juzaweb::message.login_form.dont_have_an_account')</span>
-                        <a href="{{ route('register') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
+                        <a href="{{ route('admin.register') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             @lang('juzaweb::app.sign_up')
                         </a>
                     </div>

@@ -22,9 +22,10 @@ class HookActionServiceProvider extends ServiceProvider
                 app($action)->handle();
             }
 
-            /*if (Installer::alreadyInstalled()) {
+            if (Installer::alreadyInstalled()) {
                 $currentTheme = jw_current_theme();
                 $themePath = Theme::getThemePath($currentTheme);
+
                 if (is_dir($themePath)) {
                     Theme::set($currentTheme);
 
@@ -36,11 +37,6 @@ class HookActionServiceProvider extends ServiceProvider
                         }
                     }
                 }
-            }*/
-
-            if (Installer::alreadyInstalled()) {
-                $currentTheme = jw_current_theme();
-                Theme::set($currentTheme);
             }
 
             do_action('juzaweb.init');

@@ -23,13 +23,15 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this->title,
+            'title' => $this->getTitle(),
             'description' => $this->description,
             'content' => $this->getContent(),
             'thumbnail' => $this->getThumbnail(),
             'url' => $this->getLink(),
             'views' => $this->getViews(),
+            'type' => $this->type,
             'status' => $this->status,
+            'created_by' => $this->getCreatedByName(),
             'created_at' => jw_date_format($this->created_at),
             'updated_at' => jw_date_format($this->updated_at),
         ];

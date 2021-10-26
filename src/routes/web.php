@@ -8,4 +8,12 @@
  * @license    MIT
  */
 
+Route::group([
+    'middleware' => 'guest',
+    'as' => 'admin.',
+    'prefix' => config('juzaweb.admin_prefix'),
+    'namespace' => 'Juzaweb\Http\Controllers',
+], function () {
+    \Juzaweb\Support\Route\Auth::routes();
+});
 

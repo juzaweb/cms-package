@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Support\Theme;
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
@@ -325,6 +326,16 @@ class Theme implements ThemeContract
             $this->loadTheme($parent);
             $hasParent = true;
         }
+
+        $loader = new ClassLoader(
+            config('juzaweb.plugin.path')
+        );
+
+        if (is_dir($themeInfo->get('path') . '/src')) {
+            $loader->setPsr4('Theme\\', [$themeInfo->get('path') . '/src']);
+        }
+
+        $loader->register(true);
 
         $viewPath = $themeInfo->get('path') . '/views';
         $langPath = $themeInfo->get('path') .'/lang';

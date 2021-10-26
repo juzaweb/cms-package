@@ -47,14 +47,14 @@
                     </div>
                     <div class="text-center pt-2 mb-auto">
                         <span class="mr-2">Already have an account?</span>
-                        <a href="{{ route('login') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
+                        <a href="{{ route('admin.login') }}" class="jw__utils__link font-size-16" data-turbolinks="false">
                             Sign in
                         </a>
                     </div>
                 </div>
                 <div class="mt-auto pb-5 pt-5">
                     <div class="text-center">
-                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by JUZAWEB CMS
+                        Copyright © {{ date('Y') }} {{ get_config('title') }} - Provided by JUZAWEB
                     </div>
                 </div>
             </div>

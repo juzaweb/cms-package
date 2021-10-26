@@ -51,6 +51,7 @@ trait PostTypeModel
                 'thumbnail',
                 'slug',
                 'views',
+                'type',
                 'status',
             ]);
 

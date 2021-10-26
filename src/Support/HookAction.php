@@ -295,6 +295,7 @@ class HookAction
             'taxonomy_rewrite' => true,
             'menu_box' => true,
             'menu_position' => 20,
+            'callback' => PostController::class,
             'menu_icon' => 'fa fa-list-alt',
             'supports' => [],
         ], $args);
@@ -347,7 +348,7 @@ class HookAction
                 'label' => $args->get('label'),
                 'base' => $args->get('singular'),
                 'priority' => $args->get('priority'),
-                'callback' => PostController::class,
+                'callback' => $args->get('callback'),
                 'post_type' => $key,
             ]);
         }

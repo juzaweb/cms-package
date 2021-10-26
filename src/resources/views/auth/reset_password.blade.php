@@ -15,7 +15,7 @@
                             </p>
                         </div>
 
-                        <form action="{{ route('reset_password') }}" method="post" class="mb-4 form-ajax">
+                        <form action="" method="post" class="mb-4 form-ajax">
                             <div class="form-group mb-4">
                                 <input type="password" name="password" class="form-control" placeholder="@lang('juzaweb::app.password')" autocomplete="off"/>
                             </div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="mt-auto pb-5 pt-5">
                     <div class="text-center">
-                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by JUZAWEB CMS
+                        Copyright © {{ date('Y') }} {{ get_config('sitename') }} - Provided by JUZAWEB
                     </div>
                 </div>
             </div>

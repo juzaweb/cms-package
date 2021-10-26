@@ -32,7 +32,7 @@ trait AuthRegisterForm
         do_action('recaptcha.init');
 
         return view('juzaweb::auth.register', [
-            'title' => trans('juzaweb::app.sign-up'),
+            'title' => trans('juzaweb::app.sign_up'),
         ]);
     }
 
