@@ -5,7 +5,7 @@
 
     {!! $sidebar->get('before_widget') !!}
 
-        {{ $widgetData['widget']->show($widget) }}
+        {!! $widgetData['widget']->show($widget) !!}
 
     {!! $sidebar->get('after_widget') !!}
 

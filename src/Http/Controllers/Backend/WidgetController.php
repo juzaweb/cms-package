@@ -65,7 +65,6 @@ class WidgetController extends BackendController
         $sidebars = $request->get('sidebars');
 
         $widgetData = HookAction::getWidgets($widget);
-
         $results = [];
         foreach ($sidebars as $sidebar) {
             $key = Str::random(10);

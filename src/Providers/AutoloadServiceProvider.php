@@ -27,7 +27,7 @@ class AutoloadServiceProvider extends ServiceProvider
 
         $pluginsFolder = $this->getPluginsPath();
         foreach ($plugins as $pluginInfo) {
-            $pluginInfo = json_decode($pluginInfo->class_map, true);
+            $pluginInfo = json_decode($pluginInfo['class_map'], true);
             foreach ($pluginInfo as $key => $item) {
                 $path = Arr::get($item, 'path');
                 if (! is_dir($path)) {
@@ -46,16 +46,14 @@ class AutoloadServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $loader = new ClassLoader(
-            config('juzaweb.plugin.path')
-        );
+        $pluginsFolder = $this->getPluginsPath();
+        $loader = new ClassLoader($pluginsFolder);
 
         $plugins = $this->getActivePlugins();
         if ($plugins) {
-            $pluginsFolder = $this->getPluginsPath();
-
             foreach ($plugins as $pluginInfo) {
-                $pluginInfo = json_decode($pluginInfo->class_map, true);
+                $pluginInfo = json_decode($pluginInfo['class_map'], true);
+
                 foreach ($pluginInfo as $key => $item) {
                     $path = $item['path'];
                     if (!is_dir($path)) {
@@ -65,7 +63,6 @@ class AutoloadServiceProvider extends ServiceProvider
                     $namespace = Arr::get($item, 'namespace');
 
                     $loader->setPsr4($namespace, [$path]);
-
                     if (is_dir($path) && $namespace) {
                         $this->registerPlugin($path, $namespace);
                     }
@@ -94,13 +91,11 @@ class AutoloadServiceProvider extends ServiceProvider
 
     protected function getActivePlugins()
     {
-        try {
-            return DB::table('plugin_statuses')->get()
-                ->keyBy('name')
-                ->toArray();
-        } catch (\Exception $e) {
-            return [];
-        }
+        $status = DB::table('configs')
+            ->where('code', '=', 'plugin_statuses')
+            ->first(['value']);
+
+        return json_decode($status->value, true);
     }
 
     protected function getPluginsPath()

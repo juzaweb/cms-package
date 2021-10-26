@@ -48,8 +48,8 @@ abstract class PluginServiceProvider extends ServiceProvider
      */
     protected function registerProviders()
     {
+        $this->app->register(AutoloadServiceProvider::class);
         $this->app->register(ConsoleServiceProvider::class);
         $this->app->register(ContractsServiceProvider::class);
-        $this->app->register(AutoloadServiceProvider::class);
     }
 }

@@ -11,6 +11,7 @@
 namespace Juzaweb\Abstracts;
 
 use Illuminate\View\View;
+use TwigBridge\Facade\Twig;
 
 abstract class Widget
 {
@@ -39,5 +40,10 @@ abstract class Widget
     public function update($data)
     {
         return $data;
+    }
+
+    protected function view($view, $params = [])
+    {
+        return Twig::render($view, $params);
     }
 }
