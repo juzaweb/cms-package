@@ -30,7 +30,6 @@ use Juzaweb\Models\Taxonomy;
 trait PostTypeModel
 {
     use ResourceModel;
-    use PostTypeSearch;
     use UseSlug;
     use UseThumbnail;
     use UseChangeBy;
