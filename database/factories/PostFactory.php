@@ -1,27 +1,36 @@
 <?php
-/**
- * JUZAWEB CMS - The Best CMS for Laravel Project
- *
- * @package    juzaweb/laravel-cms
- * @author     The Anh Dang <dangtheanh16@gmail.com>
- * @link       https://juzaweb.com/cms
- * @license    MIT
- */
 
-use Faker\Generator as Faker;
+namespace Juzaweb\Database\Factories;
+
 use Illuminate\Support\Str;
+use Juzaweb\Models\Post;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
-$factory->define(\Juzaweb\Models\Post::class, function (Faker $faker) {
-    $title = $faker->sentence(10);
-    return [
-        'title' => $title,
-        'content' => $faker->sentence(50),
-        'status' => 'publish',
-        'slug' => Str::slug($title),
-        'created_at' => $faker->dateTime(),
-        'updated_at' => $faker->dateTime(),
-    ];
-});
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Post::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $title = $this->faker->sentence(10);
+
+        return [
+            'title' => $title,
+            'content' => $this->faker->sentence(500),
+            'status' => 'publish',
+            'slug' => Str::slug($title),
+            'created_at' => $this->faker->dateTime(),
+            'updated_at' => $this->faker->dateTime(),
+        ];
+    }
+}

@@ -15,6 +15,7 @@
 namespace Juzaweb\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Juzaweb\Traits\ResourceModel;
@@ -62,6 +63,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use ResourceModel;
+    use HasFactory;
 
     const STATUS_ACTIVE = 'active';
     const STATUS_VERIFICATION = 'verification';
@@ -84,10 +86,9 @@ class User extends Authenticatable implements JWTSubject
     public static function getAllStatus()
     {
         return [
-            'active' => trans('juzaweb::app.active'),
-            'unconfirmed' => trans('juzaweb::app.unconfimred'),
-            'banned' => trans('juzaweb::app.banned'),
-            'verification' => trans('juzaweb::app.verification'),
+            User::STATUS_ACTIVE => trans('juzaweb::app.active'),
+            User::STATUS_BANNED => trans('juzaweb::app.banned'),
+            User::STATUS_VERIFICATION => trans('juzaweb::app.verification'),
         ];
     }
 
@@ -117,7 +118,7 @@ class User extends Authenticatable implements JWTSubject
      * */
     public function scopeActive($builder)
     {
-        return $builder->where('status', '=', 'active');
+        return $builder->where('status', '=', User::STATUS_ACTIVE);
     }
 
     public function getAvatar()

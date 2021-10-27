@@ -23,7 +23,7 @@ class DatatableController extends BackendController
         $sort = $request->get('sort', 'id');
         $order = $request->get('order', 'desc');
         $offset = $request->get('offset', 0);
-        $limit = $request->get('limit', 20);
+        $limit = (int) $request->get('limit', 20);
 
         $query = $table->query($request->all());
         $count = $query->count();

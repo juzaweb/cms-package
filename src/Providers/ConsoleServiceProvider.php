@@ -48,6 +48,7 @@ use Juzaweb\Console\Commands\Theme\ThemeGeneratorCommand;
 use Juzaweb\Console\Commands\Theme\ThemeListCommand;
 use Juzaweb\Console\Commands\Theme\ThemePublishCommand;
 use Juzaweb\Console\Commands\UpdateCommand;
+use Juzaweb\Console\Commands\MakeAdminCommand;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
@@ -103,6 +104,7 @@ class ConsoleServiceProvider extends ServiceProvider
         ActionMakeCommand::class,
         DatatableMakeCommand::class,
         JuzawebResouceMakeCommand::class,
+        MakeAdminCommand::class
     ];
 
     /**

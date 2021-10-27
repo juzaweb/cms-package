@@ -2,6 +2,8 @@
 
 namespace Juzaweb\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Juzaweb\Database\Factories\PageFactory;
 use Juzaweb\Traits\PostTypeModel;
 
 /**
@@ -54,7 +56,7 @@ use Juzaweb\Traits\PostTypeModel;
  */
 class Page extends Model
 {
-    use PostTypeModel;
+    use PostTypeModel, HasFactory;
 
     protected $table = 'pages';
     protected $postType = 'pages';
@@ -72,4 +74,14 @@ class Page extends Model
     protected $casts = [
         'template_data' => 'array',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return PageFactory::new();
+    }
 }

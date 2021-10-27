@@ -53,7 +53,7 @@ abstract class Plugin
     /**
      * @var ActivatorInterface
      */
-    private $activator;
+    protected $activator;
 
     /**
      * @var \Illuminate\Routing\Router

@@ -2,6 +2,8 @@
 
 namespace Juzaweb\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Juzaweb\Database\Factories\PostFactory;
 use Juzaweb\Traits\PostTypeModel;
 
 /**
@@ -48,7 +50,7 @@ use Juzaweb\Traits\PostTypeModel;
  */
 class Post extends Model
 {
-    use PostTypeModel;
+    use PostTypeModel, HasFactory;
 
     protected $table = 'posts';
     protected $postType = 'posts';
@@ -66,4 +68,14 @@ class Post extends Model
     protected $searchFields = [
         'title',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return PostFactory::new();
+    }
 }

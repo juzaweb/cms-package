@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Models;
 
+use Database\Factories\Models\TaxonomyFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Juzaweb\Traits\TaxonomyModel;
@@ -44,7 +45,7 @@ use Juzaweb\Traits\TaxonomyModel;
  */
 class Taxonomy extends Model
 {
-    use TaxonomyModel;
+    use TaxonomyModel, HasFactory;
 
     protected $table = 'taxonomies';
     protected $slugSource = 'name';
@@ -58,4 +59,14 @@ class Taxonomy extends Model
         'parent_id',
         'total_post',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return TaxonomyFactory::new();
+    }
 }

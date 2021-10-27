@@ -2,12 +2,12 @@
     "name": "juzaweb/cms",
     "description": "Juzaweb CMS is a Content Management System (CMS) developed based on Laravel Framework and web platform whose sole purpose is to make your development workflow simple again. Project develop by Juzaweb",
     "keywords": [
-      "juzaweb cms",
-      "juzaweb.com cms",
-      "juzaweb.com",
-      "laravel cms",
-      "cms like wordpress",
-      "laravel"
+        "juzaweb cms",
+        "juzaweb.com cms",
+        "juzaweb.com",
+        "laravel cms",
+        "cms like wordpress",
+        "laravel"
     ],
     "license": "MIT",
     "homepage": "https://juzaweb.com",
@@ -23,26 +23,28 @@
         "juzaweb/l5-swagger": "^6.0|^8.0"
     },
     "require-dev": {
-      "juzaweb/laravel-cms": "^1.0",
-      "phpunit/phpunit": "6.0 | 7.0 | 7.5 | 8.4 | ^8.5"
+        "juzaweb/laravel-cms": "^1.0",
+        "phpunit/phpunit": "6.0 | 7.0 | 7.5 | 8.4 | ^8.5"
     },
     "autoload": {
-      "psr-4": {
-        "Juzaweb\\Tests\\": "tests/",
-        "Juzaweb\\": "src/"
-      },
-      "files": [
-        "src/Helpers/helpers.php"
-      ],
-      "classmap": [
-        "database/seeders"
-      ]
+        "psr-4": {
+            "Juzaweb\\Tests\\": "tests/",
+            "Juzaweb\\": "src/",
+            "Juzaweb\\Database\\Factories\\": "database/factories/",
+            "Juzaweb\\Database\\Seeders\\": "database/seeders/"
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ],
+        "classmap": [
+            "database/seeders"
+        ]
     },
     "extra": {
-      "laravel": {
-        "providers": [
-          "Juzaweb\\Providers\\CmsServiceProvider"
-        ]
-      }
+        "laravel": {
+            "providers": [
+                "Juzaweb\\Providers\\CmsServiceProvider"
+            ]
+        }
     }
 }
